@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "imagen_productos",
+  "info": {
+    "singularName": "imagen-producto",
+    "pluralName": "imagen-productos",
+    "displayName": "Imagen Producto",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "producto": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::producto.producto",
+      "inversedBy": "imagen_productos"
+    },
+    "imagen": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::imagenes-producto.imagenes-producto",
+      "inversedBy": "imagen_producto"
+    }
+  }
+}

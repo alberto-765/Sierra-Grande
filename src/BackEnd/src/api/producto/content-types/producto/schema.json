@@ -10,76 +10,57 @@
   "options": {
     "draftAndPublish": true
   },
-  "pluginOptions": {
-    "i18n": {
-      "localized": true
-    }
-  },
+  "pluginOptions": {},
   "attributes": {
     "Nombre": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
+      "pluginOptions": {},
       "type": "string",
       "minLength": 1,
       "maxLength": 100,
       "required": true
     },
     "slug": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
+      "pluginOptions": {},
       "type": "uid",
       "targetField": "Nombre",
       "required": false
     },
     "Precio": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
+      "pluginOptions": {},
       "type": "decimal",
       "min": 1,
       "required": true
     },
     "Activo": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": false
-        }
-      },
+      "pluginOptions": {},
       "type": "boolean",
       "default": true,
       "private": true
     },
     "Stock": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": false
-        }
-      },
+      "pluginOptions": {},
       "type": "boolean",
       "default": true
     },
     "StockLimitado": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
+      "pluginOptions": {},
       "type": "integer",
       "min": 1
     },
-    "imagen_productos": {
+    "tipo_productos": {
       "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::imagen-producto.imagen-producto",
-      "mappedBy": "producto"
+      "relation": "manyToMany",
+      "target": "api::tipo-producto.tipo-producto",
+      "inversedBy": "productos"
+    },
+    "Imagenes": {
+      "allowedTypes": [
+        "images",
+        "videos"
+      ],
+      "type": "media",
+      "multiple": true,
+      "required": true
     }
   }
 }

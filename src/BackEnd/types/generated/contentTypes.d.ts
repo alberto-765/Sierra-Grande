@@ -590,6 +590,51 @@ export interface PluginContentReleasesReleaseAction
   };
 }
 
+export interface PluginReactIconsIconlibrary extends Schema.CollectionType {
+  collectionName: 'iconlibrary';
+  info: {
+    singularName: 'iconlibrary';
+    pluralName: 'iconlibraries';
+    displayName: 'IconLibrary';
+  };
+  options: {
+    draftAndPublish: false;
+    comment: '';
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    abbreviation: Attribute.String &
+      Attribute.Required &
+      Attribute.Unique &
+      Attribute.SetMinMaxLength<{
+        maxLength: 3;
+      }>;
+    isEnabled: Attribute.Boolean & Attribute.DefaultTo<true>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'plugin::react-icons.iconlibrary',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'plugin::react-icons.iconlibrary',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface PluginI18NLocale extends Schema.CollectionType {
   collectionName: 'i18n_locale';
   info: {
@@ -788,167 +833,34 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
-export interface ApiCategoriaCategoria extends Schema.CollectionType {
-  collectionName: 'categorias';
+export interface ApiHeaderHeader extends Schema.SingleType {
+  collectionName: 'headers';
   info: {
-    singularName: 'categoria';
-    pluralName: 'categorias';
-    displayName: 'Categoria';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  pluginOptions: {
-    i18n: {
-      localized: true;
-    };
-  };
-  attributes: {
-    Nombre: Attribute.String &
-      Attribute.Required &
-      Attribute.Unique &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    Activo: Attribute.Boolean &
-      Attribute.Required &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }> &
-      Attribute.DefaultTo<true>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::categoria.categoria',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::categoria.categoria',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    localizations: Attribute.Relation<
-      'api::categoria.categoria',
-      'oneToMany',
-      'api::categoria.categoria'
-    >;
-    locale: Attribute.String;
-  };
-}
-
-export interface ApiImagenProductoImagenProducto extends Schema.CollectionType {
-  collectionName: 'imagen_productos';
-  info: {
-    singularName: 'imagen-producto';
-    pluralName: 'imagen-productos';
-    displayName: 'Imagen Producto';
+    singularName: 'header';
+    pluralName: 'headers';
+    displayName: 'Header';
     description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    producto: Attribute.Relation<
-      'api::imagen-producto.imagen-producto',
-      'manyToOne',
-      'api::producto.producto'
-    >;
-    imagen: Attribute.Relation<
-      'api::imagen-producto.imagen-producto',
-      'oneToOne',
-      'api::imagenes-producto.imagenes-producto'
-    >;
+    ComponenteInfo: Attribute.Component<'header.seccion-superior', true>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
-      'api::imagen-producto.imagen-producto',
+      'api::header.header',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
     updatedBy: Attribute.Relation<
-      'api::imagen-producto.imagen-producto',
+      'api::header.header',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
-  };
-}
-
-export interface ApiImagenesProductoImagenesProducto
-  extends Schema.CollectionType {
-  collectionName: 'imagenes_productos';
-  info: {
-    singularName: 'imagenes-producto';
-    pluralName: 'imagenes-productos';
-    displayName: 'Imagen';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  pluginOptions: {
-    i18n: {
-      localized: true;
-    };
-  };
-  attributes: {
-    Titulo: Attribute.String &
-      Attribute.Required &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    Descripcion: Attribute.String &
-      Attribute.Required &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    Imagen: Attribute.Media<'images' | 'videos'> &
-      Attribute.Required &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: false;
-        };
-      }>;
-    imagen_producto: Attribute.Relation<
-      'api::imagenes-producto.imagenes-producto',
-      'oneToOne',
-      'api::imagen-producto.imagen-producto'
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::imagenes-producto.imagenes-producto',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::imagenes-producto.imagenes-producto',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    localizations: Attribute.Relation<
-      'api::imagenes-producto.imagenes-producto',
-      'oneToMany',
-      'api::imagenes-producto.imagenes-producto'
-    >;
-    locale: Attribute.String;
   };
 }
 
@@ -963,74 +875,37 @@ export interface ApiProductoProducto extends Schema.CollectionType {
   options: {
     draftAndPublish: true;
   };
-  pluginOptions: {
-    i18n: {
-      localized: true;
-    };
-  };
   attributes: {
     Nombre: Attribute.String &
       Attribute.Required &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }> &
       Attribute.SetMinMaxLength<{
         minLength: 1;
         maxLength: 100;
       }>;
-    slug: Attribute.UID<'api::producto.producto', 'Nombre'> &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
+    slug: Attribute.UID<'api::producto.producto', 'Nombre'>;
     Precio: Attribute.Decimal &
       Attribute.Required &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }> &
       Attribute.SetMinMax<
         {
           min: 1;
         },
         number
       >;
-    Activo: Attribute.Boolean &
-      Attribute.Private &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: false;
-        };
-      }> &
-      Attribute.DefaultTo<true>;
-    Stock: Attribute.Boolean &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: false;
-        };
-      }> &
-      Attribute.DefaultTo<true>;
+    Activo: Attribute.Boolean & Attribute.Private & Attribute.DefaultTo<true>;
+    Stock: Attribute.Boolean & Attribute.DefaultTo<true>;
     StockLimitado: Attribute.Integer &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }> &
       Attribute.SetMinMax<
         {
           min: 1;
         },
         number
       >;
-    imagen_productos: Attribute.Relation<
+    tipo_productos: Attribute.Relation<
       'api::producto.producto',
-      'oneToMany',
-      'api::imagen-producto.imagen-producto'
+      'manyToMany',
+      'api::tipo-producto.tipo-producto'
     >;
+    Imagenes: Attribute.Media<'images' | 'videos', true> & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1046,12 +921,44 @@ export interface ApiProductoProducto extends Schema.CollectionType {
       'admin::user'
     > &
       Attribute.Private;
-    localizations: Attribute.Relation<
-      'api::producto.producto',
-      'oneToMany',
+  };
+}
+
+export interface ApiTipoProductoTipoProducto extends Schema.CollectionType {
+  collectionName: 'tipo_productos';
+  info: {
+    singularName: 'tipo-producto';
+    pluralName: 'tipo-productos';
+    displayName: 'Tipo Producto';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Nombre: Attribute.String & Attribute.Required & Attribute.Unique;
+    slug: Attribute.UID<'api::tipo-producto.tipo-producto', 'Nombre'>;
+    Activo: Attribute.Boolean & Attribute.DefaultTo<true>;
+    productos: Attribute.Relation<
+      'api::tipo-producto.tipo-producto',
+      'manyToMany',
       'api::producto.producto'
     >;
-    locale: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::tipo-producto.tipo-producto',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::tipo-producto.tipo-producto',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
   };
 }
 
@@ -1069,14 +976,14 @@ declare module '@strapi/types' {
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
+      'plugin::react-icons.iconlibrary': PluginReactIconsIconlibrary;
       'plugin::i18n.locale': PluginI18NLocale;
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
-      'api::categoria.categoria': ApiCategoriaCategoria;
-      'api::imagen-producto.imagen-producto': ApiImagenProductoImagenProducto;
-      'api::imagenes-producto.imagenes-producto': ApiImagenesProductoImagenesProducto;
+      'api::header.header': ApiHeaderHeader;
       'api::producto.producto': ApiProductoProducto;
+      'api::tipo-producto.tipo-producto': ApiTipoProductoTipoProducto;
     }
   }
 }

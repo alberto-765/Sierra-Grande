@@ -1,0 +1,6 @@
+{
+  "rules": {
+    "react/react-in-jsx-scope": "true" // Desactiva la regla que requiere React en el scope
+  },
+  "extends": ["next/core-web-vitals", "prettier"]
+}

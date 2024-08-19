@@ -1,0 +1,29 @@
+:root {
+  --primary-color: "#1f7fff";
+  --primary-color-50: "#edf6ff";
+  --primary-color-100: "#d6eaff";
+  --primary-color-200: "#b5dbff";
+  --primary-color-300: "#83c6ff";
+  --primary-color-400: "#49a7ff";
+  --primary-color-500: "#075dff";
+  --primary-color-600: "#0146f4";
+  --primary-color-700: "#0838c5";
+  --primary-color-800: "#0f3aa9";
+  --primary-color-900: "#0e225d";
+  --black-color: black;
+}
+
+html {
+  line-height: normal;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+}
+
+main {
+  flex-grow: 1;
+}

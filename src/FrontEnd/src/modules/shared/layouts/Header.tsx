@@ -1,5 +1,5 @@
 import styles from './Header.module.css'
-import {} from 'react-icons/'
+import {} from 'react-icons/tb'
 
 export const Header = () => {
   return (

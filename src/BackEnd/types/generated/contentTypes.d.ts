@@ -845,7 +845,8 @@ export interface ApiHeaderHeader extends Schema.SingleType {
     draftAndPublish: true;
   };
   attributes: {
-    ComponenteInfo: Attribute.Component<'header.seccion-superior', true>;
+    ZoneInformacion: Attribute.DynamicZone<['header.seccion-superior']> &
+      Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

@@ -12,11 +12,12 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "ComponenteInfo": {
-      "type": "component",
-      "repeatable": true,
-      "component": "header.seccion-superior",
-      "required": false
+    "ZoneInformacion": {
+      "type": "dynamiczone",
+      "components": [
+        "header.seccion-superior"
+      ],
+      "required": true
     }
   }
 }

@@ -1,1 +1,0 @@
-module.exports = () => ({ "react-icons": true, });

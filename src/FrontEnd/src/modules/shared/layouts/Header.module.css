@@ -1,5 +1,0 @@
-/* Black Section with some info */
-.blackSection {
-  background-color: var(--black-color);
-  backdrop-filter: blur(100px);
-}

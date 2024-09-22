@@ -1,0 +1,36 @@
+{% extends "admin/base_site.html" %} {% load static %}
+
+<!-- Estilos css -->
+{% block extrastyle %}
+{{ block.super }}
+<link
+    href="{% static 'core/css/admin.css' %}"
+    rel="stylesheet"
+/>
+<link
+    rel="icon"
+    href="{% static 'core/img/favicon.ico' %}"
+    type="image/x-icon"
+/>
+{% endblock %}
+
+<!-- Cabecera -->
+{% block branding %}
+<a
+    href="{% url 'admin:index'%}"
+    class="admin__title"
+>
+
+    <img
+        src="{% static 'core/img/logo.png' %}"
+        alt="Logo"
+        class="admin__title__logo"
+    />
+    <span>{{ site_header }}</span>
+</a>
+{% endblock %}
+
+<!-- Navegación -->{% block nav-global %}
+
+{{ block.super }}
+{% endblock %}

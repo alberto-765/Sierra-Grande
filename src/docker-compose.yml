@@ -1,15 +1,20 @@
 services:
   db:
     image: postgres:13
+    ports:
+      - 5432:5432
     environment:
-      POSTGRES_DB: mydatabase
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: sierragrande_db
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: 12345
     volumes:
       - db_data:/var/lib/postgresql/data
+    env_file:
+      - .env
 
   web:
     build: .
+    command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/app
     ports:

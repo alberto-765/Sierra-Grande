@@ -1,39 +1,64 @@
 
 from pathlib import Path
 from decouple import config #decouple
-
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('SECRET_KEY')
 
-ALLOWED_HOSTS = []
-
-
 # Application definition
-
-INSTALLED_APPS = [
+INSTALLED_APPS = [    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
+    'django.contrib.sites',
     
     # All-Auth
-    'django.contrib.sites',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.apple',  
+    
+    # Seguridad 
+    'axes',
+    
+    # SEO
+    'meta',
+    
+    # Debug
+    'debug_toolbar',
+    
+    # Google Analisys
+    'analytical',
+    
+    # Compresor archivos estáticos (JS, CSS e imágenes)
+    'compressor',
+    
+    # Storage amazon s3
+    'storages',
+    
+    # Aplicaciones proyecto
+    'core',
+    'home',
+    'cart',
+    'order',
+    'product',
+    'user'
 ]
 
 MIDDLEWARE = [
+    # Debug toolbar
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -41,6 +66,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
+    # Autenticación y seguridad
+    'allauth.account.middleware.AccountMiddleware',  
+    'axes.middleware.AxesMiddleware',  
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -48,7 +77,7 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -67,11 +96,14 @@ WSGI_APPLICATION = 'core.wsgi.application'
 SITE_ID = 1
 
 AUTHENTICATION_BACKENDS = [
+    # No permitir ataques de fuerza bruta
+    'axes.backends.AxesBackend',  
+    
     # Necesario para permitir la autenticación por nombre de usuario en Django admin
     'django.contrib.auth.backends.ModelBackend',
     
     # Backend de autenticación de Django Allauth
-    'allauth.account.auth_backends.AuthenticationBackend',
+    'allauth.account.auth_backends.AuthenticationBackend'
 ]
    
 # ----- Condiguracion all-auth --------
@@ -99,19 +131,19 @@ SESSION_COOKIE_SECURE = True        # Seguridad solo permmitir https
 SESSION_SAVE_EVERY_REQUEST = True
 
 # Database
-# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': config('ENGINE'),
+        'NAME': config('NAME'),
+        'USER': config('USERDB'),
+        'PASSWORD': config('PASSWORD'),
+        'HOST': config('HOST'),
+        'PORT': config('PORT')
     }
 }
 
-
 # Password validation
-# https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -131,7 +163,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-es'
 
 TIME_ZONE = 'UTC'
 
@@ -141,11 +173,14 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
-
-STATIC_URL = 'static/'
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',  # Añade esto
+]
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),  # Archivos estáticos globales
+]
 
 # Default primary key field type
-# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

@@ -4,7 +4,7 @@ from decouple import config #decouple
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('SECRET_KEY')
@@ -66,6 +66,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     
     # Autenticación y seguridad
     'allauth.account.middleware.AccountMiddleware',  
@@ -161,14 +162,16 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 # Internationalization
-# https://docs.djangoproject.com/en/5.1/topics/i18n/
-
-LANGUAGE_CODE = 'es-es'
-
+LANGUAGE_CODE = 'es'
+LANGUAGES = [
+    ('es', 'Spanish'),
+    ('en', 'English')
+]
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale',)
+]
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
 
 

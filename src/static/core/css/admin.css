@@ -20,7 +20,7 @@ html[data-theme='light'],
 /* Login */
 .login {
 	height: fit-content !important;
-	align-content: center;
+	align-content: top;
 }
 .login #container {
 	width: auto !important;

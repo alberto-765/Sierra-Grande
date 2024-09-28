@@ -1,4 +1,6 @@
-{% extends "admin/base_site.html" %} {% load static %}
+{% extends "admin/base_site.html" %}
+{% load static %}
+
 
 <!-- Estilos css -->
 {% block extrastyle %}
@@ -14,7 +16,13 @@
 />
 {% endblock %}
 
-<!-- Cabecera -->
+<!-- JS -->
+{% block extrahead %}
+
+{% endblock %}
+
+
+<!-- Left header panel -->
 {% block branding %}
 <a
     href="{% url 'admin:index'%}"
@@ -28,9 +36,4 @@
     />
     <span>{{ site_header }}</span>
 </a>
-{% endblock %}
-
-<!-- Navegación -->{% block nav-global %}
-
-{{ block.super }}
 {% endblock %}

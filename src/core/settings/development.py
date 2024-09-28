@@ -23,3 +23,4 @@ STATIC_URL = 'static/'
 
 # Configuración de archivos multimedia
 MEDIA_URL = '/media/'
+

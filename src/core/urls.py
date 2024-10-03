@@ -14,9 +14,6 @@ urlpatterns = [
 
 
 # ------ Admin panel configuration ----------
-
-# Principal header admin panel
-admin.site.site_header = "Sierra Grande de Hornachos"
-# Window chrome title
-admin.site.index_title = "Bienvenido al panel de administración"
-admin.site.site_title = "Sierra Grande de Hornachos"
+admin.site.site_header = "Sierra Grande de Hornachos" # Principal header admin panel
+admin.site.index_title = "Bienvenido al panel de administración" # Window chrome title
+admin.site.site_title = "Sierra Grande de Hornachos" 

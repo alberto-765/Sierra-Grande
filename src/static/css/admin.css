@@ -3,21 +3,29 @@
 /* Light mode */
 html[data-theme='light'],
 :root {
+	font-size: 16px;
+
+	/* Variables de colores */
 	--primary: #0242a4;
 	--secondary: #ffffff;
 	--tertiary: #0049d5;
+
 	--accent: #363636;
 	--header-color: rgb(0, 0, 0);
 	--primary-fg: #000000;
 	--font-family-primary: 'Inter', Roboto;
+
+	/* Colores de elementos secundarios */
 	--button-bg: var(--primary);
 	--button-hover-bg: var(--tertiary);
 	--default-button-hover-bg: var(--tertiary);
 	--default-button-bg: var(--primary);
 	--link-fg: var(--primary);
-
-	font-size: 16px;
+	--breadcrumbs-bg: var(--secondary);
+	--breadcrumbs-fg: #2b2b2b;
+	--breadcrumbs-link-fg: #2b2b2bb7;
 }
+
 /* Fin light mode */
 
 /* Login */
@@ -25,6 +33,7 @@ html[data-theme='light'],
 	height: fit-content !important;
 	align-content: top;
 }
+
 .login #container {
 	width: auto !important;
 	max-width: 24% !important;
@@ -34,12 +43,7 @@ html[data-theme='light'],
 /* Admin panel */
 #header {
 	box-shadow: rgba(149, 157, 165, 0.15) 0px 3px 10px;
-}
-.admin__title span {
-	font-size: 1.4rem;
-	font-weight: 400;
-	letter-spacing: -0.5px;
-	text-align: center;
+	padding-block: 15px;
 }
 
 .admin__title {
@@ -47,9 +51,29 @@ html[data-theme='light'],
 	gap: 1rem;
 	align-items: center;
 }
+
+.admin__title span {
+	font-size: 1.4rem;
+	font-weight: 400;
+	letter-spacing: -0.5px;
+	text-align: center;
+}
+
 .admin__title__logo {
 	width: 50px;
 	border-radius: 4px;
+}
+
+nav {
+	margin-block: 0.6rem;
+}
+
+.breadcrumb__container {
+	display: flex;
+	align-items: center;
+	padding: 10px 40px;
+}
+.div.breadcrumbs {
 }
 
 /* ------------- MEDIA QUERYS ------------------ */
@@ -59,37 +83,39 @@ html[data-theme='light'],
 	.login #container {
 		max-width: 100% !important;
 	}
+
 	.login .submit-row input {
 		padding: 0.55rem;
 	}
 }
 
 /* Tablet */
-@media (600px <= width < 900px) {
+@media (600px <=width < 900px) {
 	.login #container {
 		max-width: 60% !important;
 	}
+
 	.login .submit-row input {
 		padding: 0.55rem;
 	}
 }
 
 /* Small Desktop */
-@media (900px <= width < 1200px) {
+@media (900px <=width < 1200px) {
 	.login #container {
 		max-width: 40% !important;
 	}
 }
 
 /* Medium Desktop */
-@media (1200px <= width < 1400px) {
+@media (1200px <=width < 1400px) {
 	.login #container {
 		max-width: 35% !important;
 	}
 }
 
 /* Big Desktop */
-@media (1400px <= width < 1600px) {
+@media (1400px <=width < 1600px) {
 	.login #container {
 		max-width: 30% !important;
 	}

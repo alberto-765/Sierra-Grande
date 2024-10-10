@@ -52,7 +52,8 @@ INSTALLED_APPS = [
     'cart',
     'order',
     'product',
-    'user'
+    'user',
+    'customAdmin'
 ]
 
 MIDDLEWARE = [
@@ -139,10 +140,11 @@ DATABASES = {
         'NAME': config('NAME'),
         'USER': config('USERDB'),
         'PASSWORD': config('PASSWORD'),
-        'HOST': config('HOST'),
+        'HOST': 'localhost',
         'PORT': config('PORT')
     }
 }
+print('...............:' + DATABASES +"....................")
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [

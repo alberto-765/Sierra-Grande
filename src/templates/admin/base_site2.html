@@ -6,12 +6,12 @@
 {% block extrastyle %}
 {{ block.super }}
 <link
-    href="{% static 'core/css/admin.css' %}"
+    href="{% static 'admin/css/admin.css' %}"
     rel="stylesheet"
 />
 <link
     rel="icon"
-    href="{% static 'core/img/favicon.ico' %}"
+    href="{% static '/img/favicon.ico' %}"
     type="image/x-icon"
 />
 {% endblock %}
@@ -30,7 +30,7 @@
 >
 
     <img
-        src="{% static 'core/img/logo.png' %}"
+        src="{% static '/img/logo.png' %}"
         alt="Logo"
         class="admin__title__logo"
     />

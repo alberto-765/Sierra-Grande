@@ -1,4 +1,4 @@
-@import 'font.css';
+@import '../../css/font.css';
 
 /* Light mode */
 html[data-theme='light'],
@@ -6,7 +6,7 @@ html[data-theme='light'],
 	font-size: 16px;
 
 	/* Variables de colores */
-	--primary: #0242a4;
+	--primary: #05419de0;
 	--secondary: #ffffff;
 	--tertiary: #0049d5;
 

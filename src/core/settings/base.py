@@ -11,6 +11,7 @@ SECRET_KEY = config('SECRET_KEY')
 
 # Application definition
 INSTALLED_APPS = [    
+    'customAdmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -29,7 +30,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.apple',  
     
     # Seguridad 
-    'axes',
+    'customAdmin.apps.CustomAxesConfig',
     
     # SEO
     'meta',
@@ -53,7 +54,6 @@ INSTALLED_APPS = [
     'order',
     'product',
     'user',
-    'customAdmin'
 ]
 
 MIDDLEWARE = [
@@ -140,11 +140,10 @@ DATABASES = {
         'NAME': config('NAME'),
         'USER': config('USERDB'),
         'PASSWORD': config('PASSWORD'),
-        'HOST': 'localhost',
+        'HOST': config('HOST'),
         'PORT': config('PORT')
     }
 }
-print('...............:' + DATABASES +"....................")
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [

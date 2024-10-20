@@ -3,9 +3,9 @@ from datetime import timedelta
 
 DEBUG = True
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-INTERNAL_IPS="127.0.0.1"
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
+INTERNAL_IPS = ['127.0.0.1', '172.18.0.1']
 
 # Seguridad con axes
 AXES_FAILURE_LIMIT = 5  # Número de intentos fallidos antes del bloqueo

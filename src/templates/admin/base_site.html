@@ -18,33 +18,22 @@
 
 <!-- JS -->
 {% block extrahead %}
-<script
-    type="text/javascript"
-    src="{% static 'admin/js/navtab.js' %}"
-></script>
 <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
 {% endblock %}
 
-
-<!-- Left header panel -->
-{% block branding %}
-<a
-    href="{% url 'admin:index'%}"
-    class="admin__title"
->
-    <img
-        src="{% static '/img/logo.png' %}"
-        alt="Logo"
-        class="admin__title__logo"
-    />
-    <span>{{ site_header }}</span>
-</a>
-{% endblock %}
+<!-- Only display breadcrumbs when applist is available -->
+{% block breadcrumbs%}
+{% if available_apps %}
+{{ block.super }}
+{% endif %}
+{%endblock%}
 
 
-<!-- Anchors bar -->
-{% block nav-sidebar %}
-<div class="sidebar">
-    {{ block.super }}
-</div>
+<!-- Display content or error depending of available apps -->
+{%block content %}
+{% if available_apps %}
+{{ block.super}}
+{%else %}
+<p> No tiene permisos para editar ni visualizar nada</p>
+{% endif %}
 {% endblock %}

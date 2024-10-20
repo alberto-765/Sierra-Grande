@@ -17,6 +17,8 @@ django-storages==1.14.4
 docutils==0.21.2
 idna==3.10
 jmespath==1.0.1
+mypy==1.11.2
+mypy-extensions==1.0.0
 pilkit==3.0
 pillow==10.4.0
 psycopg2-binary==2.9.9

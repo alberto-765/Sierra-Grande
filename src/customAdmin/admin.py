@@ -8,7 +8,8 @@ class MyAdminSite(AdminSite):
     site_title = "Sierra Grande de Hornachos" 
     site_header = "Sierra Grande de Hornachos" # Principal header admin panel
     index_title = "Bienvenido al panel de administración" # Window chrome title
-    
+
+
     def get_app_list(self, request) -> None:
         """
         List for nav tab
@@ -33,14 +34,18 @@ class MyAdminSite(AdminSite):
                 other_apps.append(app)
 
         # Crea un nuevo grupo para los modelos de allauth y auth
-        combined_app = {
-            'name': 'Autenticación y autorización',
-            'app_label': 'auth_group',
-            'models': grouped_models
-        }
+        if grouped_models:
+            combined_app = [{
+                'name': 'Autenticación y autorización',
+                'app_label': 'auth_group',
+                'models': grouped_models
+            }]
+        else:
+            combined_app = []
+            
 
         # Inserta el grupo de administración general al inicio de la lista de apps
-        return [combined_app] + other_apps
+        return combined_app + other_apps
     
 # Intance de admin site
 my_admin_site = MyAdminSite(name="myadmin")
@@ -79,7 +84,7 @@ my_admin_site.register(SocialToken)
 my_admin_site.register(SocialApp)    
 my_admin_site.register(User)    
 my_admin_site.register(Group)    
-my_admin_site.register(CustomAccessAttempt)
+my_admin_site.register(AccessAttempt)
 my_admin_site.register(CustomAccessLog)    
 my_admin_site.register(CustomAccessFailureLog)    
 

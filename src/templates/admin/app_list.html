@@ -1,0 +1,50 @@
+<!-- DON'T REMOVE -->
+<!-- That folder remove the default navigation bar -->
+
+<!-- Anchors bar -->
+{% if app_list %}
+<nav class="sidebar__nav">
+    {% for app in app_list %}
+    <article class="sidebar__nav__section">
+        <h3 class="sidebar__nav__section__header">{{ app.name }}</h3>
+        <div
+            class="sidebar__nav__section__list"
+            role="list"
+        >
+            {% for model in app.models %}
+            <div
+                class="sidebar__nav__section__list__item{% if modle.admin_url|lower in request.path %} current-model {% endif %}"
+                role="listitem"
+            >
+                {% if model.admin_url %}
+                <a
+                    href="{{ model.admin_url }}"
+                    class="sidebar__nav__section__list__item__text"
+                >{{model.name}}</a>
+                {% else %}
+                <span class="sidebar__nav__section__list__item__text"> {{ model.name }} </span>
+                {% endif %}
+
+                {% if model.add_url %}
+                <a
+                    href="{{ model.add_url }}"
+                    class="sidebar__nav__section__list__item__add"
+                    aria-label="Añadir nuevo elemento para {{ model_name }}"
+                >
+                    <iconify-icon
+                        icon="flat-color-icons:plus"
+                        width="1.2rem"
+                        height="1.2rem"
+                    ></iconify-icon>
+                    <span>
+                        Añadir
+                    </span>
+                </a>
+                {% endif %}
+            </div>
+            {%endfor%}
+        </div>
+    </article>
+    {% endfor %}
+</nav>
+{% endif %}

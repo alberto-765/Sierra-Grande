@@ -57,9 +57,6 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    # Debug toolbar
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
-    
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -72,6 +69,9 @@ MIDDLEWARE = [
     # Autenticación y seguridad
     'allauth.account.middleware.AccountMiddleware',  
     'axes.middleware.AxesMiddleware',  
+
+    # Debug toolbar
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'core.urls'

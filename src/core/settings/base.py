@@ -4,7 +4,7 @@ from decouple import config #decouple
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('SECRET_KEY')
@@ -29,7 +29,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.apple',  
     
-    # Seguridad 
+    # Seguridad axes
     'customAdmin.apps.CustomAxesConfig',
     
     # SEO
@@ -79,7 +79,7 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -178,12 +178,9 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 STATICFILES_FINDERS = [
-    'django.contrib.staticfiles.finders.FileSystemFinder',
+    # 'django.contrib.staticfiles.finders.FileSystemFinder',  for find global static folder
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'compressor.finders.CompressorFinder',  # Añade esto
-]
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),  # Archivos estáticos globales
+    'compressor.finders.CompressorFinder'
 ]
 
 # Default primary key field type

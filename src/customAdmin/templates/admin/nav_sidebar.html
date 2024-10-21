@@ -1,0 +1,80 @@
+{% load static %}
+
+<aside class="sidebar">
+
+    <article>
+        <!-- Brand section -->
+        <section class="sidebar__brand">
+            <a
+                href="{% url 'admin:index'%}"
+                class="sidebar__brand__title"
+            >
+                <img
+                    src="{% static 'core/img/logo.png' %}"
+                    alt="{{ site_header }}"
+                    class="sidebar__brand__title__logo"
+                />
+            </a>
+            <iconify-icon icon="mdi:home"></iconify-icon>
+        </section>
+
+        <!-- Search section -->
+        <section>
+            <input
+                type="search"
+                id="nav-filter"
+                placeholder="Empiece a escribir para filtrar…"
+                aria-label="Filtrar elementos de navegación"
+            >
+        </section>
+
+
+        <!-- Appslist section -->
+        <section class="sidebar__nav--wrapper">
+            {% include 'admin/app_list.html' with app_list=available_apps show_changelinks=False %}
+        </section>
+    </article>
+
+    <article class="sidebar__profile">
+
+        <!-- Profile section -->
+        {% if has_permission %}
+        <section class="">
+
+            <!-- Sumarry header -->
+            {% with user.get_short_name|default:user.get_username as name %}
+
+            <header>
+                <iconify-icon
+                    icon="tabler:circle-letter-{{ name|slice:':1'}}-filled"
+                    width="2.5rem"
+                    x-data
+                    :style="'color: ' + getNameColor({{name|slice:':1'}})"
+                ></iconify-icon>
+                <strong>{{name}}</strong>
+            </header>
+            {% endwith %}
+
+            <!-- Shop url -->
+            {% if site_url %}
+            <a href="{{ site_url }}">Ir a la tienda</a> /
+            {% endif %}
+
+            <!-- Change password -->
+            {% if user.has_usable_password %}
+            <a href="{% url 'admin:password_change' %}">Cambiar contraseña</a> /
+            {% endif %}
+
+            <!-- Logout -->
+            <form
+                id="logout-form"
+                method="post"
+                action="{% url 'admin:logout' %}"
+            >
+                {% csrf_token %}
+                <button type="submit">Cerrar sesión</button>
+            </form>
+        </section>
+        {% endif %}
+    </article>
+</aside>

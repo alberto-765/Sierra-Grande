@@ -20,9 +20,13 @@
                 <a
                     href="{{ model.admin_url }}"
                     class="sidebar__nav__section__list__item__text"
+                    title="{{model.name}}"
                 >{{model.name}}</a>
                 {% else %}
-                <span class="sidebar__nav__section__list__item__text"> {{ model.name }} </span>
+                <span
+                    class="sidebar__nav__section__list__item__text"
+                    title="{{model.name}}"
+                > {{ model.name }} </span>
                 {% endif %}
 
                 {% if model.add_url %}

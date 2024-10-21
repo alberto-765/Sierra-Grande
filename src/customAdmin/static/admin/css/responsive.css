@@ -43,18 +43,6 @@ button {
 		line-height: 1.2;
 	}
 
-	#user-tools {
-		margin: 0;
-		font-weight: 400;
-		line-height: 1.85;
-		text-align: left;
-	}
-
-	#user-tools a {
-		display: inline-block;
-		line-height: 1.4;
-	}
-
 	/* Dashboard */
 
 	.dashboard #content {

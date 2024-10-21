@@ -1,40 +1,50 @@
-@import '../../css/font.css';
-@import '../../css/normalized.css';
+@import url('/static/core/css/font.css');
+@import url('/static/core/css/normalized.css');
 
-/* ----- Header ------ */
-
-.admin__title {
-	display: flex;
-	gap: 1rem;
-	align-items: center;
-}
-.admin__title span {
-	font-size: 1.4rem;
-	font-weight: 400;
-	letter-spacing: -0.5px;
-	text-align: center;
-}
-.admin__title__logo {
-	width: 50px;
-	border-radius: 4px;
-}
-
-/* ----- End Header ------ */
-
-/* ----- Navigation Bar ------ */
+/* ----- SideBar ------ */
 .sidebar,
 .sidebar__nav,
+.sidebar > article:first-of-type,
 .sidebar__nav__section,
 .sidebar__nav__section__list {
 	display: flex;
 	flex-direction: column;
 }
 .sidebar {
-	width: 21vw;
-	gap: 1rem;
-	padding: 1rem;
+	width: 20vw;
+	justify-content: space-between;
 	box-shadow: var(--box-shadow);
 }
+.sidebar > article:first-of-type {
+	gap: 1.4rem;
+}
+.sidebar > article {
+	padding: 1rem;
+}
+
+/* Brand section */
+.sidebar__brand {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.sidebar__brand__title {
+	display: flex;
+	gap: 1rem;
+	align-items: center;
+}
+.sidebar__brand__title span {
+	font-size: 1.4rem;
+	font-weight: 400;
+	letter-spacing: -0.5px;
+	text-align: center;
+}
+.sidebar__brand__title__logo {
+	width: 3.2rem;
+	border-radius: 4px;
+}
+
+/* Apps list section */
 .sidebar__nav {
 	gap: 1.3rem;
 }
@@ -63,10 +73,20 @@
 	align-items: center;
 	gap: 0.3rem;
 }
+
+/* Search section */
 #nav-filter {
 	margin: 0;
 }
-/* ----- End Navigation Bar ------ */
+
+/* Profile section */
+.sidebar__profile {
+	background-color: var(--darkened-bg);
+}
+.sidebar__profile a {
+}
+
+/* ----- End SideBar ------ */
 
 /* ----- Content ------ */
 .content {

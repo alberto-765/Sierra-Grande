@@ -5,7 +5,7 @@
 html[data-theme='light'],
 html[data-theme='dark'],
 :root {
-	--primary: #05419de0;
+	--primary: #072964;
 	--secondary: #ffffff;
 	--accent: #363636;
 	--tertiary: #0049d5;
@@ -17,17 +17,12 @@ html[data-theme='dark'],
 	--body-medium-color: #444;
 	--body-loud-color: #000;
 
-	--header-color: rgb(0, 0, 0);
-	--header-branding-color: var(--accent);
-	--header-bg: var(--secondary);
-	--header-link-color: var(--primary-fg);
-
 	--breadcrumbs-bg: var(--secondary);
 	--breadcrumbs-fg: #2b2b2b;
 	--breadcrumbs-link-fg: #2b2b2bb7;
 
 	--link-fg: var(--primary);
-	--link-hover-color: #036;
+	--link-hover-color: #0242a4;
 	--link-selected-fg: var(--secondary);
 
 	--hairline-color: #e8e8e8;
@@ -852,13 +847,6 @@ a.deletelink:hover {
 	font-family: var(--font-family-primary);
 }
 
-#user-tools {
-	float: right;
-	margin: 0 0 0 20px;
-	text-align: right;
-}
-
-#user-tools,
 #logout-form button {
 	padding: 0;
 	font-weight: 300;
@@ -867,13 +855,10 @@ a.deletelink:hover {
 	text-transform: uppercase;
 }
 
-#user-tools a,
 #logout-form button {
 	border-bottom: 1px solid rgba(255, 255, 255, 0.25);
 }
 
-#user-tools a:focus,
-#user-tools a:hover,
 #logout-form button:active,
 #logout-form button:hover {
 	text-decoration: none;

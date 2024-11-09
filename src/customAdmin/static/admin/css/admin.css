@@ -83,7 +83,11 @@
 .sidebar__profile {
 	background-color: var(--darkened-bg);
 }
-.sidebar__profile a {
+.sidebar__profile__header {
+	display: flex;
+	align-items: center;
+	gap: 0.4rem;
+	text-transform: capitalize;
 }
 
 /* ----- End SideBar ------ */
@@ -94,47 +98,3 @@
 }
 
 /* ----- End Content ------ */
-
-/* ------------- MEDIA QUERYS ------------------ */
-
-/* Extra-Small-Medium Devices  */
-@media (width < 992px) {
-	.login .submit-row input {
-		padding: 0.55rem;
-	}
-}
-
-/* Extra Small Devices */
-@media (width < 480px) {
-	.login #container {
-		max-width: 100% !important;
-	}
-}
-
-/* Small Devices */
-@media (480px <= width < 768px) {
-	.login #container {
-		max-width: 70% !important;
-	}
-}
-
-/* Medium Devices */
-@media (768px <= width < 992px) {
-	.login #container {
-		max-width: 60% !important;
-	}
-}
-
-/* Large Devices */
-@media (992px <= width < 1200px) {
-	.login #container {
-		max-width: 40% !important;
-	}
-}
-
-/* Extra Large Devices */
-@media (1200px <= width < 1600px) {
-	.login #container {
-		max-width: 30% !important;
-	}
-}

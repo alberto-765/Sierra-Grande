@@ -1,454 +1,12 @@
-/* Tablets */
-
-input[type='submit'],
-button {
-	-webkit-appearance: none;
-	appearance: none;
-}
-
-@media (max-width: 1024px) {
-	/* Basic */
-
-	html {
-		-webkit-text-size-adjust: 100%;
-	}
-
-	td,
-	th {
-		padding: 10px;
-		font-size: 0.875rem;
-	}
-
-	.small {
-		font-size: 0.75rem;
-	}
-
-	/* Layout */
-
-	#container {
-		min-width: 0;
-	}
-
-	#content {
-		padding: 15px 20px 20px;
-	}
-
-	div.breadcrumbs {
-		padding: 10px 30px;
-	}
-
-	/* Header */
-	#site-name {
-		margin: 0 0 8px;
-		line-height: 1.2;
-	}
-
-	/* Dashboard */
-
-	.dashboard #content {
-		width: auto;
-	}
-
-	#content-related {
-		margin-right: -290px;
-	}
-
-	.colSM #content-related {
-		margin-left: -290px;
-	}
-
-	.colMS {
-		margin-right: 290px;
-	}
-
-	.colSM {
-		margin-left: 290px;
-	}
-
-	.dashboard .module table td a {
-		padding-right: 0;
-	}
-
-	td .changelink,
-	td .addlink {
-		font-size: 0.8125rem;
-	}
-
-	/* Changelist */
-
-	#toolbar {
-		border: none;
-		padding: 15px;
-	}
-
-	#changelist-search > div {
-		display: flex;
-		flex-wrap: nowrap;
-		max-width: 480px;
-	}
-
-	#changelist-search label {
-		line-height: 1.375rem;
-	}
-
-	#toolbar form #searchbar {
-		flex: 1 0 auto;
-		width: 0;
-		height: 1.375rem;
-		margin: 0 10px 0 6px;
-	}
-
-	#toolbar form input[type='submit'] {
-		flex: 0 1 auto;
-	}
-
-	#changelist-search .quiet {
-		width: 0;
-		flex: 1 0 auto;
-		margin: 5px 0 0 25px;
-	}
-
-	#changelist .actions {
-		display: flex;
-		flex-wrap: wrap;
-		padding: 15px 0;
-	}
-
-	#changelist .actions label {
-		display: flex;
-	}
-
-	#changelist .actions select {
-		background: var(--body-bg);
-	}
-
-	#changelist .actions .button {
-		min-width: 48px;
-		margin: 0 10px;
-	}
-
-	#changelist .actions span.all,
-	#changelist .actions span.clear,
-	#changelist .actions span.question,
-	#changelist .actions span.action-counter {
-		font-size: 0.6875rem;
-		margin: 0 10px 0 0;
-	}
-
-	#changelist-filter {
-		flex-basis: 200px;
-	}
-
-	.change-list .filtered .results,
-	.change-list .filtered .paginator,
-	.filtered #toolbar,
-	.filtered .actions,
-	#changelist .paginator {
-		border-top-color: var(--hairline-color); /* XXX Is this used at all? */
-	}
-
-	#changelist .results + .paginator {
-		border-top: none;
-	}
-
-	/* Forms */
-
-	label {
-		font-size: 1rem;
-	}
-
-	/*
-    Minifiers remove the default (text) "type" attribute from "input" HTML
-    tags. Add input:not([type]) to make the CSS stylesheet work the same.
-    */
-	.form-row input:not([type]),
-	.form-row input[type='text'],
-	.form-row input[type='password'],
-	.form-row input[type='email'],
-	.form-row input[type='url'],
-	.form-row input[type='tel'],
-	.form-row input[type='number'],
-	.form-row textarea,
-	.form-row select,
-	.form-row .vTextField {
-		box-sizing: border-box;
-		margin: 0;
-		padding: 6px 8px;
-		min-height: 2.25rem;
-		font-size: 1rem;
-	}
-
-	.form-row select {
-		height: 2.25rem;
-	}
-
-	.form-row select[multiple] {
-		height: auto;
-		min-height: 0;
-	}
-
-	fieldset .fieldBox + .fieldBox {
-		margin-top: 10px;
-		padding-top: 10px;
-		border-top: 1px solid var(--hairline-color);
-	}
-
-	textarea {
-		max-width: 100%;
-		max-height: 120px;
-	}
-
-	.aligned label {
-		padding-top: 6px;
-	}
-
-	.aligned .related-lookup,
-	.aligned .datetimeshortcuts,
-	.aligned .related-lookup + strong {
-		align-self: center;
-		margin-left: 15px;
-	}
-
-	form .aligned div.radiolist {
-		margin-left: 2px;
-	}
-
-	.submit-row {
-		padding: 8px;
-	}
-
-	.submit-row a.deletelink {
-		padding: 10px 7px;
-	}
-
-	.button,
-	input[type='submit'],
-	input[type='button'],
-	.submit-row input,
-	a.button {
-		padding: 7px;
-	}
-
-	/* Selector */
-
-	.selector {
-		display: flex;
-		width: 100%;
-	}
-
-	.selector .selector-filter {
-		display: flex;
-		align-items: center;
-	}
-
-	.selector .selector-filter label {
-		margin: 0 8px 0 0;
-	}
-
-	.selector .selector-filter input {
-		width: 100%;
-		min-height: 0;
-		flex: 1 1;
-	}
-
-	.selector-available,
-	.selector-chosen {
-		width: auto;
-		flex: 1 1;
-		display: flex;
-		flex-direction: column;
-	}
-
-	.selector select {
-		width: 100%;
-		flex: 1 0 auto;
-		margin-bottom: 5px;
-	}
-
-	.selector ul.selector-chooser {
-		width: 26px;
-		height: 52px;
-		padding: 2px 0;
-		border-radius: 20px;
-		transform: translateY(-10px);
-	}
-
-	.selector-add,
-	.selector-remove {
-		width: 20px;
-		height: 20px;
-		background-size: 20px auto;
-	}
-
-	.selector-add {
-		background-position: 0 -120px;
-	}
-
-	.selector-remove {
-		background-position: 0 -80px;
-	}
-
-	a.selector-chooseall,
-	a.selector-clearall {
-		align-self: center;
-	}
-
-	.stacked {
-		flex-direction: column;
-		max-width: 480px;
-	}
-
-	.stacked > * {
-		flex: 0 1 auto;
-	}
-
-	.stacked select {
-		margin-bottom: 0;
-	}
-
-	.stacked .selector-available,
-	.stacked .selector-chosen {
-		width: auto;
-	}
-
-	.stacked ul.selector-chooser {
-		width: 52px;
-		height: 26px;
-		padding: 0 2px;
-		transform: none;
-	}
-
-	.stacked .selector-chooser li {
-		padding: 3px;
-	}
-
-	.stacked .selector-add,
-	.stacked .selector-remove {
-		background-size: 20px auto;
-	}
-
-	.stacked .selector-add {
-		background-position: 0 -40px;
-	}
-
-	.stacked .active.selector-add {
-		background-position: 0 -40px;
-	}
-
-	.active.selector-add:focus,
-	.active.selector-add:hover {
-		background-position: 0 -140px;
-	}
-
-	.stacked .active.selector-add:focus,
-	.stacked .active.selector-add:hover {
-		background-position: 0 -60px;
-	}
-
-	.stacked .selector-remove {
-		background-position: 0 0;
-	}
-
-	.stacked .active.selector-remove {
-		background-position: 0 0;
-	}
-
-	.active.selector-remove:focus,
-	.active.selector-remove:hover {
-		background-position: 0 -100px;
-	}
-
-	.stacked .active.selector-remove:focus,
-	.stacked .active.selector-remove:hover {
-		background-position: 0 -20px;
-	}
-
-	.help-tooltip,
-	.selector .help-icon {
-		display: none;
-	}
-
-	.datetime input {
-		width: 50%;
-		max-width: 120px;
-	}
-
-	.datetime span {
-		font-size: 0.8125rem;
-	}
-
-	.datetime .timezonewarning {
-		display: block;
-		font-size: 0.6875rem;
-		color: var(--body-quiet-color);
-	}
-
-	.datetimeshortcuts {
-		color: var(
-			--border-color
-		); /* XXX Redundant, .datetime span also sets #ccc */
-	}
-
-	.form-row .datetime input.vDateField,
-	.form-row .datetime input.vTimeField {
-		width: 75%;
-	}
-
-	.inline-group {
-		overflow: auto;
-	}
-
-	/* Messages */
-
-	ul.messagelist li {
-		padding-left: 55px;
-		background-position: 30px 12px;
-	}
-
-	ul.messagelist li.error {
-		background-position: 30px 12px;
-	}
-
-	ul.messagelist li.warning {
-		background-position: 30px 14px;
-	}
-
-	/* Login */
-
-	.login #header {
-		padding: 15px 20px;
-	}
-
-	.login #site-name {
-		margin: 0;
-	}
-
-	/* GIS */
-
-	div.olMap {
-		max-width: calc(100vw - 30px);
-		max-height: 300px;
-	}
-
-	.olMap + .clear_features {
-		display: block;
-		margin-top: 10px;
-	}
-
-	/* Docs */
-
-	.module table.xfull {
-		width: 100%;
-	}
-
-	pre.literal-block {
-		overflow: auto;
+/* Extra Small Devices */
+@media (width < 480px) {
+	.login #container {
+		max-width: 100% !important;
 	}
 }
 
-/* Mobile */
-
-@media (max-width: 767px) {
+/* Extra Small to Small Devices  */
+@media (width < 768px) {
 	/* Layout */
 
 	#header,
@@ -987,5 +545,481 @@ button {
 	table.model tbody td {
 		font-size: 0.8125rem;
 		word-break: break-word;
+	}
+}
+
+/* Small Devices */
+@media (480px <= width < 768px) {
+	.login #container {
+		max-width: 70% !important;
+	}
+}
+
+/* Extra Small to Medium Devices  */
+@media (width < 992px) {
+	.login .submit-row input {
+		padding: 0.55rem;
+	}
+}
+
+/* Medium Devices */
+@media (768px <= width < 992px) {
+	.login #container {
+		max-width: 60% !important;
+	}
+}
+
+/* Extra Small to Large Devices*/
+@media (width < 1024px) {
+	/* Basic */
+
+	html {
+		-webkit-text-size-adjust: 100%;
+	}
+
+	td,
+	th {
+		padding: 10px;
+		font-size: 0.875rem;
+	}
+
+	.small {
+		font-size: 0.75rem;
+	}
+
+	/* Layout */
+
+	#container {
+		min-width: 0;
+	}
+
+	#content {
+		padding: 15px 20px 20px;
+	}
+
+	div.breadcrumbs {
+		padding: 10px 30px;
+	}
+
+	/* Header */
+	#site-name {
+		margin: 0 0 8px;
+		line-height: 1.2;
+	}
+
+	/* Dashboard */
+
+	.dashboard #content {
+		width: auto;
+	}
+
+	#content-related {
+		margin-right: -290px;
+	}
+
+	.colSM #content-related {
+		margin-left: -290px;
+	}
+
+	.colMS {
+		margin-right: 290px;
+	}
+
+	.colSM {
+		margin-left: 290px;
+	}
+
+	.dashboard .module table td a {
+		padding-right: 0;
+	}
+
+	td .changelink,
+	td .addlink {
+		font-size: 0.8125rem;
+	}
+
+	/* Changelist */
+
+	#toolbar {
+		border: none;
+		padding: 15px;
+	}
+
+	#changelist-search > div {
+		display: flex;
+		flex-wrap: nowrap;
+		max-width: 480px;
+	}
+
+	#changelist-search label {
+		line-height: 1.375rem;
+	}
+
+	#toolbar form #searchbar {
+		flex: 1 0 auto;
+		width: 0;
+		height: 1.375rem;
+		margin: 0 10px 0 6px;
+	}
+
+	#toolbar form input[type='submit'] {
+		flex: 0 1 auto;
+	}
+
+	#changelist-search .quiet {
+		width: 0;
+		flex: 1 0 auto;
+		margin: 5px 0 0 25px;
+	}
+
+	#changelist .actions {
+		display: flex;
+		flex-wrap: wrap;
+		padding: 15px 0;
+	}
+
+	#changelist .actions label {
+		display: flex;
+	}
+
+	#changelist .actions select {
+		background: var(--body-bg);
+	}
+
+	#changelist .actions .button {
+		min-width: 48px;
+		margin: 0 10px;
+	}
+
+	#changelist .actions span.all,
+	#changelist .actions span.clear,
+	#changelist .actions span.question,
+	#changelist .actions span.action-counter {
+		font-size: 0.6875rem;
+		margin: 0 10px 0 0;
+	}
+
+	#changelist-filter {
+		flex-basis: 200px;
+	}
+
+	.change-list .filtered .results,
+	.change-list .filtered .paginator,
+	.filtered #toolbar,
+	.filtered .actions,
+	#changelist .paginator {
+		border-top-color: var(--hairline-color); /* XXX Is this used at all? */
+	}
+
+	#changelist .results + .paginator {
+		border-top: none;
+	}
+
+	/* Forms */
+
+	label {
+		font-size: 1rem;
+	}
+
+	/*
+    Minifiers remove the default (text) "type" attribute from "input" HTML
+    tags. Add input:not([type]) to make the CSS stylesheet work the same.
+    */
+	.form-row input:not([type]),
+	.form-row input[type='text'],
+	.form-row input[type='password'],
+	.form-row input[type='email'],
+	.form-row input[type='url'],
+	.form-row input[type='tel'],
+	.form-row input[type='number'],
+	.form-row textarea,
+	.form-row select,
+	.form-row .vTextField {
+		box-sizing: border-box;
+		margin: 0;
+		padding: 6px 8px;
+		min-height: 2.25rem;
+		font-size: 1rem;
+	}
+
+	.form-row select {
+		height: 2.25rem;
+	}
+
+	.form-row select[multiple] {
+		height: auto;
+		min-height: 0;
+	}
+
+	fieldset .fieldBox + .fieldBox {
+		margin-top: 10px;
+		padding-top: 10px;
+		border-top: 1px solid var(--hairline-color);
+	}
+
+	textarea {
+		max-width: 100%;
+		max-height: 120px;
+	}
+
+	.aligned label {
+		padding-top: 6px;
+	}
+
+	.aligned .related-lookup,
+	.aligned .datetimeshortcuts,
+	.aligned .related-lookup + strong {
+		align-self: center;
+		margin-left: 15px;
+	}
+
+	form .aligned div.radiolist {
+		margin-left: 2px;
+	}
+
+	.submit-row {
+		padding: 8px;
+	}
+
+	.submit-row a.deletelink {
+		padding: 10px 7px;
+	}
+
+	.button,
+	input[type='submit'],
+	input[type='button'],
+	.submit-row input,
+	a.button {
+		padding: 7px;
+	}
+
+	/* Selector */
+
+	.selector {
+		display: flex;
+		width: 100%;
+	}
+
+	.selector .selector-filter {
+		display: flex;
+		align-items: center;
+	}
+
+	.selector .selector-filter label {
+		margin: 0 8px 0 0;
+	}
+
+	.selector .selector-filter input {
+		width: 100%;
+		min-height: 0;
+		flex: 1 1;
+	}
+
+	.selector-available,
+	.selector-chosen {
+		width: auto;
+		flex: 1 1;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.selector select {
+		width: 100%;
+		flex: 1 0 auto;
+		margin-bottom: 5px;
+	}
+
+	.selector ul.selector-chooser {
+		width: 26px;
+		height: 52px;
+		padding: 2px 0;
+		border-radius: 20px;
+		transform: translateY(-10px);
+	}
+
+	.selector-add,
+	.selector-remove {
+		width: 20px;
+		height: 20px;
+		background-size: 20px auto;
+	}
+
+	.selector-add {
+		background-position: 0 -120px;
+	}
+
+	.selector-remove {
+		background-position: 0 -80px;
+	}
+
+	a.selector-chooseall,
+	a.selector-clearall {
+		align-self: center;
+	}
+
+	.stacked {
+		flex-direction: column;
+		max-width: 480px;
+	}
+
+	.stacked > * {
+		flex: 0 1 auto;
+	}
+
+	.stacked select {
+		margin-bottom: 0;
+	}
+
+	.stacked .selector-available,
+	.stacked .selector-chosen {
+		width: auto;
+	}
+
+	.stacked ul.selector-chooser {
+		width: 52px;
+		height: 26px;
+		padding: 0 2px;
+		transform: none;
+	}
+
+	.stacked .selector-chooser li {
+		padding: 3px;
+	}
+
+	.stacked .selector-add,
+	.stacked .selector-remove {
+		background-size: 20px auto;
+	}
+
+	.stacked .selector-add {
+		background-position: 0 -40px;
+	}
+
+	.stacked .active.selector-add {
+		background-position: 0 -40px;
+	}
+
+	.active.selector-add:focus,
+	.active.selector-add:hover {
+		background-position: 0 -140px;
+	}
+
+	.stacked .active.selector-add:focus,
+	.stacked .active.selector-add:hover {
+		background-position: 0 -60px;
+	}
+
+	.stacked .selector-remove {
+		background-position: 0 0;
+	}
+
+	.stacked .active.selector-remove {
+		background-position: 0 0;
+	}
+
+	.active.selector-remove:focus,
+	.active.selector-remove:hover {
+		background-position: 0 -100px;
+	}
+
+	.stacked .active.selector-remove:focus,
+	.stacked .active.selector-remove:hover {
+		background-position: 0 -20px;
+	}
+
+	.help-tooltip,
+	.selector .help-icon {
+		display: none;
+	}
+
+	.datetime input {
+		width: 50%;
+		max-width: 120px;
+	}
+
+	.datetime span {
+		font-size: 0.8125rem;
+	}
+
+	.datetime .timezonewarning {
+		display: block;
+		font-size: 0.6875rem;
+		color: var(--body-quiet-color);
+	}
+
+	.datetimeshortcuts {
+		color: var(
+			--border-color
+		); /* XXX Redundant, .datetime span also sets #ccc */
+	}
+
+	.form-row .datetime input.vDateField,
+	.form-row .datetime input.vTimeField {
+		width: 75%;
+	}
+
+	.inline-group {
+		overflow: auto;
+	}
+
+	/* Messages */
+
+	ul.messagelist li {
+		padding-left: 55px;
+		background-position: 30px 12px;
+	}
+
+	ul.messagelist li.error {
+		background-position: 30px 12px;
+	}
+
+	ul.messagelist li.warning {
+		background-position: 30px 14px;
+	}
+
+	/* Login */
+
+	.login #header {
+		padding: 15px 20px;
+	}
+
+	.login #site-name {
+		margin: 0;
+	}
+
+	/* GIS */
+
+	div.olMap {
+		max-width: calc(100vw - 30px);
+		max-height: 300px;
+	}
+
+	.olMap + .clear_features {
+		display: block;
+		margin-top: 10px;
+	}
+
+	/* Docs */
+
+	.module table.xfull {
+		width: 100%;
+	}
+
+	pre.literal-block {
+		overflow: auto;
+	}
+}
+
+/* Large Devices */
+@media (992px <= width < 1200px) {
+	.login #container {
+		max-width: 40% !important;
+	}
+}
+
+/* Extra Large Devices */
+@media (1200px <= width < 1600px) {
+	.login #container {
+		max-width: 30% !important;
 	}
 }

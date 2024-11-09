@@ -35,46 +35,54 @@
         </section>
     </article>
 
+    <!-- Profile section -->
     <article class="sidebar__profile">
 
-        <!-- Profile section -->
         {% if has_permission %}
-        <section class="">
 
-            <!-- Sumarry header -->
-            {% with user.get_short_name|default:user.get_username as name %}
+        <!-- Sumarry header -->
+        {% with user.get_short_name|default:user.get_username|lower as name %}
 
-            <header>
-                <iconify-icon
-                    icon="tabler:circle-letter-{{ name|slice:':1'}}-filled"
-                    width="2.5rem"
-                    x-data
-                    :style="'color: ' + getNameColor({{name|slice:':1'}})"
-                ></iconify-icon>
+        <header class="sidebar__profile__header">
+            <iconify-icon
+                icon="tabler:circle-letter-{{ name|slice:':1'}}-filled"
+                width="2.5rem"
+                x-data
+                :style="'color: ' + getNameColor({{name|slice:':1'}})"
+            ></iconify-icon>
+            <div class="sidebar__profile__header__userInfo">
                 <strong>{{name}}</strong>
-            </header>
-            {% endwith %}
+                <p>
+                    {% if user.is_staff and user.is_superuser %}
+                    Admin
+                    {% elif user.groups.exists %}
+                    {{ user.groups.first.name }}
+                    {% endif %}
+                <p>
+            </div>
+        </header>
+        {% endwith %}
 
-            <!-- Shop url -->
-            {% if site_url %}
-            <a href="{{ site_url }}">Ir a la tienda</a> /
-            {% endif %}
+        <!-- Shop url -->
+        {% if site_url %}
+        <a href="{{ site_url }}">Ir a la tienda</a> /
+        {% endif %}
 
-            <!-- Change password -->
-            {% if user.has_usable_password %}
-            <a href="{% url 'admin:password_change' %}">Cambiar contraseña</a> /
-            {% endif %}
+        <!-- Change password -->
+        {% if user.has_usable_password %}
+        <a href="{% url 'admin:password_change' %}">Cambiar contraseña</a> /
+        {% endif %}
 
-            <!-- Logout -->
-            <form
-                id="logout-form"
-                method="post"
-                action="{% url 'admin:logout' %}"
-            >
-                {% csrf_token %}
-                <button type="submit">Cerrar sesión</button>
-            </form>
-        </section>
+        <!-- Logout -->
+        <form
+            id="logout-form"
+            method="post"
+            action="{% url 'admin:logout' %}"
+        >
+            {% csrf_token %}
+            <button type="submit">Cerrar sesión</button>
+        </form>
+
         {% endif %}
     </article>
 </aside>

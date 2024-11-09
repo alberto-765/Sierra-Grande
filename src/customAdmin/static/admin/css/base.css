@@ -758,12 +758,11 @@ a.deletelink:hover {
 	height: 100%;
 }
 
-#container > .main {
-	display: flex;
-	flex: 1 0 auto;
+#container > main {
+	outline: none;
 }
 
-.main > .content {
+main > #content {
 	flex: 1 0;
 	max-width: 100%;
 }

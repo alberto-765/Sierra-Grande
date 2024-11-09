@@ -14,7 +14,7 @@ class MyAdminSite(AdminSite):
         """
         List for nav tab
         """
-        
+            
         app_list = super().get_app_list(request)
 
         # Lista para almacenar los modelos de allauth y auth

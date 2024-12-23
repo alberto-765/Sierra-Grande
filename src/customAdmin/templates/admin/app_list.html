@@ -5,7 +5,11 @@
 {% if app_list %}
 <nav class="sidebar__nav">
     {% for app in app_list %}
-    <article class="sidebar__nav__section">
+    <article
+        class="sidebar__nav__section"
+        x-data="{showList :Array({{app.models|length}}).fill(true)}"
+        x-show="showList.some(q => q == true)"
+    >
         <h3 class="sidebar__nav__section__header">{{ app.name }}</h3>
         <div
             class="sidebar__nav__section__list"
@@ -15,6 +19,15 @@
             <div
                 class="sidebar__nav__section__list__item{% if modle.admin_url|lower in request.path %} current-model {% endif %}"
                 role="listitem"
+                x-data="{show: true}"
+                x-init="$watch('query', value => { 
+                    let showTemporal = $el.textContent.toLowerCase().includes(query.toLowerCase()); 
+                    if(showTemporal != show) {  
+                        showList[{{forloop.counter0}}] = showTemporal;
+                        show = showTemporal;
+                    }
+                })"
+                x-show="show"
             >
                 {% if model.admin_url %}
                 <a
@@ -36,7 +49,7 @@
                     aria-label="Añadir nuevo elemento para {{ model_name }}"
                 >
                     <iconify-icon
-                        icon="flat-color-icons:plus"
+                        icon="gravity-ui:circle-plus-fill"
                         width="1.2rem"
                         height="1.2rem"
                     ></iconify-icon>

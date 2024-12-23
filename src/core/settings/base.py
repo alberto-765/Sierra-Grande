@@ -1,6 +1,7 @@
 
 from pathlib import Path
-from decouple import config #decouple
+from decouple import config 
+from datetime import timedelta
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -178,10 +179,20 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 STATICFILES_FINDERS = [
-    # 'django.contrib.staticfiles.finders.FileSystemFinder',  for find global static folder
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'compressor.finders.CompressorFinder'
 ]
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Seguridad con axes
+AXES_FAILURE_LIMIT = 5  # Número de intentos fallidos antes del bloqueo
+AXES_COOLOFF_TIME = timedelta(minutes=10)  # Tiempo de espera antes de intentar de nuevo
+AXES_LOCKOUT_TEMPLATE = None  # Plantilla para la página de bloqueo (opcional)
+AXES_RESET_ON_SUCCESS = True  # Restablecer el contador de intentos fallidos tras un inicio de sesión exitoso
+AXES_ONLY_USER_FAILURES = False
+AXES_LOCKOUT_MESSAGE = "Las credenciales son incorrectas. Inténtalo nuevamente más tarde."
+
+

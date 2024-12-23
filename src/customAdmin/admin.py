@@ -84,7 +84,7 @@ my_admin_site.register(SocialToken)
 my_admin_site.register(SocialApp)    
 my_admin_site.register(User)    
 my_admin_site.register(Group)    
-my_admin_site.register(AccessAttempt)
+my_admin_site.register(CustomAccessAttempt)
 my_admin_site.register(CustomAccessLog)    
 my_admin_site.register(CustomAccessFailureLog)    
 

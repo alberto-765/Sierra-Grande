@@ -1,88 +1,173 @@
 {% load static %}
 
-<aside class="sidebar">
+<script defer>
+    document.addEventListener('alpine:init', () => {
+        Alpine.store('sidebar', {
+            show: Alpine.$persist(true).using(sessionStorage),
+            changed: false,
+            toggle () {
+                this.show = !this.show;
+                this.changed = true;
+            }
+        });
+    });
+</script>
 
-    <article>
-        <!-- Brand section -->
-        <section class="sidebar__brand">
-            <a
-                href="{% url 'admin:index'%}"
-                class="sidebar__brand__title"
-            >
-                <img
-                    src="{% static 'core/img/logo.png' %}"
-                    alt="{{ site_header }}"
-                    class="sidebar__brand__title__logo"
-                />
-            </a>
-            <iconify-icon icon="mdi:home"></iconify-icon>
-        </section>
+<div
+    class="backdrop"
+    x-show="$store.sidebar.show"
+    x-cloak
+    x-data
+></div>
 
-        <!-- Search section -->
-        <section>
-            <input
-                type="search"
-                id="nav-filter"
-                placeholder="Empiece a escribir para filtrar…"
-                aria-label="Filtrar elementos de navegación"
-            >
-        </section>
+<aside
+    class="sidebar"
+    :class="$store.sidebar.show ? 'sidebar--show' : 'sidebar--hidden'"
+    x-bind:animation="$store.sidebar.changed && 'true'"
+    x-data
+>
+    <div class="sidebar__wrapper sidebar--show">
+        <article x-data="{query : ''}">
+            <!-- Brand section -->
+            <section class="sidebar__brand">
+                <a
+                    href="{% url 'admin:index'%}"
+                    class="sidebar__brand__title"
+                    title="Volver al inicio"
+                >
+                    <img
+                        src="{% static 'core/img/logoNegro.png' %}"
+                        alt="{{ site_header }}"
+                        class="sidebar__brand__logo"
+                    />
+                </a>
+                <iconify-icon
+                    class="hover"
+                    icon="fluent:pane-open-24-regular"
+                    width="2.1rem"
+                    title="Cerrar barra de navegación"
+                    @click="$store.sidebar.toggle()"
+                ></iconify-icon>
+            </section>
+
+            <!-- Search section -->
+            <section>
+                <input
+                    type="search"
+                    id="nav-filter"
+                    placeholder="Empiece a escribir para filtrar…"
+                    aria-label="Filtrar elementos de navegación"
+                    x-model="query"
+                >
+            </section>
 
 
-        <!-- Appslist section -->
-        <section class="sidebar__nav--wrapper">
-            {% include 'admin/app_list.html' with app_list=available_apps show_changelinks=False %}
-        </section>
-    </article>
+            <!-- Appslist section -->
+            <section class="sidebar__nav--wrapper">
+                {% include 'admin/app_list.html' with app_list=available_apps show_changelinks=False %}
+            </section>
+        </article>
 
-    <!-- Profile section -->
-    <article class="sidebar__profile">
+        <!-- Profile section -->
+        <article
+            class="sidebar__profile"
+            x-data="{ open: $persist(false).using(sessionStorage) }"
+            x-bind:class="{'sidebar__profile--show': open}"
+        >
 
-        {% if has_permission %}
+            {% if has_permission %}
 
-        <!-- Sumarry header -->
-        {% with user.get_short_name|default:user.get_username|lower as name %}
-
-        <header class="sidebar__profile__header">
-            <iconify-icon
-                icon="tabler:circle-letter-{{ name|slice:':1'}}-filled"
-                width="2.5rem"
-                x-data
-                :style="'color: ' + getNameColor({{name|slice:':1'}})"
-            ></iconify-icon>
-            <div class="sidebar__profile__header__userInfo">
+            <!-- Sumarry header -->
+            {% with user.get_short_name|default:user.get_username|lower as name %}
+            <header class="sidebar__profile__header">
+                <iconify-icon
+                    icon="tabler:circle-letter-{{ name|slice:':1'}}-filled"
+                    width="2.5rem"
+                    :style="'color: ' + getNameColor({{name|slice:':1'}})"
+                ></iconify-icon>
                 <strong>{{name}}</strong>
-                <p>
+                <span>
                     {% if user.is_staff and user.is_superuser %}
                     Admin
                     {% elif user.groups.exists %}
                     {{ user.groups.first.name }}
                     {% endif %}
-                <p>
-            </div>
-        </header>
-        {% endwith %}
+                </span>
+                <iconify-icon
+                    width="1.4rem"
+                    icon="fluent:caret-up-20-filled"
+                    class="hover"
+                    @click="open = !open"
+                ></iconify-icon>
+            </header>
+            {% endwith %}
 
-        <!-- Shop url -->
-        {% if site_url %}
-        <a href="{{ site_url }}">Ir a la tienda</a> /
-        {% endif %}
+            <section
+                class="sidebar__profile__content"
+                x-show="open"
+                x-collapse.duration.200ms
+            >
+                <hr />
 
-        <!-- Change password -->
-        {% if user.has_usable_password %}
-        <a href="{% url 'admin:password_change' %}">Cambiar contraseña</a> /
-        {% endif %}
+                <div class="sidebar__profile__content__wrapper">
 
-        <!-- Logout -->
-        <form
-            id="logout-form"
-            method="post"
-            action="{% url 'admin:logout' %}"
-        >
-            {% csrf_token %}
-            <button type="submit">Cerrar sesión</button>
-        </form>
+                    <!-- Shop url -->
+                    {% if site_url %}
+                    <a href="{{ site_url }}">
+                        <iconify-icon
+                            icon="circum:shop"
+                            width="1.3rem"
+                        ></iconify-icon>
+                        Ir a la tienda
+                    </a>
+                    {% endif %}
 
-        {% endif %}
-    </article>
+                    <!-- Change password -->
+                    {% if user.has_usable_password %}
+                    <a href="{% url 'admin:password_change' %}">
+                        <iconify-icon
+                            icon="material-symbols:password"
+                            width="1.3rem"
+                        ></iconify-icon>
+                        Cambiar contraseña
+                    </a>
+                    {% endif %}
+
+                    <!-- Logout -->
+                    <form
+                        id="logout-form"
+                        method="post"
+                        action="{% url 'admin:logout' %}"
+                    >
+                        {% csrf_token %}
+                        <iconify-icon
+                            icon="material-symbols:logout"
+                            width="1.3rem"
+                        ></iconify-icon>
+                        <button type="submit">Cerrar sesión</button>
+                    </form>
+                </div>
+            </section>
+
+            {% endif %}
+        </article>
+    </div>
+</aside>
+
+<aside
+    class="sidebar--mini"
+    x-show="!$store.sidebar.show"
+    x-transition.opacity
+    x-data
+>
+    <div class="sidebar__brand sidebar__brand__logo">
+
+        <iconify-icon
+            class="hover"
+            icon="fluent:pane-close-24-regular"
+            width="2.1rem"
+            title="Abrir barra de navegación"
+            @click="$store.sidebar.toggle()"
+        ></iconify-icon>
+    </div>
 </aside>

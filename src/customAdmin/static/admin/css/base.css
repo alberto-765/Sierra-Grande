@@ -1,100 +1,25 @@
-/*
-    DJANGO Admin styles
-*/
+@import url('variables.css');
 
-html[data-theme='light'],
-html[data-theme='dark'],
-:root {
-	--primary: #072964;
-	--secondary: #ffffff;
-	--accent: #363636;
-	--tertiary: #0049d5;
-	--primary-fg: #000000;
-
-	--body-fg: #333;
-	--body-bg: #fff;
-	--body-quiet-color: #666;
-	--body-medium-color: #444;
-	--body-loud-color: #000;
-
-	--breadcrumbs-bg: var(--secondary);
-	--breadcrumbs-fg: #2b2b2b;
-	--breadcrumbs-link-fg: #2b2b2bb7;
-
-	--link-fg: var(--primary);
-	--link-hover-color: #0242a4;
-	--link-selected-fg: var(--secondary);
-
-	--hairline-color: #e8e8e8;
-	--border-color: #ccc;
-
-	--error-fg: #ba2121;
-
-	--message-success-bg: #dfd;
-	--message-warning-bg: #ffc;
-	--message-error-bg: #ffefef;
-
-	--darkened-bg: #f8f8f8; /* A bit darker than --body-bg */
-	--selected-bg: #e4e4e4; /* E.g. selected table cells */
-	--selected-row: #ffc;
-
-	--button-bg: var(--primary);
-	--button-hover-bg: var(--tertiary);
-	--button-bg: var(--secondary);
-	--default-button-hover-bg: var(--tertiary);
-	--default-button-bg: var(--primary);
-	--close-button-bg: #747474;
-	--close-button-hover-bg: #333;
-	--delete-button-bg: #ba2121;
-	--delete-button-hover-bg: #a41515;
-
-	--object-tools-fg: var(--button-fg);
-	--object-tools-bg: var(--close-button-bg);
-	--object-tools-hover-bg: var(--close-button-hover-bg);
-
-	--box-shadow: rgba(149, 157, 165, 0.15) 0px 3px 10px;
-}
-
-html {
-	color-scheme: light;
-	font-size: 16px;
-}
-
-body {
-	font-family: 'Inter', Roboto;
-	display: flex;
-	height: 100vh;
-	background-color: white;
-	color: var(--primary-fg);
+[x-cloak] {
+	display: none !important;
 }
 
 /* LINKS */
-
-a:link,
-a:visited {
-	color: var(--link-fg);
+a {
 	text-decoration: none;
 	transition: color 0.15s, background 0.15s;
 }
-
-a:focus,
-a:hover {
-	color: var(--link-hover-color);
+a:is(:link, :visited) {
+	color: var(--link-fg);
 }
 
-a:focus {
-	text-decoration: underline;
+a:is(:focus, a:hover) {
+	color: var(--link-hover-color);
 }
 
 a.section:link,
 a.section:visited {
 	color: var(--header-link-color);
-	text-decoration: none;
-}
-
-a.section:focus,
-a.section:hover {
-	text-decoration: underline;
 }
 
 /* TEXT STYLES & MODIFIERS */
@@ -336,7 +261,7 @@ form .button {
 	vertical-align: middle;
 	font-family: var(--font-family-primary);
 	font-weight: normal;
-	font-size: 0.8125rem;
+	font-size: 1rem;
 }
 .form-row div.help {
 	padding: 2px 3px;
@@ -357,15 +282,17 @@ input[type='email'],
 input[type='url'],
 input[type='number'],
 input[type='tel'],
+input[type='search'],
 textarea,
 select,
 .vTextField {
 	border: 1px solid var(--border-color);
-	border-radius: 4px;
+	border-radius: var(--border-radius-sm);
 	padding: 5px 6px;
 	margin-top: 0;
 	color: var(--body-fg);
 	background-color: var(--body-bg);
+	outline: none;
 }
 
 /*
@@ -379,6 +306,7 @@ input[type='email']:focus,
 input[type='url']:focus,
 input[type='number']:focus,
 input[type='tel']:focus,
+input[type='search']:focus,
 textarea:focus,
 select:focus,
 .vTextField:focus {
@@ -405,10 +333,11 @@ a.button {
 	background: var(--button-bg);
 	padding: 10px 15px;
 	border: none;
-	border-radius: 4px;
+	border-radius: var(--border-radius-sm);
 	color: var(--button-fg);
 	cursor: pointer;
-	transition: background 0.15s;
+	transition-duration: 0.15s;
+	transition-property: background, color;
 }
 
 a.button {
@@ -425,6 +354,8 @@ input[type='button']:focus,
 input[type='submit']:hover,
 input[type='button']:hover {
 	background: var(--button-hover-bg);
+	color: var(--button-hover-fg);
+	outline: 1px solid var(--button-hover-fg);
 }
 
 .button[disabled],
@@ -550,7 +481,7 @@ ul.messagelist li.error {
 	margin: 0 0 10px 0;
 	color: var(--error-fg);
 	border: 1px solid var(--error-fg);
-	border-radius: 4px;
+	border-radius: var(--border-radius-sm);
 	background-color: var(--body-bg);
 	background-position: 5px 12px;
 	overflow-wrap: break-word;
@@ -644,11 +575,6 @@ div.breadcrumbs a:hover {
 	background: url(../img/icon-hidelink.svg) 0 1px no-repeat;
 }
 
-.addlink {
-	padding-left: 16px;
-	background: url(../img/icon-addlink.svg) 0 1px no-repeat;
-}
-
 .changelink,
 .inlinechangelink {
 	padding-left: 16px;
@@ -674,49 +600,46 @@ a.deletelink:hover {
 /* OBJECT TOOLS */
 
 .object-tools {
-	font-size: 0.625rem;
-	font-weight: bold;
-	padding-left: 0;
-	float: right;
-	position: relative;
-	margin-top: -48px;
+	display: inline;
+	padding: 0;
+	margin: 0;
 }
 
 .object-tools li {
 	display: block;
-	float: left;
-	margin-left: 5px;
-	height: 1rem;
 }
 
 .object-tools a {
-	border-radius: 15px;
+	border-radius: var(--border-radius-md);
 }
 
-.object-tools a:link,
-.object-tools a:visited {
-	display: block;
-	float: left;
-	padding: 3px 12px;
-	background: var(--object-tools-bg);
-	color: var(--object-tools-fg);
+.object-tools a:is(:link, :visited) {
+	display: inline-flex;
+	padding: 0.5rem;
 	font-weight: 400;
-	font-size: 0.6875rem;
-	text-transform: uppercase;
+	text-transform: capitalize;
 	letter-spacing: 0.5px;
+	transition-duration: 0.25s;
+	transition-timing-function: ease-in;
+	transition-property: background;
+	background: var(--button-hover-bg);
+	color: rgba(var(--success));
+	border: 1px solid rgba(var(--success));
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
 }
 
 .object-tools a:focus,
 .object-tools a:hover {
-	background-color: var(--object-tools-hover-bg);
+	background: rgba(var(--success), 0.05);
 }
 
 .object-tools a:focus {
 	text-decoration: none;
 }
 
-.object-tools a.viewsitelink,
-.object-tools a.addlink {
+.object-tools a.viewsitelink {
 	background-repeat: no-repeat;
 	background-position: right 7px center;
 	padding-right: 26px;
@@ -724,10 +647,6 @@ a.deletelink:hover {
 
 .object-tools a.viewsitelink {
 	background-image: url(../img/tooltag-arrowright.svg);
-}
-
-.object-tools a.addlink {
-	background-image: url(../img/tooltag-add.svg);
 }
 
 /* OBJECT HISTORY */
@@ -749,24 +668,6 @@ a.deletelink:hover {
 
 /* PAGE STRUCTURE */
 
-#container {
-	position: relative;
-	flex-grow: 1;
-	padding: 0;
-	display: flex;
-	flex-direction: column;
-	height: 100%;
-}
-
-#container > main {
-	outline: none;
-}
-
-main > #content {
-	flex: 1 0;
-	max-width: 100%;
-}
-
 .skip-to-content-link {
 	position: absolute;
 	top: -999px;
@@ -786,7 +687,6 @@ main > #content {
 }
 
 #content-main {
-	float: left;
 	width: 100%;
 }
 
@@ -795,12 +695,6 @@ main > #content {
 	width: 260px;
 	position: relative;
 	margin-right: -300px;
-}
-
-@media (forced-colors: active) {
-	#content-related {
-		border: 1px solid;
-	}
 }
 
 /* COLUMN TYPES */
@@ -835,40 +729,13 @@ main > #content {
 	text-decoration: none;
 }
 
-#logout-form {
-	display: inline;
-}
-
 #logout-form button {
 	background: none;
 	border: 0;
 	cursor: pointer;
 	font-family: var(--font-family-primary);
-}
-
-#logout-form button {
 	padding: 0;
-	font-weight: 300;
-	font-size: 0.6875rem;
-	letter-spacing: 0.5px;
-	text-transform: uppercase;
 }
-
-#logout-form button {
-	border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-}
-
-#logout-form button:active,
-#logout-form button:hover {
-	text-decoration: none;
-	border-bottom: 0;
-}
-
-#logout-form button:active,
-#logout-form button:hover {
-	margin-bottom: 1px;
-}
-
 /* SIDEBAR */
 
 #content-related {
@@ -916,7 +783,7 @@ main > #content {
 
 .delete-confirmation form input[type='submit'] {
 	background: var(--delete-button-bg);
-	border-radius: 4px;
+	border-radius: var(--border-radius-sm);
 	padding: 10px 15px;
 	color: var(--button-fg);
 }
@@ -932,7 +799,7 @@ main > #content {
 	vertical-align: middle;
 	height: 0.9375rem;
 	line-height: 0.9375rem;
-	border-radius: 4px;
+	border-radius: var(--border-radius-sm);
 	padding: 10px 15px;
 	color: var(--button-fg);
 	background: var(--close-button-bg);
@@ -1031,14 +898,6 @@ main > #content {
 	background-color: var(--body-bg);
 }
 
-/* Login */
-.login {
-	height: fit-content !important;
-	align-content: top;
-}
-
-.login #container {
-	width: auto !important;
-	max-width: 24% !important;
-	margin: 25vh auto !important;
+.hover {
+	cursor: pointer;
 }

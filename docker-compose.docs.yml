@@ -1,0 +1,16 @@
+services:
+  docs:
+    image: sierra_grande_local_docs
+    container_name: sierra_grande_local_docs
+    build:
+      context: .
+      dockerfile: ./compose/local/docs/Dockerfile
+    env_file:
+      - ./.envs/.local/.django
+    volumes:
+      - ./docs:/docs:z
+      - ./config:/app/config:z
+      - ./sierra_grande:/app/sierra_grande:z
+    ports:
+      - '9000:9000'
+    command: /start-docs

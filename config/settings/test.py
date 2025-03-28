@@ -24,11 +24,14 @@ PASSWORD_HASHERS = ["django.contrib.auth.hashers.MD5PasswordHasher"]
 # EMAIL
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
+# Uses Django’s in-memory email backend, which does not send actual emails.
+# Instead, emails are stored in django.core.mail.outbox, which can be checked in tests.
 EMAIL_BACKEND = "django.core.mail.backends.locmem.EmailBackend"
 
 # DEBUGGING FOR TEMPLATES
 # ------------------------------------------------------------------------------
-TEMPLATES[0]["OPTIONS"]["debug"] = True  # type: ignore[index]
+# Enables template debugging so errors in test templates are easier to trace.
+TEMPLATES[0]["OPTIONS"]["debug"] = True 
 
 # MEDIA
 # ------------------------------------------------------------------------------

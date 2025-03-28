@@ -8,11 +8,17 @@ from .base import env
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#debug
 DEBUG = True
+
 # https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
+#  Is a critical security setting in Django. It is used for:
+#   1. Cryptographic signing – Ensures the integrity of data such as cookies, sessions, and CSRF tokens.
+#   2. Hashing passwords – Used in password encryption and other security-related tasks.
+#   3. Preventing attacks – If exposed, attackers could forge cookies or session data.
 SECRET_KEY = env(
     "DJANGO_SECRET_KEY",
     default="rscaQ9baaGpSTmzsrYBPEKHDggdx5vO6W8EqA0IkLS9vVlPIQtvg9X1Jp76ICtZr",
 )
+
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1"]  # noqa: S104
 
@@ -49,8 +55,14 @@ DEBUG_TOOLBAR_CONFIG = {
     ],
     "SHOW_TEMPLATE_CONTEXT": True,
 }
+
 # https://django-debug-toolbar.readthedocs.io/en/latest/installation.html#internal-ips
+# INTERNAL_IPS is a Django setting that specifies which IP addresses are considered "internal" for debugging purposes.
+# 127.0.0.1 → Localhost (your own computer).
+# 10.0.2.2 → Used by Android Emulators (like in VirtualBox or Genymotion).
 INTERNAL_IPS = ["127.0.0.1", "10.0.2.2"]
+
+# Get ips of docker for debugging tools
 if env("USE_DOCKER") == "yes":
     import socket
 
@@ -65,6 +77,7 @@ INSTALLED_APPS += ["django_extensions"]
 # ------------------------------------------------------------------------------
 
 # https://docs.celeryq.dev/en/stable/userguide/configuration.html#task-eager-propagates
+# CELERY_TASK_EAGER_PROPAGATES = True is a Celery setting that determines whether exceptions in eagerly executed tasks should propagate.
 CELERY_TASK_EAGER_PROPAGATES = True
 # Your stuff...
 # ------------------------------------------------------------------------------

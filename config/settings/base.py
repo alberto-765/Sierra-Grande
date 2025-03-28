@@ -56,6 +56,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # URLS
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#root-urlconf
+# This tells Django where to find the URL configuration for the project
 ROOT_URLCONF = "config.urls"
 # https://docs.djangoproject.com/en/dev/ref/settings/#wsgi-application
 WSGI_APPLICATION = "config.wsgi.application"
@@ -87,6 +88,7 @@ LOCAL_APPS = [
     "sierra_grande.users",
     # Your stuff: custom apps go here
 ]
+
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -147,15 +149,21 @@ MIDDLEWARE = [
 # STATIC
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#static-root
+# The absolute path to the directory where collectstatic will collect static files for deployment.
 STATIC_ROOT = str(BASE_DIR / "staticfiles")
+
 # https://docs.djangoproject.com/en/dev/ref/settings/#static-url
+# Sets the base URL for serving static files.
 STATIC_URL = "/static/"
+
 # https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#std:setting-STATICFILES_DIRS
+# Specifies additional directories to look for static files before collecting them into STATIC_ROOT
 STATICFILES_DIRS = [str(APPS_DIR / "static")]
+
 # https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#staticfiles-finders
 STATICFILES_FINDERS = [
-    "django.contrib.staticfiles.finders.FileSystemFinder",
-    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+    "django.contrib.staticfiles.finders.FileSystemFinder", # Looks for files in the STATICFILES_DIRS setting
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder", # Looks for files in the static subdirectory of each app
 ]
 
 # MEDIA
@@ -227,7 +235,7 @@ EMAIL_TIMEOUT = 5
 # ADMIN
 # ------------------------------------------------------------------------------
 # Django Admin URL.
-ADMIN_URL = "admin/"
+ADMIN_URL = env("ADMIN_URL")
 # https://docs.djangoproject.com/en/dev/ref/settings/#admins
 ADMINS = [("""Alberto Mimbrero Gutiérrez""", "devs.alb@pm.me")]
 # https://docs.djangoproject.com/en/dev/ref/settings/#managers

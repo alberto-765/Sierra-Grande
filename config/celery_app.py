@@ -17,6 +17,10 @@ app.config_from_object("django.conf:settings", namespace="CELERY")
 
 @setup_logging.connect
 def config_loggers(*args, **kwargs):
+    """
+    Ensures Celery uses Django’s logging configuration.
+    Without this, Celery might not log errors properly, making debugging difficult.
+    """
     from logging.config import dictConfig
 
     from django.conf import settings

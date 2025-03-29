@@ -40,7 +40,6 @@ SITE_ID = 1
 USE_I18N = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#use-tz
 USE_TZ = True
-USE_L10N = True
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#locale-paths
 LOCALE_PATHS = [str(BASE_DIR / "locale")]
@@ -162,8 +161,8 @@ STATICFILES_DIRS = [str(APPS_DIR / "static")]
 
 # https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#staticfiles-finders
 STATICFILES_FINDERS = [
-    "django.contrib.staticfiles.finders.FileSystemFinder", # Looks for files in the STATICFILES_DIRS setting
-    "django.contrib.staticfiles.finders.AppDirectoriesFinder", # Looks for files in the static subdirectory of each app
+    "django.contrib.staticfiles.finders.FileSystemFinder",  # Looks for files in the STATICFILES_DIRS setting
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",  # Looks for files in the static subdirectory of each app
 ]
 
 # MEDIA
@@ -310,25 +309,36 @@ CELERY_WORKER_SEND_TASK_EVENTS = True
 CELERY_TASK_SEND_SENT_EVENT = True
 # https://docs.celeryq.dev/en/stable/userguide/configuration.html#worker-hijack-root-logger
 CELERY_WORKER_HIJACK_ROOT_LOGGER = False
+
+
 # django-allauth
 # ------------------------------------------------------------------------------
 ACCOUNT_ALLOW_REGISTRATION = env.bool("DJANGO_ACCOUNT_ALLOW_REGISTRATION", True)
+
 # https://docs.allauth.org/en/latest/account/configuration.html
 ACCOUNT_LOGIN_METHODS = {"email"}
+
 # https://docs.allauth.org/en/latest/account/configuration.html
 ACCOUNT_SIGNUP_FIELDS = ["email*", "password1*", "password2*"]
+
 # https://docs.allauth.org/en/latest/account/configuration.html
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+
 # https://docs.allauth.org/en/latest/account/configuration.html
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+
 # https://docs.allauth.org/en/latest/account/configuration.html
 ACCOUNT_ADAPTER = "sierra_grande.users.adapters.AccountAdapter"
+
 # https://docs.allauth.org/en/latest/account/forms.html
 ACCOUNT_FORMS = {"signup": "sierra_grande.users.forms.UserSignupForm"}
+
 # https://docs.allauth.org/en/latest/socialaccount/configuration.html
 SOCIALACCOUNT_ADAPTER = "sierra_grande.users.adapters.SocialAccountAdapter"
+
 # https://docs.allauth.org/en/latest/socialaccount/configuration.html
 SOCIALACCOUNT_FORMS = {"signup": "sierra_grande.users.forms.UserSocialSignupForm"}
+
 # django-compressor
 # ------------------------------------------------------------------------------
 # https://django-compressor.readthedocs.io/en/latest/quickstart/#installation

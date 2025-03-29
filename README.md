@@ -9,7 +9,9 @@ Ecommerce proyect for Business Sierra Grande de Hornachos
 
 Moved to [settings](https://cookiecutter-django.readthedocs.io/en/latest/1-getting-started/settings.html).
 
-## Basic Commands
+## Build
+
+Running locally with docker [documentation](https://cookiecutter-django.readthedocs.io/en/latest/2-local-development/developing-locally-docker.html)
 
 ### Setting Up Your Users
 

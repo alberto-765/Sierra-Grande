@@ -7,12 +7,12 @@ env:
 
 on:
   pull_request:
-    branches: ['master', 'main']
-    paths-ignore: ['docs/**']
+    branches: ["master", "main"]
+    paths-ignore: ["docs/**"]
 
   push:
-    branches: ['master', 'main']
-    paths-ignore: ['docs/**']
+    branches: ["master", "main"]
+    paths-ignore: ["docs/**"]
 
 concurrency:
   group: ${{ github.head_ref || github.run_id }}
@@ -28,7 +28,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version-file: '.python-version'
+          python-version-file: ".python-version"
       - name: Run pre-commit
         uses: pre-commit/action@v3.0.1
 
@@ -57,3 +57,18 @@ jobs:
 
       - name: Tear down the Stack
         run: docker compose -f docker-compose.local.yml down
+
+  # Check variables types
+  mypy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: ".python-version"
+
+      - name: Run mypy
+        uses: mypy sierra_grande

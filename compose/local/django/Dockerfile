@@ -20,6 +20,8 @@ COPY ./requirements .
 RUN pip wheel --wheel-dir /usr/src/app/wheels  \
   -r ${BUILD_ENVIRONMENT}.txt
 
+# Install Debugpy
+RUN pip install debugpy
 
 # Python 'run' stage
 FROM python AS python-run-stage

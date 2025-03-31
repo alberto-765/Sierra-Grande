@@ -95,3 +95,11 @@ The following details how to deploy this application.
 ### Docker
 
 See detailed [cookiecutter-django Docker documentation](https://cookiecutter-django.readthedocs.io/en/latest/3-deployment/deployment-with-docker.html).
+
+## Development
+
+### URLs
+
+- [Django](http://localhost:8000/)
+- [Flower Dashboard](http://localhost:5555/)
+- [Mailpit](http://localhost:8025/)

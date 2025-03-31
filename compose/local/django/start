@@ -6,4 +6,5 @@ set -o nounset
 
 
 python manage.py migrate
-exec uvicorn config.asgi:application --host 0.0.0.0 --reload --reload-include '*.html'
+python -m debugpy --listen 0.0.0.0:5678 --wait-for-client
+exec  uvicorn config.asgi:application --host 0.0.0.0 --reload --reload-include '*.html'

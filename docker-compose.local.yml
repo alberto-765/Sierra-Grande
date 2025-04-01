@@ -2,6 +2,7 @@ volumes:
   sierra_grande_local_postgres_data: {}
   sierra_grande_local_postgres_data_backups: {}
   sierra_grande_local_redis_data: {}
+  sierra_grande_local_solr_data:
 
 services:
   django: &django
@@ -14,14 +15,15 @@ services:
       - postgres
       - redis
       - mailpit
+      - solr
     volumes:
       - .:/app:z
     env_file:
       - ./.envs/.local/.django
       - ./.envs/.local/.postgres
     ports:
-      - '8000:8000'
       - "5678:5678"  # Puerto para debugpy
+      - '8000:8000'
     command: /start
 
   postgres:
@@ -49,6 +51,17 @@ services:
     volumes:
       - sierra_grande_local_redis_data:/data
 
+  solr:
+    build:
+      context: .
+      dockerfile: ./compose/local/solr/Dockerfile
+    image: sierra_grande_local_solr
+    container_name: sierra_grande_local_solr
+
+    ports:
+      - '8983:8983'
+    volumes:
+      - sierra_grande_local_solr_data:/var/solr
 
   celeryworker:
     <<: *django

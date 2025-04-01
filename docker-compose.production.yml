@@ -49,6 +49,19 @@ services:
     volumes:
       - production_redis_data:/data
 
+  solr:
+    build:
+      context: .
+      dockerfile: ./compose/local/solr/Dockerfile
+    image: sierra_grande_local_solr
+    container_name: sierra_grande_local_solr
+
+    ports:
+      - '8983:8983'
+    volumes:
+      - sierra_grande_local_solr_data:/var/solr
+
+
   celeryworker:
     <<: *django
     image: sierra_grande_production_celeryworker

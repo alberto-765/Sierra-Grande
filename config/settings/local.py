@@ -11,9 +11,9 @@ DEBUG = True
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
 #  Is a critical security setting in Django. It is used for:
-#   1. Cryptographic signing – Ensures the integrity of data such as cookies, sessions, and CSRF tokens.
-#   2. Hashing passwords – Used in password encryption and other security-related tasks.
-#   3. Preventing attacks – If exposed, attackers could forge cookies or session data.
+#   1. Cryptographic signing - Ensures the integrity of data such as cookies, sessions, and CSRF tokens.
+#   2. Hashing passwords - Used in password encryption and other security-related tasks.
+#   3. Preventing attacks . If exposed, attackers could forge cookies or session data.
 SECRET_KEY = env(
     "DJANGO_SECRET_KEY",
     default="rscaQ9baaGpSTmzsrYBPEKHDggdx5vO6W8EqA0IkLS9vVlPIQtvg9X1Jp76ICtZr",
@@ -79,5 +79,24 @@ INSTALLED_APPS += ["django_extensions"]
 # https://docs.celeryq.dev/en/stable/userguide/configuration.html#task-eager-propagates
 # CELERY_TASK_EAGER_PROPAGATES = True is a Celery setting that determines whether exceptions in eagerly executed tasks should propagate.
 CELERY_TASK_EAGER_PROPAGATES = True
-# Your stuff...
+
+
+# TEMPLATES
 # ------------------------------------------------------------------------------
+TEMPLATES[0]["OPTIONS"]["string_if_invalid"] = "INVALID EXPRESSION: %s"  # noqa: F405
+
+# Django-oscar
+# ------------------------------------------------------------------------------
+OSCAR_INITIAL_ORDER_STATUS = "Pending"
+OSCAR_INITIAL_LINE_STATUS = "Pending"
+OSCAR_ORDER_STATUS_PIPELINE = {
+    "Pending": (
+        "Being processed",
+        "Cancelled",
+    ),
+    "Being processed": (
+        "Processed",
+        "Cancelled",
+    ),
+    "Cancelled": (),
+}

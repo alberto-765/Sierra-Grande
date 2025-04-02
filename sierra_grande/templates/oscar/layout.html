@@ -1,0 +1,16 @@
+{% extends 'oscar/layout.html' %}
+
+{% load static %}
+{% load django_bootstrap5 %}
+
+{% block styles %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+
+    <!-- Oscar -->
+    <script src="{% static "oscar/js/oscar/ui.js" %}"></script>
+{% endblock %}

@@ -103,3 +103,7 @@ See detailed [cookiecutter-django Docker documentation](https://cookiecutter-dja
 - [Django](http://localhost:8000/)
 - [Flower Dashboard](http://localhost:5555/)
 - [Mailpit](http://localhost:8025/)
+
+## Django Oscar
+### Fill Countries Table
+python manage.py oscar_populate_countries --no-shipping

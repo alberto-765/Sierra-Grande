@@ -118,7 +118,7 @@ THIRD_PARTY_APPS = [
     "widget_tweaks",
     "haystack",
     "treebeard",
-    "sorl.thumbnail",  # Default thumbnail backend, can be replaced
+    "easy_thumbnails",  # Default thumbnail backend, can be replaced
     "django_tables2",
 ]
 
@@ -400,6 +400,8 @@ HAYSTACK_CONNECTIONS = {
         "URL": env("HAYSTACK_URL") + "/sandbox",
         "ADMIN_URL": env("HAYSTACK_URL") + "/admin/cores",
         "INCLUDE_SPELLING": True,  # Enable spelling suggestions
+        "TIMEOUT": 60 * 5,
+        "BATCH_SIZE": 10,
     },
 }
 

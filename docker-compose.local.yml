@@ -9,6 +9,8 @@ services:
     build:
       context: .
       dockerfile: ./compose/local/django/Dockerfile
+      args:
+        - RUN_ON_BUILD=true
     image: sierra_grande_local_django
     container_name: sierra_grande_local_django
     depends_on:
@@ -32,6 +34,8 @@ services:
       dockerfile: ./compose/production/postgres/Dockerfile
     image: sierra_grande_production_postgres
     container_name: sierra_grande_local_postgres
+    ports:
+      - '5432:5432'
     volumes:
       - sierra_grande_local_postgres_data:/var/lib/postgresql/data
       - sierra_grande_local_postgres_data_backups:/backups

@@ -4,8 +4,5 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
-
 python manage.py migrate
-python manage.py oscar_populate_countries
-python manage.py rebuild_index --noinput
 python -m debugpy --listen 0.0.0.0:5678 -m uvicorn config.asgi:application --host 0.0.0.0 --reload --reload-include '*.html'

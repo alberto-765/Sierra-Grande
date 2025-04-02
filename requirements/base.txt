@@ -34,3 +34,4 @@ django-phonenumber-field==6.4.0
 purl==1.6
 pycountry==24.6.1
 pysolr==3.10.0
+easy-thumbnails==2.10

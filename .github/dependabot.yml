@@ -5,7 +5,7 @@ updates:
     directory: '/'
     # Every weekday
     schedule:
-      interval: 'daily'
+      interval: 'weekly'
     groups:
       github-actions:
         patterns:
@@ -20,7 +20,7 @@ updates:
       - 'compose/production/django/'
     # Every weekday
     schedule:
-      interval: 'daily'
+      interval: 'weekly'
     # Ignore minor version updates (3.10 -> 3.11) but update patch versions
     ignore:
       - dependency-name: '*'
@@ -42,7 +42,7 @@ updates:
       - 'compose/production/traefik/'
     # Every weekday
     schedule:
-      interval: 'daily'
+      interval: 'weekly'
 
   # Enable version updates for Python/Pip - Production
   - package-ecosystem: 'pip'
@@ -51,7 +51,7 @@ updates:
     directory: '/'
     # Every weekday
     schedule:
-      interval: 'daily'
+      interval: 'weekly'
     groups:
       python:
         update-types:

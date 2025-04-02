@@ -5,7 +5,6 @@ FROM docker.io/python:3.12.9-slim-bookworm AS python
 FROM python AS python-build-stage
 
 ARG BUILD_ENVIRONMENT=local
-
 # Install apt packages
 RUN apt-get update && apt-get install --no-install-recommends -y \
   # dependencies for building Python packages
@@ -19,7 +18,6 @@ COPY ./requirements .
 # Create Python Dependency and Sub-Dependency Wheels.
 RUN pip wheel --wheel-dir /usr/src/app/wheels  \
   -r ${BUILD_ENVIRONMENT}.txt
-
 
 # Python 'run' stage
 FROM python AS python-run-stage

@@ -5,12 +5,15 @@
 
 {% block styles %}
     {% bootstrap_css %}
-    {% bootstrap_javascript %}
 {% endblock %}
 
-{% block scripts %}
+{% block cdn_scripts %}
     {{ block.super }}
+    {% bootstrap_javascript %}
+{% endblock cdn_scripts %}
 
+
+{% block scripts %}
     <!-- Oscar -->
     <script src="{% static "oscar/js/oscar/ui.js" %}"></script>
 {% endblock %}

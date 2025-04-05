@@ -12,8 +12,6 @@ urlpatterns = [
     path("i18n/", include("django.conf.urls.i18n")),
 ]
 urlpatterns += i18n_patterns(
-    # Django-oscar dashboard
-    path(settings.ADMIN_URL, admin.site.urls),
     # User management
     path("users/", include("sierra_grande.users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
@@ -27,6 +25,7 @@ if settings.DEBUG:
         settings.MEDIA_URL,
         document_root=settings.MEDIA_ROOT,
     )
+    urlpatterns += [path(settings.ADMIN_URL, admin.site.urls)]
 
 
 if settings.DEBUG:

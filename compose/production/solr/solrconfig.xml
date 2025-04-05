@@ -2,20 +2,20 @@
 <config>
   <!-- Standard config, just with some optimizations for Haystack -->
   <luceneMatchVersion>8.0.0</luceneMatchVersion>
-  
+
   <dataDir>${solr.data.dir:}</dataDir>
-  
+
   <directoryFactory name="DirectoryFactory"
                     class="${solr.directoryFactory:solr.NRTCachingDirectoryFactory}"/>
-  
+
   <codecFactory class="solr.SchemaCodecFactory"/>
   <schemaFactory class="ClassicIndexSchemaFactory"/>
-  
+
   <indexConfig>
     <lockType>${solr.lock.type:native}</lockType>
     <infoStream>false</infoStream>
   </indexConfig>
-  
+
   <!-- The default high-performance update handler -->
   <updateHandler class="solr.DirectUpdateHandler2">
     <updateLog>
@@ -29,7 +29,7 @@
       <maxTime>${solr.autoSoftCommit.maxTime:5000}</maxTime>
     </autoSoftCommit>
   </updateHandler>
-  
+
   <!-- Haystack specific query settings -->
   <query>
     <maxBooleanClauses>1024</maxBooleanClauses>
@@ -43,12 +43,12 @@
                      size="512"
                      initialSize="512"
                      autowarmCount="0"/>
-   
+
     <documentCache class="solr.LRUCache"
                   size="512"
                   initialSize="512"
                   autowarmCount="0"/>
-    
+
     <cache name="perSegFilter"
           class="solr.search.LRUCache"
           size="10"
@@ -70,7 +70,7 @@
       <int name="rows">10</int>
     </lst>
   </requestHandler>
-  
+
   <!-- Request handler for health checks -->
   <requestHandler name="/admin/ping" class="solr.PingRequestHandler">
     <lst name="invariants">

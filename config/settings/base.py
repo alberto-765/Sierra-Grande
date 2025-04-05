@@ -5,6 +5,7 @@ import ssl
 from pathlib import Path
 
 import environ
+from django.utils.translation import gettext_lazy as _
 from oscar.defaults import *  # noqa: F403
 
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
@@ -29,7 +30,6 @@ TIME_ZONE = "UTC"
 # https://docs.djangoproject.com/en/dev/ref/settings/#language-code
 LANGUAGE_CODE = "en-us"
 # https://docs.djangoproject.com/en/dev/ref/settings/#languages
-from django.utils.translation import gettext_lazy as _
 
 LANGUAGES = [
     ("en", _("English")),
@@ -410,23 +410,126 @@ HAYSTACK_CONNECTIONS = {
 
 # Django-oscar
 # ------------------------------------------------------------------------------
-OSCAR_SEARCH_FACETS = {
-    "fields": {
-        "category": {"name": "Category", "field": "category"},
-        "price": {"name": "Price", "field": "price"},
-        # Any other facets you want
+# Menu structure of the dashboard navigation
+OSCAR_DASHBOARD_NAVIGATION = [
+    {
+        "label": _("Dashboard"),
+        "icon": "f7:list-bullet",
+        "url_name": "dashboard:index",
     },
-    "queries": {
-        "price_range": {
-            "name": "Price range",
-            "field": "price",
-            "queries": [
-                # Define your price ranges
-                ("0_20", "0 to 20"),
-                ("20_40", "20 to 40"),
-                ("40_60", "40 to 60"),
-                ("60_", "More than 60"),
-            ],
-        },
+    {
+        "label": _("Catalogue"),
+        "icon": "fa-solid:sitemap",
+        "children": [
+            {
+                "label": _("Products"),
+                "url_name": "dashboard:catalogue-product-list",
+            },
+            {
+                "label": _("Product Types"),
+                "url_name": "dashboard:catalogue-class-list",
+            },
+            {
+                "label": _("Categories"),
+                "url_name": "dashboard:catalogue-category-list",
+            },
+            {
+                "label": _("Ranges"),
+                "url_name": "dashboard:range-list",
+            },
+            {
+                "label": _("Low stock alerts"),
+                "url_name": "dashboard:stock-alert-list",
+            },
+            {
+                "label": _("Options"),
+                "url_name": "dashboard:catalogue-option-list",
+            },
+            {
+                "label": _("Attribute Option Groups"),
+                "url_name": "dashboard:catalogue-attribute-option-group-list",
+            },
+        ],
     },
-}
+    {
+        "label": _("Fulfilment"),
+        "icon": "fa-solid:shopping-cart",
+        "children": [
+            {
+                "label": _("Orders"),
+                "url_name": "dashboard:order-list",
+            },
+            {
+                "label": _("Statistics"),
+                "url_name": "dashboard:order-stats",
+            },
+            {
+                "label": _("Partners"),
+                "url_name": "dashboard:partner-list",
+            },
+            # The shipping method dashboard is disabled by default as it might
+            # be confusing. Weight-based shipping methods aren't hooked into
+            # the shipping repository by default (as it would make
+            # customising the repository slightly more difficult).
+            # {
+            #     'label': _('Shipping charges'),
+            #     'url_name': 'dashboard:shipping-method-list',
+            # },
+        ],
+    },
+    {
+        "label": _("Customers"),
+        "icon": "fa-solid:users",
+        "children": [
+            {
+                "label": _("Customers"),
+                "url_name": "dashboard:users-index",
+            },
+            {
+                "label": _("Stock alert requests"),
+                "url_name": "dashboard:user-alert-list",
+            },
+        ],
+    },
+    {
+        "label": _("Offers"),
+        "icon": "fa-solid:bullhorn",
+        "children": [
+            {
+                "label": _("Offers"),
+                "url_name": "dashboard:offer-list",
+            },
+            {
+                "label": _("Vouchers"),
+                "url_name": "dashboard:voucher-list",
+            },
+            {
+                "label": _("Voucher Sets"),
+                "url_name": "dashboard:voucher-set-list",
+            },
+        ],
+    },
+    {
+        "label": _("Content"),
+        "icon": "fa-solid:folder",
+        "children": [
+            {
+                "label": _("Pages"),
+                "url_name": "dashboard:page-list",
+            },
+            {
+                "label": _("Email templates"),
+                "url_name": "dashboard:comms-list",
+            },
+            {
+                "label": _("Reviews"),
+                "url_name": "dashboard:reviews-list",
+            },
+        ],
+    },
+    {
+        "label": _("Reports"),
+        "icon": "fa-solid:chart-bar",
+        "url_name": "dashboard:reports-index",
+    },
+]

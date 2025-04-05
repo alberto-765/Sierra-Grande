@@ -1,0 +1,4 @@
+.navbar {
+  --bs-navbar-toggler-padding-y: none;
+  --bs-navbar-toggler-padding-x:none;
+}

@@ -8,7 +8,7 @@
     <fieldType name="long" class="solr.LongPointField" docValues="true"/>
     <fieldType name="double" class="solr.DoublePointField" docValues="true"/>
     <fieldType name="date" class="solr.DatePointField" docValues="true"/>
-    
+
     <fieldType name="text_general" class="solr.TextField" positionIncrementGap="100">
       <analyzer type="index">
         <tokenizer class="solr.StandardTokenizerFactory"/>
@@ -26,12 +26,12 @@
   <fields>
     <!-- Required by Solr -->
     <field name="_version_" type="long" indexed="true" stored="true"/>
-    
+
     <!-- Haystack ID -->
     <field name="id" type="string" indexed="true" stored="true" multiValued="false" required="true"/>
     <field name="django_ct" type="string" indexed="true" stored="true" multiValued="false"/>
     <field name="django_id" type="string" indexed="true" stored="true" multiValued="false"/>
-    
+
     <!-- Oscar Product fields -->
     <field name="text" type="text_general" indexed="true" stored="true" multiValued="false"/>
     <field name="title" type="text_general" indexed="true" stored="true" multiValued="false"/>
@@ -55,7 +55,7 @@
 
   <!-- SolrQueryParser configuration: defaultOperator="AND|OR" -->
   <solrQueryParser defaultOperator="AND"/>
-  
+
   <copyField source="title" dest="text"/>
   <copyField source="category" dest="text"/>
   <copyField source="description" dest="text"/>

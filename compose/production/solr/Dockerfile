@@ -16,4 +16,3 @@ RUN chown -R solr:solr /opt/solr/server/solr/configsets/oscar_config
 USER solr
 
 CMD ["solr-precreate", "oscar", "/opt/solr/server/solr/configsets/oscar_config"]
-

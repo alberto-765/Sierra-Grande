@@ -1,79 +1,83 @@
 {% load i18n %}
 
-<nav id="top_page" class="navbar navbar-expand-lg navbar-light bg-light accounts">
-    <div class="container">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".account-collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse account-collapse">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                {% if user.is_authenticated %}
-                {% block nav_account_navbar_authenticated %}
-                    <li class="nav-item me-2">
-                        {% if num_unread_notifications > 0 %}
-                            {# If user has new notifications - we change account link to go to inbox #}
-                            <a href="{% url 'customer:notifications-inbox' %}" class="nav-link mt-2 mt-lg-0">
-                                <iconify-icon icon="ph:sign-in-bold" width="256" height="256" class="me-2"></iconify-icon>
-                                {% trans "Account" %}
-                                <span class="badge bg-warning">{{ num_unread_notifications }}</span>
-                            </a>
-                        {% else %}
-                            <a href="{% url 'customer:summary' %}" class="nav-link mt-2 mt-lg-0">
-                                <iconify-icon icon="ph:sign-in-bold" width="256" height="256" class="me-2"></iconify-icon>
-                                <i class="far fa-user me-2"></i>
-                                {% trans "Account" %}
-                            </a>
-                        {% endif %}
-                    </li>
-                    {% if user.is_staff or perms.partner.dashboard_access %}
-                        <li class="nav-item me-2">
-                            <a href="{% url 'dashboard:index' %}" class="nav-link">
-                                <i class="fas fa-list-ul me-2"></i>
-                                {% trans "Dashboard" %}
-                            </a>
-                        </li>
-                    {% endif %}
-                    <li class="nav-item me-2">
-                        <a id="logout_link" href="{% url 'customer:logout' %}" class="nav-link">
-                            <i class="fas fa-sign-out-alt me-2"></i>
-                            {% trans "Logout" %}
-                        </a>
-                    </li>
-                {% endblock %}
-                {% else %}
-                    <li class="nav-item me-2">
-                        <a id="login_link" href="{% url 'customer:login' %}" class="nav-link">
-                            <i class="fas fa-sign-in-alt me-2"></i>
-                            {% trans "Login or register" %}
-                        </a>
-                    </li>
-                {% endif %}
-            </ul>
-            {% block nav_account_languages %}
-                {% if LANGUAGES|length > 1 %}
-                    <form id="language_selector" class="form-inline mb-0 mt-2 mt-lg-0" action="{% url 'set_language' %}" method="post">
-                        {% csrf_token %}
-                        <input name="next" type="hidden" value="{{ language_neutral_url_path }}" />
-                        <div class="form-group mb-0">
-                            <select name="language"  class="form-control" onchange="this.form.submit()">
-                            {% get_language_info_list for LANGUAGES as languages %}
-                            {% for language in languages %}
-                                <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE%} selected="selected"{% endif %}>
-                                    {{ language.name_local }}
-                                </option>
-                            {% endfor %}
-                            </select>
-                        </div>
-                        <button class="btn btn-outline-secondary ms-2" type="submit" data-loading-text="{% trans 'Submitting...' %}">{% trans "Go" %}</button>
-                    </form>
-                    {% endif %}
-                {% endblock %}
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
-        </div>
+<nav id="top_page" class="navbar navbar-expand-lg">
+  <div class="container-lg">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target=".account-collapse"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse account-collapse">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        {% if user.is_authenticated %}
+          {% block nav_account_navbar_authenticated %}
+            <li class="nav-item me-2">
+              {% if num_unread_notifications > 0 %}
+                {# If user has new notifications - we change account link to go to inbox #}
+                <a href="{% url 'customer:notifications-inbox' %}"
+                   class="nav-link mt-2 mt-lg-0">
+                  <iconify-icon icon="ph:sign-in-bold" width="256" height="256" class="me-2"></iconify-icon>
+                  {% trans "Account" %}
+                  <span class="badge bg-warning">{{ num_unread_notifications }}</span>
+                </a>
+              {% else %}
+                <a href="{% url 'customer:summary' %}" class="nav-link mt-2 mt-lg-0">
+                  <iconify-icon icon="ph:sign-in-bold" width="256" height="256" class="me-2"></iconify-icon>
+                  {% trans "Account" %}
+                </a>
+              {% endif %}
+            </li>
+            {% if user.is_staff or perms.partner.dashboard_access %}
+              <li class="nav-item me-2">
+                <a href="{% url 'dashboard:index' %}" class="nav-link">
+                  <i class="fas fa-list-ul me-2"></i>
+                  {% trans "Dashboard" %}
+                </a>
+              </li>
+            {% endif %}
+            <li class="nav-item me-2">
+              <a id="logout_link" href="{% url 'customer:logout' %}" class="nav-link">
+                <i class="fas fa-sign-out-alt me-2"></i>
+                {% trans "Logout" %}
+              </a>
+            </li>
+          {% endblock %}
+        {% else %}
+          <li class="nav-item me-2">
+            <a id="login_link" href="{% url 'customer:login' %}" class="nav-link">
+              <iconify-icon icon="ph:sign-in-bold" class="me-2"></iconify-icon>
+              {% trans "Login or register" %}
+            </a>
+          </li>
+        {% endif %}
+      </ul>
+      {% block nav_account_languages %}
+        {% if LANGUAGES|length > 1 %}
+          <form id="language_selector"
+                class="form-inline mb-0 mt-2 mt-lg-0"
+                action="{% url 'set_language' %}"
+                method="post">
+            {% csrf_token %}
+            <input name="next" type="hidden" value="{{ language_neutral_url_path }}" />
+            <div class="form-group mb-0">
+              <select name="language"  class="form-control" onchange="this.form.submit()">
+                {% get_language_info_list for LANGUAGES as languages %}
+                {% for language in languages %}
+                  <option value="{{ language.code }}"
+                          {% if language.code == LANGUAGE_CODE %}selected="selected"{% endif %}>
+                    {{ language.name_local }}
+                  </option>
+                {% endfor %}
+              </select>
+            </div>
+          </form>
+        {% endif %}
+      {% endblock %}
     </div>
+  </div>
 </nav>

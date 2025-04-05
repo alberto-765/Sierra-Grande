@@ -1,68 +1,79 @@
 {% extends 'oscar/dashboard/layout.html' %}
+
 {% load currency_filters %}
 {% load i18n %}
 {% load django_tables2 %}
 
-{% block body_class %}{{ block.super }} orders{% endblock %}
-
+{% block body_class %}
+  {{ block.super }} orders
+{% endblock body_class %}
 {% block title %}
-    {% trans "Order statistics" %} | {{ block.super }}
-{% endblock %}
-
+  {% trans "Order statistics" %} | {{ block.super }}
+{% endblock title %}
 {% block breadcrumbs %}
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a></li>
-            <li class="breadcrumb-item"><a href="{% url 'dashboard:order-list' %}">{% trans "Orders" %}</a></li>
-            <li class="breadcrumb-item active" aria-current="page">{% trans "Statistics" %}</li>
-        </ol>
-    </nav>
-{% endblock %}
-
-{% block headertext %}{{ title }}{% endblock %}
-
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
+      </li>
+      <li class="breadcrumb-item">
+        <a href="{% url 'dashboard:order-list' %}">{% trans "Orders" %}</a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">{% trans "Statistics" %}</li>
+    </ol>
+  </nav>
+{% endblock breadcrumbs %}
+{% block headertext %}
+  {{ title }}
+{% endblock headertext %}
+{% endblock headertext %}
 {% block dashboard_content %}
-    <div class="table-header">
-        <h3><i class="fas fa-filter"></i> {% trans "Filter" %}</h3>
-    </div>
-    <div class="card card-body bg-light">
-        <form method="get" action="{% url 'dashboard:order-stats' %}" class="form-inline">
-            {% include "oscar/dashboard/partials/form_fields_inline.html" with form=form %}
-            <button type="submit" class="btn btn-primary me-2" data-loading-text="{% trans 'Filtering...' %}">{% trans "Filter result" %}</button>
-            <a href="{% url 'dashboard:order-stats' %}" class="btn btn-secondary">{% trans "Reset" %}</a>
-        </form>
-    </div>
-
+  <div class="table-header">
+    <h3>
+      <i class="fas fa-filter"></i> {% trans "Filter" %}
+    </h3>
+  </div>
+  <div class="card card-body bg-light">
+    <form method="get"
+          action="{% url 'dashboard:order-stats' %}"
+          class="form-inline">
+      {% include "oscar/dashboard/partials/form_fields_inline.html" with form=form %}
+      <button type="submit"
+              class="btn btn-primary me-2"
+              data-loading-text="{% trans 'Filtering...' %}">{% trans "Filter result" %}</button>
+      <a href="{% url 'dashboard:order-stats' %}" class="btn btn-secondary">{% trans "Reset" %}</a>
+    </form>
+  </div>
+  <table class="table table-striped table-bordered table-hover">
+    <caption><i class="fas fa-shopping-cart"></i> {% trans "Summary" %}</caption>
+    <tr>
+      <th>{% trans "Total orders" %}</th>
+      <td>{{ total_orders }}</td>
+    </tr>
+    <tr>
+      <th>{% trans "Total lines" %}</th>
+      <td>{{ total_lines }}</td>
+    </tr>
+    <tr>
+      <th>{% trans "Total revenue" %}</th>
+      <td>{{ total_revenue|currency }}</td>
+    </tr>
+  </table>
+  {% if order_status_breakdown %}
     <table class="table table-striped table-bordered table-hover">
-        <caption><i class="fas fa-shopping-cart"></i> {% trans "Summary" %}</caption>
+      <caption><i class="fas fa-shopping-cart"></i> {% trans "Order status breakdown" %}</caption>
+      <tr>
+        <th>{% trans "Status" %}</th>
+        <th>{% trans "Frequency" %}</th>
+      </tr>
+      {% for dict in order_status_breakdown %}
         <tr>
-            <th>{% trans "Total orders" %}</th>
-            <td>{{ total_orders }}</td>
+          <td>
+            <a href="{% url 'dashboard:order-list' %}{% querystring 'status'=dict.status %}">{{ dict.status }}</a>
+          </td>
+          <td>{{ dict.freq }}</td>
         </tr>
-        <tr>
-            <th>{% trans "Total lines" %}</th>
-            <td>{{ total_lines }}</td>
-        </tr>
-        <tr>
-            <th>{% trans "Total revenue" %}</th>
-            <td>{{ total_revenue|currency }}</td>
-        </tr>
+      {% endfor %}
     </table>
-
-    {% if order_status_breakdown %}
-        <table class="table table-striped table-bordered table-hover">
-            <caption><i class="fas fa-shopping-cart"></i> {% trans "Order status breakdown" %}</caption>
-            <tr>
-                <th>{% trans "Status" %}</th>
-                <th>{% trans "Frequency" %}</th>
-            </tr>
-            {% for dict in order_status_breakdown %}
-                <tr>
-                    <td><a href="{% url 'dashboard:order-list' %}{% querystring 'status'=dict.status %}">{{ dict.status }}</a></td>
-                    <td>{{ dict.freq }}</td>
-                </tr>
-            {% endfor %}
-        </table>
-    {% endif %}
-
+  {% endif %}
 {% endblock dashboard_content %}

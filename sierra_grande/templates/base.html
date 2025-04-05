@@ -49,7 +49,7 @@
   <body class="{% block bodyclass %}{% endblock bodyclass %}">
     {% block body %}
       <div class="mb-1">
-        <nav class="navbar navbar-expand-md navbar-light bg-light">
+        <nav class="navbar navbar-expand-md">
           <div class="container-fluid">
             <button class="navbar-toggler navbar-toggler-right"
                     type="button"
@@ -66,8 +66,7 @@
                 <li class="nav-item active">
                   <a class="nav-link" href="{% url 'home' %}">Home <span class="visually-hidden">(current)</span></a>
                 </li>
-                <li class="nav-item">
-                </li>
+                <li class="nav-item"></li>
                 {% if request.user.is_authenticated %}
                   <li class="nav-item">
                     <a class="nav-link" href="{% url 'users:detail' request.user.pk %}">{% translate "My Profile" %}</a>

@@ -5,4 +5,15 @@ set -o pipefail
 set -o nounset
 
 python manage.py migrate
+
+# This script checks if the container is started for the first time.
+CONTAINER_FIRST_STARTUP="CONTAINER_FIRST_STARTUP"
+if [ ! -e /$CONTAINER_FIRST_STARTUP ]; then
+    echo "Executing commands first time the container is started"
+    touch /$CONTAINER_FIRST_STARTUP
+    pip install debugpy
+    python manage.py oscar_populate_countries --no-shipping || true
+    python manage.py rebuild_index --noinput
+fi
+
 python -m debugpy --listen 0.0.0.0:5678 -m uvicorn config.asgi:application --host 0.0.0.0 --reload --reload-include '*.html'

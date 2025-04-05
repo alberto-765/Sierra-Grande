@@ -3,7 +3,9 @@
 Ecommerce proyect for Business Sierra Grande de Hornachos
 
 [![Built with Cookiecutter Django](https://img.shields.io/badge/built%20with-Cookiecutter%20Django-ff69b4.svg?logo=cookiecutter)](https://github.com/cookiecutter/cookiecutter-django/)
-[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+[![Ruff](https:
+
+## Pre commit
 
 ## Settings
 
@@ -105,5 +107,9 @@ See detailed [cookiecutter-django Docker documentation](https://cookiecutter-dja
 - [Mailpit](http://localhost:8025/)
 
 ## Django Oscar
+
+### Sandbox
+https://latest.oscarcommerce.com/en-gb/catalogue/
+
 ### Fill Countries Table
 python manage.py oscar_populate_countries --no-shipping

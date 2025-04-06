@@ -25,40 +25,37 @@
   {{ title }}
 {% endblock headertext %}
 {% block dashboard_content %}
-  <form class="form-stacked wysiwyg fixed-actions"
-        method="post"
-        data-behaviour="tab-nav-errors">
+  <form method="post" data-behaviour="-errors">
     {% csrf_token %}
     <div class="row">
       {% block tab_nav %}
-        <div class="col-md-3">
-          <div class="tab-nav sticky-top">
-            <div class="table-header">
-              <h3>{% trans "Sections" %}</h3>
-            </div>
-            <ul class="nav flex-column bs-docs-sidenav" id="product_update_tabs">
-              {% block tabs %}
-                <li class="nav-item">
-                  <a class="nav-link active"
-                     href="#product_class_details"
-                     data-bs-toggle="tab">{% trans 'Product Class details' %}</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#product_attributes" data-bs-toggle="tab">{% trans 'Product attributes' %}</a>
-                </li>
-              {% endblock tabs %}
-            </ul>
+        <div class="col-auto">
+          <div class="list-group" role="tablist">
+            <a class="list-group-item list-group-item-action active"
+               id="product-detail"
+               data-bs-toggle="list"
+               href="#product-details-pane"
+               role="tab"
+               aria-controls="product-details-pane">{% trans 'Product Class details' %}</a>
+            <a class="list-group-item list-group-item-action"
+               id="product-attributes"
+               data-bs-toggle="list"
+               href="#product-attributes-pane"
+               role="tab"
+               aria-controls="product-attributes-pane">{% trans 'Product attributes' %}</a>
           </div>
         </div>
       {% endblock tab_nav %}
-      <div class="col-md-9">
-        <div class="tab-content">
-          {% block tab_content %}
+      {% block tab_content %}
+        <div class="col">
+          <div class="tab-content">
             {% block product_class_details %}
-              <div class="tab-pane active" id="product_class_details">
-                <div class="table-header">
-                  <h3>{% trans "Product Class details" %}</h3>
-                </div>
+              <div class="tab-pane show active"
+                   id="product-details-pane"
+                   role="tabpanel"
+                   aria-labelledby="product-detail"
+                   tabindex="0">
+                <h3>{% trans "Product Class details" %}</h3>
                 <div class="card card-body bg-light product-class-details">
                   {% comment %}
                                         If the ProductClass form has field_errors, partials/form_fields.html
@@ -82,8 +79,12 @@
               </div>
             {% endblock product_class_details %}
             {% block product_attributes %}
-              <div class="tab-pane" id="product_attributes">
-                <div class="table-header">
+              <div class="tab-pane"
+                   id="product-attributes-pane"
+                   role="tabpanel"
+                   aria-labelledby="product-attributes"
+                   tabindex="0">
+                <div>
                   <h3>{% trans "Product attributes" %}</h3>
                 </div>
                 <div class="product-attributes">
@@ -124,12 +125,12 @@
                 </div>
               </div>
             {% endblock product_attributes %}
-          {% endblock tab_content %}
+          </div>
         </div>
-      </div>
+      {% endblock tab_content %}
     </div>
     {% block fixed_actions_group %}
-      <div class="fixed-actions-group">
+      <div class="fixed-bottom">
         <div class="form-actions">
           <div class="float-end">
             <a href="#" onclick="window.history.go(-1);return false">{% trans "Cancel" %}</a>

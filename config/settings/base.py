@@ -103,11 +103,11 @@ THIRD_PARTY_APPS = [
     "oscar.apps.search.apps.SearchConfig",
     "oscar.apps.voucher.apps.VoucherConfig",
     "oscar.apps.wishlists.apps.WishlistsConfig",
-    "oscar.apps.dashboard.apps.DashboardConfig",
+    "sierra_grande.dashboard.apps.DashboardConfig",
     "oscar.apps.dashboard.reports.apps.ReportsDashboardConfig",
     "oscar.apps.dashboard.users.apps.UsersDashboardConfig",
     "oscar.apps.dashboard.orders.apps.OrdersDashboardConfig",
-    "oscar.apps.dashboard.catalogue.apps.CatalogueDashboardConfig",
+    "sierra_grande.dashboard.catalogue.apps.CatalogueDashboardConfig",
     "oscar.apps.dashboard.offers.apps.OffersDashboardConfig",
     "oscar.apps.dashboard.partners.apps.PartnersDashboardConfig",
     "oscar.apps.dashboard.pages.apps.PagesDashboardConfig",
@@ -285,9 +285,9 @@ EMAIL_TIMEOUT = 5
 # Django Admin URL.
 ADMIN_URL = "admin/"
 # https://docs.djangoproject.com/en/dev/ref/settings/#admins
-ADMINS = [("""Alberto Mimbrero Gutiérrez""", "devs.alb@pm.me")]
-# https://docs.djangoproject.com/en/dev/ref/settings/#managers
-MANAGERS = ADMINS
+# ADMINS = env("ADMINS")
+# # https://docs.djangoproject.com/en/dev/ref/settings/#managers
+# MANAGERS = ADMINS
 # https://cookiecutter-django.readthedocs.io/en/latest/settings.html#other-environment-settings
 # Force the `admin` sign in process to go through the `django-allauth` workflow
 DJANGO_ADMIN_FORCE_ALLAUTH = env.bool("DJANGO_ADMIN_FORCE_ALLAUTH", default=False)
@@ -414,7 +414,7 @@ HAYSTACK_CONNECTIONS = {
 OSCAR_DASHBOARD_NAVIGATION = [
     {
         "label": _("Dashboard"),
-        "icon": "f7:list-bullet",
+        "icon": "fluent:list-16-regular",
         "url_name": "dashboard:index",
     },
     {
@@ -529,7 +529,7 @@ OSCAR_DASHBOARD_NAVIGATION = [
     },
     {
         "label": _("Reports"),
-        "icon": "fa-solid:chart-bar",
+        "icon": "mdi:report-areaspline",
         "url_name": "dashboard:reports-index",
     },
 ]

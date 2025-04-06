@@ -25,7 +25,6 @@
 {% block headertext %}
   {{ title }}
 {% endblock headertext %}
-{% endblock headertext %}
 {% block dashboard_content %}
   <form action="{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}"
         method="post"

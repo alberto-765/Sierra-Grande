@@ -6,8 +6,10 @@
 {% block table.thead %}
   <caption>
     {% block table.caption %}
-      <h3 class="float-start">
-        {% if table.icon %}<i class="{{ table.icon }}"></i>{% endif %}
+      <h3 class="icon-link">
+        {% if table.icon %}
+          <iconify-icon icon="{{ table.icon }}" width="1rem" height="1rem" aria-hidden="true" inline></iconify-icon>
+        {% endif %}
         {{ table.get_caption_display }}
       </h3>
     {% endblock table.caption %}
@@ -16,7 +18,7 @@
     <tr>
       {% for column in table.columns %}
         {% if column.orderable %}
-        <th {{ column.attrs.th.as_html }}><a href="{% querystring table.prefixed_order_by_field=column.order_by_alias.next %}">{{ column.header }} <span></span></a>
+        <th {{ column.attrs.th.as_html }}><a href="{% querystring table.prefixed_order_by_field=column.order_by_alias.next %}">{{ column.header }}</a>
       </th>
     {% else %}
       <th {{ column.attrs.th.as_html }}>{{ column.header }}

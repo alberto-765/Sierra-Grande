@@ -1,46 +1,46 @@
-{% extends 'oscar/dashboard/layout.html' %}
+{% extends "oscar/dashboard/layout.html" %}
 
 {% load currency_filters %}
 {% load sorting_tags %}
 {% load i18n %}
 
-{% block title %}{{ voucher_set.name }} | {{ block.super }}{% endblock %}
+{% block title %}
+  {{ voucher_set.name }} | {{ block.super }}
+{% endblock title %}
 {% block breadcrumbs %}
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
+        <a href="{% url "dashboard:index" %}">{% trans "Dashboard" %}</a>
       </li>
       <li class="breadcrumb-item">
-        <a href="{% url 'dashboard:voucher-set-list' %}">{% trans "Voucher sets" %}</a>
+        <a href="{% url "dashboard:voucher-set-list" %}">{% trans "Voucher sets" %}</a>
       </li>
       <li class="breadcrumb-item active" aria-current="page">{{ voucher_set.name }}</li>
     </ol>
   </nav>
-{% endblock %}
+{% endblock breadcrumb %}
 {% block header %}
-  <div class="page-header">
-    <div class="float-end">
-      <a href="{% url 'dashboard:voucher-set-download' pk=voucher_set.pk %}"
-         class="btn btn-primary">
-        <i class="fas fa-download"></i> {% trans "Download CSV" %}
-      </a>
-    </div>
-    <h1>{% trans "Voucher set" %} '{{ voucher_set.name }}'</h1>
+  <div class="d-flex justify-content-between align-items-center">
+    <h2>{% trans "Voucher set" %} "{{ voucher_set.name }}"</h2>
+    <a href="{% url "dashboard:voucher-set-download" pk=voucher_set.pk %}"
+       class="btn btn-primary icon-link">
+      <iconify-icon icon="material-symbols:download" width="1rem" height="1rem" aria-hidden="true"></iconify-icon> {% trans "Download CSV" %}
+    </a>
   </div>
 {% endblock header %}
 {% block dashboard_content %}
   {% include "oscar/dashboard/vouchers/partials/voucher_set_details_table.html" %}
   <div class="table-header">
-    <h3>
-      <i class="fas fa-search"></i> {% trans "Search vouchers" %}
+    <h3 class="icon-link">
+      <iconify-icon icon="mdi:plus-circle" width="1rem" height="1rem" aria-hidden="true"></iconify-icon> {% trans "Search vouchers" %}
     </h3>
   </div>
   <div class="card card-body bg-light">
     <form method="get" class="form-inline">
-      {% include 'oscar/partials/form_fields_inline.html' with form=form %}
+      {% include "oscar/partials/form_fields_inline.html" with form=form %}
       <button type="submit" class="btn btn-primary">{% trans "Search" %}</button>
-      <a href="{% url 'dashboard:voucher-set-detail' pk=voucher_set.pk %}"
+      <a href="{% url "dashboard:voucher-set-detail" pk=voucher_set.pk %}"
          class="btn">{% trans "Reset" %}</a>
     </form>
     {% if search_filters %}
@@ -62,9 +62,9 @@
     {% if vouchers %}
       <tr>
         <th>{% trans "Code" %}</th>
-        <th>{% anchor 'num_basket_additions' _("Num baskets") %}</th>
-        <th>{% anchor 'num_orders' _("Num orders") %}</th>
-        <th>{% anchor 'date_created' _("Date created") %}</th>
+        <th>{% anchor "num_basket_additions" _("Num baskets") %}</th>
+        <th>{% anchor "num_orders" _("Num orders") %}</th>
+        <th>{% anchor "date_created" _("Date created") %}</th>
         <th></th>
       </tr>
       {% for voucher in vouchers %}
@@ -87,9 +87,9 @@
                 <div class="dropdown-menu dropdown-menu-end"
                      aria-labelledby="dropdownMenuButton">
                   <a class="dropdown-item"
-                     href="{% url 'dashboard:voucher-stats' pk=voucher.id %}">{% trans "Stats" %}</a>
+                     href="{% url "dashboard:voucher-stats" pk=voucher.id %}">{% trans "Stats" %}</a>
                   <a class="dropdown-item"
-                     href="{% url 'dashboard:voucher-delete' pk=voucher.id %}">{% trans "Delete" %}</a>
+                     href="{% url "dashboard:voucher-delete" pk=voucher.id %}">{% trans "Delete" %}</a>
                 </div>
               </div>
             </div>
@@ -124,7 +124,7 @@
         {% for offer in voucher_set.vouchers.first.offers.all %}
           <tr>
             <td>
-              <a href="{% url 'dashboard:offer-detail' pk=offer.pk %}">{{ offer.name }}</a>
+              <a href="{% url "dashboard:offer-detail" pk=offer.pk %}">{{ offer.name }}</a>
             </td>
             <td>{{ offer.start_datetime|default:"-" }}</td>
             <td>{{ offer.end_datetime|default:"-" }}</td>
@@ -159,9 +159,9 @@
   </table>
   <div class="form-actions">
     <a class="btn btn-primary"
-       href="{% url 'dashboard:voucher-set-update' pk=voucher_set.pk %}">{% trans "Edit" %}</a> {% trans "or" %}
+       href="{% url "dashboard:voucher-set-update" pk=voucher_set.pk %}">{% trans "Edit" %}</a> {% trans "or" %}
     <a class="btn btn-danger"
-       href="{% url 'dashboard:voucher-set-delete' pk=voucher_set.pk %}">{% trans "Delete" %}</a> {% trans "or" %}
-    <a href="{% url 'dashboard:voucher-set-list' %}">{% trans "cancel" %}</a>
+       href="{% url "dashboard:voucher-set-delete" pk=voucher_set.pk %}">{% trans "Delete" %}</a> {% trans "or" %}
+    <a href="{% url "dashboard:voucher-set-list" %}">{% trans "cancel" %}</a>
   </div>
 {% endblock dashboard_content %}

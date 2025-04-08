@@ -1,4 +1,4 @@
-{% extends 'oscar/dashboard/layout.html' %}
+{% extends "oscar/dashboard/layout.html" %}
 
 {% load sorting_tags %}
 {% load i18n %}
@@ -10,28 +10,28 @@
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
+        <a href="{% url "dashboard:index" %}">{% trans "Dashboard" %}</a>
       </li>
       <li class="breadcrumb-item active" aria-current="page">{% trans "Partners" %}</li>
     </ol>
   </nav>
 {% endblock breadcrumbs %}
 {% block header %}
-  <div class="page-header">
-    <a href="{% url 'dashboard:partner-create' %}"
-       class="btn btn-primary float-end"><i class="fas fa-plus-circle"></i> {% trans "Create new partner" %}</a>
-    <h1>{% trans "Partners" %}</h1>
+  <div class="d-flex justify-content-between align-items-center">
+    <h2>{% trans "Partners" %}</h2>
+    <a href="{% url "dashboard:partner-create" %}"
+       class="btn btn-primary icon-link"><iconify-icon icon="mdi:plus-circle" width="1rem" height="1rem" aria-hidden="true"></iconify-icon> {% trans "Create new partner" %}</a>
   </div>
 {% endblock header %}
 {% block dashboard_content %}
   <div class="card card-body bg-light">
     <form method="get" class="form-inline">
-      {% include 'oscar/dashboard/partials/form_fields_inline.html' with form=form %}
+      {% include "oscar/dashboard/partials/form_fields_inline.html" with form=form %}
       <button type="submit"
               class="btn btn-primary"
-              data-loading-text="{% trans 'Searching...' %}">{% trans "Search" %}</button>
+              data-loading-text="{% trans "Searching..." %}">{% trans "Search" %}</button>
       {% if is_filtered %}
-        <a class="btn btn-secondary" href="{% url 'dashboard:partner-list' %}">{% trans "Reset" %}</a>
+        <a class="btn btn-secondary" href="{% url "dashboard:partner-list" %}">{% trans "Reset" %}</a>
       {% endif %}
     </form>
   </div>
@@ -43,15 +43,15 @@
       </caption>
       {% if partners %}
         <tr>
-          <th>{% anchor 'name' _('Name') %}</th>
-          <th>{% trans 'Users' %}</th>
-          <th>{% trans 'Addresses' %}</th>
+          <th>{% anchor "name" _("Name") %}</th>
+          <th>{% trans "Users" %}</th>
+          <th>{% trans "Addresses" %}</th>
           <th>&nbsp;</th>
         </tr>
         {% for partner in partners %}
           <tr>
             <td>
-              <a href="{% url 'dashboard:partner-manage' pk=partner.pk %}">{{ partner.name }}</a>
+              <a href="{% url "dashboard:partner-manage" pk=partner.pk %}">{{ partner.name }}</a>
             </td>
             <td>
               {% with users=partner.users.all %}
@@ -59,7 +59,7 @@
                   <ul>
                     {% for user in users %}
                       <li>
-                        <a href="{% url 'dashboard:partner-user-update' partner_pk=partner.pk user_pk=user.id %}"
+                        <a href="{% url "dashboard:partner-user-update" partner_pk=partner.pk user_pk=user.id %}"
                            title="{% trans "Edit the user's details" %}">
                           {{ user.get_full_name|default:user.email }}
                         </a>
@@ -67,7 +67,7 @@
                     {% endfor %}
                   </ul>
                 {% else %}
-                  {% trans 'No users associated.' %}
+                  {% trans "No users associated." %}
                 {% endif %}
               {% endwith %}
             </td>
@@ -78,7 +78,7 @@
                     {% for address in addresses %}<li>{{ address.summary }}</li>{% endfor %}
                   </ul>
                 {% else %}
-                  {% trans 'No address associated.' %}
+                  {% trans "No address associated." %}
                 {% endif %}
               {% endwith %}
             </td>
@@ -94,17 +94,17 @@
                   <div class="dropdown-menu dropdown-menu-end"
                        aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item"
-                       href="{% url 'dashboard:partner-manage' pk=partner.pk %}">
+                       href="{% url "dashboard:partner-manage" pk=partner.pk %}">
                       {% trans "Manage partner and users" %}
                     </a>
                     <a class="dropdown-item"
-                       href="{% url 'dashboard:partner-delete' pk=partner.pk %}">{% trans "Delete partner" %}</a>
+                       href="{% url "dashboard:partner-delete" pk=partner.pk %}">{% trans "Delete partner" %}</a>
                     <a class="dropdown-item"
-                       href="{% url 'dashboard:partner-user-select' partner_pk=partner.pk %}">
+                       href="{% url "dashboard:partner-user-select" partner_pk=partner.pk %}">
                       {% trans "Link an existing user" %}
                     </a>
                     <a class="dropdown-item"
-                       href="{% url 'dashboard:partner-user-create' partner_pk=partner.pk %}">
+                       href="{% url "dashboard:partner-user-create" partner_pk=partner.pk %}">
                       {% trans "Link a new user" %}
                     </a>
                   </div>

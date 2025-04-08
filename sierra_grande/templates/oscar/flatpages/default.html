@@ -2,16 +2,18 @@
 
 {% load i18n %}
 
-{% block title %}{{ flatpage.title }} | {{ block.super }}{% endblock %}
+{% block title %}
+  {{ flatpage.title }} | {{ block.super }}
+{% endblock title %}
 {% block header %}
-  <div class="page-header">
+  <div class="d-flex justify-content-between align-items-center">
+    <h2>{{ flatpage.title }}</h2>
     {% if user.is_staff %}
-      <a class="float-end d-none d-md-block"
-         href="{% url 'dashboard:page-update' pk=flatpage.id %}"><small><i class="fas fa-pencil-alt"></i> {% trans "Edit this page" %}</small></a>
+      <a class="icon-link d-none d-md-block"
+         href="{% url "dashboard:page-update" pk=flatpage.id %}"><small><iconify-icon icon="fluent:edit-28-filled" width="1rem" height="1rem" aria-hidden="true"></iconify-icon> {% trans "Edit this page" %}</small></a>
     {% endif %}
-    <h1>{{ flatpage.title }}</h1>
   </div>
-{% endblock %}
+{% endblock header %}
 {% block breadcrumbs %}
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
@@ -21,5 +23,7 @@
       <li class="breadcrumb-item active" aria-current="page">{{ flatpage.title }}</li>
     </ol>
   </nav>
-{% endblock %}
-{% block content %}<article>{{ flatpage.content }}</article>{% endblock %}
+{% endblock breadcrumb %}
+{% block content %}
+  <article>{{ flatpage.content }}</article>
+{% endblock content %}

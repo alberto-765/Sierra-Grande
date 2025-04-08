@@ -1,4 +1,4 @@
-{% extends 'oscar/dashboard/layout.html' %}
+{% extends "oscar/dashboard/layout.html" %}
 
 {% load currency_filters %}
 {% load sorting_tags %}
@@ -15,33 +15,33 @@
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
+        <a href="{% url "dashboard:index" %}">{% trans "Dashboard" %}</a>
       </li>
       <li class="breadcrumb-item active" aria-current="page">{% trans "Orders" %}</li>
     </ol>
   </nav>
 {% endblock breadcrumbs %}
 {% block header %}
-  <div class="page-header">
-    <h1>{% trans "Orders" %}</h1>
+  <div>
+    <h2>{% trans "Orders" %}</h2>
   </div>
 {% endblock header %}
 {% block dashboard_content %}
   <div class="table-header">
-    <h3>
-      <i class="fas fa-search"></i> {% trans "Search" %}
-    </h3>
+    <h5 class="icon-link">
+      <iconify-icon icon="stash:search-light" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>{% trans "Search" %}
+    </h5>
   </div>
   <div class="card card-body bg-light">
     <form method="get" class="form-inline" id="search_form">
       {% for field in form %}
         {% if "order" in field.id_for_label %}
           {% if field.is_hidden %}
-            {% render_field field class+='form-control' %}
+            {% render_field field class+="form-control" %}
           {% else %}
             <div class="form-group me-2">
               {{ field.label_tag }}
-              {% render_field field class+='form-control' %}
+              {% render_field field class+="form-control" %}
               {% for error in field.errors %}
                 <ul class="error-block">
                   <li>{{ error }}</li>
@@ -57,7 +57,7 @@
       <a data-bs-toggle="modal" data-bs-target="#SearchModal" href="#">{% trans "Advanced Search" %}</a>
     </form>
     {# Search modal, if there are form errors the form is automatically openend #}
-    {% include "oscar/dashboard/partials/advanced_search_modal.html" with form=form style='horizontal' %}
+    {% include "oscar/dashboard/partials/advanced_search_modal.html" with form=form style="horizontal" %}
     {% if search_filters %}
       <div class="search-filter-list">
         <label>Filters:</label>
@@ -86,15 +86,15 @@
                         class="btn btn-primary"
                         name="action"
                         value="download_selected_orders"
-                        data-loading-text="{% trans 'Submitting...' %}">{% trans "Download" %}</button>
+                        data-loading-text="{% trans "Submitting..." %}">{% trans "Download" %}</button>
               </div>
             </div>
           </caption>
           <thead>
             <tr>
               <th></th>
-              <th>{% anchor 'number' _("Order number") %}</th>
-              <th>{% anchor 'total_incl_tax' _("Total inc tax") %}</th>
+              <th>{% anchor "number" _("Order number") %}</th>
+              <th>{% anchor "total_incl_tax" _("Total inc tax") %}</th>
               <th>{% trans "Number of items" %}</th>
               <th>{% trans "Status" %}</th>
               <th>{% trans "Customer" %}</th>
@@ -114,7 +114,7 @@
                          value="{{ order.id }}" />
                 </td>
                 <td>
-                  <a href="{% url 'dashboard:order-detail' number=order.number %}">{{ order.number }}</a>
+                  <a href="{% url "dashboard:order-detail" number=order.number %}">{{ order.number }}</a>
                 </td>
                 <td>{{ order.total_incl_tax|currency:order.currency }}</td>
                 <td>{{ order.num_items }}</td>
@@ -123,7 +123,7 @@
                   {% if order.guest_email %}
                     {{ order.guest_email }}
                   {% elif order.user %}
-                    <a href="{% url 'dashboard:user-detail' pk=order.user.id %}">{{ order.user.get_full_name|default:order.user.email }}</a>
+                    <a href="{% url "dashboard:user-detail" pk=order.user.id %}">{{ order.user.get_full_name|default:order.user.email }}</a>
                   {% else %}
                     &lt;{% trans "Deleted" %}&gt;
                   {% endif %}
@@ -133,7 +133,7 @@
                 <td>{{ order.date_placed }}</td>
                 <td>
                   <a class="btn btn-secondary"
-                     href="{% url 'dashboard:order-detail' number=order.number %}">{% trans "View" %}</a>
+                     href="{% url "dashboard:order-detail" number=order.number %}">{% trans "View" %}</a>
                 </td>
               </tr>
             {% endfor %}
@@ -159,7 +159,7 @@
                       name="action"
                       value="change_order_statuses"
                       class="btn btn-primary"
-                      data-loading-text="{% trans 'Changing...' %}">{% trans "Change status" %}</button>
+                      data-loading-text="{% trans "Changing..." %}">{% trans "Change status" %}</button>
             </div>
           {% else %}
             {% trans "This order can't have its status changed." %}
@@ -186,5 +186,5 @@
 {% block onbodyload %}
   {{ block.super }}
   oscar.dashboard.orders.initTable();
-  {% if form.errors %}$('#SearchModal').modal('show');{% endif %}
+  {% if form.errors %}$("#SearchModal").modal("show");{% endif %}
 {% endblock onbodyload %}

@@ -12,6 +12,7 @@ if [ ! -e /$CONTAINER_FIRST_STARTUP ]; then
     echo "Executing commands first time the container is started"
     touch /$CONTAINER_FIRST_STARTUP
     pip install debugpy
+    pip install django-tables2==2.7.5 --no-deps
     python manage.py oscar_populate_countries --no-shipping || true
     python manage.py rebuild_index --noinput
 fi

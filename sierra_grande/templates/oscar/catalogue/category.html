@@ -9,17 +9,17 @@
   {{ category.get_meta_description }}
 {% endblock description %}
 {% block header %}
-  <div class="page-header">
-    {% if user.is_staff %}
-      <a class="float-end d-none d-md-block"
-         href="{% url 'dashboard:catalogue-category-update' pk=category.id %}">
-        <small><i class="fas fa-pencil-alt"></i> {% trans "Edit this category" %}</small></a>
-    {% endif %}
+  <div class="d-flex justify-content-between align-items-center">
     <h1>
       {% block headertext %}
         {{ category.name }}
       {% endblock headertext %}
     </h1>
+    {% if user.is_staff %}
+      <a class="float-end d-none d-md-block"
+         href="{% url "dashboard:catalogue-category-update" pk=category.id %}">
+        <small><i class="fas fa-pencil-alt"></i> {% trans "Edit this category" %}</small></a>
+    {% endif %}
   </div>
 {% endblock header %}
 {% block breadcrumbs %}
@@ -47,7 +47,9 @@
         <div class="col-sm-3">
           <img src="{{ category.image.url }}"
                alt="{{ category.name }}"
-               class="img-fluid" />
+               class="img-fluid"
+               height=""
+               width="" />
         </div>
       {% endif %}
     </div>

@@ -1,22 +1,26 @@
-{% extends 'oscar/dashboard/table.html' %}
+{% extends "oscar/dashboard/table.html" %}
 
 {% load i18n %}
 
 {% block table.caption %}
-  {{ block.super }}
-  <div class="float-end">
-    <div class="form-inline">
-      <i class="fas fa-sync-alt me-1"></i> <span class="me-2">{% trans "Bulk Actions" %}</span>
-      <label class="me-3">{% trans "With selected customers:" %}</label>
-      <div class="form-check me-2">
+  <div class="row align-items-center justify-content-start justify-content-md-end">
+    <div class="col">{{ block.super }}</div>
+    {% comment %} <div class="row col-auto row-cols-lg-auto align-items-center"> {% endcomment %}
+    <div class="col-auto col-md-auto">
+      <iconify-icon icon="material-symbols:sync-rounded" aria-hidden="true" width="1rem" height="1rem" inline></iconify-icon>
+      {% trans "Bulk Actions" %}
+    </div>
+    <div class="col-12 col-md-auto row align-items-center">
+      <label class="col-auto ">{% trans "With selected customers:" %}</label>
+      <div class="form-check col-auto">
         <input id="make_active_check"
                class="form-check-input"
                type="radio"
                name="action"
                value="make_active" />
-        <label class="form-check-label" for="make_active_check">{% trans "Make active" %}</label>
+        <label class="form-check-label col-auto" for="make_active_check">{% trans "Make active" %}</label>
       </div>
-      <div class="form-check me-2">
+      <div class="form-check col-auto">
         <input id="make_inactive_check"
                class="form-check-input"
                type="radio"
@@ -24,7 +28,10 @@
                value="make_inactive" />
         <label class="form-check-label" for="make_inactive_check">{% trans "Make inactive" %}</label>
       </div>
-      <input type="submit" value="{% trans "Go!" %}" class="btn btn-primary" />
+      <input type="submit"
+             value="{% trans "Go!" %}"
+             class="btn btn-primary col-auto ms-auto" />
+      {% comment %} </div> {% endcomment %}
     </div>
   </div>
-{% endblock %}
+{% endblock table.caption %}

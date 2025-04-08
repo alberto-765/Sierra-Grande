@@ -1,4 +1,4 @@
-{% extends 'oscar/dashboard/layout.html' %}
+{% extends "oscar/dashboard/layout.html" %}
 
 {% load i18n %}
 {% load render_table from django_tables2 %}
@@ -10,17 +10,17 @@
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
+        <a href="{% url "dashboard:index" %}">{% trans "Dashboard" %}</a>
       </li>
       <li class="breadcrumb-item active" aria-current="page">{% trans "Options" %}</li>
     </ol>
   </nav>
 {% endblock breadcrumbs %}
 {% block header %}
-  <div class="page-header">
-    <a href="{% url 'dashboard:catalogue-option-create' %}"
-       class="btn btn-primary float-end"><i class="fas fa-plus-circle"></i> {% trans "Create new Option" %}</a>
-    <h1>{% trans "Option" %}</h1>
+  <div class="d-flex justify-content-between align-items-center">
+    <h2>{% trans "Option" %}</h2>
+    <a href="{% url "dashboard:catalogue-option-create" %}"
+       class="btn btn-primary icon-link"><iconify-icon icon="mdi:plus-circle" width="1rem" height="1rem" aria-hidden="true"></iconify-icon> {% trans "Create new Option" %}</a>
   </div>
 {% endblock header %}
 {% block dashboard_content %}

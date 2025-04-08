@@ -1,4 +1,4 @@
-{% extends 'oscar/dashboard/layout.html' %}
+{% extends "oscar/dashboard/layout.html" %}
 
 {% load currency_filters %}
 {% load i18n %}
@@ -7,38 +7,38 @@
   {% blocktrans with name=offer.name %}
         {{ name }} | Offers
     {% endblocktrans %} | {{ block.super }}
-{% endblock %}
+{% endblock title %}
 {% block breadcrumbs %}
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
+        <a href="{% url "dashboard:index" %}">{% trans "Dashboard" %}</a>
       </li>
       <li class="breadcrumb-item">
-        <a href="{% url 'dashboard:offer-list' %}">{% trans "Offers" %}</a>
+        <a href="{% url "dashboard:offer-list" %}">{% trans "Offers" %}</a>
       </li>
       <li class="breadcrumb-item active" aria-current="page">{{ offer.name }}</li>
     </ol>
   </nav>
-{% endblock %}
+{% endblock breadcrumbs %}
 {% block header %}
-  <div class="page-header">
+  <div>
     <form id="status_form" class="float-end" method="post">
       {% csrf_token %}
       {% if offer.is_suspended %}
         <button type="submit"
                 class="btn btn-success"
                 name="unsuspend"
-                data-loading-text="{% trans 'Reinstating...' %}">{% trans "Reinstate offer" %}</button>
+                data-loading-text="{% trans "Reinstating..." %}">{% trans "Reinstate offer" %}</button>
       {% else %}
         <button type="submit"
                 class="btn btn-secondary"
                 name="suspend"
-                data-loading-text="{% trans 'Suspending...' %}">{% trans "Suspend offer" %}</button>
+                data-loading-text="{% trans "Suspending..." %}">{% trans "Suspend offer" %}</button>
       {% endif %}
       {% if not offer.vouchers.exists %}
         <a class="btn btn-danger"
-           href="{% url 'dashboard:offer-delete' pk=offer.pk %}">{% trans "Delete offer" %}</a>
+           href="{% url "dashboard:offer-delete" pk=offer.pk %}">{% trans "Delete offer" %}</a>
       {% endif %}
     </form>
     <h1>{{ offer.name }}</h1>
@@ -76,7 +76,7 @@
         <td>{{ offer.name }}</td>
         <td rowspan="3">
           <a id="edit_metadata"
-             href="{% url 'dashboard:offer-metadata' pk=offer.pk %}"
+             href="{% url "dashboard:offer-metadata" pk=offer.pk %}"
              class="btn btn-secondary">{% trans "Edit" %}</a>
         </td>
       </tr>
@@ -92,7 +92,7 @@
         <th>{% trans "Incentive" %}</th>
         <td>{{ offer.benefit.description|safe }}</td>
         <td>
-          <a href="{% url 'dashboard:offer-benefit' pk=offer.pk %}"
+          <a href="{% url "dashboard:offer-benefit" pk=offer.pk %}"
              class="btn btn-secondary">{% trans "Edit" %}</a>
         </td>
       </tr>
@@ -100,7 +100,7 @@
         <th>{% trans "Condition" %}</th>
         <td>{{ offer.condition.description|safe }}</td>
         <td>
-          <a href="{% url 'dashboard:offer-condition' pk=offer.pk %}"
+          <a href="{% url "dashboard:offer-condition" pk=offer.pk %}"
              class="btn btn-secondary">{% trans "Edit" %}</a>
         </td>
       </tr>
@@ -118,7 +118,7 @@
           {% endfor %}
         </td>
         <td>
-          <a href="{% url 'dashboard:offer-restrictions' pk=offer.pk %}"
+          <a href="{% url "dashboard:offer-restrictions" pk=offer.pk %}"
              class="btn btn-secondary">{% trans "Edit" %}</a>
         </td>
       </tr>
@@ -147,7 +147,7 @@
           {% for voucher in offer.vouchers.all %}
             <tr>
               <td>
-                <a href="{% url 'dashboard:voucher-stats' voucher.id %}">{{ voucher.name }}</a>
+                <a href="{% url "dashboard:voucher-stats" voucher.id %}">{{ voucher.name }}</a>
               </td>
               <td>
                 <span class="badge bg-secondary">{{ voucher.code }}</span>
@@ -186,7 +186,7 @@
           {% with order=discount.order %}
             <tr>
               <td>
-                <a href="{% url 'dashboard:order-detail' number=order.number %}">{{ order.number }}</a>
+                <a href="{% url "dashboard:order-detail" number=order.number %}">{{ order.number }}</a>
               </td>
               <td>{{ order.date_placed }}</td>
               <td>{{ order.total_incl_tax|currency }}</td>
@@ -196,6 +196,6 @@
         {% endfor %}
       </tbody>
     </table>
-    {% include 'oscar/dashboard/partials/pagination.html' %}
+    {% include "oscar/dashboard/partials/pagination.html" %}
   {% endif %}
 {% endblock dashboard_content %}

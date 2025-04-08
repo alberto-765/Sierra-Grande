@@ -5,7 +5,8 @@ Ecommerce proyect for Business Sierra Grande de Hornachos
 [![Built with Cookiecutter Django](https://img.shields.io/badge/built%20with-Cookiecutter%20Django-ff69b4.svg?logo=cookiecutter)](https://github.com/cookiecutter/cookiecutter-django/)
 [![Ruff](https:
 
-## Pre commit
+## Install Requirements
+pip install -r requirements/local.txt && pip install django-tables2==2.7.5 --no-deps
 
 ## Settings
 

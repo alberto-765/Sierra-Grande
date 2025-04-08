@@ -1,25 +1,29 @@
-{% extends 'oscar/dashboard/layout.html' %}
+{% extends "oscar/dashboard/layout.html" %}
 
 {% load i18n %}
 
-{% block body_class %}{{ block.super }} create-page{% endblock %}
-{% block title %}{{ commtype.name }} | {{ block.super }}{% endblock %}
+{% block body_class %}
+  {{ block.super }} create-page
+{% endblock body_class %}
+{% block title %}
+  {{ commtype.name }} | {{ block.super }}
+{% endblock title %}
 {% block breadcrumbs %}
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
+        <a href="{% url "dashboard:index" %}">{% trans "Dashboard" %}</a>
       </li>
       <li class="breadcrumb-item">
-        <a href="{% url 'dashboard:comms-list' %}">{% trans "Emails" %}</a>
+        <a href="{% url "dashboard:comms-list" %}">{% trans "Emails" %}</a>
       </li>
       <li class="breadcrumb-item active" aria-current="page">{{ commtype.name }}</li>
     </ol>
   </nav>
-{% endblock %}
+{% endblock breadcrumb %}
 {% block header %}
-  <div class="page-header">
-    <h1>{{ commtype.name }}</h1>
+  <div>
+    <h2>{{ commtype.name }}</h2>
   </div>
 {% endblock header %}
 {% block dashboard_content %}
@@ -45,7 +49,7 @@
         <div class="tab-pane {% if not preview %}active{% endif %}"
              id="email_form">
           {% csrf_token %}
-          {% include 'oscar/dashboard/partials/form_field.html' with field=form.name %}
+          {% include "oscar/dashboard/partials/form_field.html" with field=form.name %}
           <div class="table-header">
             <h3>{% trans "Email content" %}</h3>
           </div>
@@ -81,27 +85,27 @@
               {% endif %}
             </dl>
           </div>
-          {% include 'oscar/dashboard/partials/form_field.html' with field=form.email_subject_template %}
-          {% include 'oscar/dashboard/partials/form_field.html' with field=form.email_body_template %}
-          {% include 'oscar/dashboard/partials/form_field.html' with field=form.email_body_html_template %}
+          {% include "oscar/dashboard/partials/form_field.html" with field=form.email_subject_template %}
+          {% include "oscar/dashboard/partials/form_field.html" with field=form.email_body_template %}
+          {% include "oscar/dashboard/partials/form_field.html" with field=form.email_body_html_template %}
           <div class="table-header">
             <h3>{% trans "Preview" %}</h3>
           </div>
           <div class="card card-body">
             {% if commtype.is_order_related %}
               <p>{% trans "View a preview of this email using order:" %}</p>
-              {% include 'oscar/dashboard/partials/form_field.html' with field=form.preview_order_number %}
+              {% include "oscar/dashboard/partials/form_field.html" with field=form.preview_order_number %}
             {% endif %}
             <button type="submit"
                     class="btn btn-primary"
                     name="show_preview"
-                    data-loading-text="{% trans 'Submitting...' %}">{% trans "View preview" %}</button>
+                    data-loading-text="{% trans "Submitting..." %}">{% trans "View preview" %}</button>
             <p>{% trans "or send a preview to:" %}</p>
-            {% include 'oscar/dashboard/partials/form_field.html' with field=form.preview_email %}
+            {% include "oscar/dashboard/partials/form_field.html" with field=form.preview_email %}
             <button type="submit"
                     class="btn btn-secondary"
                     name="send_preview"
-                    data-loading-text="{% trans 'Sending...' %}">{% trans "Send preview email" %}</button>
+                    data-loading-text="{% trans "Sending..." %}">{% trans "Send preview email" %}</button>
           </div>
         </div>
         <div class="tab-pane {% if preview %}active{% endif %}" id="email_preview">
@@ -127,8 +131,8 @@
         <div class="form-actions">
           <button type="submit"
                   class="btn btn-primary"
-                  data-loading-text="{% trans 'Saving...' %}">{% trans "Save" %}</button>
-          {% trans "or" %} <a href="{% url 'dashboard:comms-list' %}">{% trans "cancel" %}</a>.
+                  data-loading-text="{% trans "Saving..." %}">{% trans "Save" %}</button>
+          {% trans "or" %} <a href="{% url "dashboard:comms-list" %}">{% trans "cancel" %}</a>.
         </div>
       </div>
     </div>
@@ -137,12 +141,12 @@
 {% block onbodyload %}
   {{ block.super }}
   $(function() {
-  // Sets the HTML email preview so it's css doesn't touch the page.
-  var el_preview_html = document.getElementById('preview_box');
+  // Sets the HTML email preview so it"s css doesn"t touch the page.
+  var el_preview_html = document.getElementById("preview_box");
   var html = $(el_preview_html).text();
   var doc = el_preview_html.contentWindow.document;
   doc.open();
   doc.write(html);
   doc.close();
   });
-{% endblock %}
+{% endblock onbodyload %}

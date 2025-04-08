@@ -1,4 +1,4 @@
-{% extends 'oscar/dashboard/layout.html' %}
+{% extends "oscar/dashboard/layout.html" %}
 
 {% load i18n %}
 
@@ -17,17 +17,15 @@
       <li class="breadcrumb-item active" aria-current="page">{% trans "Stock alerts" %}</li>
     </ol>
   </nav>
-{% endblock %}
+{% endblock breadcrumbs %}
 {% block header %}
-  <div class="page-header">
-    <h1>{% trans "Stock alerts" %}</h1>
-  </div>
+  <h2>{% trans "Stock alerts" %}</h2>
 {% endblock header %}
 {% block dashboard_content %}
   <div class="table-header">
-    <h2 class="float-start">
-      <i class="fas fa-sitemap"></i> {{ description }}
-    </h2>
+    <h5 class="float-start">
+      <iconify-icon icon="fa-solid:sitemap" aria-hidden="true" width="1rem" height="1rem"></iconify-icon> {{ description }}
+    </h5>
     <div class="float-end">
       <div class="dropdown">
         <button class="btn btn-primary dropdown-toggle"

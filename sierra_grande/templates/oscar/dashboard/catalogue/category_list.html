@@ -1,4 +1,4 @@
-{% extends 'oscar/dashboard/layout.html' %}
+{% extends "oscar/dashboard/layout.html" %}
 
 {% load category_tags %}
 {% load i18n %}
@@ -14,28 +14,28 @@
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
+        <a href="{% url "dashboard:index" %}">{% trans "Dashboard" %}</a>
       </li>
       <li class="breadcrumb-item active" aria-current="page">{% trans "Categories" %}</li>
     </ol>
   </nav>
 {% endblock breadcrumbs %}
 {% block header %}
-  <div class="page-header">
-    <a href="{% url 'dashboard:catalogue-category-create' %}"
-       class="btn btn-primary float-end"><i class="fas fa-plus-circle"></i> {% trans "Create new category" %}</a>
-    <h1>{% trans "Categories" %}</h1>
+  <div class="d-flex justify-content-between align-items-center">
+    <h2>{% trans "Categories" %}</h2>
+    <a href="{% url "dashboard:catalogue-category-create" %}"
+       class="btn btn-primary icon-link"><iconify-icon icon="mdi:plus-circle" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>{% trans "Create new category" %}</a>
   </div>
 {% endblock header %}
 {% block dashboard_content %}
   <div class="alert alert-info">
     <div>
       {% trans "You are editing:" %}
-      <strong><a href="{% url 'dashboard:catalogue-category-list' %}">{% trans "Home" %}</a></strong>
+      <strong><a href="{% url "dashboard:catalogue-category-list" %}">{% trans "Home" %}</a></strong>
       {% if ancestors %}
         &gt;
         {% for ancestor in ancestors %}
-          <strong><a href="{% url 'dashboard:catalogue-category-detail-list' pk=ancestor.pk %}">{{ ancestor.name }}</a></strong>
+          <strong><a href="{% url "dashboard:catalogue-category-detail-list" pk=ancestor.pk %}">{{ ancestor.name }}</a></strong>
           {% if not forloop.last %}>{% endif %}
         {% endfor %}
       {% endif %}

@@ -38,7 +38,7 @@
             </li>
             <li class="nav-item">
               <a class="nav-link icon-link icon-link-hover icon-link-hover--custom"
-                 href="{% url 'customer:summary' %}">
+                 href="{% url "customer:summary" %}">
                 <i class="fas fa-user"></i>
                 <iconify-icon icon="mdi:account" width="1rem" height="1rem" aria-hidden="true" class="bi"></iconify-icon>
                 {% trans "Account" %}
@@ -46,7 +46,7 @@
             </li>
             <li class="nav-item">
               <a class="nav-link icon-link icon-link-hover icon-link-hover--custom"
-                 href="{% url 'dashboard:logout' %}">
+                 href="{% url "dashboard:logout" %}">
                 <iconify-icon icon="ic:twotone-log-out" aria-hidden="true" class="bi" width="1rem" height="1rem"></iconify-icon>
                 {% trans "Log out" %}
               </a>
@@ -119,22 +119,22 @@
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item active" aria-current="page">
-            <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
+            <a href="{% url "dashboard:index" %}">{% trans "Dashboard" %}</a>
           </li>
         </ol>
       </nav>
     {% endblock breadcrumbs %}
-    <div class="content">
-      {% include 'oscar/dashboard/partials/alert_messages.html' %}
+    <div>
+      {% include "oscar/dashboard/partials/alert_messages.html" %}
       {% block header %}
-        <div class="page-header">
-          <h3>
+        <div>
+          <h2>
             {% block headertext %}
             {% endblock headertext %}
-          </h3>
+          </h2>
         </div>
       {% endblock header %}
-      <div class="page-content">
+      <div>
         {% block content %}
           {% block dashboard_content %}
           {% endblock dashboard_content %}
@@ -169,15 +169,15 @@
   {{ block.super }}
   // Javascript to enable link to tab
   var url = document.location.toString();
-  if (url.match('#')) {
-  $('.bs-docs-sidenav a[href="#' + url.split('#')[1] + '"]').tab('show');
+  if (url.match("#")) {
+  $(".bs-docs-sidenav a[href="#" + url.split("#")[1] + ""]").tab("show");
   }
   // Change hash for page-reload
-  $('.nav-list a').on('shown.bs.tab', function (e) {
+  $(".nav-list a").on("shown.bs.tab", function (e) {
   window.location.hash = e.target.hash;
   });
   options = {
-  'languageCode': '{{ LANGUAGE_CODE }}'
+  "languageCode": "{{ LANGUAGE_CODE }}"
   };
   oscar.dashboard.init(options);
 {% endblock onbodyload %}

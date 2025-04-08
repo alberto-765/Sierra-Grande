@@ -1,33 +1,36 @@
-{% extends 'oscar/dashboard/layout.html' %}
+{% extends "oscar/dashboard/layout.html" %}
 
 {% load dashboard_tags %}
 {% load i18n %}
 {% load render_table from django_tables2 %}
 
-{% block body_class %}{{ block.super }} users{% endblock %}
+{% block body_class %}
+  {{ block.super }} users
+{% endblock body_class %}
 {% block title %}
   {% trans "Customers" %} | {{ block.super }}
-{% endblock %}
+{% endblock title %}
 {% block header %}
-  <div class="page-header">
-    <h1>{% trans "Customers" %}</h1>
+  <div>
+    <h2>{% trans "Customers" %}</h2>
   </div>
 {% endblock header %}
 {% block breadcrumbs %}
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
+        <a href="{% url "dashboard:index" %}">{% trans "Dashboard" %}</a>
       </li>
       <li class="breadcrumb-item active" aria-current="page">{% trans "Customers" %}</li>
     </ol>
   </nav>
-{% endblock %}
+{% endblock breadcrumb %}
 {% block dashboard_content %}
   <div class="table-header">
-    <h3>
-      <i class="fas fa-search"></i> {% trans "Search" %}
-    </h3>
+    <h5 class="icon-link">
+      <iconify-icon icon="stash:search-light" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
+      {% trans "Search" %}
+    </h5>
   </div>
   <div class="card card-body">
     <form method="get" class="form-inline">
@@ -35,8 +38,8 @@
       <button type="submit"
               name="search"
               class="btn btn-primary me-2"
-              data-loading-text="{% trans 'Searching...' %}">{% trans "Search" %}</button>
-      <a href="{% url 'dashboard:users-index' %}" class="btn btn-secondary">{% trans "Reset" %}</a>
+              data-loading-text="{% trans "Searching..." %}">{% trans "Search" %}</button>
+      <a href="{% url "dashboard:users-index" %}" class="btn btn-secondary">{% trans "Reset" %}</a>
     </form>
   </div>
   {% block users_list %}
@@ -53,5 +56,5 @@
         </tr>
       </table>
     {% endif %}
-  {% endblock %}
+  {% endblock user_list %}
 {% endblock dashboard_content %}

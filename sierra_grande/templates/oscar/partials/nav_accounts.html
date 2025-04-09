@@ -46,7 +46,7 @@
                 {% trans "Logout" %}
               </a>
             </li>
-          {% endblock %}
+          {% endblock nav_account_navbar_authenticated %}
         {% else %}
           <li class="nav-item me-2">
             <a id="login_link" href="{% url 'customer:login' %}" class="nav-link">
@@ -59,12 +59,12 @@
       {% block nav_account_languages %}
         {% if LANGUAGES|length > 1 %}
           <form id="language_selector"
-                class="form-inline mb-0 mt-2 mt-lg-0"
+                class="hstack mb-0 mt-2 mt-lg-0"
                 action="{% url 'set_language' %}"
                 method="post">
             {% csrf_token %}
             <input name="next" type="hidden" value="{{ language_neutral_url_path }}" />
-            <div class="form-group mb-0">
+            <div class=" mb-0">
               <select name="language"  class="form-control" onchange="this.form.submit()">
                 {% get_language_info_list for LANGUAGES as languages %}
                 {% for language in languages %}
@@ -77,7 +77,7 @@
             </div>
           </form>
         {% endif %}
-      {% endblock %}
+      {% endblock nav_account_languages %}
     </div>
   </div>
 </nav>

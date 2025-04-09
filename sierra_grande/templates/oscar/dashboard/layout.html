@@ -74,7 +74,7 @@
              id="menu_offcanvas"
              aria-labelledby="menu__offcanvasLabel">
           <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="menu__offcanvasLabel">Offcanvas</h5>
+            <h5 class="offcanvas-title" id="menu__offcanvasLabel">{{ shop_name }}</h5>
             <button type="button"
                     class="btn-close"
                     data-bs-dismiss="offcanvas"
@@ -147,30 +147,29 @@
 {# Local scripts #}
 {% block scripts %}
   <!-- Twitter Bootstrap -->
-  <script src="{% static "oscar/js/bootstrap4/bootstrap.bundle.min.js" %}"></script>
+  {% comment %} <script src="{% static "oscar/js/bootstrap4/bootstrap.bundle.min.js" %}"></script> {% endcomment %}
   <!-- Oscar -->
   <script src="{% static "oscar/js/oscar/ui.js" %}"></script>
+  <script src="{% static "oscar/js/oscar/dashboard.js" %}"></script>
 {% endblock scripts %}
 {% block extrascripts %}
   {{ block.super }}
   {# jQuery plugins #}
-  <script src="{% static "oscar/js/mousewheel/jquery.mousewheel.js" %}"></script>
-  <script src="{% static "oscar/js/bootstrap4-datetimepicker/moment-with-locales.min.js" %}"></script>
-  <script src="{% static "oscar/js/bootstrap4-datetimepicker/tempusdominus-bootstrap-4.min.js" %}"></script>
-  <script src="{% static "oscar/js/inputmask/jquery.inputmask.min.js" %}"></script>
-  <script src="{% static "oscar/js/select2/select2.min.js" %}"></script>
-  <script src="{% static "oscar/js/jquery-sortable/jquery-sortable-min.js" %}"></script>
-  <script src="{% static "oscar/js/oscar/dashboard.js" %}"></script>
-  <script src="{% static "oscar/js/oscar/RelatedObjectLookups.js" %}"></script>
-  <script src="{% static "oscar/js/tinymce/tinymce.min.js" %}"></script>
-  <script src="{% static "oscar/js/tinymce/jquery.tinymce.min.js" %}"></script>
+  {% comment %} <script src="{% static "oscar/js/mousewheel/jquery.mousewheel.js" %}"></script>
+                                  <script src="{% static "oscar/js/bootstrap4-datetimepicker/moment-with-locales.min.js" %}"></script>
+                                  <script src="{% static "oscar/js/bootstrap4-datetimepicker/tempusdominus-bootstrap-4.min.js" %}"></script>
+                                  <script src="{% static "oscar/js/inputmask/jquery.inputmask.min.js" %}"></script>
+                                  <script src="{% static "oscar/js/select2/select2.min.js" %}"></script>
+                                  <script src="{% static "oscar/js/jquery-sortable/jquery-sortable-min.js" %}"></script>
+                                  <script src="{% static "oscar/js/oscar/RelatedObjectLookups.js" %}"></script>
+  <script src="{% static "oscar/js/tinymce/tinymce.min.js" %}"></script> {% endcomment %}
 {% endblock extrascripts %}
 {% block onbodyload %}
   {{ block.super }}
   // Javascript to enable link to tab
   var url = document.location.toString();
   if (url.match("#")) {
-  $(".bs-docs-sidenav a[href="#" + url.split("#")[1] + ""]").tab("show");
+  $('.bs-docs-sidenav a[href="#' + id + '"]').tab('show');
   }
   // Change hash for page-reload
   $(".nav-list a").on("shown.bs.tab", function (e) {

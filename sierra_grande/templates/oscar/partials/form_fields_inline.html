@@ -5,7 +5,7 @@
   {% if field.is_hidden %}
     {{ field }}
   {% else %}
-    <span class="form-group {% if field.errors %}error{% endif %}">
+    <span class=" {% if field.errors %}error{% endif %}">
       <span class="me-sm-1">{{ field.label_tag }}</span>
       {% render_field field class+="form-control me-sm-2" %}
       {% for error in field.errors %}

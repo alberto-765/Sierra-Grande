@@ -1,5 +1,5 @@
 {% comment %} TODO: PROBAR data-bs-target-input="nearest" {% endcomment %}
-<div class="form-inline">
+<div class="hstack">
   <div class="input-group date"
        id="wrapper_for_{{ widget.attrs.id }}"
        {% for name, value in div_attrs.items %}{{ name }}="{{ value|stringformat:'s' }}"{% endfor %}

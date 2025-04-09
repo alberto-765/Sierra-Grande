@@ -35,7 +35,7 @@
     <div class="card card-body">
       <form action="{% url "dashboard:catalogue-product-create" %}"
             method="get"
-            class="form-inline">
+            class="hstack">
         {% include "oscar/dashboard/partials/form_fields_inline.html" with form=productclass_form %}
         <button class="btn btn-primary icon-link"
                 type="submit"
@@ -53,7 +53,7 @@
       </h5>
     </div>
     <div class="card card-body">
-      <form method="get" class="form-inline">
+      <form method="get" class="hstack">
         {% comment %}
                     Add the current query string to the search form so that the
                     sort order is not reset when searching.
@@ -63,7 +63,7 @@
         {% endfor %}
         {% include "oscar/dashboard/partials/form_fields_inline.html" with form=form %}
         <button type="submit"
-                class="btn btn-primary"
+                class="btn btn-primary icon-link"
                 data-loading-text="{% trans "Searching..." %}">
           <iconify-icon icon="stash:search-light" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
           {% trans "Search" %}

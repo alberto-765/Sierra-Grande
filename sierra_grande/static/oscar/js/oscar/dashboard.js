@@ -154,7 +154,7 @@ var oscar = (function (o, $) {
             // Adds type/search for select fields
             var $selects = $(el).find('select').not('.no-widget-init select').not('.no-widget-init');
             $selects.filter('.form-stacked select').css('width', '100%');
-            $selects.filter('.form-inline select').css('width', '300px');
+            $selects.filter('.hstack select').css('width', '300px');
             $selects.not('.related-widget-wrapper select').select2({ width: 'resolve' });
             $selects.filter('.related-widget-wrapper.single select').select2({
                 // Keep updated labels after editing related obj
@@ -307,9 +307,10 @@ var oscar = (function (o, $) {
                     oscar.dashboard.offers.adjustBenefitForm();
                 });
             },
+            // TODO: REVISAR ESTO
             adjustBenefitForm: function () {
                 var type = $('#id_type').val(),
-                    $valueContainer = $('#id_value').parents('.form-group');
+                    $valueContainer = $('#id_value').parents('.xxxxx');
                 if (type == 'Multibuy') {
                     $('#id_value').val('');
                     $valueContainer.hide();

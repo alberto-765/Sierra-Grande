@@ -35,7 +35,7 @@
   <div class="card card-body bg-light">
     <form method="get"
           action="{% url "dashboard:order-stats" %}"
-          class="form-inline">
+          class="hstack">
       {% include "oscar/dashboard/partials/form_fields_inline.html" with form=form %}
       <button type="submit"
               class="btn btn-primary me-2"

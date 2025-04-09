@@ -10,7 +10,7 @@
     {% endblocktrans %} | {{ block.super }}
 {% endblock title %}
 {% block checkout_nav %}
-  {% include 'oscar/checkout/nav.html' with step=5 %}
+  {% include "oscar/checkout/nav.html" with step=5 %}
 {% endblock checkout_nav %}
 {% block checkout_title %}
   {% blocktrans with number=order.number %}
@@ -120,7 +120,9 @@
                 <a href="{{ line.product.get_absolute_url }}">
                   <img src="{{ thumb.url }}"
                        alt="{{ product.get_title }}"
-                       class="img-thumbnail w-auto mx-auto my-0" />
+                       class="img-thumbnail w-auto mx-auto my-0"
+                       width="{{ thumb.width }}"
+                       height="{{ thumb.height }}" />
                 </a>
               {% endwith %}
             </div>
@@ -149,9 +151,9 @@
         <div class="col-sm-6">&nbsp;</div>
         <div class="col-sm-6">
           <div class="sub-header">
-            <h2>{% trans 'Totals' %}</h2>
+            <h2>{% trans "Totals" %}</h2>
           </div>
-          {% include 'oscar/order/partials/basket_totals.html' %}
+          {% include "oscar/order/partials/basket_totals.html" %}
         </div>
       </div>
     {% endblock basket_totals %}
@@ -164,12 +166,12 @@
       <p>
         {% trans "You can track the status of your order" %}
         <a class="btn btn-primary"
-           href="{% url 'customer:anon-order' order_number=order.number hash=order.verification_hash %}">{% trans "View order status" %}</a>.
+           href="{% url "customer:anon-order" order_number=order.number hash=order.verification_hash %}">{% trans "View order status" %}</a>.
       </p>
     {% endif %}
   {% endblock order_tracking %}
   {% block order_actions %}
-    <div class="form-group">
+    <div>
       <div class="row">
         <div class="col-sm-4">
           <p>

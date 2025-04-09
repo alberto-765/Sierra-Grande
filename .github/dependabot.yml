@@ -59,4 +59,4 @@ updates:
           - 'patch'
     ignore:
       - dependency-name: "rcssmin"
-        versions: [">1.2.1"]
+        versions: [">1.1.2"]

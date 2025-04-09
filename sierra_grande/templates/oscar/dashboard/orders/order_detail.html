@@ -1,4 +1,4 @@
-{% extends 'oscar/dashboard/layout.html' %}
+{% extends "oscar/dashboard/layout.html" %}
 
 {% load i18n %}
 {% load currency_filters %}
@@ -113,7 +113,7 @@
         <div class="table-header">
           <h3>{% trans "Items ordered" %}</h3>
         </div>
-        <form id="order_lines_form" method="post" class="form-inline">
+        <form id="order_lines_form" method="post" class="hstack">
           {% csrf_token %}
           {% block order_lines %}
             <table class="table table-striped table-bordered table-hover">
@@ -143,8 +143,7 @@
                       <input type="text"
                              name="selected_line_qty_{{ line.id }}"
                              value="{{ line.quantity }}"
-                             size="2"
-                             style="width:40px" />
+                             size="2" />
                     </td>
                     <td>
                       <a href="{% url 'dashboard:order-line-detail' number=order.number line_id=line.id %}">#{{ line.id }}</a>
@@ -287,8 +286,8 @@
           {% block line_actions %}
             <div class="card card-body bg-light">
               <h3>{% trans "With selected lines" %}:</h3>
-              <div class="form-inline mb-sm-2">
-                <div class="form-group">
+              <div class="hstack mb-sm-2">
+                <div>
                   <div class="form-check">
                     <input id="line_status_check"
                            class="form-check-input"
@@ -298,7 +297,7 @@
                     <label for="line_status_check" class="form-check-label">{% trans "Change line status to" %}</label>
                   </div>
                 </div>
-                <div class="form-group">
+                <div>
                   <label class="sr-only" for="new_status_select">{% trans "choose new status" %}</label>
                   <select id="new_status_select" name="new_status">
                     <option value="">-- {% trans "choose new status" %} --</option>
@@ -306,8 +305,8 @@
                   </select>
                 </div>
               </div>
-              <div class="form-inline mb-sm-2">
-                <div class="form-group">
+              <div class="hstack mb-sm-2">
+                <div>
                   <div class="form-check">
                     <input id="shipping_event_check"
                            class="form-check-input"
@@ -317,7 +316,7 @@
                     <label for="shipping_event_check" class="form-check-label">{% trans "Create shipping event" %}</label>
                   </div>
                 </div>
-                <div class="form-group me-1">
+                <div class=" me-1">
                   <label class="sr-only" for="shipping_event_type_select">{% trans "choose event type" %}</label>
                   <select id="shipping_event_type_select" name="shipping_event_type">
                     <option value="">-- {% trans "choose event type" %} --</option>
@@ -326,13 +325,13 @@
                     {% endfor %}
                   </select>
                 </div>
-                <div class="form-group">
+                <div>
                   <label for="reference_input">{% trans "with reference" %}</label>
                   <input id="reference_input" type="text" name="reference" value="" />
                 </div>
               </div>
-              <div class="form-inline mb-sm-2">
-                <div class="form-group">
+              <div class="hstack mb-sm-2">
+                <div>
                   <div class="form-check">
                     <input id="payment_event_check"
                            class="form-check-input"
@@ -342,7 +341,7 @@
                     <label for="payment_event_check" class="form-check-label">{% trans "Create payment event" %}</label>
                   </div>
                 </div>
-                <div class="form-group me-1">
+                <div class=" me-1">
                   <label class="sr-only" for="payment_event_type_select">{% trans "choose event type" %}</label>
                   <select id="payment_event_type_select" name="payment_event_type">
                     <option value="">-- {% trans "choose event type" %} --</option>
@@ -351,7 +350,7 @@
                     {% endfor %}
                   </select>
                 </div>
-                <div class="form-group">
+                <div>
                   <label for="amount_input">{% trans "with amount" %}</label>
                   <input id="amount_input" type="text" name="amount" value="" />
                 </div>

@@ -114,3 +114,6 @@ https://latest.oscarcommerce.com/en-gb/catalogue/
 
 ### Fill Countries Table
 python manage.py oscar_populate_countries --no-shipping
+
+### How Fork An Application
+python manage.py oscar_fork_app offers_dashboard sierra_grande/

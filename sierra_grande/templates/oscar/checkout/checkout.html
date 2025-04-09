@@ -9,7 +9,7 @@
   {% trans "Checkout" %} | {{ block.super }}
 {% endblock title %}
 {% block checkout_nav %}
-  {% include 'oscar/checkout/nav.html' %}
+  {% include "oscar/checkout/nav.html" %}
 {% endblock checkout_nav %}
 {% block content %}
   {% if error %}<div class="alert alert-danger">{{ error }}</div>{% endif %}
@@ -24,7 +24,7 @@
             <h3>
               {% trans "Address" %}
               {% block shipping_address_actions %}
-                <a href="{% url 'checkout:shipping-address' %}" class="float-end">{% trans "Change" %}</a>
+                <a href="{% url "checkout:shipping-address" %}" class="float-end">{% trans "Change" %}</a>
               {% endblock shipping_address_actions %}
             </h3>
             <address>
@@ -54,7 +54,7 @@
             <h3>
               {% trans "Shipping method" %}
               {% block shipping_method_actions %}
-                <a href="{% url 'checkout:shipping-method' %}" class="float-end">{% trans "Change" %}</a>
+                <a href="{% url "checkout:shipping-method" %}" class="float-end">{% trans "Change" %}</a>
               {% endblock shipping_method_actions %}
             </h3>
             <p>
@@ -74,7 +74,7 @@
         <div class="card card-body bg-light card card-body bg-light-success">
           <h3>
             {% trans "Payment" %}
-            <a href="{% url 'checkout:payment-details' %}" class="float-end">{% trans "Change" %}</a>
+            <a href="{% url "checkout:payment-details" %}" class="float-end">{% trans "Change" %}</a>
           </h3>
           <p>{% trans "Payment details to go here" %}</p>
         </div>
@@ -84,7 +84,7 @@
   {% block order_contents %}
     <div class="sub-header">
       {% block order_contents_actions %}
-        <a href="{% url 'basket:summary' %}" class="float-end">{% trans "Edit order contents" %}</a>
+        <a href="{% url "basket:summary" %}" class="float-end">{% trans "Edit order contents" %}</a>
       {% endblock order_contents_actions %}
       <h2>{% trans "Order contents" %}</h2>
     </div>
@@ -106,7 +106,9 @@
                 <a href="{{ form.instance.product.get_absolute_url }}">
                   <img src="{{ thumb.url }}"
                        alt="{{ product.get_title }}"
-                       class="img-thumbnail w-auto mx-auto my-0" />
+                       class="img-thumbnail w-auto mx-auto my-0"
+                       width="{{ thumb.width }}"
+                       height="{{ thumb.height }}" />
                 </a>
               {% endwith %}
             </div>
@@ -134,9 +136,9 @@
       <div class="col-sm-6">&nbsp;</div>
       <div class="col-sm-6">
         <div class="sub-header">
-          <h2>{% trans 'Totals' %}</h2>
+          <h2>{% trans "Totals" %}</h2>
         </div>
-        {% include 'oscar/basket/partials/basket_totals.html' %}
+        {% include "oscar/basket/partials/basket_totals.html" %}
       </div>
     </div>
   {% endblock order_contents %}

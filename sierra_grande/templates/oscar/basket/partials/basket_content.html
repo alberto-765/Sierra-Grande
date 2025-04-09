@@ -45,7 +45,9 @@
                   <a href="{{ product.get_absolute_url }}">
                     <img class="img-thumbnail w-auto mx-auto my-0"
                          src="{{ thumb.url }}"
-                         alt="{{ product.get_title }}" />
+                         alt="{{ product.get_title }}"
+                         width="{{ thumb.width }}"
+                         height="{{ thumb.height }}" />
                   </a>
                 {% endwith %}
               </div>
@@ -62,7 +64,7 @@
                     <div class="input-group-append">
                       <button class="btn btn-secondary"
                               type="submit"
-                              data-loading-text="{% trans 'Updating...' %}">{% trans "Update" %}</button>
+                              data-loading-text="{% trans "Updating..." %}">{% trans "Update" %}</button>
                     </div>
                   </div>
                 </div>
@@ -71,7 +73,7 @@
                   {% if user.is_authenticated %}
                     | <a href="#" data-id="{{ forloop.counter0 }}" data-behaviours="save">{% trans "Save for later" %}</a>
                   {% endif %}
-                  <div style="display:none">
+                  <div class="d-none">
                     {{ form.save_for_later }}
                     {{ form.DELETE }}
                   </div>
@@ -84,7 +86,9 @@
               </div>
               <div class="col-md-1">
                 {% if not line.unit_price_incl_tax and not line.unit_tax_excl_tax %}
+                  <!-- djlint:off H023 -->
                   <p class="text-end">&mdash;</p>
+                  <!-- djlint:on -->
                 {% else %}
                   <p class="price_color text-end">
                     <span class="price-title d-md-none">{% trans "Price" %}:</span>
@@ -98,7 +102,9 @@
               </div>
               <div class="col-md-2">
                 {% if not line.line_price_incl_tax and not line_price_excl_tax %}
+                  <!-- djlint:off H023 -->
                   <p class="text-end">&mdash;</p>
+                  <!-- djlint:on -->
                 {% else %}
                   <p class="price_color text-end">
                     <span class="price-title d-md-none">{% trans "Total" %}:</span>
@@ -118,7 +124,7 @@
   {% endblock basket_form_main %}
   <div class="row">
     {% block vouchers %}
-      {# Hide the entire section if a custom BasketView doesn't pass in a voucher form #}
+      {# Hide the entire section if a custom BasketView doesn"t pass in a voucher form #}
       {% if voucher_form %}
         <div class="col-sm-6">
           <div class="sub-header">
@@ -127,15 +133,15 @@
           <p id="voucher_form_link">
             <a href="#voucher" class="btn btn-secondary btn-full">{% trans "I have a voucher code..." %}</a>
           </p>
-          <div id="voucher_form_container" style="display:none">
+          <div id="voucher_form_container" class="d-none">
             <form id="voucher_form"
-                  action="{% url 'basket:vouchers-add' %}"
+                  action="{% url "basket:vouchers-add" %}"
                   method="post">
               {% csrf_token %}
               {% include "oscar/partials/form_fields.html" with form=voucher_form %}
               <button type="submit"
                       class="btn btn-info"
-                      data-loading-text="{% trans 'Adding...' %}">{% trans "Add voucher" %}</button>
+                      data-loading-text="{% trans "Adding..." %}">{% trans "Add voucher" %}</button>
               {% trans "or" %} <a href="#" id="voucher_form_cancel">{% trans "cancel" %}</a>
             </form>
           </div>
@@ -147,15 +153,15 @@
         <div class="sub-header">
           <h2>{% trans "Totals" %}</h2>
         </div>
-        {% include 'oscar/basket/partials/basket_totals.html' with editable=1 %}
+        {% include "oscar/basket/partials/basket_totals.html" with editable=1 %}
       </div>
     {% endblock baskettotals %}
   </div>
   {% block formactions %}
-    <div class="form-group clearfix">
+    <div class="clearfix">
       <div class="row">
         <div class="col-sm-4 offset-sm-8">
-          <a href="{% url 'checkout:index' %}"
+          <a href="{% url "checkout:index" %}"
              class="btn btn-lg btn-primary w-100">{% trans "Proceed to checkout" %}</a>
         </div>
       </div>
@@ -180,7 +186,7 @@
         <div class="col-md-2 h4 text-center">{% trans "Price" %}</div>
         <div class="col-md-2">&nbsp;</div>
       </div>
-      <form action="{% url 'basket:saved' %}"
+      <form action="{% url "basket:saved" %}"
             method="post"
             id="saved_basket_formset">
         {% csrf_token %}
@@ -196,7 +202,9 @@
                   <a href="{{ form.instance.product.get_absolute_url }}">
                     <img class="card card-body mx-auto"
                          src="{{ thumb.url }}"
-                         alt="{{ form.instance.product.get_title }}" />
+                         alt="{{ form.instance.product.get_title }}"
+                         width="{{ thumb.width }}"
+                         height="{{ thumb.height }}" />
                   </a>
                 {% endwith %}
               </div>
@@ -206,7 +214,7 @@
                 </h3>
                 <p class="availability {{ session.availability.code }}">{{ session.availability.message }}</p>
                 <a href="#" data-id="{{ forloop.counter0 }}" data-behaviours="remove">{% trans "Remove" %}</a>
-                <div style="display:none">
+                <div class="d-none">
                   {{ form.move_to_basket }}
                   {{ form.DELETE }}
                 </div>

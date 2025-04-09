@@ -24,7 +24,7 @@
       <li class="breadcrumb-item active" aria-current="page">{% trans "Customers" %}</li>
     </ol>
   </nav>
-{% endblock breadcrumb %}
+{% endblock breadcrumbs %}
 {% block dashboard_content %}
   <div class="table-header">
     <h5 class="icon-link">
@@ -33,7 +33,7 @@
     </h5>
   </div>
   <div class="card card-body">
-    <form method="get" class="form-inline">
+    <form method="get" class="hstack">
       {% include "oscar/dashboard/partials/form_fields_inline.html" with form=form %}
       <button type="submit"
               name="search"
@@ -44,7 +44,7 @@
   </div>
   {% block users_list %}
     {% if users.data %}
-      <form id="user_list_form" method="post" class="form-inline">
+      <form id="user_list_form" method="post" class="hstack">
         {% csrf_token %}
         {% render_table users %}
       </form>
@@ -56,5 +56,5 @@
         </tr>
       </table>
     {% endif %}
-  {% endblock user_list %}
+  {% endblock users_list %}
 {% endblock dashboard_content %}

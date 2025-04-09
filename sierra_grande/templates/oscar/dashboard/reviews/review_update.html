@@ -1,4 +1,4 @@
-{% extends 'oscar/dashboard/layout.html' %}
+{% extends "oscar/dashboard/layout.html" %}
 
 {% load currency_filters %}
 {% load i18n %}
@@ -15,10 +15,10 @@
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
-          <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
+          <a href="{% url "dashboard:index" %}">{% trans "Dashboard" %}</a>
         </li>
         <li class="breadcrumb-item">
-          <a href="{% url 'dashboard:reviews-list' %}">{% trans "Reviews" %}</a>
+          <a href="{% url "dashboard:reviews-list" %}">{% trans "Reviews" %}</a>
         </li>
         <li class="breadcrumb-item active" aria-current="page">{% blocktrans %}Review #{{ review.id }}{% endblocktrans %}</li>
       </ol>
@@ -26,7 +26,7 @@
   {% endblock breadcrumbs %}
   {% block headertext %}
     {% blocktrans with review_id=review.id %}Review #{{ review_id }}{% endblocktrans %}
-  {% endblock headertext}
+  {% endblock headertext %}
   {% block dashboard_content %}
     <form method="post" class="form-stacked" enctype="multipart/form-data">
       {% csrf_token %}
@@ -39,7 +39,7 @@
           {% for field in form %}
             {# display title (first) and body (last) as full lines #}
             {% if forloop.counter < 3 %}
-              <div class="form-group">
+              <div>
                 {% if field.is_hidden %}
                   {{ field }}
                 {% else %}
@@ -52,11 +52,11 @@
                 {% endif %}
               </div>
             {% else %}
-              <div class="form-inline float-start">
+              <div class="hstack float-start">
                 {% if field.is_hidden %}
                   {{ field }}
                 {% else %}
-                  <span class="form-group">
+                  <span>
                     {{ field.label_tag }}
                     {{ field }}
                     {% for error in field.errors %}
@@ -73,9 +73,9 @@
         <div class="form-actions">
           <button class="btn btn-primary"
                   type="submit"
-                  data-loading-text="{% trans 'Saving...' %}">{% trans "Save" %}</button>
+                  data-loading-text="{% trans "Saving..." %}">{% trans "Save" %}</button>
           {% trans "or" %}
-          <a href="{% url 'dashboard:reviews-list' %}">{% trans "cancel" %}</a>
+          <a href="{% url "dashboard:reviews-list" %}">{% trans "cancel" %}</a>
         </div>
       </div>
     </form>

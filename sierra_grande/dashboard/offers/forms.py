@@ -1,12 +1,9 @@
+from itertools import chain
+
 from crispy_bootstrap5.bootstrap5 import FloatingField
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import HTML
-from crispy_forms.layout import Column
-from crispy_forms.layout import Hidden
-from crispy_forms.layout import Layout
-from crispy_forms.layout import Reset
-from crispy_forms.layout import Row
-from crispy_forms.layout import Submit
+from crispy_forms.layout import HTML, Column, Hidden, Layout, Reset, Row, Submit
+
 from django import forms
 from django.conf import settings
 from django.utils import timezone
@@ -19,8 +16,23 @@ Condition = get_model("offer", "Condition")
 Benefit = get_model("offer", "Benefit")
 
 
+# def get_offer_type_choices():
+#     implemented_types = {
+#         getattr(ConditionalOffer, const_name)
+#         for const_name in settings.OSCAR_OFFERS_IMPLEMENTED_TYPES
+#     }
+
+#     filtered_choices = (
+#         choice
+#         for choice in ConditionalOffer.TYPE_CHOICES
+#         if choice[0] in implemented_types
+#     )
+#     # Chain the default choice with the filtered choices and convert to tuple
+#     return tuple(chain([("", "---------")], filtered_choices))
+
+
 def get_offer_type_choices():
-    return (("", "---------"),) * (
+    return (("", "---------"),) + tuple(
         choice
         for choice in ConditionalOffer.TYPE_CHOICES
         if choice[0]
@@ -282,7 +294,6 @@ class OfferSearchForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
         self.helper = FormHelper()
         # Create lists for the different field layouts
         self.helper.disable_csrf = True
@@ -310,7 +321,7 @@ class OfferSearchForm(forms.Form):
                 # Campos no básicos como hidden inputs
                 hidden_field_layouts.append(Hidden(field_name, field.initial or ""))
 
-        # Finalmente, construir el layout completo
+        # Finally, build the layout
         self.helper.layout = Layout(
             Row(
                 *basic_field_layouts,
@@ -318,7 +329,7 @@ class OfferSearchForm(forms.Form):
                     Submit(
                         "submit",
                         _("Search"),
-                        data_loading_text=_("Generating..."),
+                        data_loading_text=_("Searching..."),
                     ),
                     css_class="col-auto",
                 ),

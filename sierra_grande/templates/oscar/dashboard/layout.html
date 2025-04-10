@@ -5,9 +5,6 @@
 {% load i18n %}
 {% load static %}
 
-{% comment %} {% block styles %}
-    <link rel="stylesheet" type="text/css" href="{% static "oscar/css/dashboard.css" %}" />
-{% endblock %} {% endcomment %}
 {% comment %} {% block extrastyles %}
     {{ block.super }}
     <link rel="stylesheet" href="{% static "oscar/js/select2/select2.min.css" %}" />
@@ -124,17 +121,17 @@
         </ol>
       </nav>
     {% endblock breadcrumbs %}
-    <div>
+    <div class="row gy-3">
       {% include "oscar/dashboard/partials/alert_messages.html" %}
       {% block header %}
-        <div>
+        <div class="hstack justify-content-between col ">
           <h2>
             {% block headertext %}
             {% endblock headertext %}
           </h2>
         </div>
       {% endblock header %}
-      <div>
+      <div class="col-12">
         {% block content %}
           {% block dashboard_content %}
           {% endblock dashboard_content %}
@@ -162,7 +159,7 @@
                                   <script src="{% static "oscar/js/select2/select2.min.js" %}"></script>
                                   <script src="{% static "oscar/js/jquery-sortable/jquery-sortable-min.js" %}"></script>
                                   <script src="{% static "oscar/js/oscar/RelatedObjectLookups.js" %}"></script>
-  <script src="{% static "oscar/js/tinymce/tinymce.min.js" %}"></script> {% endcomment %}
+  <script src="{% static "oscar/js/tinymce/tinymce.min.js" %}"></script>  {% endcomment %}
 {% endblock extrascripts %}
 {% block onbodyload %}
   {{ block.super }}

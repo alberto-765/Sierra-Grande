@@ -113,7 +113,7 @@ THIRD_PARTY_APPS = [
     "oscar.apps.dashboard.pages.apps.PagesDashboardConfig",
     "oscar.apps.dashboard.ranges.apps.RangesDashboardConfig",
     "oscar.apps.dashboard.reviews.apps.ReviewsDashboardConfig",
-    "oscar.apps.dashboard.vouchers.apps.VouchersDashboardConfig",
+    "sierra_grande.dashboard.vouchers.apps.VouchersDashboardConfig",
     "oscar.apps.dashboard.communications.apps.CommunicationsDashboardConfig",
     "oscar.apps.dashboard.shipping.apps.ShippingDashboardConfig",
     # 3rd-party apps that oscar depends on

@@ -1,9 +1,12 @@
-from itertools import chain
-
 from crispy_bootstrap5.bootstrap5 import FloatingField
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import HTML, Column, Hidden, Layout, Reset, Row, Submit
-
+from crispy_forms.layout import HTML
+from crispy_forms.layout import Column
+from crispy_forms.layout import Hidden
+from crispy_forms.layout import Layout
+from crispy_forms.layout import Reset
+from crispy_forms.layout import Row
+from crispy_forms.layout import Submit
 from django import forms
 from django.conf import settings
 from django.utils import timezone
@@ -16,23 +19,8 @@ Condition = get_model("offer", "Condition")
 Benefit = get_model("offer", "Benefit")
 
 
-# def get_offer_type_choices():
-#     implemented_types = {
-#         getattr(ConditionalOffer, const_name)
-#         for const_name in settings.OSCAR_OFFERS_IMPLEMENTED_TYPES
-#     }
-
-#     filtered_choices = (
-#         choice
-#         for choice in ConditionalOffer.TYPE_CHOICES
-#         if choice[0] in implemented_types
-#     )
-#     # Chain the default choice with the filtered choices and convert to tuple
-#     return tuple(chain([("", "---------")], filtered_choices))
-
-
 def get_offer_type_choices():
-    return (("", "---------"),) + tuple(
+    return (("", "---------"),) * (
         choice
         for choice in ConditionalOffer.TYPE_CHOICES
         if choice[0]

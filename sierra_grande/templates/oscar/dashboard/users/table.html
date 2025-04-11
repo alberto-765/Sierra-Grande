@@ -2,36 +2,45 @@
 
 {% load i18n %}
 
-{% block table.caption %}
-  <div class="row align-items-center justify-content-start justify-content-md-end">
-    <div class="col">{{ block.super }}</div>
-    {% comment %} <div class="row col-auto row-cols-lg-auto align-items-center"> {% endcomment %}
-    <div class="col-auto col-md-auto">
-      <iconify-icon icon="material-symbols:sync-rounded" aria-hidden="true" width="1rem" height="1rem" inline></iconify-icon>
-      {% trans "Bulk Actions" %}
-    </div>
-    <div class="col-12 col-md-auto row align-items-center">
-      <label class="col-auto ">{% trans "With selected customers:" %}</label>
-      <div class="form-check col-auto">
-        <input id="make_active_check"
-               class="form-check-input"
-               type="radio"
-               name="action"
-               value="make_active" />
-        <label class="form-check-label col-auto" for="make_active_check">{% trans "Make active" %}</label>
+{% block card_header %}
+  <div class="card-header">
+    <div class="row align-items-center justify-content-end g-2">
+      <div class="col text-nowrap">
+        {% block card_header_text %}
+          {{ block.super }}
+        {% endblock card_header_text %}
       </div>
-      <div class="form-check col-auto">
-        <input id="make_inactive_check"
-               class="form-check-input"
-               type="radio"
-               name="action"
-               value="make_inactive" />
-        <label class="form-check-label" for="make_inactive_check">{% trans "Make inactive" %}</label>
+      <div class="col-auto">
+        <iconify-icon icon="material-symbols:sync-rounded" aria-hidden="true" width="1rem" height="1rem" inline></iconify-icon>
+        {% trans "Bulk Actions" %}
       </div>
-      <input type="submit"
-             value="{% trans "Go!" %}"
-             class="btn btn-primary col-auto ms-auto" />
-      {% comment %} </div> {% endcomment %}
+      <div class="col-md-auto">
+        <div class="row row-cols-sm-auto align-items-center justify-content-start g-3">
+          <label class=" col text-break">{% trans "With selected customers:" %}</label>
+          <div class="form-check col">
+            <input id="make_active_check"
+                   class="form-check-input"
+                   type="radio"
+                   name="action"
+                   value="make_active" />
+            <label class="form-check-label col-auto" for="make_active_check">{% trans "Make active" %}</label>
+          </div>
+          <div class="form-check col text-nowrap">
+            <input id="make_inactive_check"
+                   class="form-check-input"
+                   type="radio"
+                   name="action"
+                   value="make_inactive" />
+            <label class="form-check-label" for="make_inactive_check">{% trans "Make inactive" %}</label>
+          </div>
+          <div class="col-12 ms-auto">
+            <input type="submit" value="{% trans "Go!" %}" class="btn btn-primary w-100" />
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-{% endblock table.caption %}
+{% endblock card_header %}
+{% block table-wrapper-class %}
+  card-body p-0
+{% endblock table-wrapper-class %}

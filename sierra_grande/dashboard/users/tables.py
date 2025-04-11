@@ -1,3 +1,6 @@
-from oscar.apps.dashboard.users.tables import *  # noqa: F403
+# ruff: noqa: F403, F405
 
-UserTable.icon = "fa-solid:users"  # noqa: F405
+from oscar.apps.dashboard.users.tables import *
+
+if hasattr(UserTable, "icon"):
+    UserTable.icon = "fa-solid:users"

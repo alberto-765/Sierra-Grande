@@ -4,4 +4,4 @@ import oscar.apps.dashboard.tables as table
 class DashboardTable(table.DashboardTable):
     class Meta:
         template_name = "oscar/dashboard/table.html"
-        attrs = {"class": "table table-striped table-bordered caption-top"}
+        attrs = {"class": "table table-striped table-bordered"}

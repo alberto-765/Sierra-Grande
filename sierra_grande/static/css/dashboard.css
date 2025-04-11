@@ -1,16 +1,23 @@
+/* Paddings for nabvar icon */
 .navbar {
   --bs-navbar-toggler-padding-y: none;
   --bs-navbar-toggler-padding-x: none;
 }
 
+/* Navbar custom icon links */
 .icon-link-hover--custom {
   --bs-icon-link-transform: scale(1.1)
 }
 
-.table-container {
-  --bs-gutter-x: 1.5rem;
-  --bs-gutter-y: 0;
-  width: 100%;
-  padding-right: calc(var(--bs-gutter-x) * .5);
-  padding-left: calc(var(--bs-gutter-x) * .5);
+/* Override margin-button for django-tables2 */
+.table-container > table {
+  margin-bottom: 0 !important;
+
+  & > thead > tr:first-of-type {
+    border-top: none;
+  }
+
+  & > tbody > tr:last-of-type {
+    border-bottom: none;
+  }
 }

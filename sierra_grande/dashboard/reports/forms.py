@@ -1,13 +1,9 @@
-from django import forms
-from django.utils.translation import gettext_lazy as _
-
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
-
-
+from django import forms
+from django.utils.translation import gettext_lazy as _
 from oscar.core.loading import get_class
 from oscar.forms.widgets import DatePickerInput
-
 
 GeneratorRepository = get_class("dashboard.reports.utils", "GeneratorRepository")
 

@@ -1,5 +1,5 @@
-import oscar.apps.dashboard.vouchers.apps as apps
+from oscar.apps.dashboard.vouchers import apps
 
 
 class VouchersDashboardConfig(apps.VouchersDashboardConfig):
-    name = 'sierra_grande.dashboard.vouchers'
+    name = "sierra_grande.dashboard.vouchers"

@@ -3,17 +3,20 @@
 {% load django_tables2 %}
 {% load i18n %}
 
-{% block table.thead %}
-  <caption class="container-fluid">
-    {% block table.caption %}
-      <h4 class="icon-link m-0">
+{% block table-wrapper %}
+  {% block card_header %}
+    {% block card_header_text %}
+      <h5 class="icon-link">
         {% if table.icon %}
           <iconify-icon icon="{{ table.icon }}" width="1rem" height="1rem" aria-hidden="true" noobserver></iconify-icon>
         {% endif %}
         {{ table.get_caption_display }}
-      </h4>
-    {% endblock table.caption %}
-  </caption>
+      </h5>
+    {% endblock card_header_text %}
+  {% endblock card_header %}
+  <div class="{% block table-wrapper-class %} card-body {% endblock table-wrapper-class %}">{{ block.super }}</div>
+{% endblock table-wrapper %}
+{% block table.thead %}
   <thead>
     <tr>
       {% for column in table.columns %}

@@ -1,13 +1,17 @@
 from crispy_bootstrap5.bootstrap5 import FloatingField
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import HTML, Column, Hidden, Layout, Reset, Row, Submit
-
+from crispy_forms.layout import HTML
+from crispy_forms.layout import Column
+from crispy_forms.layout import Hidden
+from crispy_forms.layout import Layout
+from crispy_forms.layout import Reset
+from crispy_forms.layout import Row
+from crispy_forms.layout import Submit
 from django import forms
 from django.db import transaction
 from django.urls import reverse
-from django.utils.safestring import mark_safe
+from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
-
 from oscar.apps.voucher.utils import get_unused_code
 from oscar.core.loading import get_model
 from oscar.forms import widgets
@@ -51,13 +55,19 @@ class VoucherSearchForm(forms.Form):
     code = forms.CharField(required=False, label=_("Code"))
     offer_name = forms.CharField(required=False, label=_("Offer name"))
     is_active = forms.NullBooleanField(
-        required=False, label=_("Is active?"), widget=widgets.NullBooleanSelect
+        required=False,
+        label=_("Is active?"),
+        widget=widgets.NullBooleanSelect,
     )
     in_set = forms.NullBooleanField(
-        required=False, label=_("In voucher set?"), widget=widgets.NullBooleanSelect
+        required=False,
+        label=_("In voucher set?"),
+        widget=widgets.NullBooleanSelect,
     )
     has_offers = forms.NullBooleanField(
-        required=False, label=_("Has offers?"), widget=widgets.NullBooleanSelect
+        required=False,
+        label=_("Has offers?"),
+        widget=widgets.NullBooleanSelect,
     )
 
     basic_fields = [
@@ -91,7 +101,7 @@ class VoucherSearchForm(forms.Form):
                 else:
                     # Campos básicos visibles con form-floating
                     basic_field_layouts.append(
-                        Column(FloatingField(field_name, wrapper_class="col-auto"))
+                        Column(FloatingField(field_name, wrapper_class="col-auto")),
                     )
             else:
                 # Campos no básicos como hidden inputs
@@ -133,7 +143,8 @@ class VoucherSearchForm(forms.Form):
 
 class VoucherSetForm(forms.ModelForm):
     usage = forms.ChoiceField(
-        choices=(("", "---------"),) + Voucher.USAGE_CHOICES, label=_("Usage")
+        choices=(("", "---------"),) * Voucher.USAGE_CHOICES,
+        label=_("Usage"),
     )
 
     offers = forms.ModelMultipleChoiceField(
@@ -160,21 +171,24 @@ class VoucherSetForm(forms.ModelForm):
         data = self.cleaned_data["count"]
         if (self.instance.pk is not None) and (data < self.instance.count):
             detail_url = reverse(
-                "dashboard:voucher-set-detail", kwargs={"pk": self.instance.pk}
+                "dashboard:voucher-set-detail",
+                kwargs={"pk": self.instance.pk},
             )
             raise forms.ValidationError(
-                mark_safe(
+                format_html(
                     _(
-                        "This cannot be used to delete vouchers (currently %s) in this set. "
-                        'You can do that on the <a href="%s">detail</a> page.'
-                    )
-                    % (self.instance.count, detail_url)
-                )
+                        "This cannot be used to delete vouchers (currently {}) in "
+                        "this set. "
+                        'You can do that on the <a href="{}">detail</a> page.',
+                    ),
+                    self.instance.count,
+                    detail_url,
+                ),
             )
         return data
 
     @transaction.atomic
-    def save(self, commit=True):
+    def save(self, commit=True):  # noqa: FBT002
         instance = super().save(commit)
         if commit:
             usage = self.cleaned_data["usage"]
@@ -182,7 +196,7 @@ class VoucherSetForm(forms.ModelForm):
             if instance is not None:
                 # Update vouchers in this set
                 for i, voucher in enumerate(instance.vouchers.order_by("date_created")):
-                    voucher.name = "%s - %d" % (instance.name, i + 1)
+                    voucher.name = (f"{instance.name} - {i + 1}",)
                     voucher.usage = usage
                     voucher.start_datetime = instance.start_datetime
                     voucher.end_datetime = instance.end_datetime
@@ -192,7 +206,7 @@ class VoucherSetForm(forms.ModelForm):
             vouchers_added = False
             for i in range(instance.vouchers.count(), instance.count):
                 voucher = Voucher.objects.create(
-                    name="%s - %d" % (instance.name, i + 1),
+                    name=f"{instance.name} - {i + 1}",
                     code=get_unused_code(length=instance.code_length),
                     voucher_set=instance,
                     usage=usage,

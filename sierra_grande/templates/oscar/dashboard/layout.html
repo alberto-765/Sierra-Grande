@@ -5,12 +5,14 @@
 {% load i18n %}
 {% load static %}
 
-{% comment %} {% block extrastyles %}
-    {{ block.super }}
-    <link rel="stylesheet" href="{% static "oscar/js/select2/select2.min.css" %}" />
+{% block extrastyles %}
+  {{ block.super }}
+  {% comment %} <link rel="stylesheet" href="{% static "oscar/js/select2/select2.min.css" %}" />
     <link rel="stylesheet" href="{% static "oscar/css/select2-bootstrap.min.css" %}" />
-    <link rel="stylesheet" href="{% static "oscar/js/bootstrap4-datetimepicker/tempusdominus-bootstrap-4.min.css" %}" />
-{% endblock %} {% endcomment %}
+  <link rel="stylesheet"
+        href="{% static "oscar/js/bootstrap4-datetimepicker/tempusdominus-bootstrap-4.min.css" %}" /> {% endcomment %}
+  <link rel="stylesheet" href="{% static "css/dashboard.css" %}" />
+{% endblock extrastyles %}
 {% block title %}
   {% trans "Dashboard" %} | {{ block.super }}
 {% endblock title %}

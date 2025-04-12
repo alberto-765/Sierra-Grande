@@ -6,16 +6,16 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+          content="Ecommerce proyect for Business Sierra Grande de Hornachos" />
+    <meta name="author" content="Alberto Mimbrero Gutiérrez" />
     <title>
       {% block title %}
         Sierra Grande
       {% endblock title %}
     </title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description"
-          content="Ecommerce proyect for Business Sierra Grande de Hornachos" />
-    <meta name="author" content="Alberto Mimbrero Gutiérrez" />
-    <link rel="icon" href="{% static 'images/favicons/favicon.ico' %}" />
+    <link rel="icon" href="{% static "images/favicons/favicon.ico" %}" />
     {% block css %}
       <!-- Latest compiled and minified Bootstrap CSS -->
       <link rel="stylesheet"
@@ -26,7 +26,7 @@
       <!-- Your stuff: Third-party CSS libraries go here -->
       <!-- This file stores project-specific CSS -->
       {% compress css %}
-        <link href="{% static 'css/project.css' %}" rel="stylesheet" />
+        <link href="{% static "css/project.css" %}" rel="stylesheet" />
       {% endcompress %}
     {% endblock css %}
     <!-- Le javascript
@@ -42,7 +42,7 @@
       <!-- Your stuff: Third-party javascript libraries go here -->
       <!-- place project specific Javascript in this file -->
       {% compress js %}
-        <script defer src="{% static 'js/project.js' %}"></script>
+        <script defer src="{% static "js/project.js" %}"></script>
       {% endcompress %}
     {% endblock javascript %}
   </head>
@@ -60,31 +60,31 @@
                     aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand" href="{% url 'home' %}">Sierra Grandeaaaaaaaaaa</a>
+            <a class="navbar-brand" href="{% url "home" %}">Sierra Grandeaaaaaaaaaa</a>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav me-auto">
                 <li class="nav-item active">
-                  <a class="nav-link" href="{% url 'home' %}">Home <span class="visually-hidden">(current)</span></a>
+                  <a class="nav-link" href="{% url "home" %}">Home <span class="visually-hidden">(current)</span></a>
                 </li>
                 <li class="nav-item"></li>
                 {% if request.user.is_authenticated %}
                   <li class="nav-item">
-                    <a class="nav-link" href="{% url 'users:detail' request.user.pk %}">{% translate "My Profile" %}</a>
+                    <a class="nav-link" href="{% url "users:detail" request.user.pk %}">{% translate "My Profile" %}</a>
                   </li>
                   <li class="nav-item">
                     {# URL provided by django-allauth/account/urls.py #}
-                    <a class="nav-link" href="{% url 'account_logout' %}">{% translate "Sign Out" %}</a>
+                    <a class="nav-link" href="{% url "account_logout" %}">{% translate "Sign Out" %}</a>
                   </li>
                 {% else %}
                   {% if ACCOUNT_ALLOW_REGISTRATION %}
                     <li class="nav-item">
                       {# URL provided by django-allauth/account/urls.py #}
-                      <a id="sign-up-link" class="nav-link" href="{% url 'account_signup' %}">{% translate "Sign Up" %}</a>
+                      <a id="sign-up-link" class="nav-link" href="{% url "account_signup" %}">{% translate "Sign Up" %}</a>
                     </li>
                   {% endif %}
                   <li class="nav-item">
                     {# URL provided by django-allauth/account/urls.py #}
-                    <a id="log-in-link" class="nav-link" href="{% url 'account_login' %}">{% translate "Sign In" %}</a>
+                    <a id="log-in-link" class="nav-link" href="{% url "account_login" %}">{% translate "Sign In" %}</a>
                   </li>
                 {% endif %}
               </ul>
@@ -119,7 +119,7 @@
     Script tags with only code, no src (defer by default). To run
     with a "defer" so that you run inline code:
     <script>
-      window.addEventListener('DOMContentLoaded', () => {
+      window.addEventListener("DOMContentLoaded", () => {
         /* Run whatever you want */
       });
     </script>

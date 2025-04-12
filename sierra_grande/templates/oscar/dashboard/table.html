@@ -14,7 +14,9 @@
       </h5>
     {% endblock card_header_text %}
   {% endblock card_header %}
-  <div class="{% block table-wrapper-class %} card-body {% endblock table-wrapper-class %}">{{ block.super }}</div>
+  <div class="{% block table-wrapper-class %} table-container {% endblock table-wrapper-class %}">
+    {{ block.super }}
+  </div>
 {% endblock table-wrapper %}
 {% block table.thead %}
   <thead>

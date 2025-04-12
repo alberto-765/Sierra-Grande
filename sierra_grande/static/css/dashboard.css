@@ -14,10 +14,10 @@
   margin-bottom: 0 !important;
 
   & > thead > tr:first-of-type {
-    border-top: none;
+    border-top-width: 0;
   }
 
   & > tbody > tr:last-of-type {
-    border-bottom: none;
+    border-bottom-width: 0;
   }
 }

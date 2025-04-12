@@ -5,3 +5,9 @@
         box-shadow: none;
     }
 }
+
+/* Correct border-radius for card-body in cards with rounded-buttom */
+.card-body:has(:not(table)), .card-body table tr:last-of-type td:last-of-type {
+    border-bottom-right-radius: var(--bs-border-radius) !important;
+    border-bottom-left-radius: var(--bs-border-radius) !important;
+}

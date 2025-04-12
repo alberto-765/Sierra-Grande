@@ -3,7 +3,7 @@
 {% load shipping_tags %}
 
 <div id="basket_totals">
-  <table class="table table-sm">
+  <table class="table table-sm vertical-middle">
     <tbody>
       {% block basket_header %}
         <tr>
@@ -54,10 +54,10 @@
                     {% endif %}
                     {% if editable %}
                       <form action="{% url 'basket:vouchers-remove' pk=discount.voucher.id %}"
-                            method="POST">
+                            method="post">
                         {% csrf_token %}
                         <input type="submit"
-                               value="{% trans 'Remove' %}"
+                               value="{% trans "Remove" %}"
                                class="btn btn-sm btn-danger" />
                       </form>
                     {% endif %}

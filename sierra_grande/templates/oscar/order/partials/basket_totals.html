@@ -2,7 +2,7 @@
 {% load currency_filters %}
 
 <div id="basket_totals">
-  <table class="table table-sm">
+  <table class="vertical-middle table table-sm">
     <tr>
       <th colspan="2">
         <h3>{% trans "Basket" %}</h3>
@@ -115,7 +115,7 @@
           {% endfor %}
         {% endif %}
       {% endwith %}
-    {% endblock %}
+    {% endblock surcharges %}
     {% if show_tax_separately %}
       <tr>
         <th colspan="2">&nbsp;</th>

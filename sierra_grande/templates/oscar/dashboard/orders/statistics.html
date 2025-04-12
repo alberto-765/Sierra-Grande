@@ -43,7 +43,7 @@
       <a href="{% url "dashboard:order-stats" %}" class="btn btn-secondary">{% trans "Reset" %}</a>
     </form>
   </div>
-  <table class="table table-striped table-bordered table-hover">
+  <table class="vertical-middle table table-striped table-bordered table-hover">
     <caption><i class="fas fa-shopping-cart"></i> {% trans "Summary" %}</caption>
     <tr>
       <th>{% trans "Total orders" %}</th>
@@ -59,7 +59,7 @@
     </tr>
   </table>
   {% if order_status_breakdown %}
-    <table class="table table-striped table-bordered table-hover">
+    <table class="vertical-middle table table-striped table-bordered table-hover">
       <caption><i class="fas fa-shopping-cart"></i> {% trans "Order status breakdown" %}</caption>
       <tr>
         <th>{% trans "Status" %}</th>

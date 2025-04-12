@@ -1,4 +1,4 @@
-{% extends 'oscar/base.html' %}
+{% extends "oscar/base.html" %}
 
 {% load static %}
 {% load django_bootstrap5 %}
@@ -6,7 +6,6 @@
 {% block styles %}
   {% bootstrap_css %}
   <link rel="stylesheet" href="{% static "css/base.css" %}" />
-  <link rel="stylesheet" href="{% static "css/dashboard.css" %}" />
 {% endblock styles %}
 {% block cdn_scripts %}
   <!-- jQuery -->

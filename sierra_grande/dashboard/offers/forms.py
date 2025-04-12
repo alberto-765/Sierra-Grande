@@ -20,14 +20,17 @@ Benefit = get_model("offer", "Benefit")
 
 
 def get_offer_type_choices():
-    return (("", "---------"),) * (
-        choice
-        for choice in ConditionalOffer.TYPE_CHOICES
-        if choice[0]
-        in [
-            getattr(ConditionalOffer, const_name)
-            for const_name in settings.OSCAR_OFFERS_IMPLEMENTED_TYPES
-        ]
+    return (
+        ("", "---------"),
+        *(
+            choice
+            for choice in ConditionalOffer.TYPE_CHOICES
+            if choice[0]
+            in [
+                getattr(ConditionalOffer, const_name)
+                for const_name in settings.OSCAR_OFFERS_IMPLEMENTED_TYPES
+            ]
+        ),
     )
 
 

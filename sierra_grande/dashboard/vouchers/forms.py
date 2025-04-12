@@ -143,7 +143,7 @@ class VoucherSearchForm(forms.Form):
 
 class VoucherSetForm(forms.ModelForm):
     usage = forms.ChoiceField(
-        choices=(("", "---------"),) * Voucher.USAGE_CHOICES,
+        choices=(("", "---------"), *Voucher.USAGE_CHOICES),
         label=_("Usage"),
     )
 

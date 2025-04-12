@@ -13,10 +13,10 @@
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
+        <a href="{% url "dashboard:index" %}">{% trans "Dashboard" %}</a>
       </li>
       <li class="breadcrumb-item">
-        <a href="{% url 'dashboard:order-list' %}">{% trans "Orders" %}</a>
+        <a href="{% url "dashboard:order-list" %}">{% trans "Orders" %}</a>
       </li>
       <li class="breadcrumb-item active" aria-current="page">#{{ order.number }}</li>
     </ol>
@@ -27,7 +27,7 @@
 {% endblock headertext %}
 {% block dashboard_content %}
   {% block customer_information %}
-    <table class="table table-bordered table-hover">
+    <table class="vertical-middle table table-bordered table-hover">
       <caption><i class="fas fa-user"></i> {% trans "Customer Information" %}</caption>
       {% if order.guest_email %}
         <tr>
@@ -55,7 +55,7 @@
     </table>
   {% endblock customer_information %}
   {% block order_information %}
-    <table class="table table-striped table-bordered table-hover">
+    <table class="vertical-middle table table-striped table-bordered table-hover">
       <caption><i class="fas fa-shopping-cart"></i> {% trans "Order information" %}</caption>
       <tr>
         <th>{% trans "Order Total" %}</th>
@@ -80,34 +80,34 @@
     <ul class="nav nav-tabs mb-0" role="tablist">
       {% block nav_tabs %}
         <li class="nav-item">
-          <a class="nav-link {% if active_tab == 'lines' %}active{% endif %}"
+          <a class="nav-link {% if active_tab == "lines" %}active{% endif %}"
              href="#lines"
              data-bs-toggle="tab">{% trans "Order contents" %}</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {% if active_tab == 'shipping' %}active{% endif %}"
+          <a class="nav-link {% if active_tab == "shipping" %}active{% endif %}"
              href="#shipping"
              data-bs-toggle="tab">{% trans "Shipping" %}</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {% if active_tab == 'payment' %}active{% endif %}"
+          <a class="nav-link {% if active_tab == "payment" %}active{% endif %}"
              href="#payment"
              data-bs-toggle="tab">{% trans "Payment" %}</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {% if active_tab == 'discounts' %}active{% endif %}"
+          <a class="nav-link {% if active_tab == "discounts" %}active{% endif %}"
              href="#discounts"
              data-bs-toggle="tab">{% trans "Discounts" %}</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {% if active_tab == 'notes' %}active{% endif %}"
+          <a class="nav-link {% if active_tab == "notes" %}active{% endif %}"
              href="#notes"
              data-bs-toggle="tab">{% trans "Notes" %}</a>
         </li>
       {% endblock nav_tabs %}
     </ul>
     <div class="tab-content">
-      <div class="tab-pane fade {% if active_tab == 'lines' %}show active{% endif %}"
+      <div class="tab-pane fade {% if active_tab == "lines" %}show active{% endif %}"
            id="lines"
            role="tabpanel">
         <div class="table-header">
@@ -116,7 +116,7 @@
         <form id="order_lines_form" method="post" class="hstack">
           {% csrf_token %}
           {% block order_lines %}
-            <table class="table table-striped table-bordered table-hover">
+            <table class="vertical-middle table table-striped table-bordered table-hover">
               <thead>
                 <tr>
                   <th></th>
@@ -146,12 +146,12 @@
                              size="2" />
                     </td>
                     <td>
-                      <a href="{% url 'dashboard:order-line-detail' number=order.number line_id=line.id %}">#{{ line.id }}</a>
+                      <a href="{% url "dashboard:order-line-detail" number=order.number line_id=line.id %}">#{{ line.id }}</a>
                     </td>
                     <td>{{ line.quantity }}</td>
                     <td>
                       {% if line.product %}
-                        <a href="{% url 'dashboard:catalogue-product' pk=line.product.id %}">{{ line.title }}</a>
+                        <a href="{% url "dashboard:catalogue-product" pk=line.product.id %}">{{ line.title }}</a>
                       {% else %}
                         {{ line.title }}
                       {% endif %}
@@ -160,7 +160,7 @@
                     <td>{{ line.status|default:"-" }}</td>
                     <td>
                       {% if line.partner %}
-                        <a href="{% url 'dashboard:partner-manage' pk=line.partner.id %}">{{ line.partner_name }}</a>
+                        <a href="{% url "dashboard:partner-manage" pk=line.partner.id %}">{{ line.partner_name }}</a>
                       {% else %}
                         {{ line.partner_name }}
                       {% endif %}
@@ -169,7 +169,7 @@
                     <td class="text-end">{{ line.line_price_before_discounts_excl_tax|currency:order.currency }}</td>
                     <td class="text-end">{{ line.line_price_before_discounts_incl_tax|currency:order.currency }}</td>
                     <td>
-                      <a href="{% url 'dashboard:order-line-detail' number=order.number line_id=line.id %}"
+                      <a href="{% url "dashboard:order-line-detail" number=order.number line_id=line.id %}"
                          class="btn btn-secondary">{% trans "View" %}</a>
                     </td>
                   </tr>
@@ -385,7 +385,7 @@
             <h3>{% trans "Status Changes" %}</h3>
           </div>
           {% with status_changes=order.status_changes.all %}
-            <table class="table table-striped table-bordered table-hover">
+            <table class="vertical-middle table table-striped table-bordered table-hover">
               {% if status_changes %}
                 <thead>
                   <tr>
@@ -418,7 +418,7 @@
             <h3>{% trans "Shipping Events" %}</h3>
           </div>
           {% with events=order.shipping_events.all %}
-            <table class="table table-striped table-bordered table-hover">
+            <table class="vertical-middle table table-striped table-bordered table-hover">
               {% if events %}
                 <thead>
                   <tr>
@@ -436,7 +436,7 @@
                         <td>{{ event.event_type.name }}</td>
                         <td>
                           {% for line_qty in event.line_quantities.all %}
-                            <a href="{% url 'dashboard:order-line-detail' number=order.number line_id=line_qty.line.id %}">
+                            <a href="{% url "dashboard:order-line-detail" number=order.number line_id=line_qty.line.id %}">
                               {% blocktrans with title=line_qty.line.title event_qty=line_qty.quantity total_qty=line_qty.line.quantity %}
                                                                 {{ title }} (quantity {{ event_qty }}/{{ total_qty }})
                                                             {% endblocktrans %}
@@ -463,7 +463,7 @@
             <h3>{% trans "Payment Events" %}</h3>
           </div>
           {% with events=order.payment_events.all %}
-            <table class="table table-striped table-bordered table-hover">
+            <table class="vertical-middle table table-striped table-bordered table-hover">
               {% if events %}
                 <thead>
                   <tr>
@@ -503,14 +503,14 @@
         {% endwith %}
       {% endblock payment_events %}
     </div>
-    <div class="tab-pane fade {% if active_tab == 'shipping' %}show active{% endif %}"
+    <div class="tab-pane fade {% if active_tab == "shipping" %}show active{% endif %}"
          id="shipping"
          role="tabpanel">
       {% block tab_shipping %}
         <div class="table-header">
           <h3>{% trans "Shipping" %}</h3>
         </div>
-        <table class="table table-striped table-bordered table-hover">
+        <table class="vertical-middle table table-striped table-bordered table-hover">
           <tbody>
             <tr>
               <th>{% trans "Method name" %}</th>
@@ -537,7 +537,7 @@
                 {% endfor %}
                 {% if order.shipping_address %}
                   <a class="btn btn-secondary"
-                     href="{% url 'dashboard:order-shipping-address' order.number %}">{% trans "Update" %}</a>
+                     href="{% url "dashboard:order-shipping-address" order.number %}">{% trans "Update" %}</a>
                 {% endif %}
               </td>
             </tr>
@@ -553,7 +553,7 @@
         </table>
       {% endblock tab_shipping %}
     </div>
-    <div class="tab-pane fade {% if active_tab == 'payment' %}show active{% endif %}"
+    <div class="tab-pane fade {% if active_tab == "payment" %}show active{% endif %}"
          id="payment"
          role="tabpanel">
       {% block tab_payment %}
@@ -573,7 +573,7 @@
             <h3>{% trans "Payment sources" %}</h3>
           </div>
           {% if sources %}
-            <table class="table table-striped table-bordered table-hover">
+            <table class="vertical-middle table table-striped table-bordered table-hover">
               <thead>
                 <tr>
                   <th>{% trans "Source" %}</th>
@@ -596,7 +596,7 @@
               </tbody>
             </table>
           {% else %}
-            <table class="table table-striped table-bordered table-hover">
+            <table class="vertical-middle table table-striped table-bordered table-hover">
               <tr>
                 <td>{% trans "No payment sources found for this order." %}</td>
               </tr>
@@ -608,7 +608,7 @@
             <div class="table-header">
               <h3>{% trans "Transactions" %}</h3>
             </div>
-            <table class="table table-striped table-bordered table-hover">
+            <table class="vertical-middle table table-striped table-bordered table-hover">
               <thead>
                 <tr>
                   <th>{% trans "Source" %}</th>
@@ -634,7 +634,7 @@
         {% endblock payment_transactions %}
       {% endblock tab_payment %}
     </div>
-    <div class="tab-pane fade {% if active_tab == 'discounts' %}show active{% endif %}"
+    <div class="tab-pane fade {% if active_tab == "discounts" %}show active{% endif %}"
          id="discounts"
          role="tabpanel">
       {% block tab_discounts %}
@@ -643,7 +643,7 @@
             <h3>{% trans "Discounts" %}</h3>
           </div>
           {% if discounts %}
-            <table class="table table-striped table-bordered table-hover">
+            <table class="vertical-middle table table-striped table-bordered table-hover">
               <thead>
                 <tr>
                   <th>{% trans "Type" %}</th>
@@ -661,7 +661,7 @@
                     <td>{{ discount.voucher.code|default:"-" }}</td>
                     <td>
                       {% if discount.offer %}
-                        <a href="{% url 'dashboard:offer-detail' pk=discount.offer.id %}">{{ discount.offer.name }}</a>
+                        <a href="{% url "dashboard:offer-detail" pk=discount.offer.id %}">{{ discount.offer.name }}</a>
                       {% else %}
                         {{ discount.offer_name }}
                       {% endif %}
@@ -674,7 +674,7 @@
               </tbody>
             </table>
           {% else %}
-            <table class="table table-striped table-bordered table-hover">
+            <table class="vertical-middle table table-striped table-bordered table-hover">
               <tr>
                 <td>{% trans "No discounts were applied to this order." %}</td>
               </tr>
@@ -683,7 +683,7 @@
         {% endwith %}
       {% endblock tab_discounts %}
     </div>
-    <div class="tab-pane fade {% if active_tab == 'notes' %}show active{% endif %}"
+    <div class="tab-pane fade {% if active_tab == "notes" %}show active{% endif %}"
          id="notes"
          role="tabpanel">
       {% block tab_notes %}
@@ -691,7 +691,7 @@
           <h3>{% trans "Notes" %}</h3>
         </div>
         {% with notes=order.notes.all %}
-          <table class="table table-striped table-bordered table-hover">
+          <table class="vertical-middle table table-striped table-bordered table-hover">
             {% if notes %}
               <tr>
                 <th>{% trans "Date" %}</th>
@@ -708,7 +708,7 @@
                   <td>{{ note.message|linebreaks }}</td>
                   <td>
                     {% if note.is_editable %}
-                      <a href="{% url 'dashboard:order-detail-note' number=order.number note_id=note.id %}#notes"
+                      <a href="{% url "dashboard:order-detail-note" number=order.number note_id=note.id %}#notes"
                          class="btn btn-info">{% trans "Edit" %}</a>
                       <form method="post" class="float-start m-0">
                         {% csrf_token %}

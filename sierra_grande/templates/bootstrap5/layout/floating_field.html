@@ -1,18 +1,12 @@
 {% load crispy_forms_field %}
 
+
+{# djlint:off #}                  
+
 {% if field.is_hidden %}
   {{ field }}
 {% else %}
-  <
-  {% if tag %}
-    {{ tag }}
-  {% else %}
-    div
-  {% endif %}
-  id="div_{{ field.auto_id }}" class="form-floating
-  {% if wrapper_class %}{{ wrapper_class }}{% endif %}
-  {% if field.css_classes %}{{ field.css_classes }}{% endif %}
-  ">
+  <{% if tag %}{{ tag }} {% else %}div{% endif %} id="div_{{ field.auto_id }}" class="form-floating{% if wrapper_class %}{{ wrapper_class }}{% endif %}{% if field.css_classes %}{{ field.css_classes }}{% endif %}">
   {% if field|is_select %}
     {% if field.errors %}
       {% crispy_field field 'class' 'form-select is-invalid' 'placeholder' field.name %}
@@ -32,11 +26,7 @@
     {% if field.field.required %}<span class="asteriskField">*</span>{% endif %}
   </label>
   {% include "bootstrap5/layout/help_text_and_errors.html" %}
-  </
-  {% if tag %}
-    {{ tag }}
-  {% else %}
-    div
-  {% endif %}
-  >
+  </{% if tag %}{{ tag }}{% else %}div{% endif %}>
 {% endif %}
+
+{# djlint:on #}

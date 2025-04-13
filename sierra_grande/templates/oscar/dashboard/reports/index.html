@@ -25,23 +25,24 @@
 {% block dashboard_content %}
   <div class="vstack gap-4">
     <div class="card">
-      <h5 class="card-header">
+      <h5 class="card-header icon-link">
         <iconify-icon icon="mdi:report-areaspline" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
         {% trans "Reporting dashboard" %}
       </h5>
       <div class="card-body">{% crispy form %}</div>
     </div>
-    <div class="card">
-      {% if description %}
+    
+    {% if description %}
+      <div class="card">
         <h5 class="card-header">
           <iconify-icon icon="mdi:report-areaspline" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
           {{ description }}
         </h5>
-      {% endif %}
-      <div class="card-body card__table-m0">
-        {% block report %}
-        {% endblock report %}
+        <div class="card-body {% block dashboard_content_cardClass%} p-0 {% endblock dashboard_content_cardClass%}">
+          {% block report %}
+          {% endblock report %}
+        </div>
       </div>
-    </div>
+    {% endif %}
   </div>
 {% endblock dashboard_content %}

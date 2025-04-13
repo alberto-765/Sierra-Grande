@@ -1,5 +1,6 @@
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit
+from crispy_forms.layout import Submit, Layout, Row, Column
+from crispy_bootstrap5.bootstrap5 import FloatingField, Switch
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from oscar.core.loading import get_class
@@ -23,7 +24,7 @@ class ReportForm(forms.Form):
     date_from = forms.DateField(
         label=_("Date from"),
         required=False,
-        widget=DatePickerInput,
+        widget=forms.DateInput(attrs={"type": "date"}),
     )
     date_to = forms.DateField(
         label=_("Date to"),
@@ -37,12 +38,22 @@ class ReportForm(forms.Form):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_method = "GET"
-        self.helper.add_input(
-            Submit(
-                "submit",
-                _("Generate report"),
-                css_class="btn btn-primary",
-                data={"loading-text": _("Generating...")},
+        self.helper.layout = Layout(
+            Row(
+                Column(FloatingField("report_type")),
+                Column("date_from"),
+                Column(FloatingField("date_to")),
+            ),
+            Row(
+                Column(Switch("download", label="Pito")),
+                Column(
+                    Submit(
+                        "submit",
+                        _("Generate report"),
+                        css_class="btn btn-primary",
+                        data={"loading-text": _("Generating...")},
+                    )
+                ),
             ),
         )
 

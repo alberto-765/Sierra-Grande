@@ -1,16 +1,10 @@
-{% comment %} TODO: PROBAR data-bs-target-input="nearest" {% endcomment %}
-<div class="hstack">
-  <div class="input-group date"
-       id="wrapper_for_{{ widget.attrs.id }}"
-       {% for name, value in div_attrs.items %}{{ name }}="{{ value|stringformat:'s' }}"{% endfor %}
-       data-bs-target-input="nearest">
-    {% include "django/forms/widgets/input.html" %}
-    <div class="input-group-append"
-         data-toggle="datetimepicker"
-         data-bs-target="#wrapper_for_{{ widget.attrs.id }}">
-      <div class="input-group-text">
-        <i class="{{ icon_classes }}"></i>
-      </div>
+<div class="form-inline">
+    <div class="input-group date" id="wrapper_for_{{ widget.attrs.id }}" {% for name, value in div_attrs.items %}{{ name }}="{{ value|stringformat:'s' }}"{% endfor %} data-target-input="nearest">
+        {% include "django/forms/widgets/input.html" %}
+        <div class="input-group-append" data-toggle="datetimepicker" data-target="#wrapper_for_{{ widget.attrs.id }}">
+            <div class="input-group-text">
+                <i class="{{ icon_classes }}"></i>
+            </div>
+        </div>
     </div>
-  </div>
 </div>

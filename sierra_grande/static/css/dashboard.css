@@ -17,7 +17,19 @@
     border-top-width: 0;
   }
 
-  & > tbody > tr:last-of-type {
-    border-bottom-width: 0;
+  & > tbody {
+    & > tr:last-of-type {
+      border-bottom-width: 0;
+    }
+  }
+
+  & > :is(thead, tbody) > tr {
+    :is(td:first-child, th:first-child) {
+      border-left-width: 0;
+    }
+
+    :is(td:last-child, th:last-child) {
+      border-right-width: 0;
+    }
   }
 }

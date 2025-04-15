@@ -20,86 +20,92 @@
   </nav>
 {% endblock breadcrumbs %}
 {% block header %}
-  <div>
     <h2>{% trans "Products" %}</h2>
-  </div>
 {% endblock header %}
 {% block dashboard_content %}
-  {% block create_product %}
-    <div class="table-header">
-      <h5 class="icon-link">
-        <iconify-icon icon="gridicons:create" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
-        {% trans "Create new product" %}
-      </h5>
-    </div>
-    <div class="card card-body">
-      <form action="{% url "dashboard:catalogue-product-create" %}"
-            method="get"
-            class="hstack">
-        {% include "oscar/dashboard/partials/form_fields_inline.html" with form=productclass_form %}
-        <button class="btn btn-primary icon-link"
-                type="submit"
-                data-loading-text="{% trans "Submitting..." %}">
-          <iconify-icon icon="mdi:plus-circle" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>{% trans "New Product" %}
-        </button>
-      </form>
-    </div>
-  {% endblock create_product %}
-  {% block search_products %}
-    <div class="table-header">
-      <h5 class="icon-link">
-        <iconify-icon icon="stash:search-light" width="1rem" height="1rem" aria-hidden="true" inline></iconify-icon>
-        {% trans "Search Products" %}
-      </h5>
-    </div>
-    <div class="card card-body">
-      <form method="get" class="hstack">
-        {% comment %}
-                    Add the current query string to the search form so that the
-                    sort order is not reset when searching.
-        {% endcomment %}
-        {% for name, value in request.GET.items %}
-          {% if name not in form.fields %}<input type="hidden" name="{{ name }}" value="{{ value }}" />{% endif %}
-        {% endfor %}
-        {% include "oscar/dashboard/partials/form_fields_inline.html" with form=form %}
-        <button type="submit"
-                class="btn btn-primary icon-link"
-                data-loading-text="{% trans "Searching..." %}">
-          <iconify-icon icon="stash:search-light" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
-          {% trans "Search" %}
-        </button>
-      </form>
-    </div>
-  {% endblock search_products %}
-  {% if products %}
-    {% block product_list %}
-      <form method="post">
-        {% csrf_token %}
-        {% render_table products %}
-      </form>
-      <div class="modal fade"
-           id="product-image-modal"
-           tabindex="-1"
-           role="dialog">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title"></h4>
-              <button type="button"
-                      class="btn-close"
-                      data-bs-dismiss="modal"
-                      aria-label="Close"></button>
-            </div>
-            <div class="modal-body text-center">
-              <img class="img-fluid mx-auto" alt="" height="" width="" />
+  <div class="vstack gap-4">
+    {% block create_product %}
+      <div class="card">
+        <h5 class="icon-link card-header">
+          <iconify-icon icon="gridicons:create" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
+          {% trans "Create new product" %}
+        </h5>
+        <div class="card-body">
+          <form action="{% url "dashboard:catalogue-product-create" %}"
+                method="get"
+                class="hstack">
+            {% include "oscar/dashboard/partials/form_fields_inline.html" with form=productclass_form %}
+            <button class="btn btn-primary icon-link"
+                    type="submit"
+                    data-loading-text="{% trans "Submitting..." %}">
+              <iconify-icon icon="mdi:plus-circle" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>{% trans "New Product" %}
+            </button>
+          </form>
+        </div>
+      </div>
+    {% endblock create_product %}
+    {% block search_products %}
+      <div class="card">
+        <h5 class="card-header icon-link">
+          <iconify-icon icon="stash:search-light" width="1rem" height="1rem" aria-hidden="true" inline></iconify-icon>
+          {% trans "Search Products" %}
+        </h5>
+        <div class="card-body">
+          <form method="get" class="hstack">
+            {% comment %}
+                        Add the current query string to the search form so that the
+                        sort order is not reset when searching.
+            {% endcomment %}
+            {% for name, value in request.GET.items %}
+              {% if name not in form.fields %}<input type="hidden" name="{{ name }}" value="{{ value }}" />{% endif %}
+            {% endfor %}
+            {% include "oscar/dashboard/partials/form_fields_inline.html" with form=form %}
+            <button type="submit"
+                    class="btn btn-primary icon-link"
+                    data-loading-text="{% trans "Searching..." %}">
+              <iconify-icon icon="stash:search-light" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
+              {% trans "Search" %}
+            </button>
+          </form>
+        </div>
+      </div>
+    {% endblock search_products %}
+
+    {% if has_products %}
+      {% block product_list %}
+        <form method="post">
+          {% csrf_token %}
+          {% render_table products %}
+        </form>
+        <div class="modal fade"
+            id="product-image-modal"
+            tabindex="-1"
+            role="dialog">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title"></h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body text-center">
+                <img class="img-fluid mx-auto" alt="" height="" width="" />
+              </div>
             </div>
           </div>
         </div>
+      {% endblock product_list %}
+    {% else %}
+      <div class="card">
+        <h5 class="card-header icon-link">
+          {% if products.icon %}
+            <iconify-icon icon="{{ products.icon }}" width="1rem" height="1rem" aria-hidden="true" noobserver></iconify-icon>
+          {% endif %}
+          {{ products.get_caption_display }}
+        </h5>
+        <div class="card-body">{% trans "No products found." %}</div>
       </div>
-    {% endblock product_list %}
-  {% else %}
-    <p>{% trans "No products found." %}</p>
-  {% endif %}
+    {% endif %}
+  </div>
 {% endblock dashboard_content %}
 {% block onbodyload %}
   {{ block.super }}

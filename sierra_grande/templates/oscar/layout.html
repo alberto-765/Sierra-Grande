@@ -1,8 +1,12 @@
 {% extends 'oscar/layout.html' %}
-
 {% load static %}
 
+{% block styles %}
+{% endblock %}
+
 {% block scripts %}
-  <!-- Oscar -->
-  <script src="{% static "oscar/js/oscar/ui.js" %}"></script>
+    {{ block.super }}
+
+    <!-- Oscar -->
+    <script src="{% static "oscar/js/oscar/ui.js" %}" defer ></script>
 {% endblock scripts %}

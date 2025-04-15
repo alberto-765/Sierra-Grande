@@ -28,13 +28,22 @@ DEBUG = env.bool("DJANGO_DEBUG", False)
 # In Windows, this must be set to your system time zone.
 TIME_ZONE = "UTC"
 # https://docs.djangoproject.com/en/dev/ref/settings/#language-code
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "es-ES"
 # https://docs.djangoproject.com/en/dev/ref/settings/#languages
 
 LANGUAGES = [
+    ("es", _("Spanish")),
     ("en", _("English")),
     ("fr", _("French")),
-    ("pt-br", _("Portuguese")),
+    ("pt", _("Portuguese")),
+    ("it", _("Italian")),
+    ("de", _("German")),
+    ("sv", _("Swedish")),
+    ("et", _("Estonian")),
+    ("hr", _("Croatian")),
+    ("fi", _("Finnish")),
+    ("cs", _("Czech")),
+    ("bg", _("Bulgarian")),
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#site-id
 SITE_ID = 1
@@ -79,7 +88,6 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = [
     "crispy_forms",
     "crispy_bootstrap5",
-    "django_bootstrap5",
     "allauth",
     "allauth.account",
     "allauth.mfa",
@@ -120,7 +128,7 @@ THIRD_PARTY_APPS = [
     "widget_tweaks",
     "haystack",
     "treebeard",
-    "easy_thumbnails",  # Default thumbnail backend, can be replaced
+    "easy_thumbnails",
     "django_tables2",
 ]
 

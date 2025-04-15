@@ -1,26 +1,79 @@
-{% extends "oscar/base.html" %}
-
+{% load i18n %}
 {% load static %}
-{% load django_bootstrap5 %}
 
-{% block styles %}
-  {% bootstrap_css %}
-  <link rel="stylesheet" href="{% static "css/base.css" %}" />
-{% endblock styles %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:"en-gb" }}" class="{% block html_class %}no-js{% endblock %}">
+    <head>
+        <title>{% block title %}{{ shop_name }} - {{ shop_tagline }}{% endblock %}</title>
 
-{% block cdn_scripts %}
-  <!-- jQuery -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"
-          integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
-          crossorigin="anonymous"
-          referrerpolicy="no-referrer"></script>
-  <script>
-    window.jQuery || document.write('<script src="{% static "oscar/js/jquery/jquery.min.js" %}"><\/script>')
-  </script>
-  {% comment %} 
-    Iconify API
-  {% endcomment %}
-  <script src="https://cdn.jsdelivr.net/npm/iconify-icon@2.3.0/dist/iconify-icon.min.js" integrity="sha512-Ddol22Rg6lAu+oCzivr/jvqihzRnc+NynPnbRRvjm+9ZHwsUNbYqNA1PSc1ehYpb+9bCL8mna0V4ropKt+0eog==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+        <meta name="created" content="{% now "jS M Y h:i" %}" />
+        <meta name="description" content="{% block description %}{% endblock %}" />
+        <meta name="viewport" content="{% block viewport %}width=device-width{% endblock %}" />
 
-  {% bootstrap_javascript %}
-{% endblock cdn_scripts %}
+        {% block favicon %}
+            <link rel="shortcut icon" href="{% static "oscar/favicon.ico" %}" />
+        {% endblock %}
+
+        {# Block where global CSS will go. #}
+        {% block styles %}
+          <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}" />
+          <link rel="stylesheet" href="{% static "css/base.css" %}" />
+        {% endblock %}
+
+        {# Additional CSS - specific to certain pages #}
+        {% block extrastyles %}{% endblock %}
+
+        {% block extrahead %}
+          {# Change theme #}
+          <script src="{% static "js/color-mode.js" %}"></script>
+        {% endblock %}
+
+        {% block tracking %}
+            {# Default to using Google analytics #}
+            {% include "oscar/partials/google_analytics.html" %}
+        {% endblock %}
+    </head>
+
+    <body id="{% block body_id %}default{% endblock %}" class="{% block body_class %}default{% endblock %}">
+      
+      {% block header_page %}{% endblock header_page %}
+      
+      {# Main content goes in this 'layout' block #}
+      {% block layout  %}
+        <main>
+          {% block layout_content %}{% endblock layout_content %}
+        </main>
+      {% endblock layout  %}
+        
+      {% block aside %}{% endblock aside %}
+
+      {% block footer %}{% endblock footer %}
+
+      {# Scripts loaded from a CDN. #}
+      {% block cdn_scripts %}
+
+        {#  Iconify API #} 
+        <script src="https://cdn.jsdelivr.net/npm/iconify-icon@2.3.0/dist/iconify-icon.min.js" integrity="sha512-Ddol22Rg6lAu+oCzivr/jvqihzRnc+NynPnbRRvjm+9ZHwsUNbYqNA1PSc1ehYpb+9bCL8mna0V4ropKt+0eog==" crossorigin="anonymous" referrerpolicy="no-referrer" async></script>
+      {% endblock cdn_scripts%}
+
+      {# Local scripts #}
+      {% block scripts %}
+        {#  Bootstrap JS #} 
+        <script src="{% static "js/popper.min.js" %}"></script>
+        <script src="{% static "js/bootstrap.min.js" %}"></script>
+      {% endblock scripts%}
+
+      {# Additional JS scripts #}
+      {% block extrascripts %}{% endblock extrascripts %}
+
+      {# Block for body onload functions #}
+      <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function() {
+          {% block onbodyload %}{% endblock %}
+        });
+      </script>
+
+      {# Page meta-data - this is populated by the 'metadata' template context processor #}
+    </body>
+</html>

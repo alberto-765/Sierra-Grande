@@ -1,10 +1,6 @@
-<div class="form-inline">
-    <div class="input-group date" id="wrapper_for_{{ widget.attrs.id }}" {% for name, value in div_attrs.items %}{{ name }}="{{ value|stringformat:'s' }}"{% endfor %} data-target-input="nearest">
-        {% include "django/forms/widgets/input.html" %}
-        <div class="input-group-append" data-toggle="datetimepicker" data-target="#wrapper_for_{{ widget.attrs.id }}">
-            <div class="input-group-text">
-                <i class="{{ icon_classes }}"></i>
-            </div>
-        </div>
-    </div>
-</div>
+<div class="input-group" id="wrapper_for_{{ widget.attrs.id }}" {% for name, value in div_attrs.items %}{{ name }}="{{ value|stringformat:'s' }}"{% endfor %} data-target-input="nearest">
+    {% include "django/forms/widgets/input.html" %}
+    <span class="input-group-text" data-toggle="datetimepicker" data-target="#wrapper_for_{{ widget.attrs.id }}">
+        <iconify-icon icon="{% if "fa-clock" in icon_classes %}mdi:clock-outline{% else %}clarity:calendar-line{% endif %}" width="1rem" height="1rem"></iconify-icon>
+    </span>
+  </div>

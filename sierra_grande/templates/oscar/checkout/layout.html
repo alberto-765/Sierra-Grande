@@ -3,15 +3,16 @@
 {% load i18n %}
 {% load category_tags %}
 
-{% block layout %}
-  <header class="header container">
-    <div class="page_inner">
-      <div class="row">{% include "oscar/partials/brand.html" %}</div>
-      <!-- /row -->
-    </div>
-    {% block checkout_nav %}
-    {% endblock checkout_nav %}
-  </header>
+
+{% block header %}
+  <div class="page_inner">
+    <div class="row">{% include "oscar/partials/brand.html" %}</div>
+    <!-- /row -->
+  </div>
+  {% block checkout_nav %}{% endblock checkout_nav %}
+{% endblock header %}
+
+{% block layout_content %}
   <!-- /header -->
   <div class="container page">
     <div class="page_inner">
@@ -48,4 +49,4 @@
     <!-- /page_inner -->
   </div>
   {% include "oscar/partials/footer_checkout.html" %}
-{% endblock layout %}
+{% endblock layout_content  %}

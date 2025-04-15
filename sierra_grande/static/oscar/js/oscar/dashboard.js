@@ -1,450 +1,666 @@
-/*global jQuery */
-
-var oscar = (function (o, $) {
+var oscar = ((o) => {
+    'use strict';
 
     function onFileChange (evt) {
-        var reader = new FileReader();
-        var imgId = evt.target.id + "-image";
-        reader.onload = (function () {
-            return function (e) {
-                var imgDiv = $("#" + imgId);
-                imgDiv.children('img').attr('src', e.target.result);
-            };
-        })();
-        reader.readAsDataURL(evt.target.files[0]);
+        if (!window.FileReader) return;
 
-        var $input = $(evt.target);
-        var $parentTab = $input.parents('.tab-pane').first();
-        var imageContainer = $input.parents('.sortable-handle').first();
-        imageContainer.find('.btn-reorder').removeAttr('disabled').removeClass('disabled');
-        var $extraImg = $input.parents('.upload-image').children('li').last();
-        var $totalForms = $parentTab.find("input[name$=images-TOTAL_FORMS]");
-        var $maxForms = $parentTab.find("input[name$=images-MAX_NUM_FORMS]");
-        var numExisting = parseInt($totalForms.val());
-        var numMax = parseInt($maxForms.val());
+        const fileInput = evt.target;
+        const imgId = fileInput.id + "-image";
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            const imgDiv = document.getElementById(imgId);
+            if (imgDiv) {
+                const img = imgDiv.querySelector('img');
+                if (img) img.src = e.target.result;
+            }
+        };
+
+        if (fileInput.files && fileInput.files[0]) {
+            reader.readAsDataURL(fileInput.files[0]);
+        }
+
+        const parentTab = fileInput.closest('.tab-pane');
+        const imageContainer = fileInput.closest('.sortable-handle');
+
+        if (imageContainer) {
+            const reorderBtns = imageContainer.querySelectorAll('.btn-reorder');
+            reorderBtns.forEach(btn => {
+                btn.removeAttribute('disabled');
+                btn.classList.remove('disabled');
+            });
+        }
+
+        const uploadImageContainer = fileInput.closest('.upload-image');
+        if (!uploadImageContainer) return;
+
+        const lastImageItem = uploadImageContainer.querySelector('li:last-child');
+        if (!lastImageItem) return;
+
+        const totalFormsInput = parentTab.querySelector("input[name$=images-TOTAL_FORMS]");
+        const maxFormsInput = parentTab.querySelector("input[name$=images-MAX_NUM_FORMS]");
+
+        if (!totalFormsInput || !maxFormsInput) return;
+
+        const numExisting = parseInt(totalFormsInput.value, 10);
+        const numMax = parseInt(maxFormsInput.value, 10);
 
         // Do not create extra image form if number of maximum allowed forms has reached.
         if (numExisting < numMax) {
-            var $newImg = o.dashboard._extraProductImg.clone();
-            var productId = $('#images-0-product').val();
-            $newImg.insertAfter($extraImg);
-            // update attrs on cloned el
-            $newImg.find("[id^='id_images-']," +
-                "[for^='id_images-']," +
-                "[id^='upload_button_id_images-']," +
-                "img[alt='thumbnail']").each(function () {
-                    var $el = $(this);
-                    ["id", "name", "for", "onload", "onerror"].forEach(function (attr) {
-                        var val = $el.attr(attr);
-                        if (val) {
-                            var parts = val.split('-');
-                            parts[1] = numExisting;
-                            $el.attr(attr, parts.join('-'));
-                        }
-                    });
-                });
-            $newImg.find('#id_images-' + numExisting + '-display_order').val(numExisting);
-            $newImg.find('#id_images-' + numExisting + '-product').val(productId);
+            const newImg = o.dashboard._extraProductImg.cloneNode(true);
+            const productId = document.getElementById('images-0-product').value;
 
-            var $newFile = $newImg.find('input[type="file"]');
-            $newFile.change(onFileChange);
-            numExisting += 1;
-            $totalForms.val(numExisting);
+            lastImageItem.insertAdjacentElement('afterend', newImg);
+
+            // update attrs on cloned el
+            const elementsToUpdate = newImg.querySelectorAll("[id^='id_images-'], [for^='id_images-'], [id^='upload_button_id_images-'], img[alt='thumbnail']");
+
+            elementsToUpdate.forEach(el => {
+                ["id", "name", "for", "onload", "onerror"].forEach(attr => {
+                    const val = el.getAttribute(attr);
+                    if (val) {
+                        const parts = val.split('-');
+                        parts[1] = numExisting;
+                        el.setAttribute(attr, parts.join('-'));
+                    }
+                });
+            });
+
+            const displayOrderInput = newImg.querySelector('#id_images-' + numExisting + '-display_order');
+            if (displayOrderInput) displayOrderInput.value = numExisting;
+
+            const productInput = newImg.querySelector('#id_images-' + numExisting + '-product');
+            if (productInput) productInput.value = productId;
+
+            const newFile = newImg.querySelector('input[type="file"]');
+            if (newFile) newFile.addEventListener('change', onFileChange);
+
+            totalFormsInput.value = numExisting + 1;
         }
     }
 
+
     o.getCsrfToken = function () {
         // Extract CSRF token from cookies
-        var cookies = document.cookie.split(';');
-        var csrf_token = null;
-        $.each(cookies, function (index, cookie) {
-            var cookieParts = $.trim(cookie).split('=');
-            if (cookieParts[0] == 'csrftoken') {
-                csrf_token = cookieParts[1];
+        const cookies = document.cookie.split(';');
+        let csrfToken = null;
+
+        cookies.forEach(cookie => {
+            const cookieParts = cookie.trim().split('=');
+            if (cookieParts[0] === 'csrftoken') {
+                csrfToken = cookieParts[1];
             }
         });
+
         // Extract from cookies fails for HTML-Only cookies
-        if (!csrf_token) {
-            csrf_token = $(document.forms.valueOf()).find('[name="csrfmiddlewaretoken"]')[0].value;
+        if (!csrfToken) {
+            const csrfInput = document.querySelector('[name="csrfmiddlewaretoken"]');
+            if (csrfInput) csrfToken = csrfInput.value;
         }
-        return csrf_token;
+
+        return csrfToken;
     };
 
     o.dashboard = {
         init: function (options) {
             // Run initialisation that should take place on every page of the dashboard.
-            var defaults = {
-                'dateFormat': 'DD/MM/YYYY',
-                'timeFormat': 'HH:mm',
-                'datetimeFormat': 'DD/MM/YYYY HH:mm',
-                'stepMinute': 15,
-                'datetimePickerConfig': {
-                    icons: {
-                        time: 'fas fa-clock',
-                        date: 'fas fa-calendar',
-                        up: 'fas fa-arrow-up',
-                        down: 'fas fa-arrow-down',
-                        previous: 'fas fa-chevron-left',
-                        next: 'fas fa-chevron-right',
-                        today: 'fas fa-calendar-check-o',
-                        clear: 'fas fa-trash',
-                        close: 'fas fa-times'
-                    }
+            const defaults = {
+                dateFormat: 'P',
+                timeFormat: 'p',
+                datetimeFormat: 'Pp',
+                stepMinute: 15,
+                quillConfig: {
+                    modules: {
+                        toolbar: [
+                            ['bold', 'italic', 'underline', 'blockquote'],
+                            [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                            ['link'],
+                            ['clean']
+                        ]
+                    },
+                    placeholder: 'Enter text...',
+                    theme: 'snow'
                 },
-                'tinyConfig': {
-                    entity_encoding: 'raw',
-                    statusbar: false,
-                    menubar: false,
-                    convert_urls: false,
-                    plugins: "link lists",
-                    style_formats: [
-                        { title: 'Text', block: 'p' },
-                        { title: 'Heading', block: 'h2' },
-                        { title: 'Subheading', block: 'h3' }
-                    ],
-                    toolbar: "styles | bold italic blockquote | bullist numlist | link"
+                icons: {
+                    time: 'far fa-clock',
+                    date: 'far fa-calendar',
+                    up: 'fas fa-arrow-up',
+                    down: 'fas fa-arrow-down',
+                    previous: 'fas fa-chevron-left',
+                    next: 'fas fa-chevron-right',
+                    today: 'fas fa-calendar-check',
+                    clear: 'fas fa-trash',
+                    close: 'fas fa-times'
                 }
             };
-            o.dashboard.options = $.extend(true, defaults, options);
+
+            o.dashboard.options = Object.assign({}, defaults, options);
 
             o.dashboard.initWidgets(window.document);
             o.dashboard.initForms();
 
-            $(".category-select ul").prev('a').on('click', function () {
-                var $this = $(this),
-                    plus = $this.hasClass('ico_expand');
-                if (plus) {
-                    $this.removeClass('ico_expand').addClass('ico_contract');
-                } else {
-                    $this.removeClass('ico_contract').addClass('ico_expand');
+            // Category select expand/contract
+            document.querySelectorAll(".category-select ul").forEach(ul => {
+                const link = ul.previousElementSibling;
+                if (link && link.tagName === 'A') {
+                    link.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        const isExpanded = this.classList.contains('ico_expand');
+                        if (isExpanded) {
+                            this.classList.remove('ico_expand');
+                            this.classList.add('ico_contract');
+                        } else {
+                            this.classList.remove('ico_contract');
+                            this.classList.add('ico_expand');
+                        }
+                    });
                 }
-                return false;
             });
 
             // Adds error icon if there are errors in the product update form
-            $('[data-behaviour="tab-nav-errors"] .tab-pane').each(function () {
-                var productErrorListener = $(this).find('[class*="error"]:not(:empty)').closest('.tab-pane').attr('id');
-                $('.tab-nav a[href="#' + productErrorListener + '"]').append('<i class="fas fa-info-circle float-end"></i>');
+            document.querySelectorAll('[data-behaviour="tab-nav-errors"] .tab-pane').forEach(pane => {
+                const errors = pane.querySelectorAll('[class*="error"]:not(:empty)');
+                if (errors.length > 0) {
+                    const paneId = pane.getAttribute('id');
+                    const tabLink = document.querySelector('.tab-nav a[href="#' + paneId + '"]');
+                    if (tabLink) {
+                        const icon = document.createElement('i');
+                        icon.className = 'fas fa-info-circle float-end';
+                        tabLink.appendChild(icon);
+                    }
+                }
             });
 
             o.dashboard.filereader.init();
         },
+
         initWidgets: function (el) {
-            /** Attach widgets to form input.
-             *
-             * This function is called once for the whole page. In that case el is window.document.
-             *
-             * It is also called when input elements have been dynamically added. In that case el
-             * contains the newly added elements.
-             *
-             * If the element selector refers to elements that may be outside of newly added
-             * elements, don't limit to elements within el. Then the operation will be performed
-             * twice for these elements. Make sure that that is harmless.
-             */
             o.dashboard.initDatePickers(el);
             o.dashboard.initMasks(el);
             o.dashboard.initWYSIWYG(el);
             o.dashboard.initSelects(el);
             o.dashboard.initProductImages(el);
+            o.dashboard.initDropzones(el);
         },
         initMasks: function (el) {
-            $(el).find(':input').inputmask();
+            // Using vanilla Inputmask (without jQuery)
+            const inputs = el.querySelectorAll('input, textarea, select, button');
+            inputs.forEach(input => {
+                Inputmask().mask(input);
+            });
         },
         initSelects: function (el) {
-            // Adds type/search for select fields
-            var $selects = $(el).find('select').not('.no-widget-init select').not('.no-widget-init');
-            $selects.filter('.form-stacked select').css('width', '100%');
-            $selects.filter('.hstack select').css('width', '300px');
-            $selects.not('.related-widget-wrapper select').select2({ width: 'resolve' });
-            $selects.filter('.related-widget-wrapper.single select').select2({
-                // Keep updated labels after editing related obj
-                templateResult: function (data) {
-                    return $(data.element).text();
-                },
-                templateSelection: function (data) {
-                    return $(data.element).text();
-                },
-                width: 'resolve'
-            });
-            $selects.filter('.related-widget-wrapper.multiple select').select2({
-                width: '95%'
-            });
-            $(el).find('select.select2').each(function (i, e) {
-                var opts = {};
-                if ($(e).data('ajax-url')) {
-                    opts = {
-                        ajax: {
-                            url: $(e).data('ajax-url'),
-                            dataType: 'json',
-                            data: function (params) {
-                                return {
-                                    q: params.term,
-                                    page: params.page || 1
-                                };
-                            }
-                        },
-                        multiple: $(e).data('multiple')
-                    };
-                }
-                $(e).select2(opts);
-            });
+            // Replace Select2 with HTMX implementation
+            const selects = el.querySelectorAll('select:not(.no-widget-init)');
+
+            // selects.forEach(select => {
+            //     // Add HTMX attributes for server-side processing
+            //     select.setAttribute('hx-get', '/select-options/');
+            //     select.setAttribute('hx-trigger', 'input delay:500ms');
+            //     select.setAttribute('hx-target', 'next .select-results');
+
+            //     // Create wrapper for select with results container
+            //     const wrapper = document.createElement('div');
+            //     wrapper.className = 'htmx-select-wrapper';
+
+            //     const resultsDiv = document.createElement('div');
+            //     resultsDiv.className = 'select-results';
+
+            //     select.parentNode.insertBefore(wrapper, select);
+            //     wrapper.appendChild(select);
+            //     wrapper.appendChild(resultsDiv);
+
+            //     // Handle AJAX selects
+            //     if (select.dataset.ajaxUrl) {
+            //         select.setAttribute('hx-get', select.dataset.ajaxUrl);
+            //         select.setAttribute('hx-include', '[name=q]');
+
+            //         // Create search input
+            //         const searchInput = document.createElement('input');
+            //         searchInput.type = 'text';
+            //         searchInput.name = 'q';
+            //         searchInput.className = 'form-control htmx-select-search';
+            //         searchInput.placeholder = 'Search...';
+
+            //         wrapper.insertBefore(searchInput, resultsDiv);
+            //     }
+            // });
         },
         initDatePickers: function (el) {
-            if ($.fn.datetimepicker) {
+            const theme = localStorage.getItem('theme') || 'auto';
 
-                // Set "Tempus Dominus Bootstrap 4" datetime picker's global options.
-                $.fn.datetimepicker.Constructor.Default = $.extend(
-                    {}, $.fn.datetimepicker.Constructor.Default, o.dashboard.options.datetimePickerConfig
-                );
-
-                var defaultDatepickerConfig = {
-                    'format': o.dashboard.options.dateFormat,
+            // Date picker inputs
+            const dateInputs = el.querySelectorAll('[data-oscarWidget="date"]:not(.no-widget-init)');
+            dateInputs.forEach(input => {
+                const initialOptions = {
+                    display: {
+                        icons: o.dashboard.options.icons,
+                        components: {
+                            clock: false,
+                            hours: false,
+                            minutes: false,
+                            seconds: false,
+                        },
+                        theme
+                    },
+                    localization: {
+                        format: input.dataset.dateformat?.trim() || o.dashboard.options.dateFormat,
+                        locale: options.languageCode,
+                    },
                 };
-                var $dates = $(el).find('[data-oscarWidget="date"]').not('.no-widget-init').not('.no-widget-init *');
-                $dates.each(function (ind, ele) {
-                    var $ele = $(ele),
-                        config = $.extend({}, defaultDatepickerConfig, {
-                            'format': $ele.data('dateformat')
-                        });
-                    $ele.datetimepicker(config);
-                });
+                new tempusDominus.TempusDominus(input, initialOptions);
+                // pick.subscribe(tempusDominus.Namespace.events.show, (e) => {
+                //     const theme = localStorage.getItem('theme') || 'auto';
+                //     const today = new tempusDominus.DateTime();
+                //     pick.updateOptions({
+                //         restrictions: {
+                //             maxDate: today,
+                //         }
+                //     });
+                // });
+            });
 
-                var defaultDatetimepickerConfig = {
-                    'format': o.dashboard.options.datetimeFormat,
-                    'stepping': o.dashboard.options.stepMinute
+            // Datetime picker inputs
+            const datetimeInputs = el.querySelectorAll('[data-oscarWidget="datetime"]:not(.no-widget-init)');
+            datetimeInputs.forEach(input => {
+                const initialOptions = {
+                    display: {
+                        icons: o.dashboard.options.icons,
+                        theme
+                    },
+                    stepping: o.dashboard.options.stepMinute,
+                    localization: {
+                        format: input.dataset.dateformat?.trim() || o.dashboard.options.datetimeFormat,
+                    }
                 };
-                var $datetimes = $(el).find('[data-oscarWidget="datetime"]').not('.no-widget-init').not('.no-widget-init *');
-                $datetimes.each(function (ind, ele) {
-                    var $ele = $(ele),
-                        config = $.extend({}, defaultDatetimepickerConfig, {
-                            'format': $ele.data('datetimeformat'),
-                            'stepping': $ele.data('stepminute')
-                        });
-                    $ele.datetimepicker(config);
+                const pick = new tempusDominus.TempusDominus(input, initialOptions);
+                pick.subscribe(tempusDominus.Namespace.events.show, () => {
+                    const theme = localStorage.getItem('theme') || 'auto';
+                    // pick.updateOptions({
+                    //     ...initialOptions,
+                    //     display: {
+                    //         ...initialOptions.display,  // Mantén las opciones de display previas
+                    //         theme // Solo actualiza el tema
+                    //     }
+                    // });
                 });
+            });
 
-                var defaultTimepickerConfig = {
-                    'format': o.dashboard.options.timeFormat,
-                    'stepping': o.dashboard.options.stepMinute
+            // Time picker inputs
+            const timeInputs = el.querySelectorAll('[data-oscarWidget="time"]:not(.no-widget-init)');
+            timeInputs.forEach(input => {
+                const initialOptions = {
+                    display: {
+                        icons: o.dashboard.options.icons,
+                        components: {
+                            decades: false,
+                            year: false,
+                            month: false,
+                            date: false,
+                            seconds: false
+                        },
+                        viewmode: 'clock',
+                        theme
+                    },
+                    stepping: o.dashboard.options.stepMinute,
+                    localization: {
+                        format: input.dataset.dateformat?.trim() || o.dashboard.options.timeFormat,
+                    }
                 };
-                var $times = $(el).find('[data-oscarWidget="time"]').not('.no-widget-init').not('.no-widget-init *');
-                $times.each(function (ind, ele) {
-                    var $ele = $(ele),
-                        config = $.extend({}, defaultTimepickerConfig, {
-                            'format': $ele.data('timeformat'),
-                            'stepping': $ele.data('stepminute'),
-                            'viewMode': 'times'
-                        });
-                    $ele.datetimepicker(config);
-                });
-            }
+                const pick = new tempusDominus.TempusDominus(input, initialOptions);
+                // pick.subscribe(tempusDominus.Namespace.events.show, () => {
+                //     const theme = localStorage.getItem('theme') || 'auto';
+                //     pick.updateOptions({
+                //         debug: true
+                //     });
+                // });
+            });
         },
         initWYSIWYG: function (el) {
-            // Use TinyMCE by default
-            var $textareas = $(el).find('textarea').not('.no-widget-init textarea').not('.no-widget-init');
-            $textareas.filter('form.wysiwyg textarea').tinymce(o.dashboard.options.tinyConfig);
-            $textareas.filter('.wysiwyg').tinymce(o.dashboard.options.tinyConfig);
-        },
-        initForms: function () {
-            // Disable buttons when they are clicked and show a "loading" message taken from the
-            // data-loading-text attribute.
-            // Do not disable if button is inside a form with invalid fields.
-            // This uses a delegated event so that it keeps working for forms that are reloaded
-            // via AJAX: https://api.jquery.com/on/#direct-and-delegated-events
-            $(document.body).on('click', '[data-loading-text]', function () {
-                var $btn_or_input = $(this),
-                    form = $btn_or_input.parents("form");
-                if (!form || $(":invalid", form).length == 0) {
-                    var d = 'disabled',
-                        val = $btn_or_input.is('input') ? 'val' : 'html';
-                    // push to event loop so as not to delay form submission
-                    setTimeout(function () {
-                        $btn_or_input[val]($btn_or_input.data('loading-text'));
-                        $btn_or_input.addClass(d).attr(d, d).prop(d, true);
+            // Replace TinyMCE with Quill.js
+            const textareas = el.querySelectorAll('textarea:not(.no-widget-init)');
+
+            textareas.forEach(textarea => {
+                if (textarea.closest('form.wysiwyg') || textarea.classList.contains('wysiwyg')) {
+                    // Create container for Quill
+                    const container = document.createElement('div');
+                    container.className = 'quill-editor';
+                    textarea.parentNode.insertBefore(container, textarea);
+
+                    // Hide original textarea but keep it for form submission
+                    textarea.style.display = 'none';
+
+                    // Initialize Quill
+                    const quill = new Quill(container, o.dashboard.options.quillConfig);
+
+                    // Set initial content from textarea
+                    quill.root.innerHTML = textarea.value;
+
+                    // Update hidden textarea when Quill content changes
+                    quill.on('text-change', function () {
+                        textarea.value = quill.root.innerHTML;
                     });
                 }
             });
+        },
+        initForms: function () {
+            // Handle button loading states
+            document.querySelectorAll('[data-loading-text]').forEach((input) => {
+                input.addEventListener('click', function (e) {
+                    const btn = e.target;
+                    const form = btn.closest('form');
 
-            // Add href to url, so when the page is reloaded this tab will be displayed.
-            $('.nav-tabs a').on('shown.bs.tab', function (e) {
-                window.location.hash = e.target.hash;
+                    if (!form || form.checkValidity()) {
+                        // Use requestAnimationFrame to delay disabling until after form submission begins
+                        requestAnimationFrame(function () {
+                            const loadingText = btn.getAttribute('data-loading-text');
+                            if (btn.tagName === 'INPUT') {
+                                btn.value = loadingText;
+                            } else {
+                                btn.textContent = loadingText;
+                            }
+                            btn.classList.add('disabled');
+                            btn.setAttribute('disabled', 'disabled');
+                        });
+                    }
+                });
+            });
+
+            // Add href to url for tab display
+            document.querySelectorAll('.nav-tabs a').forEach(tab => {
+                tab.addEventListener('shown.bs.tab', function (e) {
+                    window.location.hash = e.target.hash;
+                });
             });
 
             // Display tabs that have invalid input fields
-            $('input').on('invalid', function () {
-                var id = $(this).closest('.tab-pane').attr('id');
-                if (id) {
-                    $('.bs-docs-sidenav a[href="#' + id + '"]').tab('show');
-                }
+            document.querySelectorAll('input').forEach(input => {
+                input.addEventListener('invalid', function () {
+                    const tabPane = this.closest('.tab-pane');
+                    if (tabPane) {
+                        const id = tabPane.getAttribute('id');
+                        if (id) {
+                            // We need a vanilla JS replacement for Bootstrap's tab 'show' method
+                            const tabLink = document.querySelector('.bs-docs-sidenav a[href="#' + id + '"]');
+                            if (tabLink) {
+                                tabLink.click();
+                            }
+                        }
+                    }
+                });
             });
         },
         initProductImages: function () {
-            // convert last 'extra' form into a multi-upload
-            // (assumes `extra=1` in django formset)
-            var $productImages = $('#product_images');
-            var $extraImg = $productImages.find('.upload-image li').last();
-            o.dashboard._extraProductImg = $extraImg.clone();
+            const productImages = document.getElementById('product_images');
+            if (!productImages) return;
 
-            $productImages.find('a:disabled').parents('sortable-handle').sortable('disable');
+            const extraImg = productImages.querySelector('.upload-image li:last-child');
+            if (extraImg) {
+                o.dashboard._extraProductImg = extraImg.cloneNode(true);
+            }
 
-            $('ol.upload-image').sortable({
-                vertical: false,
-                group: 'serialization',
-                handle: '.btn-handle',
-                onDrop: function ($item, container, _super) {
-                    var $sortFields = $("input[name$=-display_order]");
-                    $sortFields.each(function (i) {
-                        $(this).val(i);
-                    });
-                    _super($item, container);
+            // Disable sorting for disabled items
+            document.querySelectorAll('a:disabled').forEach(disabled => {
+                const handle = disabled.closest('.sortable-handle');
+                if (handle) {
+                    // Mark as not sortable using data attribute
+                    handle.setAttribute('data-sortable-disabled', 'true');
                 }
+            });
+
+            // Initialize SortableJS for image reordering
+            const uploadImages = document.querySelectorAll('ol.upload-image');
+            uploadImages.forEach(list => {
+                new Sortable(list, {
+                    animation: 150,
+                    handle: '.btn-handle',
+                    filter: '[data-sortable-disabled="true"]',
+                    onEnd: function () {
+                        // Update display order when items are reordered
+                        const sortFields = document.querySelectorAll("input[name$=-display_order]");
+                        sortFields.forEach((field, i) => {
+                            field.value = i;
+                        });
+                    }
+                });
+            });
+        },
+        initDropzones: function (el) {
+            // Initialize Dropzone.js for file uploads
+            const fileInputs = el.querySelectorAll('input[type="file"]');
+
+            fileInputs.forEach(input => {
+                // Create dropzone container
+                const dropzoneContainer = document.createElement('div');
+                dropzoneContainer.className = 'dropzone';
+                input.parentNode.insertBefore(dropzoneContainer, input);
+
+                // Hide original input but keep it for form compatibility
+                input.style.display = 'none';
+
+                // Initialize Dropzone
+                new Dropzone(dropzoneContainer, {
+                    url: input.closest('form').getAttribute('action') || window.location.href,
+                    paramName: input.getAttribute('name'),
+                    acceptedFiles: input.getAttribute('accept') || '',
+                    maxFiles: 1,
+                    autoProcessQueue: false, // Don't upload immediately
+                    previewTemplate: '<div class="dz-preview dz-file-preview"><div class="dz-image"><img data-dz-thumbnail /></div><div class="dz-details"><div class="dz-filename"><span data-dz-name></span></div><div class="dz-size"><span data-dz-size></span></div></div><div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div><div class="dz-error-message"><span data-dz-errormessage></span></div></div>',
+
+                    init: function () {
+                        // Set up event to transfer the file to the original input when added
+                        this.on('addedfile', function (file) {
+                            // Create a FileList-like object
+                            const dataTransfer = new DataTransfer();
+                            dataTransfer.items.add(file);
+                            input.files = dataTransfer.files;
+
+                            // Trigger change event on the original input
+                            const event = new Event('change', { bubbles: true });
+                            input.dispatchEvent(event);
+                        });
+                    }
+                });
             });
         },
         offers: {
             init: function () {
                 oscar.dashboard.offers.adjustBenefitForm();
-                $('#id_type').change(function () {
+                document.getElementById('id_type').addEventListener('change', function () {
                     oscar.dashboard.offers.adjustBenefitForm();
                 });
             },
-            // TODO: REVISAR ESTO
             adjustBenefitForm: function () {
-                var type = $('#id_type').val(),
-                    $valueContainer = $('#id_value').parents('.xxxxx');
-                if (type == 'Multibuy') {
-                    $('#id_value').val('');
-                    $valueContainer.hide();
+                const typeSelect = document.getElementById('id_type');
+                // TODO: QUITAR form-group
+                const valueContainer = document.getElementById('id_value').closest('.form-group');
+
+                if (typeSelect.value == 'Multibuy') {
+                    document.getElementById('id_value').value = '';
+                    valueContainer.style.display = 'none';
                 } else {
-                    $valueContainer.show();
+                    valueContainer.style.display = '';
                 }
             }
         },
         product_attributes: {
             init: function () {
-                var type_selects = $("select[name$=type]");
+                const typeSelects = document.querySelectorAll("select[name$=type]");
 
-                type_selects.each(function () {
-                    o.dashboard.product_attributes.toggleOptionGroup($(this));
-                });
+                typeSelects.forEach(select => {
+                    o.dashboard.product_attributes.toggleOptionGroup(select);
 
-                type_selects.change(function () {
-                    o.dashboard.product_attributes.toggleOptionGroup($(this));
+                    select.addEventListener('change', function () {
+                        o.dashboard.product_attributes.toggleOptionGroup(this);
+                    });
                 });
             },
 
-            toggleOptionGroup: function (type_select) {
-                var option_group_select = $('#' + type_select.attr('id').replace('type', 'option_group'));
-                var v = type_select.val();
-                var showOptionGroup = v === 'option' || v === 'multi_option';
-                option_group_select.parent().parent().toggle(showOptionGroup);
+            toggleOptionGroup: function (typeSelect) {
+                const optionGroupId = typeSelect.getAttribute('id').replace('type', 'option_group');
+                const optionGroupSelect = document.getElementById(optionGroupId);
+                if (!optionGroupSelect) return;
+
+                // TODO: QUITAR form-group
+                const formGroup = optionGroupSelect.closest('.form-group');
+                const value = typeSelect.value;
+                const showOptionGroup = value === 'option' || value === 'multi_option';
+
+                if (formGroup) {
+                    formGroup.style.display = showOptionGroup ? '' : 'none';
+                }
+
                 if (showOptionGroup) {
-                    option_group_select.attr('required', 'required');
+                    optionGroupSelect.setAttribute('required', 'required');
                 } else {
-                    option_group_select.attr('required', null);
+                    optionGroupSelect.removeAttribute('required');
                 }
             }
         },
+
         ranges: {
             init: function () {
-                $('[data-behaviours~="remove"]').click(function () {
-                    var $this = $(this);
-                    $this.parents('table').find('input').prop('checked', false);
-                    $this.parents('tr').find('input').prop('checked', true);
-                    $this.parents('form').submit();
+                document.querySelectorAll('[data-behaviours~="remove"]').forEach(btn => {
+                    btn.addEventListener('click', function () {
+                        const table = this.closest('table');
+                        const form = this.closest('form');
+
+                        // Uncheck all checkboxes
+                        table.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                            checkbox.checked = false;
+                        });
+
+                        // Check only the checkbox in this row
+                        const rowCheckbox = this.closest('tr').querySelector('input[type="checkbox"]');
+                        if (rowCheckbox) rowCheckbox.checked = true;
+
+                        // Submit the form
+                        if (form) form.submit();
+                    });
                 });
             }
         },
+
         orders: {
             initTabs: function () {
                 if (location.hash) {
-                    $('.nav-tabs a[href="' + location.hash + '"]').tab('show');
+                    const tabLink = document.querySelector('.nav-tabs a[href="' + location.hash + '"]');
+                    if (tabLink) {
+                        // You'll need a vanilla JS way to show tabs - depends on your framework
+                        // This is a placeholder assuming a Bootstrap-like API
+                        const tab = new bootstrap.Tab(tabLink);
+                        tab.show();
+                    }
                 }
             },
             initTable: function () {
-                var table = $('form table'),
-                    input = $('<input type="checkbox" />').css({
-                        'margin-right': '5px',
-                        'vertical-align': 'top'
-                    });
-                $('th:first', table).prepend(input);
-                $(input).change(function () {
-                    $('tr', table).each(function () {
-                        $('td:first input', this).prop("checked", $(input).is(':checked'));
+                const table = document.querySelector('form table');
+                if (!table) return;
+
+                const firstHeader = table.querySelector('th:first-child');
+                if (!firstHeader) return;
+
+                const input = document.createElement('input');
+                input.type = 'checkbox';
+                input.style.marginRight = '5px';
+                input.style.verticalAlign = 'top';
+
+                firstHeader.prepend(input);
+
+                input.addEventListener('change', function () {
+                    const isChecked = this.checked;
+                    table.querySelectorAll('tr td:first-child input').forEach(checkbox => {
+                        checkbox.checked = isChecked;
                     });
                 });
             }
         },
+
         reordering: (function () {
-            var options = {
+            let options = {
                 handle: '.btn-handle',
                 submit_url: '#'
-            },
-                saveOrder = function (data) {
-                    // Get the csrf token, otherwise django will not accept the
-                    // POST request.
-                    var csrf = o.getCsrfToken();
-                    $.ajax({
-                        type: 'POST',
-                        data: $.param(data),
-                        dataType: "json",
-                        url: options.submit_url,
-                        beforeSend: function (xhr) {
-                            xhr.setRequestHeader("X-CSRFToken", csrf);
-                        }
-                    });
-                },
-                init = function (user_options) {
-                    options = $.extend(options, user_options);
-                    var group = $(options.wrapper).sortable({
-                        group: 'serialization',
-                        containerSelector: 'tbody',
-                        itemSelector: 'tr',
-                        handle: options.handle,
-                        vertical: true,
-                        onDrop: function ($item, container, _super) {
-                            var data = group.sortable("serialize");
-                            saveOrder(data);
-                            _super($item, container);
-                        },
-                        placeholder: '<tr class="placeholder"/>',
-                        serialize: function (parent, children, isContainer) {
-                            if (isContainer) {
-                                return children;
+            };
+
+            function saveOrder (data) {
+                // Get the csrf token, otherwise django will not accept the POST request.
+                const csrf = o.getCsrfToken();
+
+                fetch(options.submit_url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-CSRFToken': csrf
+                    },
+                    body: new URLSearchParams(data)
+                }).then(response => response.json())
+                    .catch(error => console.error('Error saving order:', error));
+            }
+
+            function init (userOptions) {
+                options = { ...options, ...userOptions };
+
+                const wrapper = document.querySelector(options.wrapper);
+                if (!wrapper) return;
+
+                const sortableInstance = new Sortable(wrapper.querySelector('tbody'), {
+                    handle: options.handle,
+                    animation: 150,
+                    onEnd: function () {
+                        // Serialize the data
+                        const data = [];
+                        wrapper.querySelectorAll('tbody tr').forEach(row => {
+                            if (row.id) {
+                                const parts = row.id.split('_');
+                                data.push({ name: parts[0], value: parts[1] });
                             }
-                            else {
-                                var parts = parent.attr('id').split('_');
-                                return { 'name': parts[0], 'value': parts[1] };
-                            }
-                        }
-                    });
-                };
+                        });
+
+                        saveOrder(data);
+                    }
+                });
+
+                return sortableInstance;
+            }
 
             return {
                 init: init,
                 saveOrder: saveOrder
             };
         }()),
+
         filereader: {
             init: function () {
-                // Add local file loader to update image files on change in
-                // dashboard. This will provide a preview to the selected
-                // image without uploading it. Upload only occures when
-                // submitting the form.
                 if (window.FileReader) {
-                    $('input[type="file"]').change(onFileChange);
+                    document.querySelectorAll('input[type="file"]').forEach(input => {
+                        input.addEventListener('change', onFileChange);
+                    });
                 }
             },
         },
+
         product_lists: {
             init: function () {
-                var imageModal = $("#product-image-modal"),
-                    thumbnails = $('.sub-image');
-                thumbnails.click(function (e) {
-                    e.preventDefault();
-                    var a = $(this);
-                    imageModal.find('h4').text(a.find('img').attr('alt'));
-                    imageModal.find('img').attr('src', a.data('original'));
-                    imageModal.modal();
+                const imageModal = document.getElementById("product-image-modal");
+                const thumbnails = document.querySelectorAll('.sub-image');
+
+                thumbnails.forEach(thumbnail => {
+                    thumbnail.addEventListener('click', function (e) {
+                        e.preventDefault();
+
+                        const img = this.querySelector('img');
+                        if (imageModal && img) {
+                            const modalTitle = imageModal.querySelector('h4');
+                            const modalImg = imageModal.querySelector('img');
+
+                            if (modalTitle) modalTitle.textContent = img.getAttribute('alt');
+                            if (modalImg) modalImg.src = this.dataset.original;
+
+                            // Open modal (implementation depends on your modal library)
+                            const modal = new bootstrap.Modal(imageModal);
+                            modal.show();
+                        }
+                    });
                 });
             }
         },
@@ -452,4 +668,4 @@ var oscar = (function (o, $) {
 
     return o;
 
-})(oscar || {}, jQuery);
+})(oscar || {});

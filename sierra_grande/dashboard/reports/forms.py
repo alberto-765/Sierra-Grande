@@ -24,7 +24,7 @@ class ReportForm(forms.Form):
     date_from = forms.DateField(
         label=_("Date from"),
         required=False,
-        widget=forms.DateInput(attrs={"type": "date"}),
+        widget=DatePickerInput,
     )
     date_to = forms.DateField(
         label=_("Date to"),

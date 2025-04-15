@@ -7,7 +7,18 @@
 }
 
 /* Correct border-radius for card-body in cards with rounded-buttom */
-.card-body:has(:not(table)), .card-body table tr:last-of-type td:last-of-type {
+.card-body:has(:not(table)), .card-body table tr:last-of-type td:only-of-type {
     border-bottom-right-radius: var(--bs-border-radius) !important;
     border-bottom-left-radius: var(--bs-border-radius) !important;
+}
+
+.card-body table tr:last-of-type {
+
+    td:not(:only-of-type):is(:first-of-type) {
+        border-bottom-left-radius: var(--bs-border-radius) !important;
+    }
+
+    td:not(:only-of-type):is(:last-of-type) {
+        border-bottom-right-radius: var(--bs-border-radius) !important;
+    }
 }

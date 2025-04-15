@@ -138,12 +138,12 @@
           </table>
           {% include "oscar/dashboard/partials/pagination.html" %}
         </form>
-      {% else %}
-        <table class="vertical-middle table table-striped table-bordered table-hover">
-          <caption>{{ description }}</caption>
-          <tr>
-            <td>{% trans "No reviews found." %}</td>
-          </tr>
-        </table>
-      {% endif %}
-    {% endblock dashboard_content %}
+  {% else %}
+    <table class="vertical-middle table table-striped table-bordered table-hover">
+      <caption>{{ description }}</caption>
+      <tr>
+        <td>{% trans "No reviews found." %}</td>
+      </tr>
+    </table>
+  {% endif %}
+{% endblock dashboard_content %}

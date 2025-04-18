@@ -17,21 +17,26 @@
   </nav>
 {% endblock breadcrumbs %}
 {% block header %}
-  <div class="d-flex justify-content-between align-items-center">
-    <h2>{% trans "Option" %}</h2>
+  <div class="hstack justify-content-between align-items-center">
+    <h2 class="mb-0">{% trans "Option" %}</h2>
     <a href="{% url "dashboard:catalogue-option-create" %}"
        class="btn btn-primary icon-link"><iconify-icon icon="mdi:plus-circle" width="1rem" height="1rem" aria-hidden="true"></iconify-icon> {% trans "Create new Option" %}</a>
   </div>
 {% endblock header %}
 {% block dashboard_content %}
-  {% if options %}
-    {% block product_list %}
+  {% block product_list %}
+    {% if has_options %}
       <form action="." method="post">
-        {% csrf_token %}
-        {% render_table options %}
+        <div class="card">
+          {% csrf_token %}
+          {% render_table options %}
+        </div>
       </form>
-    {% endblock product_list %}
-  {% else %}
-    <p>{% trans "No Option found." %}</p>
-  {% endif %}
+    {% else %}
+      <div class="card">
+        <div class="card-header fw-normal">{% translate "Options" %}</div>
+        <div class="card-body">{% trans "No options found." %}</div>
+      </div>
+    {% endif %}
+  {% endblock product_list %}
 {% endblock dashboard_content %}

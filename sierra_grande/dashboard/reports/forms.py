@@ -1,10 +1,14 @@
+from crispy_bootstrap5.bootstrap5 import FloatingField
+from crispy_bootstrap5.bootstrap5 import Switch
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit, Layout, Row, Column
-from crispy_bootstrap5.bootstrap5 import FloatingField, Switch
+from crispy_forms.layout import Column
+from crispy_forms.layout import Field
+from crispy_forms.layout import Layout
+from crispy_forms.layout import Row
+from crispy_forms.layout import Submit
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from oscar.core.loading import get_class
-from oscar.forms.widgets import DatePickerInput
 
 GeneratorRepository = get_class("dashboard.reports.utils", "GeneratorRepository")
 
@@ -24,13 +28,11 @@ class ReportForm(forms.Form):
     date_from = forms.DateField(
         label=_("Date from"),
         required=False,
-        widget=DatePickerInput,
     )
     date_to = forms.DateField(
         label=_("Date to"),
         help_text=_("The report is inclusive of this date"),
         required=False,
-        widget=DatePickerInput,
     )
     download = forms.BooleanField(label=_("Download"), required=False)
 
@@ -41,8 +43,18 @@ class ReportForm(forms.Form):
         self.helper.layout = Layout(
             Row(
                 Column(FloatingField("report_type")),
-                Column("date_from"),
-                Column(FloatingField("date_to")),
+                Column(
+                    Field(
+                        "date_from",
+                        template="oscar/forms/widgets/floating_field_date_picker.html",
+                    ),
+                ),
+                Column(
+                    Field(
+                        "date_to",
+                        template="oscar/forms/widgets/floating_field_date_picker.html",
+                    ),
+                ),
             ),
             Row(
                 Column(Switch("download", label="Pito")),
@@ -52,7 +64,7 @@ class ReportForm(forms.Form):
                         _("Generate report"),
                         css_class="btn btn-primary",
                         data={"loading-text": _("Generating...")},
-                    )
+                    ),
                 ),
             ),
         )

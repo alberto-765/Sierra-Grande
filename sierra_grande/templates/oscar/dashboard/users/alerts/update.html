@@ -28,7 +28,7 @@
 {% endblock headertext %}
 {% block dashboard_content %}
   <div class="table-header">
-    <h2 class="float-start">{% blocktrans with id=alert.id %}Product alert #{{ id }}{% endblocktrans %}</h2>
+    <h2 class="mb-0">{% blocktrans with id=alert.id %}Product alert #{{ id }}{% endblocktrans %}</h2>
     <div class="float-end">
       <form method="post" class="hstack">
         {% csrf_token %}

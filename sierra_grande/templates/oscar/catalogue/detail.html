@@ -73,7 +73,7 @@
           {% endblock product_basket_form %}
         {% else %}
           {% block variants %}
-            <h2>{% trans "Variants:" %}</h2>
+            <h2 class="mb-0">{% trans "Variants:" %}</h2>
             {% for child in product.get_public_children %}
               {% purchase_info_for_product request child as child_session %}
               {% if child_session.availability.is_available_to_buy %}
@@ -91,14 +91,14 @@
   {% block product_description %}
     {% if product.description %}
       <div id="product_description" class="sub-header">
-        <h2>{% trans "Product Description" %}</h2>
+        <h2 class="mb-0">{% trans "Product Description" %}</h2>
       </div>
       <p>{{ product.description|safe }}</p>
     {% endif %}
   {% endblock product_description}
   {% block product_info %}
     <div class="sub-header">
-      <h2>{% trans "Product Information" %}</h2>
+      <h2 class="mb-0">{% trans "Product Information" %}</h2>
     </div>
     <table class="table table-striped vertical-middle">
       {% if product.upc %}
@@ -154,7 +154,7 @@
         <a href="{% url "catalogue:reviews-list" product_slug=product.slug product_pk=product.id %}"
            class="btn float-end">{% trans "See all reviews" %}</a>
       {% endif %}
-      <h2>{% trans "Customer Reviews" %}</h2>
+      <h2 class="mb-0">{% trans "Customer Reviews" %}</h2>
     </div>
     {% if product.num_approved_reviews == 0 %}
       <p>
@@ -180,7 +180,7 @@
 {% with recommended_products=product.sorted_recommended_products|slice:":6" %}
   {% if recommended_products %}
     <div class="sub-header">
-      <h2>{% trans "Recommended items" %}</h2>
+      <h2 class="mb-0">{% trans "Recommended items" %}</h2>
     </div>
     <ul class="row list-unstyled mx-0">
       {% for product in recommended_products %}

@@ -128,7 +128,7 @@
       {% if voucher_form %}
         <div class="col-sm-6">
           <div class="sub-header">
-            <h2>{% trans "Voucher/promo code" %}</h2>
+            <h2 class="mb-0">{% trans "Voucher/promo code" %}</h2>
           </div>
           <p id="voucher_form_link">
             <a href="#voucher" class="btn btn-secondary btn-full">{% trans "I have a voucher code..." %}</a>
@@ -151,7 +151,7 @@
     {% block baskettotals %}
       <div class="col-sm-6">
         <div class="sub-header">
-          <h2>{% trans "Totals" %}</h2>
+          <h2 class="mb-0">{% trans "Totals" %}</h2>
         </div>
         {% include "oscar/basket/partials/basket_totals.html" with editable=1 %}
       </div>
@@ -179,7 +179,7 @@
   {% if user.is_authenticated and saved_formset %}
     <div class="card card-body">
       <div class="sub-header">
-        <h2>{% trans "Items to buy later" %}</h2>
+        <h2 class="mb-0">{% trans "Items to buy later" %}</h2>
       </div>
       <div class="row basket-title d-none d-md-flex">
         <div class="col-md-8 h4">{% trans "Items" %}</div>

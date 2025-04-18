@@ -29,7 +29,7 @@
     <div class="col-sm-6">
       {% block shipping_info %}
         <div class="sub-header">
-          <h2>{% trans "Shipping" %}</h2>
+          <h2 class="mb-0">{% trans "Shipping" %}</h2>
         </div>
         <div class="card card-body bg-light">
           <h3>{% trans "Address" %}</h3>
@@ -67,7 +67,7 @@
     <div class="col-sm-6">
       {% block payment_info %}
         <div class="sub-header">
-          <h2>{% trans "Payment" %}</h2>
+          <h2 class="mb-0">{% trans "Payment" %}</h2>
         </div>
         <div class="card card-body bg-light">
           <h3>{% trans "Payment" %}</h3>
@@ -101,7 +101,7 @@
   </div>
   {% block order_contents %}
     <div class="sub-header">
-      <h2>{% trans "Order contents" %}</h2>
+      <h2 class="mb-0">{% trans "Order contents" %}</h2>
     </div>
     <div class="basket-title">
       <div class="row">
@@ -151,7 +151,7 @@
         <div class="col-sm-6">&nbsp;</div>
         <div class="col-sm-6">
           <div class="sub-header">
-            <h2>{% trans "Totals" %}</h2>
+            <h2 class="mb-0">{% trans "Totals" %}</h2>
           </div>
           {% include "oscar/order/partials/basket_totals.html" %}
         </div>
@@ -161,7 +161,7 @@
   {% block order_tracking %}
     {% if not order.user %}
       <div class="sub-header">
-        <h2>{% trans "Tracking your order" %}</h2>
+        <h2 class="mb-0">{% trans "Tracking your order" %}</h2>
       </div>
       <p>
         {% trans "You can track the status of your order" %}

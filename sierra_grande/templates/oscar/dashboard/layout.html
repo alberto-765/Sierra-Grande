@@ -7,183 +7,180 @@
 
 {% block extrastyles %}
   {{ block.super }}
-
   <link rel="stylesheet" href="{% static "css/dashboard.css" %}" />
-  <link rel="stylesheet" href="{% static 'css/quill.snow.css'%}">
-  <link rel="stylesheet" href="{% static 'css/tempus-dominus.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/quill.snow.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/tempus-dominus.min.css' %}" />
 {% endblock extrastyles %}
-
-
 {% block title %}
   {% trans "Dashboard" %} | {{ block.super }}
 {% endblock title %}
-
 {% block header_page %}
-  <header class="sticky-top">
+  <header class="sticky-top bg-body">
     {% block navbar %}
-      <nav class="navbar navbar-expand navbar--custom">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">{{ shop_name }}</a>
-          <div class="navbar-collapse justify-content-end">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link disabled" href="#">
-                  {% trans "Welcome" %} <em>{{ user.get_full_name|default:request.user.email }}</em>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link icon-link icon-link-hover icon-link-hover--custom"
-                    href="{{ homepage_url }}">
-                  <iconify-icon icon="clarity:house-solid" width="1rem" height="1rem" aria-hidden="true" class="bi"></iconify-icon>
-                  {% trans "Return to site" %}
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link icon-link icon-link-hover icon-link-hover--custom"
-                    href="{% url "customer:summary" %}">
-                  <i class="fas fa-user"></i>
-                  <iconify-icon icon="mdi:account" width="1rem" height="1rem" aria-hidden="true" class="bi"></iconify-icon>
-                  {% trans "Account" %}
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link icon-link icon-link-hover icon-link-hover--custom"
-                    href="{% url "dashboard:logout" %}">
-                  <iconify-icon icon="ic:twotone-log-out" aria-hidden="true" class="bi" width="1rem" height="1rem"></iconify-icon>
-                  {% trans "Log out" %}
-                </a>
-              </li>
-              <li class="nav-item dropdown">
-                <button class="btn btn-link nav-link dropdown-toggle" id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static" aria-label="Toggle theme (auto)">
-                  <iconify-icon icon="" width="1rem" height="1rem" inline class="theme-icon-active"</iconify-icon>
-                  <span class="d-md-none ms-2" id="bd-theme-text">{% translate "Toggle theme" %} </span>
-                </button>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-theme-text">
-                  <li>
-                    <button type="button" class="dropdown-item d-flex align-items-center icon-link" data-bs-theme-value="light" aria-pressed="false">
-                      <iconify-icon icon="line-md:moon-filled-to-sunny-filled-transition" width="1rem" height="1rem" aria-hidden="true" class="btn__icon"></iconify-icon>
-                      {% translate "Light" %}
-                      <iconify-icon icon="system-uicons:check" width="1rem" height="1rem" class="ms-auto d-none btn__check" aria-hidden="true"></iconify-icon>
-                    </button>
-                  </li>
-                  <li>
-                    <button type="button" class="dropdown-item d-flex align-items-center icon-link" data-bs-theme-value="dark" aria-pressed="false">
-                      <iconify-icon icon="line-md:moon-filled" width="1rem" height="1rem" aria-hidden="true" class="btn__icon"></iconify-icon>
-                      {% translate "Dark" %}
-                      <iconify-icon icon="system-uicons:check" width="1rem" height="1rem" class="ms-auto d-none btn__check" aria-hidden="true"></iconify-icon>
-                    </button>
-                  </li>
-                  <li>
-                    <button type="button" class="dropdown-item d-flex align-items-center icon-link" data-bs-theme-value="auto" aria-pressed="true">
-                      <iconify-icon icon="line-md:light-dark" width="1rem" height="1rem" aria-hidden="true" class="btn__icon"></iconify-icon>
-                      {% translate "Auto" %}
-                      <iconify-icon icon="system-uicons:check" width="1rem" height="1rem" class="ms-auto d-none btn__check" aria-hidden="true"></iconify-icon>
-                    </button>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </div>
+      <nav class="navbar navbar-expand-md navbar--custom navbar--custom--slim px-4 bg-body-tertiary">
+        <a class="navbar-brand" href="#">{{ shop_name }}</a>
+        <div class="navbar-collapse justify-content-end">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#">
+                {% trans "Welcome" %} <em>{{ user.get_full_name|default:request.user.email }}</em>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link icon-link icon-link-hover icon-link-hover--custom"
+                 href="{{ homepage_url }}">
+                <iconify-icon icon="clarity:house-solid" width="1rem" height="1rem" aria-hidden="true" class="bi"></iconify-icon>
+                {% trans "Return to site" %}
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link icon-link icon-link-hover icon-link-hover--custom"
+                 href="{% url "customer:summary" %}">
+                <iconify-icon icon="mdi:account" width="1rem" height="1rem" aria-hidden="true" class="bi"></iconify-icon>
+                {% trans "Account" %}
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link icon-link icon-link-hover icon-link-hover--custom"
+                 href="{% url "dashboard:logout" %}">
+                <iconify-icon icon="ic:twotone-log-out" aria-hidden="true" class="bi" width="1rem" height="1rem"></iconify-icon>
+                {% trans "Log out" %}
+              </a>
+            </li>
+            <li class="nav-item dropdown">
+              <button class="btn btn-link nav-link dropdown-toggle"
+                      id="bd-theme"
+                      type="button"
+                      aria-expanded="false"
+                      data-bs-toggle="dropdown"
+                      data-bs-display="static"
+                      aria-label="Toggle theme (auto)">
+                <iconify-icon icon="" width="1rem" height="1rem" inline class="theme-icon-active"</iconify-icon>
+                <span class="d-md-none ms-2" id="bd-theme-text">{% translate "Toggle theme" %}</span>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end"
+                  aria-labelledby="bd-theme-text">
+                <li>
+                  <button type="button"
+                          class="dropdown-item d-flex align-items-center icon-link"
+                          data-bs-theme-value="light"
+                          aria-pressed="false">
+                    <iconify-icon icon="line-md:moon-filled-to-sunny-filled-transition" width="1rem" height="1rem" aria-hidden="true" class="btn__icon"></iconify-icon>
+                    {% translate "Light" %}
+                    <iconify-icon icon="system-uicons:check" width="1rem" height="1rem" class="ms-auto d-none btn__check" aria-hidden="true"></iconify-icon>
+                  </button>
+                </li>
+                <li>
+                  <button type="button"
+                          class="dropdown-item d-flex align-items-center icon-link"
+                          data-bs-theme-value="dark"
+                          aria-pressed="false">
+                    <iconify-icon icon="line-md:moon-filled" width="1rem" height="1rem" aria-hidden="true" class="btn__icon"></iconify-icon>
+                    {% translate "Dark" %}
+                    <iconify-icon icon="system-uicons:check" width="1rem" height="1rem" class="ms-auto d-none btn__check" aria-hidden="true"></iconify-icon>
+                  </button>
+                </li>
+                <li>
+                  <button type="button"
+                          class="dropdown-item d-flex align-items-center icon-link"
+                          data-bs-theme-value="auto"
+                          aria-pressed="true">
+                    <iconify-icon icon="line-md:light-dark" width="1rem" height="1rem" aria-hidden="true" class="btn__icon"></iconify-icon>
+                    {% translate "Auto" %}
+                    <iconify-icon icon="system-uicons:check" width="1rem" height="1rem" class="ms-auto d-none btn__check" aria-hidden="true"></iconify-icon>
+                  </button>
+                </li>
+              </ul>
+            </li>
+          </ul>
         </div>
       </nav>
     {% endblock navbar %}
-
     {% block dashboard_nav %}
       {% dashboard_navigation user as nav_items %}
-      <nav class="navbar navbar-expand navbar--custom">
-        <div class="container-fluid">
-          <button class="navbar-toggler"
-                  type="button"
-                  data-bs-toggle="offcanvas"
-                  data-bs-target="#menu_offcanvas"
-                  aria-controls="menu_offcanvas"
-                  aria-label="Toggle administration menu">
-            <iconify-icon icon="line-md:menu" width="1rem" height="1rem" aria-hidden="true" class="bi"></iconify-icon>
-          </button>
-          <div class="offcanvas offcanvas-start"
-                tabindex="-1"
-                data-bs-scroll="true"
-                id="menu_offcanvas"
-                aria-labelledby="menu__offcanvasLabel">
-            <div class="offcanvas-header">
-              <h5 class="offcanvas-title" id="menu__offcanvasLabel">{{ shop_name }}</h5>
-              <button type="button"
-                      class="btn-close"
-                      data-bs-dismiss="offcanvas"
-                      data-bs-target="#menu_offcanvas"
-                      aria-label="Close"></button>
-            </div>
-            <div class="offcanvas-body">
-              <ul class="navbar-nav">
-                {% for item in nav_items %}
-                  <li class="nav-item {% if item.has_children %}dropdown{% endif %} ">
-                    <a class="nav-link icon-link icon-link-hover icon-link-hover--custom {% if item.has_children %}dropdown-toggle{% endif %}"
-                        href="{% if item.is_heading %}#{% else %}{{ item.url }}{% endif %}"
-                        {% if item.has_children %} id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" {% endif %}>
-                      {% if item.icon %}
-                        <iconify-icon icon="{{ item.icon }}" aria-hidden="true" class="bi" width="1rem" height="1rem"></iconify-icon>
-                      {% endif %}
-                      {{ item.label }}
-                    </a>
-                    {% if item.has_children %}
-                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        {% for subitem in item.children %}
-                          <a class="dropdown-item icon-link icon-link-hover icon-link-hover--custom"
-                              href="{{ subitem.url }}">
-                            {% if subitem.icon %}
-                              <iconify-icon icon="{{ subitem.icon }}" aria-hidden="true" class="bi" width="1rem" height="1rem"></iconify-icon>
-                            {% endif %}
-                            {{ subitem.label }}
-                          </a>
-                        {% endfor %}
-                      </div>
+      <nav class="navbar navbar-expand-md navbar--custom px-4">
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#menu_offcanvas"
+                aria-controls="menu_offcanvas"
+                aria-label="Toggle administration menu">
+          <iconify-icon icon="line-md:menu" width="1rem" height="1rem" aria-hidden="true" class="bi"></iconify-icon>
+        </button>
+        <div class="offcanvas offcanvas-start"
+             tabindex="-1"
+             data-bs-scroll="true"
+             id="menu_offcanvas"
+             aria-labelledby="menu__offcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="menu__offcanvasLabel">{{ shop_name }}</h5>
+            <button type="button"
+                    class="btn-close"
+                    data-bs-dismiss="offcanvas"
+                    data-bs-target="#menu_offcanvas"
+                    aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <ul class="navbar-nav">
+              {% for item in nav_items %}
+                <li class="nav-item {% if item.has_children %}dropdown{% endif %} ">
+                  <a class="nav-link icon-link icon-link-hover icon-link-hover--custom {% if forloop.first %}ps-md-0{% endif %} {% if item.has_children %}dropdown-toggle{% endif %}"
+                     href="{% if item.is_heading %}#{% else %}{{ item.url }}{% endif %}"
+                     {% if item.has_children %} id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" {% endif %}>
+                    {% if item.icon %}
+                      <iconify-icon icon="{{ item.icon }}" aria-hidden="true" class="bi" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
                     {% endif %}
-                  </li>
-                {% endfor %}
-              </ul>
-            </div>
+                    {{ item.label }}
+                  </a>
+                  {% if item.has_children %}
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      {% for subitem in item.children %}
+                        <a class="dropdown-item icon-link icon-link-hover icon-link-hover--custom"
+                           href="{{ subitem.url }}">
+                          {% if subitem.icon %}
+                            <iconify-icon icon="{{ subitem.icon }}" aria-hidden="true" class="bi" width="1rem" height="1rem"></iconify-icon>
+                          {% endif %}
+                          {{ subitem.label }}
+                        </a>
+                      {% endfor %}
+                    </div>
+                  {% endif %}
+                </li>
+              {% endfor %}
+            </ul>
           </div>
         </div>
       </nav>
     {% endblock dashboard_nav %}
   </header>
 {% endblock header_page %}
-
-{% block layout_content  %}
-  <div class="container-fluid">
-    {% block breadcrumbs %}
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item active" aria-current="page">
-            <a href="{% url "dashboard:index" %}">{% trans "Dashboard" %}</a>
-          </li>
-        </ol>
-      </nav>
-    {% endblock breadcrumbs %}
-    <div class="row gy-3">
-      {% include "oscar/dashboard/partials/alert_messages.html" %}
-      {% block header %}
-        <div class="hstack justify-content-between col ">
-          <h2>
-            {% block headertext %}
-            {% endblock headertext %}
-          </h2>
-        </div>
-      {% endblock header %}
-      <div class="col-12">
-        {% block content %}
-          {% block dashboard_content %}
-          {% endblock dashboard_content %}
-        {% endblock content %}
-      </div>
-    </div>
+{% block layout_content %}
+  {% block breadcrumbs %}
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">
+          <a href="{% url "dashboard:index" %}">{% trans "Dashboard" %}</a>
+        </li>
+      </ol>
+    </nav>
+  {% endblock breadcrumbs %}
+  <div class="vstack row-gap-4">
+    {% include "oscar/dashboard/partials/alert_messages.html" %}
+    {% block header %}
+      <h2 class="mb-0">
+        {% block headertext %}
+        {% endblock headertext %}
+      </h2>
+    {% endblock header %}
+    {% block content %}
+      {% block dashboard_content %}
+      {% endblock dashboard_content %}
+    {% endblock content %}
   </div>
   <!-- /container -->
-{% endblock layout_content  %}
-
+{% endblock layout_content %}
 {% block extrascripts %}
   {{ block.super }}
-  
   <script src="{% static "oscar/js/oscar/dashboard.js" %}" defer></script>
   <script src="{% static "oscar/js/oscar/RelatedObjectLookups.js" %}" defer></script>
   <script src="{% static 'js/inputmask.min.js' %}" defer></script>
@@ -192,11 +189,9 @@
   <script src="{% static 'js/quill.min.js' %}" defer></script>
   <script src="{% static 'js/tempus-dominus.min.js' %}" defer></script>
 {% endblock extrascripts %}
-
 {% block onbodyload %}
   {{ block.super }}
-
-  // This code is for show the tab or update url 
+  // This code is for show the tab or update url
   {% comment %} var url = document.location.toString();
   // Javascript to enable link to tab
   if (url.match("#")) {
@@ -207,7 +202,7 @@
   window.location.hash = e.target.hash;
   }); {% endcomment %}
   options = {
-    "languageCode": "{{ LANGUAGE_CODE }}"
+  "languageCode": "{{ LANGUAGE_CODE }}"
   };
   oscar.dashboard.init(options);
 {% endblock onbodyload %}

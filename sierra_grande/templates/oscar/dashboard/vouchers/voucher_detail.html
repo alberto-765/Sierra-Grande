@@ -24,11 +24,11 @@
 {% endblock headertext %}
 {% block dashboard_content %}
   <div class="table-header">
-    <h2>{% trans "Voucher details" %}</h2>
+    <h2 class="mb-0">{% trans "Voucher details" %}</h2>
   </div>
   {% include "oscar/dashboard/vouchers/partials/voucher_details_table.html" %}
   <div class="table-header">
-    <h2>{% trans "Attached offers" %}</h2>
+    <h2 class="mb-0">{% trans "Attached offers" %}</h2>
   </div>
   <table class="vertical-middle table table-striped table-bordered table-hover">
     {% if voucher.offers.exists %}
@@ -82,7 +82,7 @@
     {% endif %}
   </table>
   <div class="table-header">
-    <h2>{% trans "Voucher performance" %}</h2>
+    <h2 class="mb-0">{% trans "Voucher performance" %}</h2>
   </div>
   <table class="vertical-middle table table-striped table-bordered table-hover">
     <tbody>
@@ -101,7 +101,7 @@
     </tbody>
   </table>
   <div class="table-header">
-    <h2>{% trans "Recent orders" %}</h2>
+    <h2 class="mb-0">{% trans "Recent orders" %}</h2>
   </div>
   <table class="vertical-middle table table-striped table-bordered table-hover">
     {% if not discounts %}

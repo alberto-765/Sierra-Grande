@@ -26,8 +26,8 @@
   </nav>
 {% endblock breadcrumbs %}
 {% block header %}
-  <div class="d-flex justify-content-between align-items-center">
-    <h2>{% trans "Vouchers" %}</h2>
+  <div class="hstack justify-content-between align-items-center">
+    <h2 class="mb-0">{% trans "Vouchers" %}</h2>
     <a href="{% url "dashboard:voucher-create" %}"
        class="btn btn-primary icon-link">
       <iconify-icon icon="mdi:plus-circle" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
@@ -39,9 +39,9 @@
   <div class="vstack gap-4">
     {% block search_form %}
       <div class="card">
-        <h5 class="card-header icon-link">
+        <span class="card-header icon-link fw-normal">
           <iconify-icon icon="stash:search-light" width="1rem" height="1rem" aria-hidden="true"></iconify-icon> {% trans "Search" %}
-        </h5>
+        </span>
         <div class="card-body">
           <div class="vstack gap-3">
             {% crispy form %}
@@ -59,14 +59,14 @@
     {% endblock search_form %}
     {% block voucher_table %}
       <div class="card">
-        <h5 class="card-header icon-link">
+        <span class="card-header icon-link fw-normal">
           <iconify-icon icon="la:money-bill-wave" width="1rem" height="1rem" aria-hidden="true" inline></iconify-icon>
           {% if search_filters %}
             {% trans "Voucher Search Results" %}
           {% else %}
             {% trans "All Vouchers" %}
           {% endif %}
-        </h5>
+        </span>
         <div class="card-body {% if vouchers %}p-0{% endif %}">
           {% if vouchers %}
             <div class="table-container table-responsive">
@@ -159,10 +159,10 @@
                   {% endfor %}
                 </tbody>
               </table>
-          {% else %}
+            {% else %}
               <div>{% trans "No vouchers found." %}</div>
-          {% endif %}
-          {% include "oscar/dashboard/partials/pagination.html" %}
+            {% endif %}
+            {% include "oscar/dashboard/partials/pagination.html" %}
           </div>
         </div>
       </div>

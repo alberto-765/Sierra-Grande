@@ -21,11 +21,9 @@
     </ol>
   </nav>
 {% endblock breadcrumbs %}
-{% block header %}
-  <div>
-    <h2>{{ commtype.name }}</h2>
-  </div>
-{% endblock header %}
+{% block headertext %}
+  {{ commtype.name }}
+{% endblock headertext %}
 {% block dashboard_content %}
   <form method="post" class="form-stacked">
     <div class="tabbable dashboard">

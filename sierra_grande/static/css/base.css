@@ -1,8 +1,32 @@
-.navbar--custom .navbar-toggler {
-    border: none;
+/* Layout */
+.default {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
 
-    &:focus {
-        box-shadow: none;
+/* Box shadow for header */
+body > header {
+    box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+}
+
+/* Remove box shadow for navbar toggler icon */
+.navbar--custom {
+    &.navbar--custom--slim {
+        mask-image: linear-gradient(black 95%, transparent);
+        -webkit-mask-image: linear-gradient(black 95%, transparent);
+
+        :is(.nav-link, .navbar-brand) {
+            padding-block: 0;
+        }
+    }
+
+    .navbar-toggler {
+        border: none;
+
+        &:focus {
+            box-shadow: none;
+        }
     }
 }
 
@@ -12,13 +36,40 @@
     border-bottom-left-radius: var(--bs-border-radius) !important;
 }
 
-.card-body table tr:last-of-type {
+.card-body {
 
-    td:not(:only-of-type):is(:first-of-type) {
-        border-bottom-left-radius: var(--bs-border-radius) !important;
+    /* Override margin-button for django-tables2 */
+    & > .table-container > table {
+        margin-bottom: 0 !important;
+
+        & > thead > tr:first-of-type {
+            border-top-width: 0;
+        }
+
+        & > tbody {
+            & > tr:last-of-type {
+                border-bottom-width: 0;
+            }
+        }
+
+        & > :is(thead, tbody) > tr {
+            :is(td:first-child, th:first-child) {
+                border-left-width: 0;
+            }
+
+            :is(td:last-child, th:last-child) {
+                border-right-width: 0;
+            }
+        }
     }
 
-    td:not(:only-of-type):is(:last-of-type) {
-        border-bottom-right-radius: var(--bs-border-radius) !important;
+    table tr:last-of-type {
+        td:not(:only-of-type):is(:first-of-type) {
+            border-bottom-left-radius: var(--bs-border-radius) !important;
+        }
+
+        td:not(:only-of-type):is(:last-of-type) {
+            border-bottom-right-radius: var(--bs-border-radius) !important;
+        }
     }
 }

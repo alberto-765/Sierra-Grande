@@ -8,28 +8,3 @@
 .icon-link-hover--custom {
   --bs-icon-link-transform: scale(1.1)
 }
-
-/* Override margin-button for django-tables2 */
-.table-container > table {
-  margin-bottom: 0 !important;
-
-  & > thead > tr:first-of-type {
-    border-top-width: 0;
-  }
-
-  & > tbody {
-    & > tr:last-of-type {
-      border-bottom-width: 0;
-    }
-  }
-
-  & > :is(thead, tbody) > tr {
-    :is(td:first-child, th:first-child) {
-      border-left-width: 0;
-    }
-
-    :is(td:last-child, th:last-child) {
-      border-right-width: 0;
-    }
-  }
-}

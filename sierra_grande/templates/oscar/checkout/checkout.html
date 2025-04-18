@@ -17,7 +17,7 @@
     {% block shipping_address %}
       <div class="col-sm-6">
         <div class="sub-header">
-          <h2>{% trans "Shipping" %}</h2>
+          <h2 class="mb-0">{% trans "Shipping" %}</h2>
         </div>
         {% if shipping_address %}
           <div class="card card-body bg-light">
@@ -69,7 +69,7 @@
     {% block payment_method %}
       <div class="col-sm-6">
         <div class="sub-header">
-          <h2>{% trans "Payment" %}</h2>
+          <h2 class="mb-0">{% trans "Payment" %}</h2>
         </div>
         <div class="card card-body bg-light card card-body bg-light-success">
           <h3>
@@ -86,7 +86,7 @@
       {% block order_contents_actions %}
         <a href="{% url "basket:summary" %}" class="float-end">{% trans "Edit order contents" %}</a>
       {% endblock order_contents_actions %}
-      <h2>{% trans "Order contents" %}</h2>
+      <h2 class="mb-0">{% trans "Order contents" %}</h2>
     </div>
     <div class="basket-title">
       <div class="row">
@@ -136,7 +136,7 @@
       <div class="col-sm-6">&nbsp;</div>
       <div class="col-sm-6">
         <div class="sub-header">
-          <h2>{% trans "Totals" %}</h2>
+          <h2 class="mb-0">{% trans "Totals" %}</h2>
         </div>
         {% include "oscar/basket/partials/basket_totals.html" %}
       </div>

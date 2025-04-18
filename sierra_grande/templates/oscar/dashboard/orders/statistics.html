@@ -27,24 +27,29 @@
   {{ title }}
 {% endblock headertext %}
 {% block dashboard_content %}
-  <div class="table-header">
-    <h5 class="icon-link">
+  <div class="card">
+    <span class="card-header icon-link fw-normal">
       <iconify-icon icon="flowbite:filter-solid" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>{% trans "Filter" %}
-    </h5>
+    </span>
+    <div class="card-body">
+      <form method="get"
+            action="{% url "dashboard:order-stats" %}"
+            class="hstack">
+        {% include "oscar/dashboard/partials/form_fields_inline.html" with form=form %}
+        <button type="submit"
+                class="btn btn-primary me-2"
+                data-loading-text="{% trans "Filtering..." %}">{% trans "Filter result" %}</button>
+        <a href="{% url "dashboard:order-stats" %}" class="btn btn-secondary">{% trans "Reset" %}</a>
+      </form>
+    </div>
   </div>
-  <div class="card card-body bg-light">
-    <form method="get"
-          action="{% url "dashboard:order-stats" %}"
-          class="hstack">
-      {% include "oscar/dashboard/partials/form_fields_inline.html" with form=form %}
-      <button type="submit"
-              class="btn btn-primary me-2"
-              data-loading-text="{% trans "Filtering..." %}">{% trans "Filter result" %}</button>
-      <a href="{% url "dashboard:order-stats" %}" class="btn btn-secondary">{% trans "Reset" %}</a>
-    </form>
+  <div class="card"></div>
+  <div class="card-header">
+    <iconify-icon icon="fa-solid:shopping-cart" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
   </div>
   <table class="vertical-middle table table-striped table-bordered table-hover">
-    <caption><i class="fas fa-shopping-cart"></i> {% trans "Summary" %}</caption>
+    <caption>      <iconify-icon icon="fa-solid:shopping-cart" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
+    {% trans "Summary" %}</caption>
     <tr>
       <th>{% trans "Total orders" %}</th>
       <td>{{ total_orders }}</td>
@@ -60,7 +65,8 @@
   </table>
   {% if order_status_breakdown %}
     <table class="vertical-middle table table-striped table-bordered table-hover">
-      <caption><i class="fas fa-shopping-cart"></i> {% trans "Order status breakdown" %}</caption>
+      <caption>      <iconify-icon icon="fa-solid:shopping-cart" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
+      {% trans "Order status breakdown" %}</caption>
       <tr>
         <th>{% trans "Status" %}</th>
         <th>{% trans "Frequency" %}</th>

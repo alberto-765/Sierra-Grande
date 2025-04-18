@@ -17,8 +17,8 @@
   </nav>
 {% endblock breadcrumbs %}
 {% block header %}
-  <div class="d-flex justify-content-between align-items-center">
-    <h2>{% trans "Attribute Option Group" %}</h2>
+  <div class="hstack justify-content-between align-items-center">
+    <h2 class="mb-0">{% trans "Attribute Option Group" %}</h2>
     <a href="{% url "dashboard:catalogue-attribute-option-group-create" %}?{{ querystring }}"
        class="btn btn-primary icon-link">
       <iconify-icon icon="mdi:plus-circle" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>{% trans "Create new Attribute Option Group" %}
@@ -26,14 +26,17 @@
   </div>
 {% endblock header %}
 {% block dashboard_content %}
-  {% if attribute_option_groups %}
+  {% if has_attributes %}
     {% block product_list %}
       <form method="post">
         {% csrf_token %}
-        {% render_table attribute_option_groups %}
+        <div class="card">{% render_table attribute_option_groups %}</div>
       </form>
     {% endblock product_list %}
   {% else %}
-    <p>{% trans "No Attribute Option Groups found." %}</p>
+    <div class="card">
+      <div class="card-header fw-normal">{% translate "Attribute Option Groups" %}</div>
+      <div class="card-body">{% trans "No Attribute Option Groups found." %}</div>
+    </div>
   {% endif %}
 {% endblock dashboard_content %}

@@ -7,33 +7,32 @@
   {% block card_header %}
     <div class="card-header">
       {% block card_header_text %}
-        <h5 class="icon-link mb-0">
+        <span class="icon-link mb-0">
           {% if table.icon %}
             <iconify-icon icon="{{ table.icon }}" width="1rem" height="1rem" aria-hidden="true" noobserver></iconify-icon>
           {% endif %}
           {{ table.get_caption_display }}
-        </h5>
+        </span>
       {% endblock card_header_text %}
     </div>
   {% endblock card_header %}
-  <div class="{% block table-wrapper-class %}card-body p-0{% endblock table-wrapper-class %}">
-    {{ block.super }}
-  </div>
+  <div class="{% block table-wrapper-class %}card-body p-0{% endblock table-wrapper-class %}">{{ block.super }}</div>
 {% endblock table-wrapper %}
 {% block table.thead %}
   <thead>
     <tr>
       {% for column in table.columns %}
         {% if column.orderable %}
-        <th {{ column.attrs.th.as_html }}><a href="{% querystring table.prefixed_order_by_field=column.order_by_alias.next %}">{{ column.header }}</a>
-      </th>
-    {% else %}
-      <th {{ column.attrs.th.as_html }}>{{ column.header }}
-      </th>
-    {% endif %}
-  {% endfor %}
-</tr>
-</thead>
+          <th {{ column.attrs.th.as_html }}>
+            <a href="{% querystring table.prefixed_order_by_field=column.order_by_alias.next %}">{{ column.header }}</a>
+          </th>
+        {% else %}
+          <th {{ column.attrs.th.as_html }}>{{ column.header }}
+          </th>
+        {% endif %}
+      {% endfor %}
+    </tr>
+  </thead>
 {% endblock table.thead %}
 {% block pagination %}
   {% with page_obj=table.page paginator=table.paginator %}

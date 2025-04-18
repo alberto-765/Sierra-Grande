@@ -16,82 +16,87 @@
   </nav>
 {% endblock breadcrumbs %}
 {% block header %}
-  <div class="d-flex justify-content-between align-items-center">
-    <h2>{% trans "Ranges" %}</h2>
+  <div class="hstack justify-content-between align-items-center">
+    <h2 class="mb-0">{% trans "Ranges" %}</h2>
     <a href="{% url "dashboard:range-create" %}"
        class="btn btn-primary icon-link"><iconify-icon icon="mdi:plus-circle" width="1rem" height="1rem" aria-hidden="true"></iconify-icon> {% trans "Create new range" %}</a>
   </div>
 {% endblock header %}
 {% block dashboard_content %}
-  <table class="vertical-middle table table-striped table-bordered">
-    <caption><i class="fas fa-ellipsis-h"></i> {% trans "Ranges" %}</caption>
-    {% if ranges %}
-      <thead>
-        <tr>
-          <th>{% trans "Name" %}</th>
-          <th>{% trans "Num products" %}</th>
-          <th>{% trans "Is public?" %}</th>
-          <th>{% trans "Date created" %}</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for range in ranges %}
-          <tr>
-            <td>
-              {% if range.is_editable %}
-                <a href="{% url "dashboard:range-update" pk=range.id %}">{{ range.name }}</a>
-              {% else %}
-                {{ range.name }}
-              {% endif %}
-            </td>
-            {% if range.includes_all_products %}
-              <td>{% trans "All" %}</td>
-            {% else %}
-              <td>{{ range.num_products|default:"-" }}</td>
-            {% endif %}
-            {% if range.is_public %}
-              <td>{% trans "Yes" %}</td>
-            {% else %}
-              <td>{% trans "No" %}</td>
-            {% endif %}
-            <td>{{ range.date_created }}</td>
-            <td>
-              <div class="btn-toolbar">
-                <div class="dropdown">
-                  <button class="btn btn-secondary dropdown-toggle"
-                          type="button"
-                          id="dropdownMenuButton"
-                          data-bs-toggle="dropdown"
-                          aria-haspopup="true"
-                          aria-expanded="false">{% trans "Actions" %}</button>
-                  <div class="dropdown-menu dropdown-menu-end"
-                       aria-labelledby="dropdownMenuButton">
-                    {% if range.is_editable %}
-                      <a class="dropdown-item"
-                         href="{% url "dashboard:range-update" pk=range.id %}">{% trans "Edit" %}</a>
-                      {% if not range.includes_all_products %}
+  <div class="card">
+    <div class="card-header icon-link fw-normal">
+      <iconify-icon icon="fe:elipsis-h" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
+      {% trans "Ranges" %}
+    </div>
+    <div class="card-body {% if ranges %}p-0{% endif %}">
+      {% if ranges %}
+        <table class="vertical-middle table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th>{% trans "Name" %}</th>
+              <th>{% trans "Num products" %}</th>
+              <th>{% trans "Is public?" %}</th>
+              <th>{% trans "Date created" %}</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for range in ranges %}
+              <tr>
+                <td>
+                  {% if range.is_editable %}
+                    <a href="{% url "dashboard:range-update" pk=range.id %}">{{ range.name }}</a>
+                  {% else %}
+                    {{ range.name }}
+                  {% endif %}
+                </td>
+                {% if range.includes_all_products %}
+                  <td>{% trans "All" %}</td>
+                {% else %}
+                  <td>{{ range.num_products|default:"-" }}</td>
+                {% endif %}
+                {% if range.is_public %}
+                  <td>{% trans "Yes" %}</td>
+                {% else %}
+                  <td>{% trans "No" %}</td>
+                {% endif %}
+                <td>{{ range.date_created }}</td>
+                <td>
+                  <div class="btn-toolbar">
+                    <div class="dropdown">
+                      <button class="btn btn-secondary dropdown-toggle"
+                              type="button"
+                              id="dropdownMenuButton"
+                              data-bs-toggle="dropdown"
+                              aria-haspopup="true"
+                              aria-expanded="false">{% trans "Actions" %}</button>
+                      <div class="dropdown-menu dropdown-menu-end"
+                           aria-labelledby="dropdownMenuButton">
+                        {% if range.is_editable %}
+                          <a class="dropdown-item"
+                             href="{% url "dashboard:range-update" pk=range.id %}">{% trans "Edit" %}</a>
+                          {% if not range.includes_all_products %}
+                            <a class="dropdown-item"
+                               href="{% url "dashboard:range-products" pk=range.id %}">{% trans "Edit products" %}</a>
+                          {% endif %}
+                        {% endif %}
+                        {% if range.is_public %}
+                          <a class="dropdown-item" href="{{ range.get_absolute_url }}">{% trans "View on site" %}</a>
+                        {% endif %}
                         <a class="dropdown-item"
-                           href="{% url "dashboard:range-products" pk=range.id %}">{% trans "Edit products" %}</a>
-                      {% endif %}
-                    {% endif %}
-                    {% if range.is_public %}
-                      <a class="dropdown-item" href="{{ range.get_absolute_url }}">{% trans "View on site" %}</a>
-                    {% endif %}
-                    <a class="dropdown-item"
-                       href="{% url "dashboard:range-delete" pk=range.id %}">{% trans "Delete" %}</a>
+                           href="{% url "dashboard:range-delete" pk=range.id %}">{% trans "Delete" %}</a>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            </td>
-          </tr>
-        {% endfor %}
-      </tbody>
-    {% else %}
-      <tr>
-        <td>{% trans "No ranges found." %}</td>
-      </tr>
-    {% endif %}
-  </table>
-  {% include "oscar/dashboard/partials/pagination.html" %}
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% include "oscar/dashboard/partials/pagination.html" %}
+      {% else %}
+        <div>{% trans "No ranges found." %}</div>
+      {% endif %}
+    </div>
+  </div>
 {% endblock dashboard_content %}

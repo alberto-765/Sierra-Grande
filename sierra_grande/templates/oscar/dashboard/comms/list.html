@@ -15,48 +15,46 @@
     </ol>
   </nav>
 {% endblock breadcrumbs %}
-{% block header %}
-  <div class="page-header">
-    <h2>{% trans "Emails" %}</h2>
-  </div>
-{% endblock header %}
+{% block headertext %}
+  {% trans "Emails" %}
+{% endblock headertext %}
 {% block dashboard_content %}
-  <table class="table table-striped table-bordered table-hover vertical-middle">
-    <caption class="icon-link">
+  <div class="card">
+    <div class="card-header icon-link">
       <iconify-icon icon="mdi:envelope" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
       {% trans "Emails" %}
-    </caption>
-    {% if commtypes %}
-      <thead>
-        <tr>
-          <th>{% trans "Code" %}</th>
-          <th>{% trans "Name" %}</th>
-          <th>{% trans "Category" %}</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for commtype in commtypes %}
-          <tr>
-            <td>
-              <a href="{% url "dashboard:comms-update" commtype.code %}">{{ commtype.code }}</a>
-            </td>
-            <td>{{ commtype.name }}</td>
-            <td>{{ commtype.category }}</td>
-            <td>
-              <a class="btn btn-success"
-                 href="{% url "dashboard:comms-update" commtype.code %}">{% trans "Edit" %}</a>
-            </td>
-          </tr>
-        {% endfor %}
-      </tbody>
-    {% else %}
-      <tbody>
-        <tr>
-          <td>{% trans "There are no defined emails to edit." %}</td>
-        </tr>
-      </tbody>
-    {% endif %}
-  </table>
-  {% include "oscar/dashboard/partials/pagination.html" %}
+    </div>
+    <div class="card-body {% if commtypes %}p-0{% endif %}">
+      {% if commtypes %}
+        <table class="table table-striped table-bordered table-hover vertical-middle">
+          <thead>
+            <tr>
+              <th>{% trans "Code" %}</th>
+              <th>{% trans "Name" %}</th>
+              <th>{% trans "Category" %}</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for commtype in commtypes %}
+              <tr>
+                <td>
+                  <a href="{% url "dashboard:comms-update" commtype.code %}">{{ commtype.code }}</a>
+                </td>
+                <td>{{ commtype.name }}</td>
+                <td>{{ commtype.category }}</td>
+                <td>
+                  <a class="btn btn-success"
+                     href="{% url "dashboard:comms-update" commtype.code %}">{% trans "Edit" %}</a>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <div>{% trans "There are no defined emails to edit." %}</div>
+      {% endif %}
+      {% include "oscar/dashboard/partials/pagination.html" %}
+    </div>
+  </div>
 {% endblock dashboard_content %}

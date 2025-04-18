@@ -21,7 +21,7 @@
 {% endblock breadcrumbs %}
 {% block header %}
   <div class="hstack justify-content-between col-12">
-    <h2>{% trans "Pages" %}</h2>
+    <h2 class="mb-0">{% trans "Pages" %}</h2>
     <a href="{% url "dashboard:page-create" %}"
        class="btn btn-primary icon-link">
       <iconify-icon icon="mdi:plus-circle" width="1rem" height="1rem" aria-hidden="true"></iconify-icon> {% trans "Create new page" %}
@@ -31,34 +31,34 @@
 {% block dashboard_content %}
   <div class="vstack gap-4">
     <div class="card">
-      <h5 class="icon-link card-header">
+      <span class="icon-link card-header fw-normal">
         <iconify-icon icon="stash:search-light" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
         {% trans "Search" %}
-      </h5>
+      </span>
       <div class="card-body">
         <form method="get">
-          <div class="row gy-3 gx-md-4 align-items-center">
+          <div class="row gy-3 gx-md-3 align-items-center">
             {% include "oscar/dashboard/partials/form_fields_inline.html" with form=form %}
             <div class="col-auto">
               <button type="submit"
-                      class="btn btn-primary me-2 icon-link"
+                      class="btn btn-primary icon-link"
                       data-loading-text="{% trans "Searching..." %}">{% trans "Search" %}</button>
             </div>
             <div class="col-auto">
-              <button type="reset"
-                      class="btn btn-secondary"
-                      data-loading-text="{% trans "Reseting..." %}">{% trans "Reset" %}</button>
+              <a href="{% url 'dashboard:page-list' %}"
+                 class="btn btn-secondary"
+                 data-loading-text="{% trans "Reseting..." %}">{% trans "Reset" %}</a>
             </div>
           </div>
         </form>
       </div>
     </div>
     <div class="card">
-      <h5 class="icon-link card-header">
+      <span class="icon-link card-header fw-normal">
         <iconify-icon icon="mdi:file" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
         {{ queryset_description }}
-      </h5>
-      <div class="card-body {% if flatpage_list %} p-0 {% else %} text-bg-light {% endif %}">
+      </span>
+      <div class="card-body {% if flatpage_list %}p-0{% endif %}">
         {% if flatpage_list %}
           <form method="post" class="table-responsive">
             {% csrf_token %}

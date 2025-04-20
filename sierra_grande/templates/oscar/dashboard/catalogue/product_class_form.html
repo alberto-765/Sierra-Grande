@@ -1,6 +1,7 @@
 {% extends "oscar/dashboard/layout.html" %}
 
 {% load i18n %}
+{% load crispy_forms_tags %}
 
 {% block title %}
   {{ title }} | {% trans "Create product type" %} | {{ block.super }}
@@ -25,124 +26,97 @@
   {{ title }}
 {% endblock headertext %}
 {% block dashboard_content %}
-  <form method="post" data-behaviour="-errors">
-    {% csrf_token %}
-    <div class="row">
-      {% block tab_nav %}
-        <div class="col-auto">
-          <div class="list-group" role="tablist">
-            <a class="list-group-item list-group-item-action active"
-               id="product-detail"
-               data-bs-toggle="list"
-               href="#product-details-pane"
-               role="tab"
-               aria-controls="product-details-pane">{% trans "Product Class details" %}</a>
-            <a class="list-group-item list-group-item-action"
-               id="product-attributes"
-               data-bs-toggle="list"
-               href="#product-attributes-pane"
-               role="tab"
-               aria-controls="product-attributes-pane">{% trans "Product attributes" %}</a>
-          </div>
-        </div>
-      {% endblock tab_nav %}
-      {% block tab_content %}
-        <div class="col">
-          <div class="tab-content">
-            {% block product_class_details %}
-              <div class="tab-pane show active"
-                   id="product-details-pane"
-                   role="tabpanel"
-                   aria-labelledby="product-detail"
-                   tabindex="0">
-                <h3>{% trans "Product Class details" %}</h3>
-                <div class="card card-body bg-light product-class-details">
-                  {% comment %}
-                                        If the ProductClass form has field_errors, partials/form_fields.html
-                                        will render an error message.
-                                        This means that there"ll be 2 error messages,
-                                        one from the partial and one from the view. Perhaps there should be
-                                        an option allowing hiding of the error message in the template.
-                                        For now we copy paste what we need from the template.
-                  {% endcomment %}
-                  {% if form.non_field_errors %}
-                    {% for error in form.non_field_errors %}
-                      <div class="alert alert-danger">
-                        <span class="error-block"><i class="fas fa-exclamation"></i> {{ error }}</span>
-                      </div>
-                    {% endfor %}
-                  {% endif %}
-                  {% for field in form %}
-                    {% include "oscar/dashboard/partials/form_field.html" with field=field %}
-                  {% endfor %}
-                </div>
-              </div>
-            {% endblock product_class_details %}
-            {% block product_attributes %}
-              <div class="tab-pane"
-                   id="product-attributes-pane"
-                   role="tabpanel"
-                   aria-labelledby="product-attributes"
-                   tabindex="0">
-                <div>
-                  <h3>{% trans "Product attributes" %}</h3>
-                </div>
-                <div class="product-attributes">
-                  <table class="table table-striped table-bordered vertical-middle">
-                    {{ attributes_formset.management_form }}
-                    {{ attributes_formset.non_form_errors }}
-                    <col width="20%" />
-                    <col width="20%" />
-                    <col width="20%" />
-                    <thead>
-                      <tr>
-                        <th>{% trans "Name" %}</th>
-                        <th>{% trans "Code" %}</th>
-                        <th>{% trans "Type" %}</th>
-                        <th>{% trans "Required" %}</th>
-                        <th>{% trans "Delete?" %}</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {% for attribute_form in attributes_formset %}
-                        <tr>
-                          {% for hidden_field in attribute_form.hidden_fields %}{{ hidden_field }}{% endfor %}
-                          <td>{% include "oscar/dashboard/partials/form_field.html" with field=attribute_form.name nolabel=True %}</td>
-                          <td>{% include "oscar/dashboard/partials/form_field.html" with field=attribute_form.code nolabel=True %}</td>
-                          <td>
-                            {% include "oscar/dashboard/partials/form_field.html" with field=attribute_form.type nolabel=True %}
-                            {% include "oscar/dashboard/partials/form_field.html" with field=attribute_form.option_group nolabel=True %}
-                          </td>
-                          <td>
-                            {% include "oscar/dashboard/partials/form_field.html" with field=attribute_form.required nolabel=True %}
-                            {{ attribute_form.non_field_errors }}
-                          </td>
-                          <td>{% include "oscar/dashboard/partials/form_field.html" with field=attribute_form.DELETE nolabel=True %}</td>
-                        </tr>
-                      {% endfor %}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            {% endblock product_attributes %}
-          </div>
-        </div>
-      {% endblock tab_content %}
+  <div class="card">
+    <div class="card-header">
+      <ul class="nav nav-tabs card-header-tabs" id="productsTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button type="button"
+                  class="nav-link active"
+                  id="product-detail"
+                  data-bs-toggle="tab"
+                  data-bs-target="#product-detail-pane"
+                  role="tab"
+                  aria-controls="product-detail-pane"
+                  aria-selected="true">{% trans "Product Class details" %}</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button type="button"
+                  class="nav-link"
+                  id="product-attributes"
+                  data-bs-toggle="tab"
+                  data-bs-target="#product-attributes-pane"
+                  role="tab"
+                  aria-controls="product-attributes-pane"
+                  aria-selected="false">{% trans "Product attributes" %}</button>
+        </li>
+      </ul>
     </div>
-    {% block fixed_actions_group %}
-      <div class="fixed-bottom">
-        <div class="form-actions">
-          <div class="float-end">
-            <a href="#" onclick="window.history.go(-1);return false">{% trans "Cancel" %}</a>
-            {% trans "or" %}
-            <button class="btn btn-primary" type="submit">{% trans "Save" %}</button>
-          </div>
+    <div class="tab-content card-body">
+      <div class="tab-pane fade show active"
+           id="product-detail-pane"
+           role="tabpanel"
+           aria-labelledby="product-detail"
+           tabindex="0">
+        <div class="card-text">{% crispy form %}</div>
+      </div>
+      <div class="tab-pane fade"
+           id="product-attributes-pane"
+           role="tabpanel"
+           aria-labelledby="product-attributes"
+           tabindex="0">
+        <div class="card-text">
+          <table class="table table-striped table-bordered vertical-middle">
+            {{ attributes_formset.management_form }}
+            {{ attributes_formset.non_form_errors }}
+            <col width="20%" />
+            <col width="20%" />
+            <col width="20%" />
+            <thead>
+              <tr>
+                <th>{% trans "Name" %}</th>
+                <th>{% trans "Code" %}</th>
+                <th>{% trans "Type" %}</th>
+                <th>{% trans "Required" %}</th>
+                <th>{% trans "Delete?" %}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for attribute_form in attributes_formset %}
+                <tr>
+                  {% for hidden_field in attribute_form.hidden_fields %}{{ hidden_field }}{% endfor %}
+                  <td>{% include "oscar/dashboard/partials/form_field.html" with field=attribute_form.name nolabel=True %}</td>
+                  <td>{% include "oscar/dashboard/partials/form_field.html" with field=attribute_form.code nolabel=True %}</td>
+                  <td>
+                    {% include "oscar/dashboard/partials/form_field.html" with field=attribute_form.type nolabel=True %}
+                    {% include "oscar/dashboard/partials/form_field.html" with field=attribute_form.option_group nolabel=True %}
+                  </td>
+                  <td>
+                    {% include "oscar/dashboard/partials/form_field.html" with field=attribute_form.required nolabel=True %}
+                    {{ attribute_form.non_field_errors }}
+                  </td>
+                  <td>{% include "oscar/dashboard/partials/form_field.html" with field=attribute_form.DELETE nolabel=True %}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
         </div>
       </div>
-    {% endblock fixed_actions_group %}
-  </form>
+    </div>
+  </div>
+  {% comment %} {% block fixed_actions_group %}
+      <div class="fixed-bottom">
+        <div class="float-end">
+          <a href="#" onclick="window.history.go(-1);return false">{% trans "Cancel" %}</a>
+          {% trans "or" %}
+          <button class="btn btn-primary" type="submit">{% trans "Save" %}</button>
+        </div>
+      </div>
+  {% endblock fixed_actions_group %} {% endcomment %}
 {% endblock dashboard_content %}
 {% block onbodyload %}
   {{ block.super }}
   oscar.dashboard.product_attributes.init();
 {% endblock onbodyload %}
+{% block extrascripts %}
+  {{ block.super }}
+{% endblock extrascripts %}

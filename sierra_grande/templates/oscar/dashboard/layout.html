@@ -27,23 +27,20 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link icon-link icon-link-hover icon-link-hover--custom"
-                 href="{{ homepage_url }}">
-                <iconify-icon icon="clarity:house-solid" width="1rem" height="1rem" aria-hidden="true" class="bi"></iconify-icon>
+              <a class="nav-link icon-link" href="{{ homepage_url }}">
+                <iconify-icon icon="clarity:house-solid" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
                 {% trans "Return to site" %}
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link icon-link icon-link-hover icon-link-hover--custom"
-                 href="{% url "customer:summary" %}">
-                <iconify-icon icon="mdi:account" width="1rem" height="1rem" aria-hidden="true" class="bi"></iconify-icon>
+              <a class="nav-link icon-link" href="{% url "customer:summary" %}">
+                <iconify-icon icon="mdi:account" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
                 {% trans "Account" %}
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link icon-link icon-link-hover icon-link-hover--custom"
-                 href="{% url "dashboard:logout" %}">
-                <iconify-icon icon="ic:twotone-log-out" aria-hidden="true" class="bi" width="1rem" height="1rem"></iconify-icon>
+              <a class="nav-link icon-link" href="{% url "dashboard:logout" %}">
+                <iconify-icon icon="ic:twotone-log-out" aria-hidden="true" width="1rem" height="1rem"></iconify-icon>
                 {% trans "Log out" %}
               </a>
             </li>
@@ -105,7 +102,7 @@
                 data-bs-target="#menu_offcanvas"
                 aria-controls="menu_offcanvas"
                 aria-label="Toggle administration menu">
-          <iconify-icon icon="line-md:menu" width="1rem" height="1rem" aria-hidden="true" class="bi"></iconify-icon>
+          <iconify-icon icon="line-md:menu" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
         </button>
         <div class="offcanvas offcanvas-start"
              tabindex="-1"
@@ -124,21 +121,20 @@
             <ul class="navbar-nav">
               {% for item in nav_items %}
                 <li class="nav-item {% if item.has_children %}dropdown{% endif %} ">
-                  <a class="nav-link icon-link icon-link-hover icon-link-hover--custom {% if forloop.first %}ps-md-0{% endif %} {% if item.has_children %}dropdown-toggle{% endif %}"
+                  <a class="nav-link icon-link {% if forloop.first %}ps-md-0{% endif %} {% if item.has_children %}dropdown-toggle{% endif %}"
                      href="{% if item.is_heading %}#{% else %}{{ item.url }}{% endif %}"
                      {% if item.has_children %} id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" {% endif %}>
                     {% if item.icon %}
-                      <iconify-icon icon="{{ item.icon }}" aria-hidden="true" class="bi" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
+                      <iconify-icon icon="{{ item.icon }}" aria-hidden="true" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
                     {% endif %}
                     {{ item.label }}
                   </a>
                   {% if item.has_children %}
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                       {% for subitem in item.children %}
-                        <a class="dropdown-item icon-link icon-link-hover icon-link-hover--custom"
-                           href="{{ subitem.url }}">
+                        <a class="dropdown-item icon-link" href="{{ subitem.url }}">
                           {% if subitem.icon %}
-                            <iconify-icon icon="{{ subitem.icon }}" aria-hidden="true" class="bi" width="1rem" height="1rem"></iconify-icon>
+                            <iconify-icon icon="{{ subitem.icon }}" aria-hidden="true" width="1rem" height="1rem"></iconify-icon>
                           {% endif %}
                           {{ subitem.label }}
                         </a>
@@ -184,10 +180,10 @@
   <script src="{% static "oscar/js/oscar/dashboard.js" %}" defer></script>
   <script src="{% static "oscar/js/oscar/RelatedObjectLookups.js" %}" defer></script>
   <script src="{% static 'js/inputmask.min.js' %}" defer></script>
-  <script src="{% static 'js/sortable.min.js' %}" defer></script>
-  <script src="{% static 'js/htmx.min.js' %}" defer></script>
-  <script src="{% static 'js/quill.min.js' %}" defer></script>
   <script src="{% static 'js/tempus-dominus.min.js' %}" defer></script>
+  {% comment %} <script src="{% static 'js/sortable.min.js' %}" defer></script> {% endcomment %}
+  {% comment %} <script src="{% static 'js/htmx.min.js' %}" defer></script> {% endcomment %}
+  {% comment %} <script src="{% static 'js/quill.min.js' %}" defer></script> {% endcomment %}
 {% endblock extrascripts %}
 {% block onbodyload %}
   {{ block.super }}

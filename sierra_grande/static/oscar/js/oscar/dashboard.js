@@ -190,41 +190,176 @@ var oscar = ((o) => {
             });
         },
         initSelects: function (el) {
-            // Replace Select2 with HTMX implementation
-            const selects = el.querySelectorAll('select:not(.no-widget-init)');
+            // Find all selects
+            const selects = (el || document).querySelectorAll('select:not(.no-widget-init)');
 
-            // selects.forEach(select => {
-            //     // Add HTMX attributes for server-side processing
-            //     select.setAttribute('hx-get', '/select-options/');
-            //     select.setAttribute('hx-trigger', 'input delay:500ms');
-            //     select.setAttribute('hx-target', 'next .select-results');
+            // For normal filtering without ajax call
+            const setupLocalFiltering = (select, searchInput, optionsContainer) => {
+                searchInput.addEventListener('keyup', () => {
+                    const query = searchInput.value.toLowerCase();
 
-            //     // Create wrapper for select with results container
-            //     const wrapper = document.createElement('div');
-            //     wrapper.className = 'htmx-select-wrapper';
+                    // Clean the options
+                    optionsContainer.innerHTML = '';
 
-            //     const resultsDiv = document.createElement('div');
-            //     resultsDiv.className = 'select-results';
+                    Array.from(select.options).forEach(option => {
+                        if (option.text.toLowerCase().includes(query)) {
+                            const optionEl = document.createElement('div');
+                            optionEl.className = 'option-item';
+                            optionEl.textContent = option.text;
+                            optionEl.dataset.value = option.value;
+                            optionsContainer.appendChild(optionEl);
+                        }
+                    });
 
-            //     select.parentNode.insertBefore(wrapper, select);
-            //     wrapper.appendChild(select);
-            //     wrapper.appendChild(resultsDiv);
+                    // Show the container
+                    if (optionsContainer.children.length > 0) {
+                        optionsContainer.style.display = 'block';
+                    } else {
+                        optionsContainer.style.display = 'none';
+                    }
+                });
+            };
 
-            //     // Handle AJAX selects
-            //     if (select.dataset.ajaxUrl) {
-            //         select.setAttribute('hx-get', select.dataset.ajaxUrl);
-            //         select.setAttribute('hx-include', '[name=q]');
+            // For single select (normal)
+            const setupSingleSelect = (select, optionsContainer) => {
+                optionsContainer.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('option-item')) {
+                        const value = e.target.dataset.value;
+                        const text = e.target.textContent;
 
-            //         // Create search input
-            //         const searchInput = document.createElement('input');
-            //         searchInput.type = 'text';
-            //         searchInput.name = 'q';
-            //         searchInput.className = 'form-control htmx-select-search';
-            //         searchInput.placeholder = 'Search...';
+                        // Update real select
+                        Array.from(select.options).forEach(option => {
+                            option.selected = (option.value === value);
+                        });
 
-            //         wrapper.insertBefore(searchInput, resultsDiv);
-            //     }
-            // });
+                        // Update the visualization
+                        const displayValue = select.previousElementSibling;
+                        if (displayValue.tagName === 'INPUT') {
+                            displayValue.value = text;
+                        }
+
+                        // Hidde options
+                        optionsContainer.style.display = 'none';
+
+                        // Dispatch the change envet
+                        select.dispatchEvent(new Event('change', { bubbles: true }));
+                    }
+                });
+            };
+
+            // For related select (multiple)
+            const setupMultipleRelatedSelect = (select, optionsContainer) => {
+                // Create container for selected items
+                const selectedContainer = document.createElement('div');
+                selectedContainer.className = 'selected-items';
+                select.parentNode.insertBefore(selectedContainer, optionsContainer);
+
+                // Update initial sections
+                updateSelectedItems(select, selectedContainer);
+
+                optionsContainer.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('option-item')) {
+                        const value = e.target.dataset.value;
+
+                        // Update real select
+                        Array.from(select.options).forEach(option => {
+                            if (option.value === value) {
+                                option.selected = !option.selected;
+                            }
+                        });
+
+                        // Update visualization
+                        updateSelectedItems(select, selectedContainer);
+
+                        // Dispatch event
+                        select.dispatchEvent(new Event('change', { bubbles: true }));
+                    }
+                });
+            };
+
+            // For related selects (single)
+            const setupSingleRelatedSelect = (select, optionsContainer) => {
+                setupSingleSelect(select, optionsContainer);
+            };
+
+            // Update selected items
+            const updateSelectedItems = (select, container) => {
+                container.innerHTML = '';
+
+                Array.from(select.selectedOptions).forEach(option => {
+                    const badge = document.createElement('span');
+                    badge.className = 'badge bg-primary me-1';
+                    badge.innerHTML = `${ option.text } <button type="button" class="btn-close btn-close-white"
+                                      data-value="${ option.value }"></button>`;
+                    container.appendChild(badge);
+                });
+
+                // Event to remove items
+                container.querySelectorAll('.btn-close').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const value = btn.dataset.value;
+
+                        Array.from(select.options).forEach(option => {
+                            if (option.value === value) {
+                                option.selected = false;
+                            }
+                        });
+
+                        updateSelectedItems(select, container);
+                        select.dispatchEvent(new Event('change', { bubbles: true }));
+                    });
+                });
+            };
+
+
+
+            // Process each element
+            selects.forEach(select => {
+
+                // Create wrapper
+                const wrapper = document.createElement('div');
+                wrapper.className = 'custom-select-wrapper';
+                select.parentNode.insertBefore(wrapper, select);
+                wrapper.appendChild(select);
+
+                // Create search field
+                const searchInput = document.createElement('input');
+                searchInput.type = 'text';
+                searchInput.className = 'form-control custom-select-search';
+                searchInput.placeholder = 'Buscar...';
+                wrapper.insertBefore(searchInput, select);
+
+                // Create options container
+                const optionsContainer = document.createElement('div');
+                optionsContainer.className = 'options-container';
+                wrapper.appendChild(optionsContainer);
+
+                // For selects with ajax
+                if (select.dataset.ajaxUrl) {
+                    // Configure HTMX for the search
+                    searchInput.setAttribute('hx-post', select.dataset.ajaxUrl);
+                    searchInput.setAttribute('hx-trigger', 'keyup changed delay:500ms');
+                    searchInput.setAttribute('hx-target', '.options-container');
+
+                    // Indicate the load
+                    const spinner = document.createElement('span');
+                    spinner.className = 'htmx-indicator';
+                    spinner.innerHTML = '<div class="spinner-border spinner-border-sm"></div>';
+                    searchInput.after(spinner);
+                } else {
+                    // For normal selects, using local filter
+                    setupLocalFiltering(select, searchInput, optionsContainer);
+                }
+
+                // Multiple select or relationated
+                if (select.multiple || select.closest('.related-widget-wrapper.multiple')) {
+                    setupMultipleRelatedSelect(select, optionsContainer);
+                } else if (select.closest('.related-widget-wrapper.single')) {
+                    setupSingleRelatedSelect(select, optionsContainer);
+                } else {
+                    setupSingleSelect(select, optionsContainer);
+                }
+            });
         },
         initDatePickers: function (el) {
             const theme = localStorage.getItem('theme') || 'auto';

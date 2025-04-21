@@ -101,7 +101,7 @@ class VoucherSearchForm(forms.Form):
                 else:
                     # Campos básicos visibles con form-floating
                     basic_field_layouts.append(
-                        Column(FloatingField(field_name)),
+                        Column(FloatingField(field_name, wrapper_class="m-0")),
                     )
             else:
                 # Campos no básicos como hidden inputs

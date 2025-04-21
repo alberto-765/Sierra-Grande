@@ -3,6 +3,6 @@
 {% if form.non_field_errors %}<span class="error-block">{{ form.non_field_errors }}</span>{% endif %}
 {% for field in form %}
   <div class="{% if col_class %}{{ col_class }}{% else %}col-sm-auto{% endif %}">
-    {% include "bootstrap5/layout/floating_field.html" with field=field %}
+    {% include "bootstrap5/layout/floating_field.html" with field=field wrapper_class=wrapper_class %}
   </div>
 {% endfor %}

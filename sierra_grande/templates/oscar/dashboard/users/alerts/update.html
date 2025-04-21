@@ -32,7 +32,7 @@
     <div class="float-end">
       <form method="post" class="hstack">
         {% csrf_token %}
-        {% include "oscar/dashboard/partials/form_fields_inline.html" %}
+        {% include "oscar/dashboard/partials/form_fields_inline.html" wrapper_class="mb-0" %}
         <button type="submit"
                 class="btn btn-primary"
                 data-loading-text="{% trans "Saving..." %}">{% trans "Save" %}</button>

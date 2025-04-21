@@ -5,12 +5,12 @@
   <div class="dropdown">
     <button class="btn btn-secondary dropdown-toggle"
             type="button"
-            id="dropdownMenuButton"
-            data-toggle="dropdown"
+            id="dropdownMenuButton--{{ record.id }}"
+            data-bs-toggle="dropdown"
             aria-haspopup="true"
             aria-expanded="false">{% trans "Actions" %}</button>
     <div class="dropdown-menu dropdown-menu-end"
-         aria-labelledby="dropdownMenuButton">
+         aria-labelledby="dropdownMenuButton--{{ record.id }}">
       <a class="dropdown-item"
          href="{% url 'dashboard:catalogue-option-update' pk=record.id %}{% querystring %}">
         {% trans "Edit Option" %}

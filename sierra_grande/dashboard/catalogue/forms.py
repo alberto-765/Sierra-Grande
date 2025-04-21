@@ -1,11 +1,7 @@
 # ruff: noqa: SLF001
-from crispy_bootstrap5.bootstrap5 import Field
-from crispy_bootstrap5.bootstrap5 import FloatingField
+from crispy_bootstrap5.bootstrap5 import Switch
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import HTML
-from crispy_forms.layout import Div
 from crispy_forms.layout import Layout
-from crispy_forms.layout import Submit
 from django import forms
 from django.core import exceptions
 from django.utils.translation import gettext_lazy as _
@@ -400,37 +396,34 @@ class ProductClassForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # pylint: disable=no-member
+
+        # Custom help_text and widget for "options" field
         remote_field = self._meta.model._meta.get_field("options").remote_field
+        self.fields["options"].help_text = _(
+            "Select one or more options by pressing the CTRL key.",
+        )
         self.fields["options"].widget = RelatedMultipleFieldWidgetWrapper(
             self.fields["options"].widget,
             remote_field,
         )
 
         self.helper = FormHelper()
-        self.helper.form_method = "POST"
+        self.helper.form_tag = False
         self.helper.layout = Layout(
-            FloatingField("name"),
-            "requires_shipping",
-            "track_stock",
-            Field("options"),
-            Div(
-                HTML(
-                    '<a href="#" onclick="window.history.go(-1);return false">'
-                    '{{ _("Cancel") }} </a>',
-                ),
-                Submit(
-                    "submit",
-                    _("Save"),
-                    data_loading_text=_("Saving..."),
-                ),
-                css_class="fixed-bottom",
-            ),
+            "name",
+            Switch("requires_shipping"),
+            Switch("track_stock"),
+            "options",
         )
 
     class Meta:
         model = ProductClass
         fields = ["name", "requires_shipping", "track_stock", "options"]
-        widgets = {"options": forms.SelectMultiple(attrs={"class": "form-select"})}
+        widgets = {
+            "options": forms.SelectMultiple(
+                attrs={"class": "form-select"},
+            ),
+        }
 
 
 class ProductAttributesForm(forms.ModelForm):

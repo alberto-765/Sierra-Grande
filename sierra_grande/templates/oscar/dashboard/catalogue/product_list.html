@@ -33,7 +33,7 @@
         <form action="{% url "dashboard:catalogue-product-create" %}"
               method="get"
               class="row align-items-center g-3">
-          {% include "oscar/dashboard/partials/form_fields_inline.html" with form=productclass_form %}
+          {% include "oscar/dashboard/partials/form_fields_inline.html" with form=productclass_form wrapper_class="mb-0" %}
           <div class="col-sm-auto">
             <button class="btn btn-primary icon-link w-100"
                     type="submit"
@@ -54,14 +54,10 @@
       </span>
       <div class="card-body">
         <form method="get" class="row align-items-center g-3">
-          {% comment %}
-            Add the current query string to the search form so that the
-            sort order is not reset when searching.
-          {% endcomment %}
           {% for name, value in request.GET.items %}
             {% if name not in form.fields %}<input type="hidden" name="{{ name }}" value="{{ value }}" />{% endif %}
           {% endfor %}
-          {% include "oscar/dashboard/partials/form_fields_inline.html" with form=form col_class="col-sm col-lg-auto" %}
+          {% include "oscar/dashboard/partials/form_fields_inline.html" with form=form col_class="col-sm col-lg-auto" wrapper_class="mb-0" %}
           <div class="col-sm-auto">
             <button type="submit"
                     class="btn btn-primary icon-link w-100"

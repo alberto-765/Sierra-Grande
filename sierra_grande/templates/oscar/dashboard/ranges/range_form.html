@@ -1,0 +1,38 @@
+{% extends "oscar/dashboard/layout.html" %}
+
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block body_class %}
+  {{ block.super }} create-page
+{% endblock body_class %}
+{% block title %}
+  {{ title }} | {% trans "Ranges" %} | {{ block.super }}
+{% endblock title %}
+{% block breadcrumbs %}
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
+      </li>
+      <li class="breadcrumb-item">
+        <a href="{% url 'dashboard:range-list' %}">{% trans "Ranges" %}</a>
+      </li>
+      {% if range %}
+        <li class="breadcrumb-item active" aria-current="page">'{{ range.name }}'</li>
+      {% else %}
+        <li class="breadcrumb-item active" aria-current="page">{{ title }}</li>
+      {% endif %}
+    </ol>
+  </nav>
+{% endblock breadcrumbs %}
+{% block headertext %}
+  {% if range %}
+    {{ range.name }}
+  {% else %}
+    {% translate "Create new range" %}
+  {% endif %}
+{% endblock headertext %}
+{% block dashboard_content %}
+  {% crispy form %}
+{% endblock dashboard_content %}

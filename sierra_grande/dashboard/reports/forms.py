@@ -42,7 +42,7 @@ class ReportForm(forms.Form):
         self.helper.form_method = "GET"
         self.helper.layout = Layout(
             Row(
-                Column(FloatingField("report_type")),
+                Column(FloatingField("report_type", wrapper_class="m-0")),
                 Column(
                     Field(
                         "date_from",

@@ -286,7 +286,6 @@ class OfferSearchForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
-        # Create lists for the different field layouts
         self.helper.disable_csrf = True
         self.helper.form_method = "get"
         basic_field_layouts = []
@@ -306,7 +305,7 @@ class OfferSearchForm(forms.Form):
                 else:
                     # Campos básicos visibles con form-floating
                     basic_field_layouts.append(
-                        Column(FloatingField(field_name)),
+                        Column(FloatingField(field_name, wrapper_class="m-0")),
                     )
             else:
                 # Campos no básicos como hidden inputs

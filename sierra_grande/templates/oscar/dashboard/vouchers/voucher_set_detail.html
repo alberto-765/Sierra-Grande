@@ -38,7 +38,7 @@
   </div>
   <div class="card card-body bg-light">
     <form method="get" class="hstack">
-      {% include "oscar/partials/form_fields_inline.html" with form=form %}
+      {% include "oscar/partials/form_fields_inline.html" with form=form wrapper_class="mb-0" %}
       <button type="submit" class="btn btn-primary">{% trans "Search" %}</button>
       <a href="{% url "dashboard:voucher-set-detail" pk=voucher_set.pk %}"
          class="btn">{% trans "Reset" %}</a>

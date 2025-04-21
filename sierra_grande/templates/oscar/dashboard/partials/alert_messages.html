@@ -10,19 +10,19 @@ Use message tags to control these alerts.  Available tags include:
 {% if messages %}
   <div id="messages" class="col-12">
     {% for message in messages %}
-      <div class="alert {% for tag in message.tags|split %}alert-{% if tag == 'error' %}danger{% else %}{{ tag }}{% endif %} {% endfor %} alert-dismissible fade show"
+      <div class="alert {% for tag in message.tags|split %}alert-{% if tag == 'error' %}danger{% else %}{{ tag }}{% endif %} {% endfor %}alert-dismissible fade show"
            role="alert">
-        <div class="alertinner {% if 'noicon' not in message.tags %}wicon{% endif %}">
+        <div class="icon-link">
           {% if 'noicon' not in message.tags %}
             {# Include an icon by default #}
             {% if 'success' in message.tags %}
-              <i class="fas fa-check-circle"></i>
+              <iconify-icon icon="lets-icons:check-fill" width="1.2rem" height="1.2rem"></iconify-icon>
             {% elif 'info' in message.tags %}
-              <i class="fas fa-info-circle"></i>
+              <iconify-icon icon="ic:round-info" width="1.2rem" height="1.2rem"></iconify-icon>
             {% elif 'warning' in message.tags %}
-              <i class="fas fa-exclamation-triangle"></i>
+              <iconify-icon icon="heroicons-solid:exclamation" width="1.2rem" height="1.2rem"></iconify-icon>
             {% elif 'danger' in message.tags or 'error' in message.tags %}
-              <i class="fas fa-exclamation-circle"></i>
+              <iconify-icon icon="material-symbols:error" width="1.2rem" height="1.2rem"></iconify-icon>
             {% endif %}
           {% endif %}
           {# Allow HTML to be embedded in messages #}

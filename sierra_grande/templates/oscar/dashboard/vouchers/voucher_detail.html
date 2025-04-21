@@ -30,7 +30,7 @@
   <div class="table-header">
     <h2 class="mb-0">{% trans "Attached offers" %}</h2>
   </div>
-  <table class="vertical-middle table table-striped table-bordered table-hover">
+  <table class="align-middle table table-striped table-bordered table-hover">
     {% if voucher.offers.exists %}
       <thead>
         <tr>
@@ -84,7 +84,7 @@
   <div class="table-header">
     <h2 class="mb-0">{% trans "Voucher performance" %}</h2>
   </div>
-  <table class="vertical-middle table table-striped table-bordered table-hover">
+  <table class="align-middle table table-striped table-bordered table-hover">
     <tbody>
       <tr>
         <th>{% trans "Number of basket additions" %}</th>
@@ -103,7 +103,7 @@
   <div class="table-header">
     <h2 class="mb-0">{% trans "Recent orders" %}</h2>
   </div>
-  <table class="vertical-middle table table-striped table-bordered table-hover">
+  <table class="align-middle table table-striped table-bordered table-hover">
     {% if not discounts %}
       <tr>
         <td>{% trans "No orders have been placed that use this voucher." %}</td>

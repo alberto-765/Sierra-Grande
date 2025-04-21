@@ -151,42 +151,43 @@ var oscar = ((o) => {
     // Event delegation for related widget functionality
     document.addEventListener('DOMContentLoaded', function () {
         // Handle click on related links
-        document.body.addEventListener('click', function (e) {
-            const relatedLink = e.target.closest('.related-widget-wrapper-link');
-            if (!relatedLink || !relatedLink.href) return;
+        document.querySelectorAll('.related-widget-wrapper-link').forEach((link) => {
+            link.addEventListener('click', function (e) {
+                if (!link.href) return;
 
-            e.preventDefault();
+                e.preventDefault();
+                // Create and dispatch custom event
+                const customEvent = new CustomEvent('oscar:show-related', {
+                    bubbles: true,
+                    cancelable: true,
+                    detail: { href: link.href }
+                });
 
-            // Create and dispatch custom event
-            const customEvent = new CustomEvent('oscar:show-related', {
-                bubbles: true,
-                cancelable: true,
-                detail: { href: relatedLink.href }
-            });
+                link.dispatchEvent(customEvent);
 
-            const eventResult = relatedLink.dispatchEvent(customEvent);
-
-            if (!customEvent.defaultPrevented) {
-                o.showRelatedObjectPopup(relatedLink);
-            }
+                if (!customEvent.defaultPrevented) {
+                    o.showRelatedObjectPopup(link);
+                }
+            }, true);
         });
 
+
         // Handle change on related selects
-        document.body.addEventListener('change', function (e) {
-            const relatedSelect = e.target.closest('.related-widget-wrapper select');
-            if (!relatedSelect) return;
+        document.querySelectorAll('.related-widget-wrapper select').forEach((select) => {
+            select.addEventListener('change', function () {
 
-            // Create and dispatch custom event
-            const customEvent = new CustomEvent('oscar:update-related', {
-                bubbles: true,
-                cancelable: true
+                // Create and dispatch custom event
+                const customEvent = new CustomEvent('oscar:update-related', {
+                    bubbles: true,
+                    cancelable: true
+                });
+
+                select.dispatchEvent(customEvent);
+
+                if (!customEvent.defaultPrevented) {
+                    o.updateRelatedObjectLinks(select);
+                }
             });
-
-            relatedSelect.dispatchEvent(customEvent);
-
-            if (!customEvent.defaultPrevented) {
-                o.updateRelatedObjectLinks(relatedSelect);
-            }
         });
 
         // Initial update of all related selects

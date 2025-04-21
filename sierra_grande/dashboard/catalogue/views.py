@@ -658,7 +658,7 @@ class CategoryCreateView(CategoryListMixin, generic.CreateView):
         return ctx
 
     def get_success_url(self):
-        messages.info(self.request, _("Category created successfully"))
+        messages.success(self.request, _("Category created successfully"))
         return super().get_success_url()
 
     def get_initial(self):
@@ -680,7 +680,7 @@ class CategoryUpdateView(CategoryListMixin, generic.UpdateView):
         return ctx
 
     def get_success_url(self):
-        messages.info(self.request, _("Category updated successfully"))
+        messages.success(self.request, _("Category updated successfully"))
         action = self.request.POST.get("action")
         if action == "continue":
             return reverse(
@@ -700,7 +700,7 @@ class CategoryDeleteView(CategoryListMixin, generic.DeleteView):
         return ctx
 
     def get_success_url(self):
-        messages.info(self.request, _("Category deleted successfully"))
+        messages.success(self.request, _("Category deleted successfully"))
         return super().get_success_url()
 
 
@@ -789,7 +789,7 @@ class ProductClassCreateView(ProductClassCreateUpdateView):
         return _("Add a new product type")
 
     def get_success_url(self):
-        messages.info(self.request, _("Product type created successfully"))
+        messages.success(self.request, _("Product type created successfully"))
         return reverse("dashboard:catalogue-class-list")
 
 
@@ -800,7 +800,7 @@ class ProductClassUpdateView(ProductClassCreateUpdateView):
         return _("Update product type '%s'") % self.object.name
 
     def get_success_url(self):
-        messages.info(self.request, _("Product type updated successfully"))
+        messages.success(self.request, _("Product type updated successfully"))
         return reverse("dashboard:catalogue-class-list")
 
     def get_object(self, queryset=None):
@@ -838,7 +838,7 @@ class ProductClassDeleteView(generic.DeleteView):
         return ctx
 
     def get_success_url(self):
-        messages.info(self.request, _("Product type deleted successfully"))
+        messages.success(self.request, _("Product type deleted successfully"))
         return reverse("dashboard:catalogue-class-list")
 
 

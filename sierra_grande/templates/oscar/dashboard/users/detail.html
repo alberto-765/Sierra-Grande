@@ -32,7 +32,7 @@
         <div class="table-header">
           <h2>{% trans "General" %}</h2>
         </div>
-        <table class="vertical-middle table table-bordered">
+        <table class="align-middle table table-bordered">
           <tr>
             <th>{% trans "Name" %}</th>
             <td>{{ customer.get_full_name|default:"-" }}</td>
@@ -125,7 +125,7 @@
         <div class="tab-content">
           {% block user_orders %}
             <div id="user_orders" class="tab-pane fade show active" role="tabpanel">
-              <table class="vertical-middle table table-striped table-bordered table-hover">
+              <table class="align-middle table table-striped table-bordered table-hover">
                 <caption>{% trans "Orders" %}</caption>
                 {% with orders=customer.orders.all %}
                   {% if orders %}
@@ -186,7 +186,7 @@
           {% endblock user_addresses %}
           {% block user_reviews %}
             <div id="user_reviews" class="tab-pane fade" role="tabpanel">
-              <table class="vertical-middle table table-striped table-bordered table-hover">
+              <table class="align-middle table table-striped table-bordered table-hover">
                 <caption>{% trans "Reviews" %}</caption>
                 {% if customer.reviews.count %}
                   <tr>

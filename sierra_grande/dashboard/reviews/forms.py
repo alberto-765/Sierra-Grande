@@ -42,9 +42,9 @@ class ProductReviewSearchForm(forms.Form):
         self.helper.form_method = "GET"
         self.helper.layout = Layout(
             Row(
-                Column(FloatingField("name")),
-                Column(FloatingField("keyword")),
-                Column(FloatingField("status")),
+                Column(FloatingField("name", wrapper_class="m-0")),
+                Column(FloatingField("keyword", wrapper_class="m-0")),
+                Column(FloatingField("status", wrapper_class="m-0")),
                 Column(
                     Field(
                         "date_from",

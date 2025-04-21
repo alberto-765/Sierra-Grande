@@ -32,7 +32,7 @@
     <div class="card-body">
       <form method="get">
         <div class="row  align-items-center">
-          {% include "oscar/dashboard/partials/form_fields_inline.html" with form=form %}
+          {% include "oscar/dashboard/partials/form_fields_inline.html" with form=form wrapper_class="mb-0" %}
           <button type="submit"
                   class="btn btn-primary icon-link col-md-auto"
                   data-loading-text="{% trans "Searching..." %}">{% trans "Search" %}</button>
@@ -53,7 +53,7 @@
       {% if partners %}
         <form method="post">
           {% csrf_token %}
-          <table class="vertical-middle table table-striped table-bordered">
+          <table class="align-middle table table-striped table-bordered">
             <tr>
               <th>{% anchor "name" _("Name") %}</th>
               <th>{% trans "Users" %}</th>

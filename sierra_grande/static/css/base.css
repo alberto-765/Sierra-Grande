@@ -42,34 +42,33 @@ body > header {
     border-bottom-left-radius: var(--bs-border-radius) !important;
 }
 
-.card-body {
 
-    /* Override margin-button for django-tables2 */
-    & > .table-container > table {
-        margin-bottom: 0 !important;
+/* Override margin-button for django-tables2 */
+.card-body > .table-container > table {
+    margin-bottom: 0 !important;
 
-        & > thead > tr:first-of-type {
-            border-top-width: 0;
-        }
+    & > thead > tr:first-of-type {
+        border-top-width: 0;
+    }
 
-        & > tbody {
-            & > tr:last-of-type {
-                border-bottom-width: 0;
-            }
-        }
-
-        & > :is(thead, tbody) > tr {
-            :is(td:first-child, th:first-child) {
-                border-left-width: 0;
-            }
-
-            :is(td:last-child, th:last-child) {
-                border-right-width: 0;
-            }
+    & > tbody {
+        & > tr:last-of-type {
+            border-bottom-width: 0;
         }
     }
 
-    table tr:last-of-type {
+    & > :is(thead, tbody) > tr {
+        :is(td:first-child, th:first-child) {
+            border-left-width: 0;
+        }
+
+        :is(td:last-child, th:last-child) {
+            border-right-width: 0;
+        }
+    }
+
+
+    tr:last-of-type {
         td:not(:only-of-type):is(:first-of-type) {
             border-bottom-left-radius: var(--bs-border-radius) !important;
         }

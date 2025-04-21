@@ -129,13 +129,15 @@
             {% block product_categories %}
               <div class="tab-pane" id="product_category">
                 {% block product_categories_content %}
-                  <table class="table table-striped table-bordered vertical-middle">
+                  <table class="table table-striped table-bordered align-middle">
                     <caption>{% trans "Category" %}</caption>
                     {{ category_formset.management_form }}
                     {{ category_formset.non_form_errors }}
                     {% for category_form in category_formset %}
                       <tr>
-                        <td class="hstack">{% include "oscar/dashboard/partials/form_fields_inline.html" with form=category_form %}</td>
+                        <td class="hstack">
+                          {% include "oscar/dashboard/partials/form_fields_inline.html" with form=category_form wrapper_class="mb-0" %}
+                        </td>
                       </tr>
                     {% endfor %}
                   </table>
@@ -145,7 +147,7 @@
             {% block product_attributes %}
               <div class="tab-pane" id="product_attributes">
                 {% block product_attributes_content %}
-                  <table class="table table-striped table-bordered vertical-middle">
+                  <table class="table table-striped table-bordered align-middle">
                     <caption>
                       {% trans "Attributes" %}
                       <span class="badge bg-success">{% trans "Product Type:" %} {{ product_class }}</span>
@@ -185,7 +187,7 @@
             {% block stockrecords %}
               <div class="tab-pane" id="product_stock">
                 {% block stockrecords_content %}
-                  <table class="table table-striped table-bordered vertical-middle">
+                  <table class="table table-striped table-bordered align-middle">
                     <caption>{% trans "Stock and pricing" %}</caption>
                     {{ stockrecord_formset.management_form }}
                     {{ stockrecord_formset.non_form_errors }}
@@ -245,7 +247,7 @@
               {% with children=product.children.all %}
                 <div class="tab-pane" id="child_products">
                   {% block child_products_content %}
-                    <table class="table table-striped table-bordered vertical-middle">
+                    <table class="table table-striped table-bordered align-middle">
                       <caption>
                         {% trans "Variants" %}
                         <button class="btn btn-primary icon-link"
@@ -309,13 +311,15 @@
             {% block recommended_products %}
               <div class="tab-pane" id="product_recommended">
                 {% block recommended_products_content %}
-                  <table class="table table-striped table-bordered vertical-middle">
+                  <table class="table table-striped table-bordered align-middle">
                     <caption>{% trans "Recommended products" %}</caption>
                     {{ recommended_formset.management_form }}
                     {{ recommended_formset.non_form_errors }}
                     {% for recommended_form in recommended_formset %}
                       <tr>
-                        <td class="hstack">{% include "oscar/dashboard/partials/form_fields_inline.html" with form=recommended_form %}</td>
+                        <td class="hstack">
+                          {% include "oscar/dashboard/partials/form_fields_inline.html" with form=recommended_form wrapper_class="mb-0" %}
+                        </td>
                       </tr>
                     {% endfor %}
                   </table>

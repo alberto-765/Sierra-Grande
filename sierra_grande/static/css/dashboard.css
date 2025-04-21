@@ -8,3 +8,22 @@
 .icon-link-hover--custom {
   --bs-icon-link-transform: scale(1.1)
 }
+
+/* Custom styles for breadcrumb */
+.breadcrumb {
+  --bs-bg-opacity: 1;
+  --bs-breadcrumb-bg: rgba(var(--bs-tertiary-bg-rgb), var(--bs-bg-opacity));
+  border-radius: var(--bs-border-radius);
+  padding: 1rem;
+
+  a {
+    --bs-link-underline-opacity: 0;
+    text-underline-offset: 0.25em;
+    -webkit-text-decoration-color: rgba(var(--bs-link-color-rgb), var(--bs-link-underline-opacity, 1)) !important;
+    text-decoration-color: rgba(var(--bs-link-color-rgb), var(--bs-link-underline-opacity, 1)) !important;
+
+    &:hover {
+      --bs-link-underline-opacity: 1;
+    }
+  }
+}

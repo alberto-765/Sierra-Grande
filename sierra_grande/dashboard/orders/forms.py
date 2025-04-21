@@ -150,7 +150,10 @@ class OrderSearchForm(forms.Form):
         self.helper.form_id = "search_form"
         self.helper.layout = Layout(
             Row(
-                Column(FloatingField("order_number"), css_class="col-auto"),
+                Column(
+                    FloatingField("order_number", wrapper_class="m-0"),
+                    css_class="col-auto",
+                ),
                 Column(
                     Submit(
                         "submit",

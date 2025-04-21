@@ -1,14 +1,15 @@
 {% load i18n %}
 
-<div class="related-widget-wrapper multiple hstack">
+<div class="related-widget-wrapper multiple hstack column-gap-3">
   {{ rendered_widget }}
   {% block links %}
     {% spaceless %}
-      <a class="text-success"
+      <a class="text-success related-widget-wrapper-link add-related"
          id="create_id_{{ name }}"
          href="{{ add_related_url }}?{{ url_params }}"
-         title="{% blocktrans %}Add another {{ model }}{% endblocktrans %}">
-        <iconify-icon icon="heroicons:plus-circle-16-solid" width="1rem" height="1rem" title="{% trans "Add" %}"></iconify-icon>
+         title="{% blocktrans with model_name=model|lower %}Add another {{ model_name }}{% endblocktrans %}"
+         data-bs-toggle="tooltip">
+        <iconify-icon icon="heroicons:plus-circle-16-solid" width="1.2rem" height="1.2rem" inline></iconify-icon>
       </a>
     {% endspaceless %}
   {% endblock links %}

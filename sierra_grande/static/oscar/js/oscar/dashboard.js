@@ -174,14 +174,6 @@ var oscar = ((o) => {
             o.dashboard.filereader.init();
         },
 
-        initWidgets: function (el) {
-            o.dashboard.initDatePickers(el);
-            o.dashboard.initMasks(el);
-            o.dashboard.initWYSIWYG(el);
-            o.dashboard.initSelects(el);
-            o.dashboard.initProductImages(el);
-            o.dashboard.initDropzones(el);
-        },
         initMasks: function (el) {
             // Using vanilla Inputmask (without jQuery)
             const inputs = el.querySelectorAll('input, textarea, select, button');
@@ -189,178 +181,178 @@ var oscar = ((o) => {
                 Inputmask().mask(input);
             });
         },
-        initSelects: function (el) {
-            // Find all selects
-            const selects = (el || document).querySelectorAll('select:not(.no-widget-init)');
+        // initSelects: function (el) {
+        //     // Find all selects
+        //     const selects = (el || document).querySelectorAll('select:not(.no-widget-init)');
 
-            // For normal filtering without ajax call
-            const setupLocalFiltering = (select, searchInput, optionsContainer) => {
-                searchInput.addEventListener('keyup', () => {
-                    const query = searchInput.value.toLowerCase();
+        //     // For normal filtering without ajax call
+        //     const setupLocalFiltering = (select, searchInput, optionsContainer) => {
+        //         searchInput.addEventListener('keyup', () => {
+        //             const query = searchInput.value.toLowerCase();
 
-                    // Clean the options
-                    optionsContainer.innerHTML = '';
+        //             // Clean the options
+        //             optionsContainer.innerHTML = '';
 
-                    Array.from(select.options).forEach(option => {
-                        if (option.text.toLowerCase().includes(query)) {
-                            const optionEl = document.createElement('div');
-                            optionEl.className = 'option-item';
-                            optionEl.textContent = option.text;
-                            optionEl.dataset.value = option.value;
-                            optionsContainer.appendChild(optionEl);
-                        }
-                    });
+        //             Array.from(select.options).forEach(option => {
+        //                 if (option.text.toLowerCase().includes(query)) {
+        //                     const optionEl = document.createElement('div');
+        //                     optionEl.className = 'option-item';
+        //                     optionEl.textContent = option.text;
+        //                     optionEl.dataset.value = option.value;
+        //                     optionsContainer.appendChild(optionEl);
+        //                 }
+        //             });
 
-                    // Show the container
-                    if (optionsContainer.children.length > 0) {
-                        optionsContainer.style.display = 'block';
-                    } else {
-                        optionsContainer.style.display = 'none';
-                    }
-                });
-            };
+        //             // Show the container
+        //             if (optionsContainer.children.length > 0) {
+        //                 optionsContainer.style.display = 'block';
+        //             } else {
+        //                 optionsContainer.style.display = 'none';
+        //             }
+        //         });
+        //     };
 
-            // For single select (normal)
-            const setupSingleSelect = (select, optionsContainer) => {
-                optionsContainer.addEventListener('click', (e) => {
-                    if (e.target.classList.contains('option-item')) {
-                        const value = e.target.dataset.value;
-                        const text = e.target.textContent;
+        //     // For single select (normal)
+        //     const setupSingleSelect = (select, optionsContainer) => {
+        //         optionsContainer.addEventListener('click', (e) => {
+        //             if (e.target.classList.contains('option-item')) {
+        //                 const value = e.target.dataset.value;
+        //                 const text = e.target.textContent;
 
-                        // Update real select
-                        Array.from(select.options).forEach(option => {
-                            option.selected = (option.value === value);
-                        });
+        //                 // Update real select
+        //                 Array.from(select.options).forEach(option => {
+        //                     option.selected = (option.value === value);
+        //                 });
 
-                        // Update the visualization
-                        const displayValue = select.previousElementSibling;
-                        if (displayValue.tagName === 'INPUT') {
-                            displayValue.value = text;
-                        }
+        //                 // Update the visualization
+        //                 const displayValue = select.previousElementSibling;
+        //                 if (displayValue.tagName === 'INPUT') {
+        //                     displayValue.value = text;
+        //                 }
 
-                        // Hidde options
-                        optionsContainer.style.display = 'none';
+        //                 // Hidde options
+        //                 optionsContainer.style.display = 'none';
 
-                        // Dispatch the change envet
-                        select.dispatchEvent(new Event('change', { bubbles: true }));
-                    }
-                });
-            };
+        //                 // Dispatch the change envet
+        //                 select.dispatchEvent(new Event('change', { bubbles: true }));
+        //             }
+        //         });
+        //     };
 
-            // For related select (multiple)
-            const setupMultipleRelatedSelect = (select, optionsContainer) => {
-                // Create container for selected items
-                const selectedContainer = document.createElement('div');
-                selectedContainer.className = 'selected-items';
-                select.parentNode.insertBefore(selectedContainer, optionsContainer);
+        //     // For related select (multiple)
+        //     const setupMultipleRelatedSelect = (select, optionsContainer) => {
+        //         // Create container for selected items
+        //         const selectedContainer = document.createElement('div');
+        //         selectedContainer.className = 'selected-items';
+        //         select.parentNode.insertBefore(selectedContainer, optionsContainer);
 
-                // Update initial sections
-                updateSelectedItems(select, selectedContainer);
+        //         // Update initial sections
+        //         updateSelectedItems(select, selectedContainer);
 
-                optionsContainer.addEventListener('click', (e) => {
-                    if (e.target.classList.contains('option-item')) {
-                        const value = e.target.dataset.value;
+        //         optionsContainer.addEventListener('click', (e) => {
+        //             if (e.target.classList.contains('option-item')) {
+        //                 const value = e.target.dataset.value;
 
-                        // Update real select
-                        Array.from(select.options).forEach(option => {
-                            if (option.value === value) {
-                                option.selected = !option.selected;
-                            }
-                        });
+        //                 // Update real select
+        //                 Array.from(select.options).forEach(option => {
+        //                     if (option.value === value) {
+        //                         option.selected = !option.selected;
+        //                     }
+        //                 });
 
-                        // Update visualization
-                        updateSelectedItems(select, selectedContainer);
+        //                 // Update visualization
+        //                 updateSelectedItems(select, selectedContainer);
 
-                        // Dispatch event
-                        select.dispatchEvent(new Event('change', { bubbles: true }));
-                    }
-                });
-            };
+        //                 // Dispatch event
+        //                 select.dispatchEvent(new Event('change', { bubbles: true }));
+        //             }
+        //         });
+        //     };
 
-            // For related selects (single)
-            const setupSingleRelatedSelect = (select, optionsContainer) => {
-                setupSingleSelect(select, optionsContainer);
-            };
+        //     // For related selects (single)
+        //     const setupSingleRelatedSelect = (select, optionsContainer) => {
+        //         setupSingleSelect(select, optionsContainer);
+        //     };
 
-            // Update selected items
-            const updateSelectedItems = (select, container) => {
-                container.innerHTML = '';
+        //     // Update selected items
+        //     const updateSelectedItems = (select, container) => {
+        //         container.innerHTML = '';
 
-                Array.from(select.selectedOptions).forEach(option => {
-                    const badge = document.createElement('span');
-                    badge.className = 'badge bg-primary me-1';
-                    badge.innerHTML = `${ option.text } <button type="button" class="btn-close btn-close-white"
-                                      data-value="${ option.value }"></button>`;
-                    container.appendChild(badge);
-                });
+        //         Array.from(select.selectedOptions).forEach(option => {
+        //             const badge = document.createElement('span');
+        //             badge.className = 'badge bg-primary me-1';
+        //             badge.innerHTML = `${ option.text } <button type="button" class="btn-close btn-close-white"
+        //                               data-value="${ option.value }"></button>`;
+        //             container.appendChild(badge);
+        //         });
 
-                // Event to remove items
-                container.querySelectorAll('.btn-close').forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        const value = btn.dataset.value;
+        //         // Event to remove items
+        //         container.querySelectorAll('.btn-close').forEach(btn => {
+        //             btn.addEventListener('click', () => {
+        //                 const value = btn.dataset.value;
 
-                        Array.from(select.options).forEach(option => {
-                            if (option.value === value) {
-                                option.selected = false;
-                            }
-                        });
+        //                 Array.from(select.options).forEach(option => {
+        //                     if (option.value === value) {
+        //                         option.selected = false;
+        //                     }
+        //                 });
 
-                        updateSelectedItems(select, container);
-                        select.dispatchEvent(new Event('change', { bubbles: true }));
-                    });
-                });
-            };
+        //                 updateSelectedItems(select, container);
+        //                 select.dispatchEvent(new Event('change', { bubbles: true }));
+        //             });
+        //         });
+        //     };
 
 
+        //     // TODO
+        //     // Process each element
+        //     selects.forEach(select => {
 
-            // Process each element
-            selects.forEach(select => {
+        //         // Create wrapper
+        //         const wrapper = document.createElement('div');
+        //         wrapper.className = 'custom-select-wrapper';
+        //         select.parentNode.insertBefore(wrapper, select);
+        //         wrapper.appendChild(select);
 
-                // Create wrapper
-                const wrapper = document.createElement('div');
-                wrapper.className = 'custom-select-wrapper';
-                select.parentNode.insertBefore(wrapper, select);
-                wrapper.appendChild(select);
+        //         // Create search field
+        //         const searchInput = document.createElement('input');
+        //         searchInput.type = 'text';
+        //         searchInput.className = 'form-control custom-select-search';
+        //         searchInput.placeholder = 'Buscar...';
+        //         wrapper.insertBefore(searchInput, select);
 
-                // Create search field
-                const searchInput = document.createElement('input');
-                searchInput.type = 'text';
-                searchInput.className = 'form-control custom-select-search';
-                searchInput.placeholder = 'Buscar...';
-                wrapper.insertBefore(searchInput, select);
+        //         // Create options container
+        //         const optionsContainer = document.createElement('div');
+        //         optionsContainer.className = 'options-container';
+        //         wrapper.appendChild(optionsContainer);
 
-                // Create options container
-                const optionsContainer = document.createElement('div');
-                optionsContainer.className = 'options-container';
-                wrapper.appendChild(optionsContainer);
+        //         // For selects with ajax
+        //         if (select.dataset.ajaxUrl) {
+        //             // Configure HTMX for the search
+        //             searchInput.setAttribute('hx-post', select.dataset.ajaxUrl);
+        //             searchInput.setAttribute('hx-trigger', 'keyup changed delay:500ms');
+        //             searchInput.setAttribute('hx-target', '.options-container');
 
-                // For selects with ajax
-                if (select.dataset.ajaxUrl) {
-                    // Configure HTMX for the search
-                    searchInput.setAttribute('hx-post', select.dataset.ajaxUrl);
-                    searchInput.setAttribute('hx-trigger', 'keyup changed delay:500ms');
-                    searchInput.setAttribute('hx-target', '.options-container');
+        //             // Indicate the load
+        //             const spinner = document.createElement('span');
+        //             spinner.className = 'htmx-indicator';
+        //             spinner.innerHTML = '<div class="spinner-border spinner-border-sm"></div>';
+        //             searchInput.after(spinner);
+        //         } else {
+        //             // For normal selects, using local filter
+        //             setupLocalFiltering(select, searchInput, optionsContainer);
+        //         }
 
-                    // Indicate the load
-                    const spinner = document.createElement('span');
-                    spinner.className = 'htmx-indicator';
-                    spinner.innerHTML = '<div class="spinner-border spinner-border-sm"></div>';
-                    searchInput.after(spinner);
-                } else {
-                    // For normal selects, using local filter
-                    setupLocalFiltering(select, searchInput, optionsContainer);
-                }
-
-                // Multiple select or relationated
-                if (select.multiple || select.closest('.related-widget-wrapper.multiple')) {
-                    setupMultipleRelatedSelect(select, optionsContainer);
-                } else if (select.closest('.related-widget-wrapper.single')) {
-                    setupSingleRelatedSelect(select, optionsContainer);
-                } else {
-                    setupSingleSelect(select, optionsContainer);
-                }
-            });
-        },
+        //         // Multiple select or relationated
+        //         if (select.multiple || select.closest('.related-widget-wrapper.multiple')) {
+        //             setupMultipleRelatedSelect(select, optionsContainer);
+        //         } else if (select.closest('.related-widget-wrapper.single')) {
+        //             setupSingleRelatedSelect(select, optionsContainer);
+        //         } else {
+        //             setupSingleSelect(select, optionsContainer);
+        //         }
+        //     });
+        // },
         initDatePickers: function (el) {
             const theme = localStorage.getItem('theme') || 'auto';
 
@@ -479,6 +471,19 @@ var oscar = ((o) => {
             });
         },
         initForms: function () {
+            // Show errors in all forms
+            // const forms = document.querySelectorAll('.needs-validation');
+            // forms.forEach((form) => {
+            //     form.addEventListener('submit', event => {
+            //         if (!form.checkValidity()) {
+            //             event.preventDefault();
+            //             event.stopPropagation();
+            //         }
+
+            //         form.classList.add('was-validated');
+            //     }, { passive: false, });
+            // });
+
             // Handle button loading states
             document.querySelectorAll('[data-loading-text]').forEach((input) => {
                 input.addEventListener('click', function (e) {
@@ -598,6 +603,10 @@ var oscar = ((o) => {
                 });
             });
         },
+        initTooltips: () => {
+            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+            const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+        },
         offers: {
             init: function () {
                 oscar.dashboard.offers.adjustBenefitForm();
@@ -621,7 +630,6 @@ var oscar = ((o) => {
         product_attributes: {
             init: function () {
                 const typeSelects = document.querySelectorAll("select[name$=type]");
-
                 typeSelects.forEach(select => {
                     o.dashboard.product_attributes.toggleOptionGroup(select);
 
@@ -636,13 +644,12 @@ var oscar = ((o) => {
                 const optionGroupSelect = document.getElementById(optionGroupId);
                 if (!optionGroupSelect) return;
 
-                // TODO: QUITAR form-group
-                const formGroup = optionGroupSelect.closest('.form-group');
+                const formField = optionGroupSelect.closest('.form_field');
                 const value = typeSelect.value;
                 const showOptionGroup = value === 'option' || value === 'multi_option';
 
-                if (formGroup) {
-                    formGroup.style.display = showOptionGroup ? '' : 'none';
+                if (formField) {
+                    formField.classList.add(showOptionGroup ? '' : 'd-none');
                 }
 
                 if (showOptionGroup) {
@@ -798,6 +805,15 @@ var oscar = ((o) => {
                     });
                 });
             }
+        },
+
+        initWidgets: function (el) {
+            o.dashboard.initDatePickers(el);
+            o.dashboard.initMasks(el);
+            o.dashboard.initWYSIWYG(el);
+            // o.dashboard.initSelects(el);
+            o.dashboard.initProductImages(el);
+            o.dashboard.initDropzones(el);
         },
     };
 

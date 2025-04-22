@@ -5,7 +5,7 @@ from crispy_bootstrap5.bootstrap5 import Switch
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout
 from crispy_forms.layout import Reset
-from crispy_forms.layout import Submit
+from crispy_forms.layout import Submit, Row, Column, Hidden
 from django import forms
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
@@ -32,17 +32,31 @@ class RangeForm(forms.ModelForm):
             Switch("includes_all_products"),
             "included_categories",
             "excluded_categories",
-            Submit(
-                "submit",
-                _("Save"),
-                data_loading_text=_("Saving..."),
+            Row(
+                Column(
+                    Submit(
+                        "submit",
+                        _("Save"),
+                        data_loading_text=_("Saving..."),
+                        css_class="w-100",
+                    ),
+                    css_class="col-sm-auto",
+                ),
+                Column(
+                    Submit(
+                        "action",
+                        _("Save and edit products"),
+                        data_loading_text=_("Saving..."),
+                        css_class="w-100",
+                    ),
+                    css_class="col-sm-auto",
+                ),
+                Column(
+                    Reset("reset", _("Reset"), css_class="btn-secondary w-100"),
+                    css_class="col-sm-auto",
+                ),
+                css_class="g-3",
             ),
-            Submit(
-                "action",
-                _("Save and edit products"),
-                data_loading_text=_("Saving..."),
-            ),
-            Reset("reset", _("Reset"), css_class="btn-secondary"),
         )
 
     class Meta:
@@ -81,6 +95,20 @@ class RangeProductForm(forms.Form):
     def __init__(self, product_range, *args, **kwargs):
         self.product_range = product_range
         super().__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.form_method = "post"
+        self.helper.form_enctype = "multipart/form-data"
+        self.helper.layout = Layout(
+            "query",
+            "file_upload",
+            "upload_type",
+            Submit(
+                "submit",
+                _("Go!"),
+                data_loading_text=_("Running..."),
+            ),
+        )
 
     def clean_query_with_upload_type(self, raw, upload_type):
         # Check that the search matches some products

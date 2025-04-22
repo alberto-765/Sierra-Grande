@@ -1,14 +1,14 @@
 import copy
 import re
-
 from django import forms
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
+from django.utils.html import format_html
 
 SMALL_LIST_THRESHOLD = 4
 
 
-class RelatedFieldWidgetWrapper(forms.WidgetWidget):
+class RelatedFieldWidgetWrapper(forms.Widget):
     """
     This class is a wrapper to a given widget to add the add icon for the
     Oscar dashboard.
@@ -123,24 +123,28 @@ class RelatedMultipleFieldWidgetWrapper(RelatedFieldWidgetWrapper):
 
 
 class CustomSelectMultiple(forms.SelectMultiple):
-    def __init__(self, model_name="", attrs=None):
+    def __init__(self, model_name="item", attrs=None):
         self.model_name = model_name
         super().__init__(attrs)
 
+    def optgroups(self, name, value, attrs=None):
+
+        if self.count == 0:
+            self.choices = [("", _("Create the first %s") % self.model_name)]
+        return super().optgroups(name, value, attrs)
+
     def get_context(self, name, value, attrs):
-        context = super().get_context(name, value, attrs)
+        if attrs is None:
+            attrs = {}
 
-        # Accedemos al queryset si está disponible (esto depende del field)
-        if hasattr(self, "choices") and hasattr(self.choices, "queryset"):
-            queryset = self.choices.queryset
-            if not queryset.exists():
-                context["widget"]["attrs"]["disabled"] = "disabled"
-                context["widget"]["optgroups"] = [
-                    (None, [("", _("Create the first %s") % self.model_name)], 0),
-                ]
-            else:
-                count = queryset.count()
-                if count < SMALL_LIST_THRESHOLD:
-                    context["widget"]["attrs"]["size"] = str(count)
+        self.count = self.choices.queryset.count()
 
-        return context
+        if self.count == 0:
+            attrs["disabled"] = ""
+            attrs["size"] = 1
+        else:
+            if self.count < SMALL_LIST_THRESHOLD:
+                attrs["size"] = str(self.count)
+
+        ctx = super().get_context(name, value, attrs)
+        return ctx

@@ -13,14 +13,16 @@
 .breadcrumb {
   --bs-bg-opacity: 1;
   --bs-breadcrumb-bg: rgba(var(--bs-tertiary-bg-rgb), var(--bs-bg-opacity));
-  border-radius: var(--bs-border-radius);
-  padding: 1rem;
+  --bs-breadcrumb-margin-bottom: 2.5rem;
+  --bs-breadcrumb-padding-x: 1rem;
+  --bs-breadcrumb-padding-y: 1rem;
+  --bs-breadcrumb-border-radius: var(--bs-border-radius);
 
   a {
     --bs-link-underline-opacity: 0;
     text-underline-offset: 0.25em;
-    -webkit-text-decoration-color: rgba(var(--bs-link-color-rgb), var(--bs-link-underline-opacity, 1)) !important;
-    text-decoration-color: rgba(var(--bs-link-color-rgb), var(--bs-link-underline-opacity, 1)) !important;
+    -webkit-text-decoration-color: rgba(var(--bs-link-color-rgb), var(--bs-link-underline-opacity, 1));
+    text-decoration-color: rgba(var(--bs-link-color-rgb), var(--bs-link-underline-opacity, 1));
 
     &:hover {
       --bs-link-underline-opacity: 1;

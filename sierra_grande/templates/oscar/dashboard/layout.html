@@ -8,7 +8,7 @@
 {% block extrastyles %}
   {{ block.super }}
   <link rel="stylesheet" href="{% static "css/dashboard.css" %}" />
-  <link rel="stylesheet" href="{% static 'css/quill.snow.css' %}" />
+  {% comment %} <link rel="stylesheet" href="{% static 'css/quill.snow.css' %}" /> {% endcomment %}
   <link rel="stylesheet" href="{% static 'css/tempus-dominus.min.css' %}" />
 {% endblock extrastyles %}
 {% block title %}

@@ -1,4 +1,5 @@
 # ruff: noqa: SLF001
+from crispy_bootstrap5.bootstrap5 import FloatingField
 from crispy_bootstrap5.bootstrap5 import Switch
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout
@@ -482,3 +483,16 @@ class OptionForm(forms.ModelForm):
     class Meta:
         model = Option
         fields = ["name", "type", "required", "order", "help_text", "option_group"]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.layout = Layout(
+            FloatingField("name"),
+            FloatingField("type"),
+            Switch("require)d"),
+            FloatingField("order"),
+            FloatingField("help_text"),
+            FloatingField("option_group"),
+        )

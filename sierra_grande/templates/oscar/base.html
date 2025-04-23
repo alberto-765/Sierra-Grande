@@ -74,11 +74,11 @@
     {% endblock extrascripts %}
     {# Block for body onload functions #}
     {# djlint:off #}
-<script type="text/javascript">
-  document.addEventListener('DOMContentLoaded', function() {
-    {% block onbodyload %}
-    {% endblock onbodyload %}
-  });
+      <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function() {
+          {% block onbodyload %}
+          {% endblock onbodyload %}
+        });
 </script>
     {# djlint:on #}
     {# Page meta-data - this is populated by the 'metadata' template context processor #}

@@ -2,6 +2,7 @@ var oscar = ((o) => {
     'use strict';
 
     function onFileChange (evt) {
+        debugger;
         if (!window.FileReader) return;
 
         const fileInput = evt.target;
@@ -813,7 +814,7 @@ var oscar = ((o) => {
             o.dashboard.initWYSIWYG(el);
             // o.dashboard.initSelects(el);
             o.dashboard.initProductImages(el);
-            o.dashboard.initDropzones(el);
+            // o.dashboard.initDropzones(el);
         },
     };
 

@@ -8,7 +8,7 @@ Make the field widget type available to templates so we can mark-up
 checkbox and radio inputs differently to other widgets.
   {% endcomment %}
   {% block control_group %}
-    <div class="{% if style == 'horizontal' %} row {% else %} mb-3 {% endif %}">
+    <div class="{% if style == 'horizontal' %} row {% endif %}{% if margin %} mb-3 {% endif %}">
       {% block label %}
         {% if not nolabel and field.widget_type != 'checkbox' %}
           <label for="{{ field.auto_id }}"

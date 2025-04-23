@@ -13,7 +13,7 @@
 .breadcrumb {
   --bs-bg-opacity: 1;
   --bs-breadcrumb-bg: rgba(var(--bs-tertiary-bg-rgb), var(--bs-bg-opacity));
-  --bs-breadcrumb-margin-bottom: 2.5rem;
+  --bs-breadcrumb-margin-bottom: 1.8rem;
   --bs-breadcrumb-padding-x: 1rem;
   --bs-breadcrumb-padding-y: 1rem;
   --bs-breadcrumb-border-radius: var(--bs-border-radius);
@@ -28,4 +28,9 @@
       --bs-link-underline-opacity: 1;
     }
   }
+}
+
+/* Add margin and padding to pages with fixed-bottom menú */
+main:has(.form-actions-fixed) {
+  margin-bottom: 5rem;
 }

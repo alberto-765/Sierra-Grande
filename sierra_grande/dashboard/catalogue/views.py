@@ -9,6 +9,7 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
 from django.template.loader import render_to_string
 from django.urls import reverse
+from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 from django.views import generic
 from django_tables2 import SingleTableMixin
@@ -825,12 +826,12 @@ class ProductClassDeleteView(generic.DeleteView):
 
     def get_context_data(self, *args, **kwargs):
         ctx = super().get_context_data(*args, **kwargs)
-        ctx["title"] = _("Delete product type '%s'") % self.object.name
+        ctx["title"] = _('Delete product type "%s"') % self.object.name
         product_count = self.object.products.count()
 
         if product_count > 0:
             ctx["disallow"] = True
-            ctx["title"] = _("Unable to delete '%s'") % self.object.name
+            ctx["title"] = _('Unable to delete "%s"') % self.object.name
             messages.error(
                 self.request,
                 _("%i products are still assigned to this type") % product_count,
@@ -946,7 +947,7 @@ class AttributeOptionGroupUpdateView(
         )
 
     def get_title(self):
-        return _("Update Attribute Option Group '%s'") % self.object.name
+        return _('Update Attribute Option Group "%s"') % self.object.name
 
     def get_success_url(self):
         self.add_success_message(_("Attribute Option Group updated successfully"))
@@ -975,12 +976,12 @@ class AttributeOptionGroupDeleteView(PopUpWindowDeleteMixin, generic.DeleteView)
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
 
-        ctx["title"] = _("Delete Attribute Option Group '%s'") % self.object.name
+        ctx["title"] = _('Delete Attribute Option Group "%s"') % self.object.name
 
         product_attribute_count = self.object.product_attributes.count()
         if product_attribute_count > 0:
             ctx["disallow"] = True
-            ctx["title"] = _("Unable to delete '%s'") % self.object.name
+            ctx["title"] = _('Unable to delete "%s"') % self.object.name
             messages.error(
                 self.request,
                 _(
@@ -1069,7 +1070,13 @@ class OptionUpdateView(PopUpWindowUpdateMixin, OptionCreateUpdateView):
         return get_object_or_404(Option, pk=self.kwargs["pk"])
 
     def get_title(self):
-        return _("Update Option '%s'") % self.object.name
+        return format_html(
+            _(
+                """Update Option: <span class="badge rounded-5 text-bg-secondary">
+                {}</span>""",
+            ),
+            self.object.name,
+        )
 
     def get_success_url(self):
         self.add_success_message(_("Option updated successfully"))
@@ -1083,13 +1090,19 @@ class OptionDeleteView(PopUpWindowDeleteMixin, generic.DeleteView):
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
 
-        ctx["title"] = _("Delete Option '%s'") % self.object.name
+        ctx["title"] = format_html(
+            _(
+                """Delete Option: <span class="badge rounded-5 text-bg-secondary">
+                {}</span>""",
+            ),
+            self.object.name,
+        )
 
         products = self.object.product_set.count()
         product_classes = self.object.productclass_set.count()
         if any([products, product_classes]):
             ctx["disallow"] = True
-            ctx["title"] = _("Unable to delete '%s'") % self.object.name
+            ctx["title"] = _('Unable to delete "%s"') % self.object.name
             if products:
                 messages.error(
                     self.request,

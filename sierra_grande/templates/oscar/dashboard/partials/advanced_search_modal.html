@@ -1,23 +1,33 @@
 {% load i18n %}
+{% load crispy_forms_tags %}
 
-<div class="modal fade" data-bs-show="true" id="SearchModal" role="dialog">
-  <div class="modal-dialog">
+<div class="modal fade"
+     id="SearchModal"
+     role="dialog"
+     data-bs-backdrop="static"
+     tabindex="-1"
+     aria-labelledby="SearchModalLabel"
+     aria-hidden="false">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h3>{% trans "Advanced Search" %}</h3>
+        <h3 id="SearchModalLabel">{% trans "Advanced Search" %}</h3>
         <button type="button"
                 class="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"></button>
       </div>
-      <form method="get" class="form-stacked">
+      <form method="get">
         <div class="modal-body">
-          <div class="container">{% include "oscar/dashboard/partials/form_fields.html" with form=form style=style %}</div>
+          <div class="container row">
+            {{ form|crispy }}
+            {% comment %} {% include "oscar/dashboard/partials/form_fields.html" with form=form style=style %} {% endcomment %}
+          </div>
         </div>
         <div class="modal-footer">
-          <a href="#" class="btn btn-secondary" data-bs-dismiss="modal">{% trans "Close" %}</a>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans "Close" %}</button>
           <button type="submit"
-                  class="btn btn-primary icon-link"
+                  class="btn btn-primary"
                   data-loading-text="{% trans "Searching..." %}">{% trans "Search" %}</button>
         </div>
       </form>

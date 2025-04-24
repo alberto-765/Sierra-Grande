@@ -472,6 +472,12 @@ class AttributeOptionGroupForm(forms.ModelForm):
         model = AttributeOptionGroup
         fields = ["name"]
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.layout = Layout(FloatingField("name"))
+
 
 class AttributeOptionForm(forms.ModelForm):
     class Meta:

@@ -1,5 +1,3 @@
-{% load crispy_forms_tags %}
-
 {% if form.non_field_errors %}<span class="error-block">{{ form.non_field_errors }}</span>{% endif %}
 {% for field in form %}
   <div class="{% if col_class %}{{ col_class }}{% else %}col-sm-auto{% endif %}">

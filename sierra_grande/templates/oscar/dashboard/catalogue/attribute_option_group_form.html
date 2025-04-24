@@ -1,6 +1,7 @@
 {% extends "oscar/dashboard/layout.html" %}
 
 {% load i18n %}
+{% load crispy_forms_tags %}
 
 {% block title %}
   {{ title }} | {% trans "Create Attribute Option Group" %} | {{ block.super }}
@@ -69,18 +70,7 @@
                role="tabpanel"
                aria-labelledby="attribute-option-group-detail"
                tabindex="0">
-            <div class="card-text">{% comment %} {% crispy form %}</div> {% endcomment %}
-              {% if form.non_field_errors %}
-                {% for error in form.non_field_errors %}
-                  <div class="alert alert-danger">
-                    <span class="error-block"><i class="fas fa-exclamation"></i> {{ error }}</span>
-                  </div>
-                {% endfor %}
-              {% endif %}
-              {% for field in form %}
-                {% include "oscar/dashboard/partials/form_field.html" with field=field %}
-              {% endfor %}
-            </div>
+            <div class="card-text">{% crispy form %}</div>
           </div>
         {% endblock attribute_option_group_details %}
         {% block attribute_options %}
@@ -118,7 +108,9 @@
     </div>
     {% block fixed_actions_group %}
       <div class="form-actions-fixed align-items-center bg-dark column-gap-4 fixed-bottom hstack justify-content-end p-3">
-        <button class="btn btn-primary" type="submit">{% trans "Save" %}</button>
+        <button class="btn btn-primary"
+                type="submit"
+                data-loading-text="{% trans "Saving..." %}">{% trans "Save" %}</button>
         <a class="btn btn-secondary"
            href="#"
            {% if not is_popup %}onclick="window.history.go(-1);return false"{% else %}onclick="window.close();return false;"{% endif %}>

@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load crispy_forms_tags %}
 
 {% if form.is_bound and not form.is_valid %}
   <div class="alert alert-danger">
@@ -7,11 +8,10 @@
 {% endif %}
 {% if form.non_field_errors %}
   {% for error in form.non_field_errors %}
-    <div class="alert alert-danger">
-      <i class="fas fa-exclamation"></i> {{ error }}
+    <div class="alert alert-danger icon-link">
+      <iconify-icon icon="fa:exclamation-triangle" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
+      {{ error }}
     </div>
   {% endfor %}
 {% endif %}
-{% for field in form %}
-  {% include 'oscar/dashboard/partials/form_field.html' with field=field style=style %}
-{% endfor %}
+{% for field in form %}{{ field|as_crispy_field }}{% endfor %}

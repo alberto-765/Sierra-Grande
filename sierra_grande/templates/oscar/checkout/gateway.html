@@ -30,7 +30,7 @@
           <div class="hstack">
             {% render_field form.password class+="form-control me-sm-2" %}
             <small><a href="{% url "password-reset" %}" tabindex="-1">{% trans "Get a password reminder" %}</a></small>
-            {% for error in form.password.errors %}<span class="error-block">{{ error }}</span>{% endfor %}
+            {% for error in form.password.errors %}<span class="text-danger">{{ error }}</span>{% endfor %}
           </div>
         </div>
       </div>

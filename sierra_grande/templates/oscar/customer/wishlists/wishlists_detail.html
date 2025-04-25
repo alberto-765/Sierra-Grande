@@ -68,7 +68,7 @@
                   {% for field in subform %}
                     {% render_field field class+="form-control" %}
                     {% for error in field.errors %}
-                      <ul class="error-block">
+                      <ul class="text-danger">
                         <li>{{ error }}</li>
                       </ul>
                     {% endfor %}

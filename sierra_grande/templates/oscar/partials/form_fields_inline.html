@@ -1,6 +1,6 @@
 {% load crispy_forms_tags %}
 
-{% if form.non_field_errors %}<span class="error-block">{{ form.non_field_errors }}</span>{% endif %}
+{% if form.non_field_errors %}<span class="text-danger">{{ form.non_field_errors }}</span>{% endif %}
 {% for field in form %}
   <div class="{% if col_class %}{{ col_class }}{% else %}col-sm-auto{% endif %}">
     {% include "bootstrap5/layout/floating_field.html" with field=field %}

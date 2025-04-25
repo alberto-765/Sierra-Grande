@@ -1,0 +1,17 @@
+{% load i18n %}
+
+<form {% if form_id %}id="{{ form_id }}"{% endif %} class="{{ class }}" method="{{ method|default:"post" }}"
+    {% if action %}action="{{ action }}"{% endif %}
+    {% if includes_files %}enctype="multipart/form-data"{% endif %}>
+
+    {% if not method == "get" %}{% csrf_token %}{% endif %}
+    {% with wrapper_class=" " %}
+        {% include "oscar/dashboard/partials/form_fields_inline.html" %}
+    {% endwith %}
+
+
+    <div class="form-actions-fixed align-items-center bg-dark column-gap-4 fixed-bottom hstack justify-content-end p-3">
+        <button type="submit" class="btn btn-primary" data-loading-text="{% trans 'Saving...' %}">{% trans "Save" %}</button>
+        <button type="button" class="btn btn-secondary" onclick="window.history.go(-1);return false" >{% trans "Cancel" %}</button>
+    </div>
+</form>

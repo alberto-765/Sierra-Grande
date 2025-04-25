@@ -1,0 +1,47 @@
+{% extends 'oscar/dashboard/layout.html' %}
+{% load currency_filters %}
+{% load i18n %}
+
+{% block body_class %}{{ block.super }} create-page{% endblock %}
+
+{% block title %}
+    {{ title }} | {% trans "Voucher sets" %} | {{ block.super }}
+{% endblock %}
+
+{% block breadcrumbs %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'dashboard:voucher-list' %}">{% trans "Voucher sets" %}</a></li>
+            {% if voucher_set %}
+                <li class="breadcrumb-item"><a href="{% url 'dashboard:voucher-set-detail' pk=voucher_set.pk %}">{{ voucher_set }}</a></li>
+            {% endif %}
+            <li class="breadcrumb-item active" aria-current="page">{% trans "Edit" %}</li>
+        </ol>
+    </nav>
+{% endblock %}
+
+{% block headertext %}{{ title }}{% endblock %}
+
+{% block dashboard_content %}
+<div class="card">
+    <div class="card-header icon-link">
+        <iconify-icon icon="gmdi:euro" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
+        {% translate "Voucher set details" %}
+    </div>
+    <div class="card-body"> 
+        <form method="post">
+        {% csrf_token %}
+        {% include "oscar/dashboard/partials/form_fields.html" with form=form %}
+
+        {% block form_actions %}
+            <div class="hstack column-gap-3">
+                <button class="btn btn-primary" type="submit">{% trans "Save" %}</button>
+                <a class="btn btn-secondary" href="{% url 'dashboard:voucher-set-list' %}">{% trans "Cancel" %}</a>
+            </div>
+        {% endblock form_actions %}
+        </form>
+    </div>   
+</div>
+
+{% endblock dashboard_content %}

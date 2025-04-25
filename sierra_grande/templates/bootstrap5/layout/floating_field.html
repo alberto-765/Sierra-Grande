@@ -5,7 +5,7 @@
 {% if field.is_hidden %}
     {{ field }}
 {% else %}
-    <{% if tag %}{{ tag }}{% else %}div{% endif %} id="div_{{ field.auto_id }}" class="form-floating {% if wrapper_class %}{{ wrapper_class }}{% else %}mb-3{% endif %}{% if field.css_classes %} {{ field.css_classes }}{% endif %}">
+    <{% if tag %}{{ tag }}{% else %}div{% endif %} id="div_{{ field.auto_id }}" class="form-floating {{ wrapper_class|default:"mb-3" }} {% if field.css_classes %} {{ field.css_classes }}{% endif %}">
 
     {% if field|is_select %}
         {%if field.errors %}

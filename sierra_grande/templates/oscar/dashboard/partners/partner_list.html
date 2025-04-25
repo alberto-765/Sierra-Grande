@@ -31,14 +31,11 @@
     </div>
     <div class="card-body">
       <form method="get">
-        <div class="row  align-items-center">
+        <div class="row align-items-center">
           {% include "oscar/dashboard/partials/form_fields_inline.html" with form=form wrapper_class="mb-0" %}
-          <button type="submit"
-                  class="btn btn-primary icon-link col-md-auto"
-                  data-loading-text="{% trans "Searching..." %}">{% trans "Search" %}</button>
+          <button type="submit" class="btn btn-primary icon-link col-md-auto" data-loading-text="{% trans "Searching..." %}">{% trans "Search" %}</button>
           {% if is_filtered %}
-            <a class="btn btn-secondary col-md-auto"
-               href="{% url "dashboard:partner-list" %}">{% trans "Reset" %}</a>
+            <a class="btn btn-secondary col-md-auto" href="{% url "dashboard:partner-list" %}">{% trans "Reset" %}</a>
           {% endif %}
         </div>
       </form>
@@ -53,79 +50,85 @@
       {% if partners %}
         <form method="post">
           {% csrf_token %}
-          <table class="align-middle table table-striped table-bordered">
-            <tr>
-              <th>{% anchor "name" _("Name") %}</th>
-              <th>{% trans "Users" %}</th>
-              <th>{% trans "Addresses" %}</th>
-              <th>&nbsp;</th>
-            </tr>
-            {% for partner in partners %}
-              <tr>
-                <td>
-                  <a href="{% url "dashboard:partner-manage" pk=partner.pk %}">{{ partner.name }}</a>
-                </td>
-                <td>
-                  {% with users=partner.users.all %}
-                    {% if users %}
-                      <ul>
-                        {% for user in users %}
-                          <li>
-                            <a href="{% url "dashboard:partner-user-update" partner_pk=partner.pk user_pk=user.id %}"
-                               title="{% trans "Edit the user's details" %}">
-                              {{ user.get_full_name|default:user.email }}
-                            </a>
-                          </li>
-                        {% endfor %}
-                      </ul>
-                    {% else %}
-                      {% trans "No users associated." %}
-                    {% endif %}
-                  {% endwith %}
-                </td>
-                <td>
-                  {% with addresses=partner.addresses.all %}
-                    {% if addresses %}
-                      <ul>
-                        {% for address in addresses %}<li>{{ address.summary }}</li>{% endfor %}
-                      </ul>
-                    {% else %}
-                      {% trans "No address associated." %}
-                    {% endif %}
-                  {% endwith %}
-                </td>
-                <td>
-                  <div class="btn-toolbar">
-                    <div class="dropdown">
-                      <button class="btn btn-secondary dropdown-toggle"
-                              type="button"
-                              id="dropdownMenuButton"
-                              data-bs-toggle="dropdown"
-                              aria-haspopup="true"
-                              aria-expanded="false">{% trans "Actions" %}</button>
-                      <div class="dropdown-menu dropdown-menu-end"
-                           aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item"
-                           href="{% url "dashboard:partner-manage" pk=partner.pk %}">
-                          {% trans "Manage partner and users" %}
-                        </a>
-                        <a class="dropdown-item"
-                           href="{% url "dashboard:partner-delete" pk=partner.pk %}">{% trans "Delete partner" %}</a>
-                        <a class="dropdown-item"
-                           href="{% url "dashboard:partner-user-select" partner_pk=partner.pk %}">
-                          {% trans "Link an existing user" %}
-                        </a>
-                        <a class="dropdown-item"
-                           href="{% url "dashboard:partner-user-create" partner_pk=partner.pk %}">
-                          {% trans "Link a new user" %}
-                        </a>
+          <div class="table-container table-responsive-md">
+            <table class="table table-bordered table-hover align-middle">
+              <thead>
+                <tr>
+                  <th>{% anchor "name" _("Name") %}</th>
+                  <th>{% trans "Users" %}</th>
+                  <th>{% trans "Addresses" %}</th>
+                  <th></th>
+                </tr>
+            </thead>
+            <tbody>
+              {% for partner in partners %}
+                <tr>
+                  <td>
+                    <a href="{% url "dashboard:partner-manage" pk=partner.pk %}">{{ partner.name }}</a>
+                  </td>
+                  <td>
+                    {% with users=partner.users.all %}
+                      {% if users %}
+                        <ul>
+                          {% for user in users %}
+                            <li>
+                              <a href="{% url "dashboard:partner-user-update" partner_pk=partner.pk user_pk=user.id %}"
+                                title="{% trans "Edit the user's details" %}">
+                                {{ user.get_full_name|default:user.email }}
+                              </a>
+                            </li>
+                          {% endfor %}
+                        </ul>
+                      {% else %}
+                        {% trans "No users associated." %}
+                      {% endif %}
+                    {% endwith %}
+                  </td>
+                  <td>
+                    {% with addresses=partner.addresses.all %}
+                      {% if addresses %}
+                        <ul>
+                          {% for address in addresses %}<li>{{ address.summary }}</li>{% endfor %}
+                        </ul>
+                      {% else %}
+                        {% trans "No address associated." %}
+                      {% endif %}
+                    {% endwith %}
+                  </td>
+                  <td>
+                    <div class="btn-toolbar">
+                      <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle"
+                                type="button"
+                                id="dropdownMenuButton"
+                                data-bs-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false">{% trans "Actions" %}</button>
+                        <div class="dropdown-menu dropdown-menu-end"
+                            aria-labelledby="dropdownMenuButton">
+                          <a class="dropdown-item"
+                            href="{% url "dashboard:partner-manage" pk=partner.pk %}">
+                            {% trans "Manage partner and users" %}
+                          </a>
+                          <a class="dropdown-item"
+                            href="{% url "dashboard:partner-delete" pk=partner.pk %}">{% trans "Delete partner" %}</a>
+                          <a class="dropdown-item"
+                            href="{% url "dashboard:partner-user-select" partner_pk=partner.pk %}">
+                            {% trans "Link an existing user" %}
+                          </a>
+                          <a class="dropdown-item"
+                            href="{% url "dashboard:partner-user-create" partner_pk=partner.pk %}">
+                            {% trans "Link a new user" %}
+                          </a>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </td>
-              </tr>
-            {% endfor %}
-          </table>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+            </table>
+          </div>
           {% include "oscar/dashboard/partials/pagination.html" %}
         </form>
       {% else %}

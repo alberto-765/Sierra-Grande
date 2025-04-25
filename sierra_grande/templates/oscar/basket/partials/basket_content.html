@@ -79,7 +79,8 @@
                   </div>
                   {% for field_errors in form.errors.values %}
                     {% for error in field_errors %}
-                      <span class="error-block"><i class="fas fa-exclamation"></i> {{ error }}</span>
+                      <span class="text-danger"><iconify-icon icon="fa:exclamation-triangle" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
+                        {{ error }}</span>
                     {% endfor %}
                   {% endfor %}
                 </div>

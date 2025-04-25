@@ -65,7 +65,7 @@
           <div class="tab-pane fade show active" id="category-detail-pane">
             <div class="card-text">
               {% block category_details_content %}
-                <span class="error-block">{{ form.non_field_errors }}</span>
+                <span class="text-danger">{{ form.non_field_errors }}</span>
                 {% for field in form.hidden_fields %}{{ field }}{% endfor %}
                 {% for field in form.primary_form_fields %}
                   {% if "attr" not in field.id_for_label %}

@@ -44,17 +44,15 @@ body > header {
 
 
 /* Override margin-button for django-tables2 */
-.card-body > .table-container > table {
+.card-body .table-container table {
     margin-bottom: 0 !important;
 
-    & > thead > tr:first-of-type {
+    & > thead > tr:first-of-type, &:not(:has(thead)) > tbody > tr:first-of-type {
         border-top-width: 0;
     }
 
-    & > tbody {
-        & > tr:last-of-type {
-            border-bottom-width: 0;
-        }
+    & > tbody > tr:last-of-type {
+        border-bottom-width: 0;
     }
 
     & > :is(thead, tbody) > tr {

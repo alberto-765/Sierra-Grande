@@ -115,7 +115,7 @@
                 </div>
                 <div class="card card-body product-details">
                   {% block product_details_content %}
-                    <span class="error-block">{{ form.non_field_errors }}</span>
+                    <span class="text-danger">{{ form.non_field_errors }}</span>
                     {% for field in form.hidden_fields %}{{ field }}{% endfor %}
                     {% for field in form.primary_form_fields %}
                       {% if "attr" not in field.id_for_label %}
@@ -211,7 +211,8 @@
                           <tr>
                             <td colspan="{% if product_class.track_stock %}10{% else %}7{% endif %}">
                               {% for error in stockrecord_form.non_field_errors %}
-                                <span class="error-block errorlist"><i class="fas fa-exclamation"></i> {{ error }}</span>
+                                <span class="text-danger errorlist"><iconify-icon icon="fa:exclamation-triangle" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
+                                  {{ error }}</span>
                               {% endfor %}
                             </td>
                           </tr>

@@ -83,7 +83,6 @@ CELERY_TASK_EAGER_PROPAGATES = True
 
 # TEMPLATES
 # ------------------------------------------------------------------------------
-TEMPLATES[0]["OPTIONS"]["string_if_invalid"] = "INVALID EXPRESSION: %s"  # noqa: F405
 
 # Django-oscar
 # ------------------------------------------------------------------------------

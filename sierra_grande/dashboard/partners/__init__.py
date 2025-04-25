@@ -1,0 +1,1 @@
+default_app_config = 'sierra_grande.dashboard.partners.apps.PartnersDashboardConfig'

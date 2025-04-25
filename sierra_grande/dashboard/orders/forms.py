@@ -3,14 +3,16 @@ import datetime
 from crispy_bootstrap5.bootstrap5 import FloatingField
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import HTML
-from crispy_forms.layout import Column
+from crispy_forms.layout import Column, Field, HTML
 from crispy_forms.layout import Layout
 from crispy_forms.layout import Row
 from crispy_forms.layout import Submit
 from django import forms
 from django.http import QueryDict
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy
 from django.utils.translation import pgettext_lazy
+from django.urls import reverse_lazy
 from oscar.core.loading import get_class
 from oscar.core.loading import get_model
 from oscar.forms.mixins import PhoneNumberMixin
@@ -26,20 +28,19 @@ AbstractAddressForm = get_class("address.forms", "AbstractAddressForm")
 class OrderStatsForm(forms.Form):
     date_from = forms.DateField(
         required=False,
-        label=pgettext_lazy("start date", "From"),
-        widget=DatePickerInput,
+        label=pgettext_lazy("start date", "Date from"),
     )
     date_to = forms.DateField(
         required=False,
-        label=pgettext_lazy("end date", "To"),
-        widget=DatePickerInput,
+        label=pgettext_lazy("end date", "Date to"),
     )
 
     _filters = _description = None
+    action = reverse_lazy("dashboard:order-stats")
 
     def _determine_filter_metadata(self):
         self._filters = {}
-        self._description = _("All orders")
+        self._description = gettext_lazy("All orders")
         if self.errors:
             return
 
@@ -51,18 +52,18 @@ class OrderStatsForm(forms.Form):
             self._filters = {
                 "date_placed__range": [date_from, date_to + datetime.timedelta(days=1)],
             }
-            self._description = _(
+            self._description = gettext_lazy(
                 "Orders placed between %(date_from)s and %(date_to)s",
             ) % {"date_from": date_from, "date_to": date_to}
         elif date_from and not date_to:
             self._filters = {"date_placed__gte": date_from}
-            self._description = _("Orders placed since %s") % (date_from,)
+            self._description = gettext_lazy("Orders placed since %s") % (date_from,)
         elif not date_from and date_to:
             self._filters = {"date_placed__lte": date_to}
-            self._description = _("Orders placed until %s") % (date_to,)
+            self._description = gettext_lazy("Orders placed until %s") % (date_to,)
         else:
             self._filters = {}
-            self._description = _("All orders")
+            self._description = gettext_lazy("All orders")
 
     def get_filters(self):
         if self._filters is None:
@@ -74,13 +75,52 @@ class OrderStatsForm(forms.Form):
             self._determine_filter_metadata()
         return self._description
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = "GET"
+        self.helper.form_action = self.action
+        self.helper.layout = Layout(
+            Row(
+                Column(
+                    Field(
+                        "date_from",
+                        template="oscar/forms/widgets/floating_field_date_picker.html",
+                    ),
+                ),
+                Column(
+                    Field(
+                        "date_to",
+                        template="oscar/forms/widgets/floating_field_date_picker.html",
+                    ),
+                ),
+                Column(
+                    Submit(
+                        "submit",
+                        _("Filter result"),
+                        css_class="btn btn-primary w-100",
+                        data={"loading-text": _("Filtering...")},
+                    ),
+                    css_class="col-sm-auto",
+                ),
+                Column(
+                    HTML(
+                        '<a href="{{ self.action }}" '
+                        'class="btn btn-secondary w-100">{{ _("Reset") }}</a>'
+                    ),
+                    css_class="col-sm-auto",
+                ),
+                css_class="align-items-center",
+            ),
+        )
+
 
 class OrderSearchForm(forms.Form):
-    order_number = forms.CharField(required=False, label=_("Order number"))
-    name = forms.CharField(required=False, label=_("Customer name"))
-    product_title = forms.CharField(required=False, label=_("Product name"))
-    upc = forms.CharField(required=False, label=_("UPC"))
-    partner_sku = forms.CharField(required=False, label=_("Partner SKU"))
+    order_number = forms.CharField(required=False, label=gettext_lazy("Order number"))
+    name = forms.CharField(required=False, label=gettext_lazy("Customer name"))
+    product_title = forms.CharField(required=False, label=gettext_lazy("Product name"))
+    upc = forms.CharField(required=False, label=gettext_lazy("UPC"))
+    partner_sku = forms.CharField(required=False, label=gettext_lazy("Partner SKU"))
 
     status_choices = (
         ("", "---------"),
@@ -90,39 +130,39 @@ class OrderSearchForm(forms.Form):
     )
     status = forms.ChoiceField(
         choices=status_choices,
-        label=_("Status"),
+        label=gettext_lazy("Status"),
         required=False,
     )
 
     date_from = forms.DateField(
         required=False,
-        label=_("Date from"),
+        label=gettext_lazy("Date from"),
         widget=DatePickerInput,
     )
     date_to = forms.DateField(
         required=False,
-        label=_("Date to"),
+        label=gettext_lazy("Date to"),
         widget=DatePickerInput,
     )
 
-    voucher = forms.CharField(required=False, label=_("Voucher code"))
+    voucher = forms.CharField(required=False, label=gettext_lazy("Voucher code"))
 
     payment_method = forms.ChoiceField(
-        label=_("Payment method"),
+        label=gettext_lazy("Payment method"),
         required=False,
         choices=(),
     )
 
     format_choices = (
-        ("html", _("HTML")),
-        ("csv", _("CSV")),
+        ("html", gettext_lazy("HTML")),
+        ("csv", gettext_lazy("CSV")),
     )
     response_format = forms.ChoiceField(
         widget=forms.RadioSelect,
         required=False,
         choices=format_choices,
         initial="html",
-        label=_("Get results as"),
+        label=gettext_lazy("Get results as"),
     )
 
     def __init__(self, *args, **kwargs):

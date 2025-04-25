@@ -46,7 +46,7 @@
                   {{ field.label_tag }}
                   <div class="controls">
                     {{ field }}
-                    {% for error in field.errors %}<span class="error-block">{{ error|escape }}</span>{% endfor %}
+                    {% for error in field.errors %}<span class="text-danger">{{ error|escape }}</span>{% endfor %}
                     {% if field.help_text %}<small class="form-text text-muted">{{ field.help_text }}</small>{% endif %}
                   </div>
                 {% endif %}
@@ -60,7 +60,7 @@
                     {{ field.label_tag }}
                     {{ field }}
                     {% for error in field.errors %}
-                      <ul class="error-block">
+                      <ul class="text-danger">
                         <li>{{ error|escape }}</li>
                       </ul>
                     {% endfor %}

@@ -121,7 +121,8 @@
           {% block order_actions %}
             <div class="card card-body bg-light">
               <h3>
-                <i class="fas fa-exclamation-circle"></i> {% trans "Change order status" %}:
+                <iconify-icon icon="fa:exclamation-triangle" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
+                {% trans "Change order status" %}:
               </h3>
               {% if order_statuses %}
                 <div>

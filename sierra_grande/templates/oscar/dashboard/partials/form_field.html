@@ -35,7 +35,7 @@ checkbox and radio inputs differently to other widgets.
           {% endblock widget %}
           {% block errors %}
             {% for error in field.errors %}
-              <span class="error-block"><iconify-icon icon="heroicons-solid:exclamation" width="1rem" height="1rem" inline></iconify-icon> {{ error }}</span>
+              <span class="text-danger"><iconify-icon icon="heroicons-solid:exclamation" width="1rem" height="1rem" inline></iconify-icon> {{ error }}</span>
             {% endfor %}
           {% endblock errors %}
           {% block help_text %}

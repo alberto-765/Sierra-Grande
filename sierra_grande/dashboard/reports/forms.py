@@ -8,6 +8,7 @@ from crispy_forms.layout import Row
 from crispy_forms.layout import Submit
 from django import forms
 from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext
 from oscar.core.loading import get_class
 
 GeneratorRepository = get_class("dashboard.reports.utils", "GeneratorRepository")
@@ -61,9 +62,9 @@ class ReportForm(forms.Form):
                 Column(
                     Submit(
                         "submit",
-                        _("Generate report"),
+                        gettext("Generate report"),
                         css_class="btn btn-primary",
-                        data={"loading-text": _("Generating...")},
+                        data={"loading-text": gettext("Generating...")},
                     ),
                 ),
             ),

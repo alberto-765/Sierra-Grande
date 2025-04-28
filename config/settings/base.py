@@ -109,7 +109,7 @@ THIRD_PARTY_APPS = [
     "oscar.apps.order.apps.OrderConfig",
     "oscar.apps.customer.apps.CustomerConfig",
     "oscar.apps.search.apps.SearchConfig",
-    "oscar.apps.voucher.apps.VoucherConfig",
+    "sierra_grande.voucher.apps.VoucherConfig",
     "oscar.apps.wishlists.apps.WishlistsConfig",
     "sierra_grande.dashboard.apps.DashboardConfig",
     "sierra_grande.dashboard.reports.apps.ReportsDashboardConfig",

@@ -43,31 +43,41 @@ class ReportForm(forms.Form):
         self.helper.form_method = "GET"
         self.helper.layout = Layout(
             Row(
-                Column(FloatingField("report_type", wrapper_class="m-0")),
+                Column(
+                    FloatingField("report_type", wrapper_class="m-0"),
+                    css_class="col-lg col-md-4",
+                ),
                 Column(
                     Field(
                         "date_from",
                         template="oscar/forms/widgets/floating_field_date_picker.html",
+                        wrapper_class=" ",
                     ),
+                    css_class="col-lg col-md-4",
                 ),
                 Column(
                     Field(
                         "date_to",
                         template="oscar/forms/widgets/floating_field_date_picker.html",
+                        wrapper_class=" ",
                     ),
+                    css_class="col-lg col-md-4",
                 ),
-            ),
-            Row(
-                Column(Switch("download", label="Pito")),
+                Column(
+                    Switch("download", wrapper_class=" "),
+                    css_class="col-sm-auto align-self-baseline",
+                ),
                 Column(
                     Submit(
                         "submit",
                         gettext("Generate report"),
-                        css_class="btn btn-primary",
+                        css_class="btn btn-primary w-100",
                         data={"loading-text": gettext("Generating...")},
                     ),
+                    css_class="col-sm-auto align-self-baseline",
                 ),
-            ),
+                css_class="g-3",
+            )
         )
 
     def clean(self):

@@ -1,4 +1,4 @@
-from crispy_bootstrap5.bootstrap5 import FloatingField
+from crispy_bootstrap5.bootstrap5 import FloatingField, Field
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import HTML
 from crispy_forms.layout import Column
@@ -6,12 +6,12 @@ from crispy_forms.layout import Hidden
 from crispy_forms.layout import Layout
 from crispy_forms.layout import Reset
 from crispy_forms.layout import Row
-from crispy_forms.layout import Submit
+from crispy_forms.layout import Submit, Div
 from django import forms
 from django.db import transaction
 from django.urls import reverse
 from django.utils.html import format_html
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _, gettext
 from oscar.apps.voucher.utils import get_unused_code
 from oscar.core.loading import get_model
 from oscar.forms import widgets
@@ -152,6 +152,36 @@ class VoucherSetForm(forms.ModelForm):
         queryset=ConditionalOffer.objects.filter(offer_type=ConditionalOffer.VOUCHER),
     )
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = "post"
+        self.helper.layout = Layout(
+            FloatingField("name"),
+            FloatingField("code_length"),
+            FloatingField("description"),
+            Field(
+                "start_datetime",
+                template="oscar/forms/widgets/floating_field_date_picker.html",
+            ),
+            Field(
+                "end_datetime",
+                template="oscar/forms/widgets/floating_field_date_picker.html",
+            ),
+            FloatingField("count"),
+            Div(
+                Submit(
+                    "submit",
+                    _("Save"),
+                    data_loading_text=_("Saving..."),
+                ),
+                HTML(
+                    f'<a class="btn btn-secondary" href="{reverse("dashboard:voucher-set-list")}" role="button" aria-label="{gettext("Cancel")}">{gettext("Cancel")}</a>'
+                ),
+                css_class="hstack column-gap-3",
+            ),
+        )
+
     class Meta:
         model = VoucherSet
         fields = [
@@ -162,10 +192,6 @@ class VoucherSetForm(forms.ModelForm):
             "end_datetime",
             "count",
         ]
-        widgets = {
-            "start_datetime": widgets.DateTimePickerInput(),
-            "end_datetime": widgets.DateTimePickerInput(),
-        }
 
     def clean_count(self):
         data = self.cleaned_data["count"]

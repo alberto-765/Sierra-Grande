@@ -105,6 +105,7 @@ export DATABASE_URL="postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES
 - [Django](http://localhost:8000/)
 - [Flower Dashboard](http://localhost:5555/)
 - [Mailpit](http://localhost:8025/)
+- [Solr](http://localhost:8983/)
 
 ## Django Oscar
 

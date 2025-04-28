@@ -13,50 +13,50 @@
 {% block breadcrumbs %}
 {% endblock breadcrumbs %}
 {% block headertext %}
-  {% trans "Dashboard" %}
+  {% translate "Dashboard" %}
 {% endblock headertext %}
 {% block dashboard_content %}
   <div class="card">
     <span class="card-header fw-normal">
       <iconify-icon icon="lucide:signal-high" width="1rem" height="1rem" aria-hidden="true" inline></iconify-icon>
-      {% trans "Your Store Statistics" %}
+      {% translate "Your Store Statistics" %}
     </span>
     <div class="card-body">
-      <div class="row">
-        <aside class="col-md-3 order-graph-details">
+      <div class="row gy-3">
+        <aside class="col-md-3 vstack align-items-start gap-2">
           <label class="icon-link">
             <iconify-icon icon="fa-solid:shopping-cart" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
             <span>
               {{ total_orders_last_day }}
-              {% trans "Total Orders" %}
+              {% translate "Total Orders" %}
             </span>
           </label>
           <label class="icon-link">
             <iconify-icon icon="ri:hand-coin-fill" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
             <span>
               {{ total_customers_last_day }}
-              {% trans "New Customers" %}
+              {% translate "New Customers" %}
             </span>
           </label>
           <label class="icon-link">
             <iconify-icon icon="fa-solid:users" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
-            <span class="icon-link">
+            <span>
               {{ total_customers }}
-              {% trans "Total Customers" %}
+              {% translate "Total Customers" %}
             </span>
           </label>
           <label class="icon-link">
             <iconify-icon icon="streamline:pork-meat-solid" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
-            <span class="icon-link">
+            <span>
               {{ total_products }}
-              {% trans "Total Products" %}
+              {% translate "Total Products" %}
             </span>
           </label>
         </aside>
         <div class="col-md-9">
           <div id="order_graph">
             <div class="bar-caption">
-              <h2 class="mb-0">{% trans "Latest Orders (last 24 hours)" %}</h2>
+              <h2 class="mb-0">{% translate "Latest Orders (last 24 hours)" %}</h2>
             </div>
             <div class="bar-y-axis">
               <ul>
@@ -87,25 +87,25 @@
       <div class="card">
         <span class="card-header icon-link fw-normal">
           <iconify-icon icon="fa-solid:shopping-cart" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
-          {% trans "Orders - Last 24 Hours" %}
+          {% translate "Orders - Last 24 Hours" %}
         </span>
         <div class="card-body p-0">
           <div class="table-container table-responsive-md">
             <table class="table table-striped table-bordered table-hover align-middle">
               <tr>
-                <td>{% trans "Total orders" %}</td>
+                <td>{% translate "Total orders" %}</td>
                 <td class="text-center">{{ total_orders_last_day }}</td>
               </tr>
               <tr>
-                <td>{% trans "Total lines" %}</td>
+                <td>{% translate "Total lines" %}</td>
                 <td class="text-center">{{ total_lines_last_day }}</td>
               </tr>
               <tr>
-                <td>{% trans "Total revenue" %}</td>
+                <td>{% translate "Total revenue" %}</td>
                 <td class="text-center">{{ total_revenue_last_day|currency }}</td>
               </tr>
               <tr>
-                <td>{% trans "Average order costs" %}</td>
+                <td>{% translate "Average order costs" %}</td>
                 <td class="text-center">{{ average_order_costs|currency }}</td>
               </tr>
             </table>
@@ -118,31 +118,31 @@
         <div class="card-header hstack justify-content-between align-items-center">
           <span class="icon-link fw-normal">
             <iconify-icon icon="fa-solid:shopping-cart" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
-            {% trans "Orders - All Time" %}
+            {% translate "Orders - All Time" %}
           </span>
           <a href="{% url "dashboard:order-list" %}"
              class="btn btn-secondary icon-link">
-            <iconify-icon icon="fa-solid:shopping-cart" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>{% trans "Manage" %}
+            <iconify-icon icon="fa-solid:shopping-cart" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>{% translate "Manage" %}
           </a>
         </div>
         <div class="card-body p-0">
           <div class="table-container table-responsive-md">
             <table class="table table-striped table-bordered table-hover align-middle">
               <tr>
-                <td>{% trans "Total orders" %}</td>
+                <td>{% translate "Total orders" %}</td>
                 <td class="text-center">{{ total_orders }}</td>
               </tr>
               <tr>
-                <td>{% trans "Total lines" %}</td>
+                <td>{% translate "Total lines" %}</td>
                 <td class="text-center">{{ total_lines }}</td>
               </tr>
               <tr>
-                <td>{% trans "Total revenue" %}</td>
+                <td>{% translate "Total revenue" %}</td>
                 <td class="text-center">{{ total_revenue|currency }}</td>
               </tr>
               <tr>
                 <td>
-                  {% trans "Total <em>open</em> baskets" %}
+                  {% translate "Total <em>open</em> baskets" %}
                 </td>
                 <td class="text-center">{{ total_open_baskets }}</td>
               </tr>
@@ -155,22 +155,22 @@
       <div class="card">
         <span class="card-header icon-link fw-normal">
           <iconify-icon icon="fa-solid:users" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
-          {% trans "Customers" %}
+          {% translate "Customers" %}
         </span>
         <div class="card-body p-0">
           <div class="table-container table-responsive-md">
             <table class="table table-striped table-bordered table-hover align-middle">
               <tr>
-                <td>{% trans "Total customers" %}</td>
+                <td>{% translate "Total customers" %}</td>
                 <td class="text-center">{{ total_customers }}</td>
               </tr>
               <tr>
-                <td>{% trans "New customers" %}</td>
+                <td>{% translate "New customers" %}</td>
                 <td class="text-center">{{ total_customers_last_day }}</td>
               </tr>
               <tr>
                 <td>
-                  {% trans "Total <em>open</em> baskets" %}
+                  {% translate "Total <em>open</em> baskets" %}
                 </td>
                 <td class="text-center">{{ total_open_baskets_last_day }}</td>
               </tr>
@@ -185,20 +185,20 @@
           <div class="row row-cols-2 justify-content-between">
             <span class="icon-link col-4">
               <iconify-icon icon="fa-solid:sitemap" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
-              {% trans "Catalogue and stock" %}
+              {% translate "Catalogue and stock" %}
             </span>
             <div class="col-8 hstack column-gap-md-3 justify-content-between justify-content-lg-end">
               <a href="{% url "dashboard:catalogue-product-list" %}"
                  class="btn btn-secondary icon-link"
                  role="button">
                 <iconify-icon icon="fa-solid:sitemap" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
-                {% trans "Manage" %}
+                {% translate "Manage" %}
               </a>
               <a href="{% url "dashboard:stock-alert-list" %}"
                  class="btn btn-secondary icon-link"
                  role="button">
                 <iconify-icon icon="fa-solid:sitemap" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
-                {% trans "View Stock Alerts" %}
+                {% translate "View Stock Alerts" %}
               </a>
             </div>
           </div>
@@ -207,18 +207,18 @@
           <div class="table-container table-responsive-md">
             <table class="table table-striped table-bordered table-hover align-middle">
               <tr>
-                <td>{% trans "Total products" %}</td>
+                <td>{% translate "Total products" %}</td>
                 <td class="text-center">{{ total_products }}</td>
               </tr>
               <tr>
                 <td>
-                  {% trans "<em>Open</em> stock alerts" %}
+                  {% translate "<em>Open</em> stock alerts" %}
                 </td>
                 <td class="text-center">{{ total_open_stock_alerts }}</td>
               </tr>
               <tr>
                 <td>
-                  {% trans "<em>Closed</em> stock alerts" %}
+                  {% translate "<em>Closed</em> stock alerts" %}
                 </td>
                 <td class="text-center">{{ total_closed_stock_alerts }}</td>
               </tr>
@@ -232,7 +232,7 @@
         <div class="card">
           <span class="card-header icon-link fw-normal">
             <iconify-icon icon="ant-design:gift-filled" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
-            {% trans "Offers, vouchers" %}
+            {% translate "Offers, vouchers" %}
           </span>
           <div class="card-body p-0">
             <div class="table-container table-responsive-md">
@@ -240,14 +240,14 @@
                 {% for offer_map in offer_maps %}
                   <tr>
                     <td>
-                      {% blocktrans with offer_type=offer_map.offer_type %}Active <em>{{ offer_type }}</em> Offers{% endblocktrans %}
+                      {% blocktranslate with offer_type=offer_map.offer_type %}Active <em>{{ offer_type }}</em> Offers{% endblocktranslate %}
                     </td>
                     <td class="text-center">{{ offer_map.count }}</td>
                   </tr>
                 {% endfor %}
                 <tr>
                   <td>
-                    {% trans "Active <em>Vouchers</em>" %}
+                    {% translate "Active <em>Vouchers</em>" %}
                   </td>
                   <td class="text-center">{{ total_vouchers }}</td>
                 </tr>

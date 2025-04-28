@@ -1,6 +1,7 @@
 {% extends 'oscar/dashboard/layout.html' %}
 {% load currency_filters %}
 {% load i18n %}
+{% load crispy_forms_tags %}
 
 {% block body_class %}{{ block.super }} create-page{% endblock %}
 
@@ -30,17 +31,7 @@
         {% translate "Voucher set details" %}
     </div>
     <div class="card-body"> 
-        <form method="post">
-        {% csrf_token %}
-        {% include "oscar/dashboard/partials/form_fields.html" with form=form %}
-
-        {% block form_actions %}
-            <div class="hstack column-gap-3">
-                <button class="btn btn-primary" type="submit">{% trans "Save" %}</button>
-                <a class="btn btn-secondary" href="{% url 'dashboard:voucher-set-list' %}">{% trans "Cancel" %}</a>
-            </div>
-        {% endblock form_actions %}
-        </form>
+        {% crispy form %}
     </div>   
 </div>
 

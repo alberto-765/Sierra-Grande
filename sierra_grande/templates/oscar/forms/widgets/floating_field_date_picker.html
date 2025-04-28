@@ -5,10 +5,10 @@
 {% if field.is_hidden %}
   {{ field }}
 {% else %}
-  <div>
+  <div class="{{ wrapper_class|default:"mb-3" }}">
     <div class="input-group" data-td-target-input="nearest" data-td-target-toggle="nearest" {% for name, value in div_attrs.items %}{{ name }}="{{ value|stringformat:'s' }}"{% endfor %}  id="wrapper_for_{{ widget.attrs.id }}">
 
-      <{% if tag %}{{ tag }} {% else %}div{% endif %} id="div_{{ field.auto_id }}" class="form-floating{% if wrapper_class %}{{ wrapper_class }}{% endif %}{% if field.css_classes %}{{ field.css_classes }}{% endif %}">
+      <{% if tag %}{{ tag }} {% else %}div{% endif %} id="div_{{ field.auto_id }}" class="form-floating {% if field.css_classes %}{{ field.css_classes }} {% endif %}">
       {% if field|is_select %}
         {% if field.errors %}
           {% crispy_field field 'class' 'form-select is-invalid' 'placeholder' field.name %}

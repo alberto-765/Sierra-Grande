@@ -49,12 +49,14 @@ class ProductReviewSearchForm(forms.Form):
                     Field(
                         "date_from",
                         template="oscar/forms/widgets/floating_field_date_picker.html",
+                        wrapper_class=" ",
                     ),
                 ),
                 Column(
                     Field(
                         "date_to",
                         template="oscar/forms/widgets/floating_field_date_picker.html",
+                        wrapper_class=" ",
                     ),
                 ),
                 Column(

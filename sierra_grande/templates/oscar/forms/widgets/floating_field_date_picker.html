@@ -5,8 +5,8 @@
 {% if field.is_hidden %}
   {{ field }}
 {% else %}
-  <div class="{{ wrapper_class|default:"mb-3" }}">
-    <div class="input-group" data-td-target-input="nearest" data-td-target-toggle="nearest" {% for name, value in div_attrs.items %}{{ name }}="{{ value|stringformat:'s' }}"{% endfor %}  id="wrapper_for_{{ widget.attrs.id }}">
+  <div class="floating_field_date_picker {{ wrapper_class|default:"mb-3" }}">
+    <div class="input-group has-validation" data-td-target-input="nearest" data-td-target-toggle="nearest" {% for name, value in div_attrs.items %}{{ name }}="{{ value|stringformat:'s' }}"{% endfor %}  id="wrapper_for_{{ widget.attrs.id }}">
 
       <{% if tag %}{{ tag }} {% else %}div{% endif %} id="div_{{ field.auto_id }}" class="form-floating {% if field.css_classes %}{{ field.css_classes }} {% endif %}">
       {% if field|is_select %}
@@ -34,7 +34,8 @@
         <iconify-icon icon="{% if "fa-clock" in icon_classes %}mdi:clock-outline{% else %}clarity:calendar-line{% endif %}" width="1rem" height="1rem"></iconify-icon>
       </span>
     </div>
-    {% include "bootstrap5/layout/help_text_and_errors.html" %}
+
+    {% include 'bootstrap5/layout/help_text_and_errors.html' %}
   </div>
 {% endif %}
 

@@ -2,6 +2,7 @@
 
 {% load currency_filters %}
 {% load i18n %}
+{% load crispy_forms_tags %}
 
 {% block body_class %}{{ block.super }} create-page{% endblock %}
 {% block title %}
@@ -47,44 +48,38 @@
       {% endblock %}
     </div>
     <div class="{% if session_offer %}col-md-6{% else %}col-md-9{% endif %}">
-      <form method="post" class="form-stacked wysiwyg fixed-actions">
-        <div class="table-header">
-          <h3>{{ title }}</h3>
+      <form method="post" class="card">
+        <div class="card-header">
+          {{ title }}
         </div>
-        <div class="card card-body">
-          {% csrf_token %}
+        <div class="card-body">
           {% block form_fields %}
-            {% include "oscar/dashboard/partials/form_fields.html" with form=form %}
+            {% crispy form %}
           {% endblock %}
           {% block form_extradata %}{% endblock %}
         </div>
+
+
         {% block form_actions %}
-          <div class="fixed-actions-group">
-            <div class="form-actions">
-              <div class="float-end">
-                {% block form_actions_buttons %}
-                  <button class="btn btn-primary"
-                          type="submit"
-                          data-loading-text="{% trans 'Submitting...' %}">
-                    {% block submittext %}
-                      {% trans "Continue" %}
-                    {% endblock %}
-                  </button>
-                  {% if offer %}
-                    {# When editing offer, show saving button #}
-                    <button class="btn btn-secondary"
-                            name="save"
-                            type="submit"
-                            data-loading-text="{% trans 'Saving...' %}">{% trans "Save changes" %}</button>
-                  {% endif %}
+          <div class="form-actions-fixed align-items-center bg-dark column-gap-4 fixed-bottom hstack justify-content-end p-3">
+            {% block form_actions_buttons %}
+              <a class="btn btn-secondary" href="{% url 'dashboard:offer-list' %}">{% trans "Cancel" %}</a>
+              <button class="btn btn-primary" type="submit" data-loading-text="{% trans 'Submitting...' %}">
+                {% block submittext %}
+                  {% trans "Continue" %}
                 {% endblock %}
-              </div>
-              <a class="btn btn-secondary" href="{% url 'dashboard:offer-list' %}">{% trans "cancel" %}</a>
-            </div>
+              </button>
+              {% if offer %}
+                {# When editing offer, show saving button #}
+                <button class="btn btn-secondary" name="save" type="submit" data-loading-text="{% trans 'Saving...' %}">{% trans "Save changes" %}</button>
+              {% endif %}
+            {% endblock %}
           </div>
         {% endblock form_actions %}
       </form>
     </div>
+
+
     {% if session_offer %}
       <div class="col-md-3">
         {% block summary %}

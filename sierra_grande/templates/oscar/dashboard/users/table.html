@@ -18,22 +18,14 @@
         <div class="row row-cols-sm-auto align-items-center justify-content-start g-3">
           <label class=" col text-break">{% trans "With selected customers:" %}</label>
           <div class="form-check col">
-            <input id="make_active_check"
-                   class="form-check-input"
-                   type="radio"
-                   name="action"
-                   value="make_active" />
+            <input id="make_active_check" class="form-check-input" type="radio" name="action" value="make_active" />
             <label class="form-check-label col-auto" for="make_active_check">{% trans "Make active" %}</label>
           </div>
           <div class="form-check col text-nowrap">
-            <input id="make_inactive_check"
-                   class="form-check-input"
-                   type="radio"
-                   name="action"
-                   value="make_inactive" />
+            <input id="make_inactive_check" class="form-check-input" type="radio" name="action" value="make_inactive" />
             <label class="form-check-label" for="make_inactive_check">{% trans "Make inactive" %}</label>
           </div>
-          <div class="col-12 ms-auto">
+          <div class="col-12">
             <input type="submit" value="{% trans "Go!" %}" class="btn btn-primary w-100" />
           </div>
         </div>

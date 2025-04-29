@@ -1,6 +1,7 @@
-{% extends 'oscar/dashboard/layout.html' %}
+{% extends "oscar/dashboard/layout.html" %}
 {% load currency_filters %}
 {% load i18n %}
+{% load crispy_forms_tags %}
 
 {% block body_class %}{{ block.super }} create-page{% endblock %}
 
@@ -25,21 +26,12 @@
 
 {% block dashboard_content %}
 <div class="card">
-    <div class="card-header">
-        <iconify-icon icon="gmdi:euro" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
-            {% translate "Voucher details" %}
+    <div class="card-header icon-link">
+        <iconify-icon icon="streamline:discount-percent-coupon" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
+        {% translate "Voucher details" %}
     </div>
     <div class="card-body">
-        <form method="post">
-            {% csrf_token %}
-            {% include "oscar/dashboard/partials/form_fields.html" with form=form %}
-            {% block form_actions %}
-                <div class="hstack gap-3">
-                    <button class="btn btn-primary" type="submit" data-loading-text="{% trans 'Saving...' %}">{% trans "Save" %}</button>
-                    <a class="btn btn-secondary" href="{% url 'dashboard:voucher-list' %}">{% trans "Cancel" %}</a>
-                </div>
-            {% endblock form_actions %}
-        </form>
+        {% crispy form %}
     </div>
 </div>
 {% endblock dashboard_content %}

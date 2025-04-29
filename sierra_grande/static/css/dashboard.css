@@ -34,3 +34,23 @@
 main:has(.form-actions-fixed) {
   margin-bottom: 5rem;
 }
+
+/* Custom list_group triangle */
+
+.list-group-custom > .list-group-item-action.active {
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: -10px;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: 10px solid var(--bs-list-group-active-bg);
+    /* Match your background color */
+  }
+}

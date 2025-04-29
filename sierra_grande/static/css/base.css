@@ -37,7 +37,7 @@ body > header {
 }
 
 /* Correct border-radius for card-body in cards with rounded-buttom */
-.card-body:has(:not(table)), .card-body table tr:last-of-type td:only-of-type {
+.card-body.p-0:has(:not(table)) > :first-child, .card-body table tr:last-of-type td:only-of-type {
     border-bottom-right-radius: var(--bs-border-radius) !important;
     border-bottom-left-radius: var(--bs-border-radius) !important;
 }
@@ -75,4 +75,14 @@ body > header {
             border-bottom-right-radius: var(--bs-border-radius) !important;
         }
     }
+}
+
+/* Remove margin last form-control into a card  */
+form .card-body > :last-child {
+    margin-bottom: 0 !important;
+}
+
+/* Styles for custom datetime template */
+.floating_field_date_picker:has(.is-invalid, .is-valid) > :is(.invalid-feedback, .valid-feedback) {
+    display: block;
 }

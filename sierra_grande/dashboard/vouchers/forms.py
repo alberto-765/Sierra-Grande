@@ -13,12 +13,13 @@ from django.urls import reverse
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _, gettext
 from oscar.apps.voucher.utils import get_unused_code
-from oscar.core.loading import get_model
+from oscar.core.loading import get_model, get_class
 from oscar.forms import widgets
 
 Voucher = get_model("voucher", "Voucher")
 VoucherSet = get_model("voucher", "VoucherSet")
 ConditionalOffer = get_model("offer", "ConditionalOffer")
+CustomSelectMultiple = get_class("dashboard.widgets", "CustomSelectMultiple")
 
 
 class VoucherForm(forms.ModelForm):
@@ -30,7 +31,38 @@ class VoucherForm(forms.ModelForm):
     offers = forms.ModelMultipleChoiceField(
         label=_("Which offers apply for this voucher?"),
         queryset=ConditionalOffer.objects.filter(offer_type=ConditionalOffer.VOUCHER),
+        widget=CustomSelectMultiple(_("offer")),
     )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = "post"
+        self.helper.layout = Layout(
+            FloatingField("name"),
+            FloatingField("code"),
+            Field(
+                "start_datetime",
+                template="oscar/forms/widgets/floating_field_date_picker.html",
+            ),
+            Field(
+                "end_datetime",
+                template="oscar/forms/widgets/floating_field_date_picker.html",
+            ),
+            FloatingField("usage"),
+            FloatingField("offers"),
+            Div(
+                Submit(
+                    "submit",
+                    _("Save"),
+                    data_loading_text=_("Saving..."),
+                ),
+                HTML(
+                    f'<a class="btn btn-secondary" href="{reverse("dashboard:voucher-list")}" role="button">{gettext("Cancel")}</a>'
+                ),
+                css_class="hstack column-gap-3 pt-3",
+            ),
+        )
 
     class Meta:
         model = Voucher
@@ -41,10 +73,6 @@ class VoucherForm(forms.ModelForm):
             "end_datetime",
             "usage",
         ]
-        widgets = {
-            "start_datetime": widgets.DateTimePickerInput(),
-            "end_datetime": widgets.DateTimePickerInput(),
-        }
 
     def clean_code(self):
         return self.cleaned_data["code"].strip().upper()
@@ -176,9 +204,9 @@ class VoucherSetForm(forms.ModelForm):
                     data_loading_text=_("Saving..."),
                 ),
                 HTML(
-                    f'<a class="btn btn-secondary" href="{reverse("dashboard:voucher-set-list")}" role="button" aria-label="{gettext("Cancel")}">{gettext("Cancel")}</a>'
+                    f'<a class="btn btn-secondary" href="{reverse("dashboard:voucher-set-list")}" role="button">{gettext("Cancel")}</a>'
                 ),
-                css_class="hstack column-gap-3",
+                css_class="hstack column-gap-3 pt-3",
             ),
         )
 

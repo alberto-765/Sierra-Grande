@@ -32,7 +32,7 @@
     <div class="card-body">
       <form method="get" class="hstack gap-3">
         {% include "oscar/dashboard/partials/form_fields_inline.html" with form=form wrapper_class="mb-0" %}
-        <button type="submit" name="search" class="btn btn-primary me-2" data-loading-text="{% trans "Searching..." %}">{% trans "Search" %}</button>
+        <button type="submit" name="search" class="btn btn-primary" data-loading-text="{% trans "Searching..." %}">{% trans "Search" %}</button>
         <a href="{% url "dashboard:users-index" %}" class="btn btn-secondary">{% trans "Reset" %}</a>
       </form>
     </div>

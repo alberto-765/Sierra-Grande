@@ -6,12 +6,12 @@ from crispy_forms.layout import Hidden
 from crispy_forms.layout import Layout
 from crispy_forms.layout import Reset
 from crispy_forms.layout import Row
-from crispy_forms.layout import Submit
+from crispy_forms.layout import Submit, Field
 from django import forms
 from django.conf import settings
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-from oscar.core.loading import get_model
+from oscar.core.loading import get_model, get_class
 from oscar.forms import widgets
 
 ConditionalOffer = get_model("offer", "ConditionalOffer")
@@ -37,6 +37,16 @@ def get_offer_type_choices():
 class MetaDataForm(forms.ModelForm):
     offer_type = forms.ChoiceField(label=_("Type"), choices=get_offer_type_choices)
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.layout = Layout(
+            FloatingField("name"),
+            FloatingField("description"),
+            FloatingField("offer_type"),
+        )
+
     class Meta:
         model = ConditionalOffer
         fields = ("name", "description", "offer_type")
@@ -57,12 +67,10 @@ class MetaDataForm(forms.ModelForm):
 
 class RestrictionsForm(forms.ModelForm):
     start_datetime = forms.DateTimeField(
-        widget=widgets.DateTimePickerInput(),
         label=_("Start date"),
         required=False,
     )
     end_datetime = forms.DateTimeField(
-        widget=widgets.DateTimePickerInput(),
         label=_("End date"),
         required=False,
     )
@@ -70,6 +78,26 @@ class RestrictionsForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["start_datetime"].initial = timezone.now()
+
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.layout = Layout(
+            Field(
+                "start_datetime",
+                template="oscar/forms/widgets/floating_field_date_picker.html",
+            ),
+            Field(
+                "end_datetime",
+                template="oscar/forms/widgets/floating_field_date_picker.html",
+            ),
+            FloatingField("max_basket_applications"),
+            FloatingField("max_user_applications"),
+            FloatingField("max_global_applications"),
+            FloatingField("max_discount"),
+            FloatingField("priority"),
+            FloatingField("exclusive"),
+            FloatingField("combinations"),
+        )
 
     class Meta:
         model = ConditionalOffer
@@ -134,8 +162,16 @@ class ConditionForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        layout_elements = [
+            FloatingField("range"),
+            FloatingField("type"),
+            FloatingField("value"),
+        ]
+
         custom_conditions = Condition.objects.all().exclude(proxy_class=None)
-        if len(custom_conditions) > 0:
+        if custom_conditions.exists():
             # Initialise custom_condition field
             choices = [(c.id, str(c)) for c in custom_conditions]
             choices.insert(0, ("", " --------- "))
@@ -143,11 +179,23 @@ class ConditionForm(forms.ModelForm):
             condition = kwargs.get("instance")
             if condition:
                 self.fields["custom_condition"].initial = condition.id
+
+            # Add aditional text to help_text of max_affected_items field
+            layout_elements.extend(
+                [
+                    HTML(
+                        '<div class="mb-2"> Or choose a pre-defined one <iconify-icon icon="fluent-emoji-flat:down-arrow" width="1rem" height="1rem" aria-hidden="true" inline></iconify-icon></div>'
+                    ),
+                    FloatingField("custom_condition"),
+                ]
+            )
         else:
             # No custom conditions and so the type/range/value fields
             # are no longer optional
             for field in ("type", "range", "value"):
                 self.fields[field].required = True
+
+        self.helper.layout = Layout(*layout_elements)
 
     class Meta:
         model = Condition
@@ -202,8 +250,17 @@ class BenefitForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        layout_elements = [
+            FloatingField("range"),
+            FloatingField("type"),
+            FloatingField("value"),
+            FloatingField("max_affected_items"),
+        ]
+
         custom_benefits = Benefit.objects.all().exclude(proxy_class=None)
-        if len(custom_benefits) > 0:
+        if custom_benefits.exists():
             # Initialise custom_benefit field
             choices = [(c.id, str(c)) for c in custom_benefits]
             choices.insert(0, ("", " --------- "))
@@ -211,10 +268,23 @@ class BenefitForm(forms.ModelForm):
             benefit = kwargs.get("instance")
             if benefit:
                 self.fields["custom_benefit"].initial = benefit.id
+
+            # Add aditional text to help_text of max_affected_items field
+            # Add a custom benefit to the form
+            layout_elements.extend(
+                [
+                    HTML(
+                        '<div class="mb-2"> Or choose a pre-defined one <iconify-icon icon="fluent-emoji-flat:down-arrow" width="1rem" height="1rem" aria-hidden="true" inline></iconify-icon></div>'
+                    ),
+                    FloatingField("custom_benefit"),
+                ]
+            )
         else:
             # No custom benefit and so the type fields
             # are no longer optional
             self.fields["type"].required = True
+
+        self.helper.layout = Layout(*layout_elements)
 
     class Meta:
         model = Benefit

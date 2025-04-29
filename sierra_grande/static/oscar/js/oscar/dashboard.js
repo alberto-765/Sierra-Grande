@@ -617,14 +617,15 @@ var oscar = ((o) => {
             },
             adjustBenefitForm: function () {
                 const typeSelect = document.getElementById('id_type');
-                // TODO: QUITAR form-group
-                const valueContainer = document.getElementById('id_value').closest('.form-group');
+                const valueContainer = document.getElementById('id_value').closest('.form-floating');
 
-                if (typeSelect.value == 'Multibuy') {
-                    document.getElementById('id_value').value = '';
-                    valueContainer.style.display = 'none';
-                } else {
-                    valueContainer.style.display = '';
+                if (valueContainer) {
+                    if (typeSelect.value == 'Multibuy') {
+                        document.getElementById('id_value').value = '';
+                        valueContainer.style.display = 'none';
+                    } else {
+                        valueContainer.style.display = '';
+                    }
                 }
             }
         },

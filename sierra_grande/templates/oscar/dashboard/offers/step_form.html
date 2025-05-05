@@ -1,10 +1,12 @@
-{% extends 'oscar/dashboard/layout.html' %}
+{% extends "oscar/dashboard/layout.html" %}
 
 {% load currency_filters %}
 {% load i18n %}
 {% load crispy_forms_tags %}
 
-{% block body_class %}{{ block.super }} create-page{% endblock %}
+{% block body_class %}
+  {{ block.super }} create-page
+{% endblock body_class %}
 {% block title %}
   {% if offer.pk %}
     {{ offer.name }}:
@@ -12,7 +14,7 @@
     {% trans "Create new offer" %}:
   {% endif %}
   {{ title }} | {% trans "Offers" %} | {{ block.super }}
-{% endblock %}
+{% endblock title %}
 {% block breadcrumbs %}
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
@@ -32,59 +34,59 @@
       <li class="breadcrumb-item active" aria-current="page">{{ title }}</li>
     </ol>
   </nav>
-{% endblock %}
+{% endblock breadcrumbs %}
 {% block headertext %}
   {% if not offer.pk %}
     {% trans "Create new offer" %}
   {% else %}
     {{ offer.name }}
   {% endif %}
-{% endblock %}
+{% endblock headertext %}
 {% block dashboard_content %}
   <div class="row">
     <div class="col-md-3">
       {% block progress %}
-        {% include 'oscar/dashboard/offers/progress.html' %}
-      {% endblock %}
+        {% include "oscar/dashboard/offers/progress.html" %}
+      {% endblock progress %}
     </div>
     <div class="{% if session_offer %}col-md-6{% else %}col-md-9{% endif %}">
       <form method="post" class="card">
-        <div class="card-header">
-          {{ title }}
-        </div>
+        <div class="card-header">{{ title }}</div>
         <div class="card-body">
           {% block form_fields %}
             {% crispy form %}
-          {% endblock %}
-          {% block form_extradata %}{% endblock %}
+          {% endblock form_fields %}
+          {% block form_extradata %}
+          {% endblock form_extradata %}
         </div>
-
-
         {% block form_actions %}
           <div class="form-actions-fixed align-items-center bg-dark column-gap-4 fixed-bottom hstack justify-content-end p-3">
+            <a class="btn btn-secondary" href="{% url "dashboard:offer-list" %}">{% trans "Cancel" %}</a>
             {% block form_actions_buttons %}
-              <a class="btn btn-secondary" href="{% url 'dashboard:offer-list' %}">{% trans "Cancel" %}</a>
-              <button class="btn btn-primary" type="submit" data-loading-text="{% trans 'Submitting...' %}">
+              <button class="btn btn-primary"
+                      type="submit"
+                      data-loading-text="{% trans "Submitting..." %}">
                 {% block submittext %}
                   {% trans "Continue" %}
-                {% endblock %}
+                {% endblock submittext %}
               </button>
               {% if offer %}
                 {# When editing offer, show saving button #}
-                <button class="btn btn-secondary" name="save" type="submit" data-loading-text="{% trans 'Saving...' %}">{% trans "Save changes" %}</button>
+                <button class="btn btn-secondary"
+                        name="save"
+                        type="submit"
+                        data-loading-text="{% trans "Saving..." %}">{% trans "Save changes" %}</button>
               {% endif %}
-            {% endblock %}
+            {% endblock form_actions_buttons %}
           </div>
         {% endblock form_actions %}
       </form>
     </div>
-
-
     {% if session_offer %}
-      <div class="col-md-3">
+      <div class="col-md-3 vstack row-gap-3">
         {% block summary %}
-          {% include 'oscar/dashboard/offers/summary.html' %}
-        {% endblock %}
+          {% include "oscar/dashboard/offers/summary.html" %}
+        {% endblock summary %}
       </div>
     {% endif %}
   </div>

@@ -28,7 +28,7 @@
 {% block dashboard_content %}
   <form action="{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}"
         method="post"
-        class="card"
+        class="card wysiwyg"
         enctype="multipart/form-data"
         data-behaviour="tab-nav-errors"
         autocomplete="off">

@@ -111,15 +111,6 @@ var oscar = ((o) => {
                 datetimeFormat: 'Pp',
                 stepMinute: 15,
                 quillConfig: {
-                    modules: {
-                        toolbar: [
-                            ['bold', 'italic', 'underline', 'blockquote'],
-                            [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-                            ['link'],
-                            ['clean']
-                        ]
-                    },
-                    placeholder: 'Enter text...',
                     theme: 'snow'
                 },
                 icons: {
@@ -182,6 +173,8 @@ var oscar = ((o) => {
                 Inputmask().mask(input);
             });
         },
+
+        // TODO: Selects custom
         // initSelects: function (el) {
         //     // Find all selects
         //     const selects = (el || document).querySelectorAll('select:not(.no-widget-init)');
@@ -305,7 +298,6 @@ var oscar = ((o) => {
         //     };
 
 
-        //     // TODO
         //     // Process each element
         //     selects.forEach(select => {
 
@@ -444,30 +436,18 @@ var oscar = ((o) => {
                 // });
             });
         },
-        initWYSIWYG: function (el) {
-            // Replace TinyMCE with Quill.js
-            const textareas = el.querySelectorAll('textarea:not(.no-widget-init)');
-
-            textareas.forEach(textarea => {
-                if (textarea.closest('form.wysiwyg') || textarea.classList.contains('wysiwyg')) {
-                    // Create container for Quill
-                    const container = document.createElement('div');
-                    container.className = 'quill-editor';
-                    textarea.parentNode.insertBefore(container, textarea);
-
-                    // Hide original textarea but keep it for form submission
-                    textarea.style.display = 'none';
-
-                    // Initialize Quill
-                    const quill = new Quill(container, o.dashboard.options.quillConfig);
-
-                    // Set initial content from textarea
-                    quill.root.innerHTML = textarea.value;
-
-                    // Update hidden textarea when Quill content changes
-                    quill.on('text-change', function () {
-                        textarea.value = quill.root.innerHTML;
-                    });
+        filebrowser_callback: function (field_name, url, type, win) {
+            var filebrowserUrl = '/filebrowser/browse/?pop=2&type=' + type;
+            tinymce.activeEditor.windowManager.openUrl({
+                title: 'File Browser',
+                url: filebrowserUrl,
+                width: 800,
+                height: 600,
+                onMessage: function (api, message) {
+                    if (message.mceAction === 'fileSelected') {
+                        win.document.getElementById(field_name).value = message.url;
+                        api.close();
+                    }
                 }
             });
         },

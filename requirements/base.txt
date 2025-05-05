@@ -20,7 +20,9 @@ django-crispy-forms==2.3  # https://github.com/django-crispy-forms/django-crispy
 crispy-bootstrap5==2024.10  # https://github.com/django-crispy-forms/crispy-bootstrap5
 django-compressor==4.5.1  # https://github.com/django-compressor/django-compressor
 django-redis==5.4.0  # https://github.com/jazzband/django-redis
-
+django-tinymce==4.1.0
+django-filebrowser==4.0.3
+django-grappelli==3.0.10
 # Django Oscar
 # ------------------------------------------------------------------------------
 django-oscar==3.2.5

@@ -32,7 +32,7 @@
 {% block dashboard_content %}
   <form action="{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}"
         method="post"
-        class="form-stacked wysiwyg fixed-actions"
+        class="wysiwyg"
         enctype="multipart/form-data"
         data-behaviour="tab-nav-errors"
         autocomplete="off">
@@ -212,7 +212,7 @@
                             <td colspan="{% if product_class.track_stock %}10{% else %}7{% endif %}">
                               {% for error in stockrecord_form.non_field_errors %}
                                 <span class="text-danger errorlist"><iconify-icon icon="fa:exclamation-triangle" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
-                                  {{ error }}</span>
+                                {{ error }}</span>
                               {% endfor %}
                             </td>
                           </tr>

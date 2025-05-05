@@ -5,6 +5,7 @@ import ssl
 from pathlib import Path
 
 import environ
+from django.utils.translation import get_language
 from django.utils.translation import gettext_lazy as _
 from oscar.defaults import *  # noqa: F403
 
@@ -73,6 +74,12 @@ WSGI_APPLICATION = "config.wsgi.application"
 
 # APPS
 # ------------------------------------------------------------------------------
+BEGIN_APPS = [
+    "grappelli",
+    "filebrowser",
+    "tinymce",
+]
+
 DJANGO_APPS = [
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -102,26 +109,14 @@ THIRD_PARTY_APPS = [
     "oscar.apps.catalogue.apps.CatalogueConfig",
     "oscar.apps.catalogue.reviews.apps.CatalogueReviewsConfig",
     "oscar.apps.communication.apps.CommunicationConfig",
-    "sierra_grande.partner.apps.PartnerConfig",
     "oscar.apps.basket.apps.BasketConfig",
     "oscar.apps.payment.apps.PaymentConfig",
     "oscar.apps.offer.apps.OfferConfig",
     "oscar.apps.order.apps.OrderConfig",
     "oscar.apps.customer.apps.CustomerConfig",
     "oscar.apps.search.apps.SearchConfig",
-    "sierra_grande.voucher.apps.VoucherConfig",
     "oscar.apps.wishlists.apps.WishlistsConfig",
-    "sierra_grande.dashboard.apps.DashboardConfig",
-    "sierra_grande.dashboard.reports.apps.ReportsDashboardConfig",
-    "sierra_grande.dashboard.users.apps.UsersDashboardConfig",
-    "sierra_grande.dashboard.orders.apps.OrdersDashboardConfig",
-    "sierra_grande.dashboard.catalogue.apps.CatalogueDashboardConfig",
-    "sierra_grande.dashboard.offers.apps.OffersDashboardConfig",
-    "sierra_grande.dashboard.partners.apps.PartnersDashboardConfig",
     "oscar.apps.dashboard.pages.apps.PagesDashboardConfig",
-    "sierra_grande.dashboard.ranges.apps.RangesDashboardConfig",
-    "sierra_grande.dashboard.reviews.apps.ReviewsDashboardConfig",
-    "sierra_grande.dashboard.vouchers.apps.VouchersDashboardConfig",
     "oscar.apps.dashboard.communications.apps.CommunicationsDashboardConfig",
     "oscar.apps.dashboard.shipping.apps.ShippingDashboardConfig",
     # 3rd-party apps that oscar depends on
@@ -134,11 +129,22 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "sierra_grande.users",
-    # Your stuff: custom apps go here
+    "sierra_grande.partner.apps.PartnerConfig",
+    "sierra_grande.voucher.apps.VoucherConfig",
+    "sierra_grande.dashboard.apps.DashboardConfig",
+    "sierra_grande.dashboard.reports.apps.ReportsDashboardConfig",
+    "sierra_grande.dashboard.users.apps.UsersDashboardConfig",
+    "sierra_grande.dashboard.orders.apps.OrdersDashboardConfig",
+    "sierra_grande.dashboard.catalogue.apps.CatalogueDashboardConfig",
+    "sierra_grande.dashboard.offers.apps.OffersDashboardConfig",
+    "sierra_grande.dashboard.partners.apps.PartnersDashboardConfig",
+    "sierra_grande.dashboard.ranges.apps.RangesDashboardConfig",
+    "sierra_grande.dashboard.reviews.apps.ReviewsDashboardConfig",
+    "sierra_grande.dashboard.vouchers.apps.VouchersDashboardConfig",
 ]
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
-INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+INSTALLED_APPS = BEGIN_APPS + DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 # MIGRATIONS
 # ------------------------------------------------------------------------------
@@ -541,3 +547,54 @@ OSCAR_DASHBOARD_NAVIGATION = [
         "url_name": "dashboard:reports-index",
     },
 ]
+
+
+# TinyMCE
+# ------------------------------------------------------------------------------
+TINYMCE_JS_URL = str(Path(STATIC_URL) / "tinymce/tinymce.min.js")
+TINYMCE_COMPRESSOR = False  # Disable compressor for local hosting
+TINYMCE_DEFAULT_CONFIG = {
+    "height": 600,
+    "width": "100%",
+    "menubar": "file edit view insert format tools table help",
+    "plugins": (
+        "advlist autolink lists link image charmap preview anchor searchreplace visualblocks code "
+        "fullscreen insertdatetime media table paste code help wordcount emoticons template "
+        "codesample directionality visualchars nonbreaking pagebreak quickbars"
+    ),
+    "toolbar": (
+        "undo redo | formatselect | bold italic underline strikethrough | "
+        "forecolor backcolor removeformat | alignleft aligncenter alignright alignjustify | "
+        "bullist numlist outdent indent | link image media | table | emoticons | "
+        "codesample anchor charmap | ltr rtl | nonbreaking pagebreak | "
+        "visualblocks visualchars | preview fullscreen | code | template quickimage quicktable"
+    ),
+    "image_advtab": True,
+    "media_alt_source": True,
+    "media_poster": True,
+    "file_picker_callback": "oscar.dashboard.filebrowser_callback",  # Filebrowser integration
+    "file_picker_types": "file image media",  # Enable for images, videos, and files
+    "relative_urls": False,
+    "remove_script_host": False,
+    "content_css": [
+        "/static/css/bootstrap.min.css",  # Bootstrap 5
+    ],
+    "custom_undo_redo_levels": 10,
+    "language": get_language(),
+    "valid_elements": "*[*]",
+    "extended_valid_elements": "iframe[src|width|height|frameborder|allowfullscreen],video[*],source[*]",
+    "paste_data_images": True,
+    "image_caption": True,  # Allow image captions
+    "toolbar_mode": "wrap",  # Wrap toolbar for all buttons
+    "block_formats": "Paragraph=p;Header 1=h1;Header 2=h2;Header 3=h3;Blockquote=blockquote",  # Bootstrap-compatible formats
+    "style_formats": [
+        {"title": "Bootstrap Lead", "block": "p", "classes": "lead"},
+        {"title": "Bootstrap Small", "inline": "small"},
+        {
+            "title": "Bootstrap Alert",
+            "block": "div",
+            "classes": "alert alert-primary",
+            "wrapper": True,
+        },
+    ],
+}

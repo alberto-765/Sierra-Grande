@@ -13,8 +13,6 @@ body > header {
 /* Remove box shadow for navbar toggler icon */
 .navbar.navbar--custom {
     &.navbar--custom--slim {
-        mask-image: linear-gradient(black 95%, transparent);
-        -webkit-mask-image: linear-gradient(black 95%, transparent);
 
         :is(.nav-link, .navbar-brand) {
             padding-block: 0;

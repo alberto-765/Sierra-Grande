@@ -6,8 +6,11 @@
 
 {% block extrastyles %}
   {{ block.super }}
-  <link rel="stylesheet" href="{% static "css/quill.snow.css" %}" />
 {% endblock extrastyles %}
+{% block extrahead %}
+  {{ block.super }}
+  {{ form.media }}
+{% endblock extrahead %}
 {% block body_class %}
   {{ block.super }} create-page pages
 {% endblock body_class %}
@@ -52,5 +55,5 @@
 {% endblock dashboard_content %}
 {% block extrascripts %}
   {{ block.super }}
-  <script src="{% static 'js/quill.min.js' %}" defer></script>
+  {% comment %} <script src="{% static 'js/quill.min.js' %}" defer></script> {% endcomment %}
 {% endblock extrascripts %}

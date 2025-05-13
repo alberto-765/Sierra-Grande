@@ -4,6 +4,11 @@
   --bs-navbar-toggler-padding-x: none;
 }
 
+.offcanvas {
+  --bs-offcanvas-width: 325px;
+  --bs-offcanvas-padding-x: 1.5rem;
+}
+
 /* Navbar custom icon links */
 .icon-link-hover--custom {
   --bs-icon-link-transform: scale(1.1)

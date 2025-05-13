@@ -116,7 +116,6 @@ THIRD_PARTY_APPS = [
     "oscar.apps.customer.apps.CustomerConfig",
     "oscar.apps.search.apps.SearchConfig",
     "oscar.apps.wishlists.apps.WishlistsConfig",
-    "oscar.apps.dashboard.pages.apps.PagesDashboardConfig",
     "oscar.apps.dashboard.communications.apps.CommunicationsDashboardConfig",
     "oscar.apps.dashboard.shipping.apps.ShippingDashboardConfig",
     # 3rd-party apps that oscar depends on
@@ -141,6 +140,7 @@ LOCAL_APPS = [
     "sierra_grande.dashboard.ranges.apps.RangesDashboardConfig",
     "sierra_grande.dashboard.reviews.apps.ReviewsDashboardConfig",
     "sierra_grande.dashboard.vouchers.apps.VouchersDashboardConfig",
+    "sierra_grande.dashboard.pages.apps.PagesDashboardConfig",
 ]
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -155,14 +155,16 @@ MIGRATION_MODULES = {"sites": "sierra_grande.contrib.sites.migrations"}
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#authentication-backends
 AUTHENTICATION_BACKENDS = [
-    "allauth.account.auth_backends.AuthenticationBackend",
     "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
 ]
+# TODO: INTEGRATE ALL-AUTH
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-user-model
 AUTH_USER_MODEL = "users.User"
-# https://docs.djangoproject.com/en/dev/ref/settings/#login-redirect-url
+# # https://docs.djangoproject.com/en/dev/ref/settings/#login-redirect-url
 LOGIN_REDIRECT_URL = "users:redirect"
-# https://docs.djangoproject.com/en/dev/ref/settings/#login-url
+# # https://docs.djangoproject.com/en/dev/ref/settings/#login-url
+# LOGIN_URL = "account_login"
 LOGIN_URL = "account_login"
 
 # PASSWORDS
@@ -559,15 +561,19 @@ TINYMCE_DEFAULT_CONFIG = {
     "menubar": "file edit view insert format tools table help",
     "plugins": (
         "advlist autolink lists link image charmap preview anchor searchreplace visualblocks code "
-        "fullscreen insertdatetime media table paste code help wordcount emoticons template "
-        "codesample directionality visualchars nonbreaking pagebreak quickbars"
+        "fullscreen insertdatetime media table paste code help wordcount emoticons "
+        "directionality visualchars nonbreaking pagebreak hr template font"
     ),
     "toolbar": (
-        "undo redo | formatselect | bold italic underline strikethrough | "
-        "forecolor backcolor removeformat | alignleft aligncenter alignright alignjustify | "
-        "bullist numlist outdent indent | link image media | table | emoticons | "
-        "codesample anchor charmap | ltr rtl | nonbreaking pagebreak | "
-        "visualblocks visualchars | preview fullscreen | code | template quickimage quicktable"
+        "undo redo | "
+        "bold italic underline strikethrough | "
+        "forecolor backcolor removeformat | "
+        "alignleft aligncenter alignright alignjustify | "
+        "bullist numlist outdent indent | "
+        "link image media | table | emoticons | "
+        "anchor charmap | nonbreaking pagebreak hr | "
+        "visualblocks visualchars | preview fullscreen | "
+        "code searchreplace template"
     ),
     "image_advtab": True,
     "media_alt_source": True,
@@ -576,25 +582,41 @@ TINYMCE_DEFAULT_CONFIG = {
     "file_picker_types": "file image media",  # Enable for images, videos, and files
     "relative_urls": False,
     "remove_script_host": False,
-    "content_css": [
-        "/static/css/bootstrap.min.css",  # Bootstrap 5
-    ],
     "custom_undo_redo_levels": 10,
-    "language": get_language(),
     "valid_elements": "*[*]",
     "extended_valid_elements": "iframe[src|width|height|frameborder|allowfullscreen],video[*],source[*]",
     "paste_data_images": True,
     "image_caption": True,  # Allow image captions
     "toolbar_mode": "wrap",  # Wrap toolbar for all buttons
-    "block_formats": "Paragraph=p;Header 1=h1;Header 2=h2;Header 3=h3;Blockquote=blockquote",  # Bootstrap-compatible formats
-    "style_formats": [
-        {"title": "Bootstrap Lead", "block": "p", "classes": "lead"},
-        {"title": "Bootstrap Small", "inline": "small"},
+    "branding": False,
+    "promotion": False,  # ⬅️ For TinyMCE 6+
+    "templates": [
         {
-            "title": "Bootstrap Alert",
-            "block": "div",
-            "classes": "alert alert-primary",
-            "wrapper": True,
+            "title": "Full Article Layout",
+            "description": "Inserts a full article structure with header, image, and body",
+            "content": """
+            <article class="article-layout">
+            <header>
+                <h1>[Article Title]</h1>
+                <p class="subtitle">Written by [Author] on [Date]</p>
+            </header>
+            <figure>
+                <img src="https://via.placeholder.com/600x200" alt="Placeholder image">
+                <figcaption>Image caption here</figcaption>
+            </figure>
+            <section>
+                <h2>Introduction</h2>
+                <p>Start your introduction here...</p>
+            </section>
+            <section>
+                <h2>Main Content</h2>
+                <p>Main body content goes here...</p>
+            </section>
+            <footer>
+                <p>Contact: <a href="mailto:[email]">[email]</a></p>
+            </footer>
+            </article>
+        """,
         },
     ],
 }

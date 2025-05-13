@@ -164,6 +164,14 @@ var oscar = ((o) => {
             });
 
             o.dashboard.filereader.init();
+
+            // Hidde welcome alert when login
+            setTimeout(() => {
+                const alert = bootstrap.Alert.getOrCreateInstance('.alert.alert-success.alert-dismissible');
+                if (alert) {
+                    alert.close();
+                }
+            }, 60 * 1000);
         },
 
         initMasks: function (el) {
@@ -792,7 +800,6 @@ var oscar = ((o) => {
         initWidgets: function (el) {
             o.dashboard.initDatePickers(el);
             o.dashboard.initMasks(el);
-            o.dashboard.initWYSIWYG(el);
             // o.dashboard.initSelects(el);
             o.dashboard.initProductImages(el);
             // o.dashboard.initDropzones(el);

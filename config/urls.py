@@ -9,13 +9,12 @@ from django.urls import path
 from django.views import defaults as default_views
 from filebrowser.sites import site
 
+# URls for change de language
 urlpatterns = [
     path("i18n/", include("django.conf.urls.i18n")),
 ]
 urlpatterns += i18n_patterns(
-    # User management
-    path("users/", include("sierra_grande.users.urls", namespace="users")),
-    path("accounts/", include("allauth.urls")),
+    path("allauth/", include("allauth.urls")),
     # TinyMCE & filebrowser
     path("tinymce/", include("tinymce.urls")),
     path("dashboard/filebrowser/", site.urls),

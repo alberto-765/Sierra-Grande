@@ -8,7 +8,27 @@
     'use strict';
 
     const getStoredTheme = () => localStorage.getItem('theme');
-    const setStoredTheme = theme => localStorage.setItem('theme', theme);
+    const setStoredTheme = (theme) => { localStorage.setItem('theme', theme); setCookie('theme', theme); };
+
+    // COOKIE SETTER AND GETTER
+    const setCookie = (name, value) => {
+        debugger;
+        let expires = new Date();
+        expires.setFullYear(expires.getFullYear() + 1);
+        document.cookie = name + "=" + encodeURIComponent(value) + expires + "; path=/";
+    };
+    const getCookie = (name) => {
+        debugger;
+        let cookies = document.cookie.split(";");
+        for (let cookie of cookies) {
+            let [cookieName, cookieValue] = cookie.trim().split("=", 2);
+            if (cookieName === name) {
+                return decodeURIComponent(cookieValue);
+            }
+        }
+        return "";
+    };
+
 
     const getPreferredTheme = () => {
         const storedTheme = getStoredTheme();
@@ -58,6 +78,11 @@
 
         if (focus) {
             themeSwitcher.focus();
+        }
+
+        // Set the cookie for the theme if isn't set
+        if (theme == 'dark' && !getCookie('theme')) {
+            setCookie('theme', theme);
         }
     };
 

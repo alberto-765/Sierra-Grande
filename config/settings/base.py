@@ -554,27 +554,27 @@ OSCAR_DASHBOARD_NAVIGATION = [
 # TinyMCE
 # ------------------------------------------------------------------------------
 TINYMCE_JS_URL = str(Path(STATIC_URL) / "tinymce/tinymce.min.js")
-TINYMCE_COMPRESSOR = False  # Disable compressor for local hosting
 TINYMCE_DEFAULT_CONFIG = {
+    "license_key": "qagffr3pkuv17a8on1afax661irst1hbr4e6tbv888sz91jc",
     "height": 600,
     "width": "100%",
-    "menubar": "file edit view insert format tools table help",
     "plugins": (
-        "advlist autolink lists link image charmap preview anchor searchreplace visualblocks code "
-        "fullscreen insertdatetime media table paste code help wordcount emoticons "
-        "directionality visualchars nonbreaking pagebreak hr template font"
+        "importword exportword exportpdf preview powerpaste casechange importcss searchreplace autolink autosave save  advcode "
+        "visualblocks visualchars fullscreen image link media mediaembed codesample table charmap pagebreak nonbreaking anchor tableofcontents "
+        "insertdatetime advlist lists checklist wordcount tinymcespellchecker a11ychecker editimage help formatpainter permanentpen pageembed charmap "
+        "tinycomments mentions quickbars linkchecker emoticons advtable footnotes mergetags autocorrect typography advtemplate markdown "
     ),
-    "toolbar": (
-        "undo redo | "
-        "bold italic underline strikethrough | "
-        "forecolor backcolor removeformat | "
-        "alignleft aligncenter alignright alignjustify | "
-        "bullist numlist outdent indent | "
-        "link image media | table | emoticons | "
-        "anchor charmap | nonbreaking pagebreak hr | "
-        "visualblocks visualchars | preview fullscreen | "
-        "code searchreplace template"
-    ),
+    "mobile": {
+        "plugins": "preview powerpaste casechange importcss searchreplace autolink autosave save advcode visualblocks visualchars fullscreen image link media mediaembed codesample table charmap pagebreak nonbreaking anchor tableofcontents insertdatetime advlist lists checklist wordcount tinymcespellchecker a11ychecker help formatpainter pageembed charmap mentions quickbars linkchecker emoticons advtable footnotes mergetags autocorrect typography advtemplate",
+    },
+    "menu": {
+        "tc": {
+            "title": "Comments",
+            "items": "addcomment showcomments deleteallconversations",
+        }
+    },
+    "menubar": "file edit view insert format tools table tc help",
+    "toolbar": "undo redo | importword exportword exportpdf | aidialog aishortcuts | blocks fontsizeinput strikethrough forecolor backcolor | bold italic | align numlist bullist | link image accordion | table math media pageembed | lineheight  outdent indent | formatpainter removeformat | charmap emoticons checklist | code fullscreen preview | save print | pagebreak anchor codesample footnotes mergetags | addtemplate inserttemplate | addcomment showcomments | casechange | spellcheckdialog a11ycheck",
     "image_advtab": True,
     "media_alt_source": True,
     "media_poster": True,
@@ -590,33 +590,72 @@ TINYMCE_DEFAULT_CONFIG = {
     "toolbar_mode": "wrap",  # Wrap toolbar for all buttons
     "branding": False,
     "promotion": False,  # ⬅️ For TinyMCE 6+
-    "templates": [
+    "skin": "oxide",
+    "content_css": "default",
+    "autosave_ask_before_unload": True,
+    "autosave_interval": "30s",
+    "autosave_prefix": "{path}{query}-{id}-",
+    "autosave_restore_when_empty": False,
+    "autosave_retention": "2m",
+    "a11y_advanced_options": True,
+    "autocorrect_capitalize": True,
+    "typography_rules": [
+        "common/punctuation/quote",
+        "en-US/dash/main",
+        "common/nbsp/afterParagraphMark",
+        "common/nbsp/afterSectionMark",
+        "common/nbsp/afterShortWord",
+        "common/nbsp/beforeShortLastNumber",
+        "common/nbsp/beforeShortLastWord",
+        "common/nbsp/dpi",
+        "common/punctuation/apostrophe",
+        "common/space/delBeforePunctuation",
+        "common/space/afterComma",
+        "common/space/afterColon",
+        "common/space/afterExclamationMark",
+        "common/space/afterQuestionMark",
+        "common/space/afterSemicolon",
+        "common/space/beforeBracket",
+        "common/space/bracket",
+        "common/space/delBeforeDot",
+        "common/space/squareBracket",
+        "common/number/mathSigns",
+        "common/number/times",
+        "common/number/fraction",
+        "common/symbols/arrow",
+        "common/symbols/cf",
+        "common/symbols/copy",
+        "common/punctuation/delDoublePunctuation",
+        "common/punctuation/hellip",
+    ],
+    "typography_ignore": ["code"],
+    "advtemplate_list": [
         {
-            "title": "Full Article Layout",
-            "description": "Inserts a full article structure with header, image, and body",
-            "content": """
-            <article class="article-layout">
-            <header>
-                <h1>[Article Title]</h1>
-                <p class="subtitle">Written by [Author] on [Date]</p>
-            </header>
-            <figure>
-                <img src="https://via.placeholder.com/600x200" alt="Placeholder image">
-                <figcaption>Image caption here</figcaption>
-            </figure>
-            <section>
-                <h2>Introduction</h2>
-                <p>Start your introduction here...</p>
-            </section>
-            <section>
-                <h2>Main Content</h2>
-                <p>Main body content goes here...</p>
-            </section>
-            <footer>
-                <p>Contact: <a href="mailto:[email]">[email]</a></p>
-            </footer>
-            </article>
-        """,
+            "id": "1",
+            "title": "Resolving tickets",
+            "content": "<p>As we have not heard back from you in over a week, we have gone ahead and resolved your ticket.</p>",
+        },
+        {
+            "id": "2",
+            "title": "Quick replies",
+            "items": [
+                {
+                    "id": "3",
+                    "title": "Message received",
+                    "content": "<p>Just a quick note to say we have received your message, and will get back to you within 48 hours.</p>",
+                },
+                {
+                    "id": "4",
+                    "title": "Progress update",
+                    "content": "</p>Just a quick note to let you know we are still working on your case</p>",
+                },
+            ],
         },
     ],
+    "tinycomments_mode": "embedded",
+    "tinycomments_author": "User",
+    "quickbars_selection_toolbar": "bold italic | quicklink h2 h3 blockquote quickimage quicktable",
+    "importcss_append": True,
+    "noneditable_class": "mceNonEditable",
+    "contextmenu": "link image editimage table configurepermanentpen",
 }

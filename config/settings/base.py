@@ -555,17 +555,18 @@ OSCAR_DASHBOARD_NAVIGATION = [
 # ------------------------------------------------------------------------------
 TINYMCE_JS_URL = str(Path(STATIC_URL) / "tinymce/tinymce.min.js")
 TINYMCE_DEFAULT_CONFIG = {
-    "license_key": "qagffr3pkuv17a8on1afax661irst1hbr4e6tbv888sz91jc",
+    "license_key": "gpl",
+    "api_key": env.str("TINYMCE_LICENSE_KEY", default=""),
     "height": 600,
     "width": "100%",
     "plugins": (
         "importword exportword exportpdf preview powerpaste casechange importcss searchreplace autolink autosave save  advcode "
-        "visualblocks visualchars fullscreen image link media mediaembed codesample table charmap pagebreak nonbreaking anchor tableofcontents "
-        "insertdatetime advlist lists checklist wordcount tinymcespellchecker a11ychecker editimage help formatpainter permanentpen pageembed charmap "
-        "tinycomments mentions quickbars linkchecker emoticons advtable footnotes mergetags autocorrect typography advtemplate markdown "
+        "visualblocks visualchars fullscreen image link media table charmap pagebreak nonbreaking anchor tableofcontents "
+        "insertdatetime advlist lists checklist wordcount a11ychecker editimage help  permanentpen charmap "
+        "tinycomments mentions quickbars linkchecker emoticons advtable footnotes typography markdown accordion"
     ),
     "mobile": {
-        "plugins": "preview powerpaste casechange importcss searchreplace autolink autosave save advcode visualblocks visualchars fullscreen image link media mediaembed codesample table charmap pagebreak nonbreaking anchor tableofcontents insertdatetime advlist lists checklist wordcount tinymcespellchecker a11ychecker help formatpainter pageembed charmap mentions quickbars linkchecker emoticons advtable footnotes mergetags autocorrect typography advtemplate",
+        "plugins": "preview powerpaste casechange importcss searchreplace autolink autosave save advcode visualblocks visualchars fullscreen image link media table charmap pagebreak nonbreaking anchor tableofcontents insertdatetime advlist lists checklist wordcount a11ychecker help  charmap mentions quickbars linkchecker emoticons advtable footnotes typography accordion",
     },
     "menu": {
         "tc": {
@@ -574,7 +575,7 @@ TINYMCE_DEFAULT_CONFIG = {
         }
     },
     "menubar": "file edit view insert format tools table tc help",
-    "toolbar": "undo redo | importword exportword exportpdf | aidialog aishortcuts | blocks fontsizeinput strikethrough forecolor backcolor | bold italic | align numlist bullist | link image accordion | table math media pageembed | lineheight  outdent indent | formatpainter removeformat | charmap emoticons checklist | code fullscreen preview | save print | pagebreak anchor codesample footnotes mergetags | addtemplate inserttemplate | addcomment showcomments | casechange | spellcheckdialog a11ycheck",
+    "toolbar": "undo redo | importword exportword exportpdf | aidialog aishortcuts | blocks fontsizeinput strikethrough forecolor backcolor | bold italic |  align lineheight outdent indent | numlist bullist checklist | link image media | table accordion | charmap emoticons | code fullscreen preview | save print | pagebreak anchor footnotes mergetags | addtemplate inserttemplate | addcomment showcomments | casechange | spellcheckdialog a11ycheck",
     "image_advtab": True,
     "media_alt_source": True,
     "media_poster": True,
@@ -598,7 +599,6 @@ TINYMCE_DEFAULT_CONFIG = {
     "autosave_restore_when_empty": False,
     "autosave_retention": "2m",
     "a11y_advanced_options": True,
-    "autocorrect_capitalize": True,
     "typography_rules": [
         "common/punctuation/quote",
         "en-US/dash/main",
@@ -629,33 +629,17 @@ TINYMCE_DEFAULT_CONFIG = {
         "common/punctuation/hellip",
     ],
     "typography_ignore": ["code"],
-    "advtemplate_list": [
-        {
-            "id": "1",
-            "title": "Resolving tickets",
-            "content": "<p>As we have not heard back from you in over a week, we have gone ahead and resolved your ticket.</p>",
-        },
-        {
-            "id": "2",
-            "title": "Quick replies",
-            "items": [
-                {
-                    "id": "3",
-                    "title": "Message received",
-                    "content": "<p>Just a quick note to say we have received your message, and will get back to you within 48 hours.</p>",
-                },
-                {
-                    "id": "4",
-                    "title": "Progress update",
-                    "content": "</p>Just a quick note to let you know we are still working on your case</p>",
-                },
-            ],
-        },
-    ],
     "tinycomments_mode": "embedded",
     "tinycomments_author": "User",
     "quickbars_selection_toolbar": "bold italic | quicklink h2 h3 blockquote quickimage quicktable",
     "importcss_append": True,
     "noneditable_class": "mceNonEditable",
     "contextmenu": "link image editimage table configurepermanentpen",
+    "mergetags_list": [],
+    "linkchecker_service_url": env("LINK_CHECKER", default=""),
+    "spellchecker_rpc_url": env("LINK_CHECKER", default=""),
+    "exportpdf_service_url": env("EXPORT_PDF", default=""),
+    "exportword_service_url": env("EXPORT_WORD", default=""),
+    "importword_service_url": env("IMPORT_WORD", default=""),
+    "spellchecker_language": "es",
 }

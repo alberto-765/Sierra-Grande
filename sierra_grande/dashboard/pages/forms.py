@@ -39,6 +39,17 @@ class PageUpdateForm(forms.ModelForm):
         },
     )
 
+    def __init__(self, *args, **kwargs):
+        user_name = kwargs.pop("user_name", None)
+        theme = kwargs.pop("theme", None)
+        super().__init__(*args, **kwargs)
+        if user_name:
+            self.fields["content"].widget.mce_attrs["tinycomments_author"] = user_name
+
+        if theme == "dark":
+            self.fields["content"].widget.mce_attrs["skin"] = "oxide-dark"
+            self.fields["content"].widget.mce_attrs["content_css"] = "dark"
+
     def clean_url(self):
         """
         Validate the input for field *url* checking if the specified
@@ -57,4 +68,8 @@ class PageUpdateForm(forms.ModelForm):
     class Meta:
         model = FlatPage
         fields = ("title", "url", "content")
-        widgets = {"content": TinyMCE(attrs={"cols": 80, "rows": 30})}
+        widgets = {
+            "content": TinyMCE(
+                attrs={"cols": 80, "rows": 30},
+            )
+        }

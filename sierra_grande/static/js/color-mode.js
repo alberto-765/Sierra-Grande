@@ -12,13 +12,11 @@
 
     // COOKIE SETTER AND GETTER
     const setCookie = (name, value) => {
-        debugger;
-        let expires = new Date();
-        expires.setFullYear(expires.getFullYear() + 1);
-        document.cookie = name + "=" + encodeURIComponent(value) + expires + "; path=/";
+        let expiry = new Date();
+        expiry.setFullYear(expiry.getFullYear() + 1);
+        document.cookie = `${ name }=${ encodeURIComponent(value) }; expires=${ expiry.toUTCString() }; path=/; SameSite=Lax; Secure;`;
     };
     const getCookie = (name) => {
-        debugger;
         let cookies = document.cookie.split(";");
         for (let cookie of cookies) {
             let [cookieName, cookieValue] = cookie.trim().split("=", 2);

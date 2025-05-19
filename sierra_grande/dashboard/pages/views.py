@@ -7,15 +7,16 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.views import generic
 from django.views.generic import ListView
-
-from oscar.core.loading import get_classes, get_model
+from oscar.core.loading import get_classes
+from oscar.core.loading import get_model
 from oscar.core.utils import slugify
 from oscar.core.validators import URLDoesNotExistValidator
 
 FlatPage = get_model("flatpages", "FlatPage")
 Site = get_model("sites", "Site")
 PageSearchForm, PageUpdateForm = get_classes(
-    "dashboard.pages.forms", ("PageSearchForm", "PageUpdateForm")
+    "dashboard.pages.forms",
+    ("PageSearchForm", "PageUpdateForm"),
 )
 
 
@@ -69,7 +70,7 @@ class PageListView(ListView):
         return context
 
 
-class PageCreateUpdateMixin(object):
+class PageCreateUpdateMixin:
     template_name = "oscar/dashboard/pages/update.html"
     model = FlatPage
     form_class = PageUpdateForm
@@ -77,7 +78,8 @@ class PageCreateUpdateMixin(object):
 
     def get_success_url(self):
         msg = render_to_string(
-            "oscar/dashboard/pages/messages/saved.html", {"page": self.object}
+            "oscar/dashboard/pages/messages/saved.html",
+            {"page": self.object},
         )
         messages.success(self.request, msg, extra_tags="safe noicon")
         return reverse("dashboard:page-list")
@@ -93,7 +95,7 @@ class PageCreateUpdateMixin(object):
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         # Pass user and theme to form
-        kwargs["user_name"] = self.request.user.name
+        kwargs["user_name"] = self.request.user.name or self.request.user.email
         kwargs["theme"] = self.request.COOKIES.get("theme", "")
         return kwargs
 

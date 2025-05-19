@@ -1,0 +1,89 @@
+{% extends 'oscar/dashboard/layout.html' %}
+
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+  {% trans "Link an existing user" %} | {{ partner.name }} | {% trans "Partners" %} | {{ block.super }}
+{% endblock %}
+{% block breadcrumbs %}
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
+      </li>
+      <li class="breadcrumb-item">
+        <a href="{% url 'dashboard:partner-list' %}">{% trans "Partners" %}</a>
+      </li>
+      <li class="breadcrumb-item">
+        <a href="{% url 'dashboard:partner-manage' pk=partner.id %}">{{ partner.name }}</a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">{% trans "Link an existing user" %}</li>
+    </ol>
+  </nav>
+{% endblock %}
+{% block headertext %}
+  {% trans "Link an existing user" %}
+{% endblock %}
+{% block dashboard_content %}
+  {% block users_form %}
+    <div class="card card-body">{% crispy form %}</div>
+  {% endblock %}
+  {% if form.is_bound %}
+    <div class="card">
+      <div class="card-header icon-link">
+        <iconify-icon icon="fa-solid:users" width="1rem" height="1rem" aria-hidden="true" noobserver=""></iconify-icon>
+        {% translate "Users" %}
+      </div>
+      <div class="card-body {% if users %}p-0{% endif %}">
+        {% if users %}
+          <div class="table-container table-responsive-md">
+            {% with partner_users=partner.users.all %}
+              <table class="table table-bordered table-hover align-middle">
+                {% block users_header %}
+                  <thead>
+                    <tr>
+                      <th>{% trans 'Email' %}</th>
+                      <th>{% trans 'First name' %}</th>
+                      <th>{% trans 'Last name' %}</th>
+                      <th>&nbsp;</th>
+                    </tr>
+                  </thead>
+                {% endblock %}
+                <tbody>
+                  {% for user in users %}
+                    {% block users_row %}
+                      <tr>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.first_name|default:"-" }}</td>
+                        <td>{{ user.last_name|default:"-" }}</td>
+                        <td>
+                          {% if user in partner_users %}
+                            {% blocktrans with name=partner.name %}
+                                                            User is already linked to {{ name }}.
+                                                        {% endblocktrans %}
+                          {% else %}
+                            <form action="{% url 'dashboard:partner-user-link' partner_pk=partner.id user_pk=user.id %}"
+                                  method="post">
+                              {% csrf_token %}
+                              <button type="submit"
+                                      class="btn btn-primary"
+                                      data-loading-text="{% trans 'Linking...' %}">{% trans 'Link user' %}</button>
+                            </form>
+                          {% endif %}
+                        </td>
+                      </tr>
+                    {% endblock %}
+                  {% endfor %}
+                </tbody>
+              </table>
+            {% endwith %}
+            {% include "oscar/dashboard/partials/pagination.html" %}
+          </div>
+        {% else %}
+          <div>{% trans "No users found." %}</div>
+        {% endif %}
+      </div>
+    </div>
+  {% endif %}
+{% endblock dashboard_content %}

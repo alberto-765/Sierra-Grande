@@ -167,9 +167,17 @@ var oscar = ((o) => {
 
             // Hidde welcome alert when login
             setTimeout(() => {
-                const alert = bootstrap.Alert.getOrCreateInstance('.alert.alert-success.alert-dismissible');
-                if (alert) {
+                const alertContainer = document.getElementById('messages');
+                // document.getElementById('messages').style.display = 'none';
+                if (alertContainer) {
+                    const alertDom = document.querySelector('.alert.alert-dismissible');
+                    const alert = bootstrap.Alert.getOrCreateInstance(alertDom);
                     alert.close();
+
+                    // Listen for the closed event
+                    alertDom.addEventListener('closed.bs.alert', () => {
+                        alertContainer.style.display = 'none';
+                    }, { once: true });
                 }
             }, 60 * 1000);
         },

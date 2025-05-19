@@ -6,26 +6,26 @@
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="{% url "dashboard:index" %}">{% trans "Dashboard" %}</a>
+        <a href="{% url "dashboard:index" %}">{% translate "Dashboard" %}</a>
       </li>
-      <li class="breadcrumb-item active" aria-current="page">{% trans "Product Type" %}</li>
+      <li class="breadcrumb-item active" aria-current="page">{% translate "Product Type" %}</li>
     </ol>
   </nav>
 {% endblock breadcrumbs %}
 {% block header %}
   <div class="hstack justify-content-between align-items-center">
-    <h2 class="mb-0">{% trans "Product types" %}</h2>
+    <h2 class="mb-0">{% translate "Product types" %}</h2>
     <a href="{% url "dashboard:catalogue-class-create" %}"
        class="btn btn-primary icon-link">
-      <iconify-icon icon="mdi:plus-circle" width="1rem" height="1rem" aria-hidden="true"></iconify-icon> {% trans "Create new product type" %}
+      <iconify-icon icon="mdi:plus-circle" width="1rem" height="1rem" aria-hidden="true"></iconify-icon> {% translate "Create new product type" %}
     </a>
   </div>
 {% endblock header %}
 {% block dashboard_content %}
   <div class="card">
-    <div class="card-header icon-link fw-normal">
-      <iconify-icon icon="fa-solid:sitemap" aria-hidden="true" class="bi" width="1rem" height="1rem"></iconify-icon>
-      {% trans "Product Types" %}
+    <div class="card-header icon-link">
+      <iconify-icon icon="fa-solid:sitemap" aria-hidden="true" width="1rem" height="1rem"></iconify-icon>
+      {% translate "Product Types" %}
     </div>
     <div class="card-body {% if classes %}p-0{% endif %}">
       {% if classes %}
@@ -33,9 +33,9 @@
           <table class="table table-bordered table-hover">
             <thead>
               <tr>
-                <th>{% trans "Name" %}</th>
-                <th>{% trans "Requires shipping" %}</th>
-                <th>{% trans "Track stock?" %}</th>
+                <th>{% translate "Name" %}</th>
+                <th>{% translate "Requires shipping" %}</th>
+                <th>{% translate "Track stock?" %}</th>
                 <th>&nbsp;</th>
               </tr>
             </thead>
@@ -52,24 +52,32 @@
                     <a href="{% url "dashboard:catalogue-class-update" class.id %}">{{ class.track_stock|yesno }}</a>
                   </td>
                   <td>
-                    <div class="btn-toolbar">
-                      <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle"
-                                type="button"
-                                id="dropdownMenuButton"
-                                data-bs-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false">{% trans "Actions" %}</button>
-                        <div class="dropdown-menu dropdown-menu-end"
-                             aria-labelledby="dropdownMenuButton">
+                    <div class="dropdown">
+                      <button class="btn btn-secondary dropdown-toggle"
+                              type="button"
+                              id="dropdownMenuButton"
+                              data-bs-toggle="dropdown"
+                              aria-haspopup="true"
+                              aria-expanded="false">{% translate "Actions" %}</button>
+                      <ul class="dropdown-menu dropdown-menu-end"
+                          aria-labelledby="dropdownMenuButton">
+                        <li>
                           <a class="dropdown-item"
                              href="{% url "dashboard:catalogue-class-update" pk=class.id %}">
-                            {% trans "Edit product type" %}
+                            {% translate "Edit product type" %}
                           </a>
-                          <a class="dropdown-item"
-                             href="{% url "dashboard:catalogue-class-delete" pk=class.id %}">{% trans "Delete" %}</a>
-                        </div>
-                      </div>
+                        </li>
+                        <li {% if class.products_count %} data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title=" {% blocktranslate count amount=class.products_count %} {{amount}} products are {{ remove_tooltip }} {% plural %} {{amount}} product is {{ remove_tooltip }} {% endblocktranslate %} " {% endif %}>
+                          {% comment %} Toggle modal for delete the item {% endcomment %}
+                          <button type="button"
+                                  class="dropdown-item"
+                                  data-bs-pk="{{ class.id }}"
+                                  data-bs-name="{{ class.name }}"
+                                  data-bs-toggle="modal"
+                                  data-bs-target=".deleteModal"
+                                  {% if class.products_count %}disabled{% endif %}>{% translate "Delete" %}</button>
+                        </li>
+                      </ul>
                     </div>
                   </td>
                 </tr>
@@ -78,8 +86,58 @@
           </table>
         </div>
       {% else %}
-        <div>{% trans "There are no product types." %}</div>
+        <div>{% translate "There are no product types." %}</div>
       {% endif %}
     </div>
   </div>
+  <!-- Modal Body -->
+  <div class="modal fade deleteModal"
+       tabindex="-1"
+       data-bs-backdrop="static"
+       data-bs-keyboard="false"
+       role="dialog"
+       aria-labelledby="deleteModal__Title"
+       aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered"
+         role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteModal__Title">{% translate "Remove Product Type" %}</h5>
+          <button type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          {% translate "Are you sure to remove the product type" %} <span class="deleteModal__body"></span>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% translate "Cancel" %}</button>
+          <button type="button" class="btn btn-danger">
+            <iconify-icon icon="mdi:delete" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
+            {% translate "Delete" %}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock dashboard_content %}
+{% block onbodyload %}
+  {{ block.super }}
+  oscar.dashboard.initTooltips();
+  const modal = document.querySelector(".deleteModal");
+  if(modal) {
+  modal.addEventListener("show.bs.modal", (event) => {
+  const button = event.relatedTarget;
+  const pk = button.dataset.bsPk;
+  const name =  button.dataset.bsName;
+  const modalBody = modal.querySelector(".deleteModal__body");
+  const deleteButton = modal.querySelector(".btn-danger");
+  modalTitle.textContent = `Remove ${name}`;
+  modalBody.textContent = `${name}`;
+  deleteButton.onclick = function() {
+  window.location.href = "{% url 'dashboard:catalogue-class-delete' 0 %}".replace(/0$/, pk);
+  }
+  });
+  }
+{% endblock onbodyload %}

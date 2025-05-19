@@ -3,20 +3,20 @@ import datetime
 from crispy_bootstrap5.bootstrap5 import FloatingField
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import HTML
-from crispy_forms.layout import Column, Field, HTML
+from crispy_forms.layout import Column
+from crispy_forms.layout import Field
 from crispy_forms.layout import Layout
 from crispy_forms.layout import Row
 from crispy_forms.layout import Submit
 from django import forms
 from django.http import QueryDict
+from django.urls import reverse_lazy
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
 from django.utils.translation import pgettext_lazy
-from django.urls import reverse_lazy
 from oscar.core.loading import get_class
 from oscar.core.loading import get_model
 from oscar.forms.mixins import PhoneNumberMixin
-from oscar.forms.widgets import DatePickerInput
 
 Order = get_model("order", "Order")
 OrderNote = get_model("order", "OrderNote")
@@ -108,7 +108,7 @@ class OrderStatsForm(forms.Form):
                 Column(
                     HTML(
                         '<a href="{{ self.action }}" '
-                        'class="btn btn-secondary w-100">{{ _("Reset") }}</a>'
+                        'class="btn btn-secondary w-100">{{ _("Reset") }}</a>',
                     ),
                     css_class="col-sm-auto",
                 ),
@@ -139,12 +139,11 @@ class OrderSearchForm(forms.Form):
     date_from = forms.DateField(
         required=False,
         label=gettext_lazy("Date from"),
-        widget=DatePickerInput,
     )
     date_to = forms.DateField(
         required=False,
         label=gettext_lazy("Date to"),
-        widget=DatePickerInput,
+        widget=forms.DateInput(attrs={"type": "date", "class": "form-control"}),
     )
 
     voucher = forms.CharField(required=False, label=gettext_lazy("Voucher code"))

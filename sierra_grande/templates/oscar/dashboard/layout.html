@@ -9,6 +9,7 @@
   {{ block.super }}
   <link rel="stylesheet" href="{% static "css/dashboard.css" %}" />
   <link rel="stylesheet" href="{% static 'css/tempus-dominus.min.css' %}" />
+  {% comment %} <link rel="stylesheet" href="{% static "css/animate.min.css" %}" /> {% endcomment %}
 {% endblock extrastyles %}
 {% block title %}
   {% trans "Dashboard" %} | {{ block.super }}
@@ -18,7 +19,13 @@
     {% block navbar %}
       <nav class="navbar navbar-expand-md navbar--custom navbar--custom--slim px-4 bg-body-tertiary">
         <a class="navbar-brand" href="#">{{ shop_name }}</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTop" aria-controls="navbarTop" aria-expanded="true" aria-label="Toggle top navbar">
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarTop"
+                aria-controls="navbarTop"
+                aria-expanded="true"
+                aria-label="Toggle top navbar">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="navbarTop">
@@ -103,7 +110,7 @@
                 data-bs-target="#menu_offcanvas"
                 aria-controls="menu_offcanvas"
                 aria-label="Toggle administration menu">
-                <span class="navbar-toggler-icon"></span>
+          <span class="navbar-toggler-icon"></span>
         </button>
         <div class="offcanvas offcanvas-start"
              tabindex="-1"

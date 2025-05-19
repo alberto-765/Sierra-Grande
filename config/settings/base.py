@@ -5,7 +5,6 @@ import ssl
 from pathlib import Path
 
 import environ
-from django.utils.translation import get_language
 from django.utils.translation import gettext_lazy as _
 from oscar.defaults import *  # noqa: F403
 
@@ -560,7 +559,7 @@ TINYMCE_DEFAULT_CONFIG = {
     "height": 600,
     "width": "100%",
     "plugins": (
-        "importword exportword exportpdf preview powerpaste casechange importcss searchreplace autolink autosave save  advcode "
+        "importword exportword exportpdf preview powerpaste casechange importcss searchreplace autolink autosave save advcode "
         "visualblocks visualchars fullscreen image link media table charmap pagebreak nonbreaking anchor tableofcontents "
         "insertdatetime advlist lists checklist wordcount a11ychecker editimage help  permanentpen charmap "
         "tinycomments mentions quickbars linkchecker emoticons advtable footnotes typography markdown accordion"
@@ -572,7 +571,7 @@ TINYMCE_DEFAULT_CONFIG = {
         "tc": {
             "title": "Comments",
             "items": "addcomment showcomments deleteallconversations",
-        }
+        },
     },
     "menubar": "file edit view insert format tools table tc help",
     "toolbar": "undo redo | importword exportword exportpdf | aidialog aishortcuts | blocks fontsizeinput strikethrough forecolor backcolor | bold italic |  align lineheight outdent indent | numlist bullist checklist | link image media | table accordion | charmap emoticons | code fullscreen preview | save print | pagebreak anchor footnotes mergetags | addtemplate inserttemplate | addcomment showcomments | casechange | spellcheckdialog a11ycheck",
@@ -642,4 +641,5 @@ TINYMCE_DEFAULT_CONFIG = {
     "exportword_service_url": env("EXPORT_WORD", default=""),
     "importword_service_url": env("IMPORT_WORD", default=""),
     "spellchecker_language": "es",
+    "onboarding": False,
 }

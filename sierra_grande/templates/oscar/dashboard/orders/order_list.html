@@ -32,7 +32,7 @@
     <div class="card-body">
       {% crispy form %}
       {# Search modal, if there are form errors the form is automatically openend #}
-      {% include "oscar/dashboard/partials/advanced_search_modal.html" with form=form style="horizontal" %}
+      {% include "oscar/dashboard/partials/advanced_search_modal.html" with form=form %}
       {% if search_filters %}
         <div class="search-filter-list">
           <label>Filters:</label>

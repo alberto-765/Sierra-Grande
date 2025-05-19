@@ -11,26 +11,23 @@
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 id="SearchModalLabel">{% trans "Advanced Search" %}</h3>
+        <h3 id="SearchModalLabel" class="modal-title">{% translate "Advanced Search" %}</h3>
         <button type="button"
                 class="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"></button>
       </div>
-      <form method="get">
-        <div class="modal-body">
-          <div class="container row">
-            {{ form|crispy }}
-            {% comment %} {% include "oscar/dashboard/partials/form_fields.html" with form=form style=style %} {% endcomment %}
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans "Close" %}</button>
-          <button type="submit"
-                  class="btn btn-primary"
-                  data-loading-text="{% trans "Searching..." %}">{% trans "Search" %}</button>
-        </div>
-      </form>
+      <div class="modal-body">
+        <form>
+          <div class="container row">{{ form|crispy }}</div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% translate "Close" %}</button>
+        <button type="submit"
+                class="btn btn-primary"
+                data-loading-text="{% translate "Searching..." %}">{% translate "Search" %}</button>
+      </div>
     </div>
   </div>
 </div>

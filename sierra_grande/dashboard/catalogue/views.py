@@ -1,8 +1,10 @@
 # pylint: disable=attribute-defined-outside-init
+import logging
 from contextlib import suppress
 
 from django.conf import settings
 from django.contrib import messages
+from django.db.models import Count
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
@@ -19,6 +21,7 @@ from oscar.core.loading import get_classes
 from oscar.core.loading import get_model
 from oscar.views.generic import ObjectLookupView
 
+logger = logging.getLogger(__name__)
 (
     ProductForm,
     ProductClassSelectForm,
@@ -813,9 +816,13 @@ class ProductClassListView(generic.ListView):
     context_object_name = "classes"
     model = ProductClass
 
+    def get_queryset(self):
+        return ProductClass.objects.annotate(products_count=Count("products"))
+
     def get_context_data(self, *args, **kwargs):
         ctx = super().get_context_data(*args, **kwargs)
         ctx["title"] = _("Product Types")
+        ctx["remove_tooltip"] = "still assigned to this type"
         return ctx
 
 
@@ -823,6 +830,11 @@ class ProductClassDeleteView(generic.DeleteView):
     template_name = "oscar/dashboard/catalogue/product_class_delete.html"
     model = ProductClass
     form_class = ProductClassForm
+
+    def get_queryset(self):
+        data = super().get_queryset()
+        logging.debug(list(data))
+        return data
 
     def get_context_data(self, *args, **kwargs):
         ctx = super().get_context_data(*args, **kwargs)

@@ -4,13 +4,14 @@ from contextlib import suppress
 
 from django.conf import settings
 from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Count
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
 from django.template.loader import render_to_string
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 from django.views import generic
@@ -694,18 +695,15 @@ class CategoryUpdateView(CategoryListMixin, generic.UpdateView):
         return super().get_success_url()
 
 
-class CategoryDeleteView(CategoryListMixin, generic.DeleteView):
+class CategoryDeleteView(CategoryListMixin, SuccessMessageMixin, generic.DeleteView):
     template_name = "oscar/dashboard/catalogue/category_delete.html"
     model = Category
+    success_message = _("Category deleted successfully")
 
     def get_context_data(self, *args, **kwargs):
         ctx = super().get_context_data(*args, **kwargs)
         ctx["parent"] = self.object.get_parent()
         return ctx
-
-    def get_success_url(self):
-        messages.success(self.request, _("Category deleted successfully"))
-        return super().get_success_url()
 
 
 class ProductLookupView(ObjectLookupView):
@@ -718,11 +716,12 @@ class ProductLookupView(ObjectLookupView):
         return qs.filter(Q(title__icontains=term) | Q(parent__title__icontains=term))
 
 
-class ProductClassCreateUpdateView(generic.UpdateView):
+class ProductClassCreateUpdateView(SuccessMessageMixin, generic.UpdateView):
     template_name = "oscar/dashboard/catalogue/product_class_form.html"
     model = ProductClass
     form_class = ProductClassForm
     product_attributes_formset = ProductAttributesFormSet
+    success_url = reverse_lazy("dashboard:catalogue-class-list")
 
     def process_all_forms(self, form):
         """
@@ -785,6 +784,7 @@ class ProductClassCreateUpdateView(generic.UpdateView):
 
 class ProductClassCreateView(ProductClassCreateUpdateView):
     creating = True
+    success_message = _("Product type created successfully")
 
     def get_object(self, queryset=None):
         return None
@@ -792,20 +792,13 @@ class ProductClassCreateView(ProductClassCreateUpdateView):
     def get_title(self):
         return _("Add a new product type")
 
-    def get_success_url(self):
-        messages.success(self.request, _("Product type created successfully"))
-        return reverse("dashboard:catalogue-class-list")
-
 
 class ProductClassUpdateView(ProductClassCreateUpdateView):
     creating = False
+    success_message = _("Product type updated successfully")
 
     def get_title(self):
         return _("Update product type '%s'") % self.object.name
-
-    def get_success_url(self):
-        messages.success(self.request, _("Product type updated successfully"))
-        return reverse("dashboard:catalogue-class-list")
 
     def get_object(self, queryset=None):
         return get_object_or_404(ProductClass, pk=self.kwargs["pk"])
@@ -826,33 +819,10 @@ class ProductClassListView(generic.ListView):
         return ctx
 
 
-class ProductClassDeleteView(generic.DeleteView):
-    template_name = "oscar/dashboard/catalogue/product_class_delete.html"
+class ProductClassDeleteView(SuccessMessageMixin, generic.DeleteView):
     model = ProductClass
-    form_class = ProductClassForm
-
-    def get_queryset(self):
-        data = super().get_queryset()
-        logging.debug(list(data))
-        return data
-
-    def get_context_data(self, *args, **kwargs):
-        ctx = super().get_context_data(*args, **kwargs)
-        ctx["title"] = _('Delete product type "%s"') % self.object.name
-        product_count = self.object.products.count()
-
-        if product_count > 0:
-            ctx["disallow"] = True
-            ctx["title"] = _('Unable to delete "%s"') % self.object.name
-            messages.error(
-                self.request,
-                _("%i products are still assigned to this type") % product_count,
-            )
-        return ctx
-
-    def get_success_url(self):
-        messages.success(self.request, _("Product type deleted successfully"))
-        return reverse("dashboard:catalogue-class-list")
+    success_url = reverse_lazy("dashboard:catalogue-class-list")
+    success_message = _("Product type deleted successfully")
 
 
 class AttributeOptionGroupCreateUpdateView(generic.UpdateView):

@@ -10,10 +10,10 @@
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="{{ homepage_url }}">{% trans "Home" %}</a>
+        <a href="{{ homepage_url }}">{% translate "Home" %}</a>
       </li>
       <li class="breadcrumb-item">
-        <a href="{% url 'offer:list' %}">{% trans "Offers" %}</a>
+        <a href="{% url 'offer:list' %}">{% translate "Offers" %}</a>
       </li>
       <li class="breadcrumb-item active" aria-current="page">{{ offer.name }}</li>
     </ol>
@@ -24,7 +24,7 @@
 {% endblock headertext %}
 {% block content %}
   {% if not offer.is_available %}
-    <div class="alert alert-danger">{% trans " This offer is no longer available." %}</div>
+    <div class="alert alert-danger">{% translate " This offer is no longer available." %}</div>
   {% endif %}
   {% if upsell_message %}
     <div class="row">
@@ -37,7 +37,7 @@
         <div class="card card-body bg-light">
           <h2 class="mb-0">
             <iconify-icon icon="fa:exclamation-triangle" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
-            {% trans "What you need to do" %}
+            {% translate "What you need to do" %}
           </h2>
           <p>{{ upsell_message }}</p>
         </div>
@@ -57,6 +57,6 @@
       </div>
     </section>
   {% else %}
-    <p class="nonefound">{% trans "No products found." %}</p>
+    <p class="nonefound">{% translate "No products found." %}</p>
   {% endif %}
 {% endblock content %}

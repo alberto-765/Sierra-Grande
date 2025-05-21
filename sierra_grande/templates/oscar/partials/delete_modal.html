@@ -1,0 +1,38 @@
+ 
+ {% load i18n %}
+
+ 
+ <!-- Modal Body -->
+<div class="modal fade deleteModal"
+    tabindex="-1"
+    data-bs-backdrop="static"
+    data-bs-keyboard="true"
+    role="dialog"
+    aria-labelledby="deleteModal__Title"
+    aria-hidden="true">
+<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered"
+   role="document">
+<div class="modal-content">
+  <div class="modal-header">
+    <h5 class="modal-title" id="deleteModal__Title">{% translate body_title %}</h5>
+    <button type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"></button>
+  </div>
+  <div class="modal-body">
+    {% translate body_text %} <strong class="deleteModal__body"></strong>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% translate "Cancel" %}</button>
+    <form method="post" class="deleteModal__form">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger icon-link">
+        <iconify-icon icon="mdi:delete" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
+        {% translate "Delete" %}
+      </button>
+    </form>
+  </div>
+</div>
+</div>
+</div>

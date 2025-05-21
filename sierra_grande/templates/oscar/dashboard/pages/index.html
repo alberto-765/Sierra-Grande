@@ -7,24 +7,24 @@
   {{ block.super }} pages
 {% endblock body_class %}
 {% block title %}
-  {% trans "Pages" %} | {{ block.super }}
+  {% translate "Pages" %} | {{ block.super }}
 {% endblock title %}
 {% block breadcrumbs %}
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="{% url "dashboard:index" %}">{% trans "Dashboard" %}</a>
+        <a href="{% url "dashboard:index" %}">{% translate "Dashboard" %}</a>
       </li>
-      <li class="breadcrumb-item active" aria-current="page">{% trans "Pages" %}</li>
+      <li class="breadcrumb-item active" aria-current="page">{% translate "Pages" %}</li>
     </ol>
   </nav>
 {% endblock breadcrumbs %}
 {% block header %}
   <div class="hstack justify-content-between col-12">
-    <h2 class="mb-0">{% trans "Pages" %}</h2>
+    <h2 class="mb-0">{% translate "Pages" %}</h2>
     <a href="{% url "dashboard:page-create" %}"
        class="btn btn-primary icon-link">
-      <iconify-icon icon="mdi:plus-circle" width="1rem" height="1rem" aria-hidden="true"></iconify-icon> {% trans "Create new page" %}
+      <iconify-icon icon="mdi:plus-circle" width="1rem" height="1rem" aria-hidden="true"></iconify-icon> {% translate "Create new page" %}
     </a>
   </div>
 {% endblock header %}
@@ -33,7 +33,7 @@
     <div class="card">
       <span class="icon-link card-header fw-normal">
         <iconify-icon icon="stash:search-light" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
-        {% trans "Search" %}
+        {% translate "Search" %}
       </span>
       <div class="card-body">
         <form method="get">
@@ -42,12 +42,12 @@
             <div class="col-auto">
               <button type="submit"
                       class="btn btn-primary icon-link"
-                      data-loading-text="{% trans "Searching..." %}">{% trans "Search" %}</button>
+                      data-loading-text="{% translate "Searching..." %}">{% translate "Search" %}</button>
             </div>
             <div class="col-auto">
               <a href="{% url 'dashboard:page-list' %}"
                  class="btn btn-secondary"
-                 data-loading-text="{% trans "Reseting..." %}">{% trans "Reset" %}</a>
+                 data-loading-text="{% translate "Reseting..." %}">{% translate "Reset" %}</a>
             </div>
           </div>
         </form>
@@ -65,8 +65,8 @@
             <table class="align-middle table table-striped table-bordered table-hover">
               <thead>
                 <tr>
-                  <th>{% trans "Title" context "Page title" %}</th>
-                  <th>{% trans "URL" %}</th>
+                  <th>{% translate "Title" context "Page title" %}</th>
+                  <th>{% translate "URL" %}</th>
                   <th></th>
                 </tr>
               </thead>
@@ -77,7 +77,7 @@
                       <a href="{% url "dashboard:page-update" pk=page.id %}">{{ page.title }}</a>
                     </td>
                     <td>
-                      <a title="{% trans "View on site" %}" href="{{ page.get_absolute_url }}">{{ page.url }}</a>
+                      <a title="{% translate "View on site" %}" href="{{ page.get_absolute_url }}">{{ page.url }}</a>
                     </td>
                     <td>
                       <div class="btn-toolbar">
@@ -87,16 +87,16 @@
                                   id="dropdownMenuButton"
                                   data-bs-toggle="dropdown"
                                   aria-haspopup="true"
-                                  aria-expanded="false">{% trans "Actions" %}</button>
+                                  aria-expanded="false">{% translate "Actions" %}</button>
                           <div class="dropdown-menu dropdown-menu-end"
                                aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="{{ page.get_absolute_url }}">{% trans "View" %}</a>
+                            <a class="dropdown-item" href="{{ page.get_absolute_url }}">{% translate "View" %}</a>
                             <a class="dropdown-item"
                                id="edit_page_{{ page.id }}"
-                               href="{% url "dashboard:page-update" pk=page.id %}">{% trans "Edit" %}</a>
+                               href="{% url "dashboard:page-update" pk=page.id %}">{% translate "Edit" %}</a>
                             <a class="dropdown-item"
                                id="delete_page_{{ page.id }}"
-                               href="{% url "dashboard:page-delete" pk=page.id %}">{% trans "Delete" %}</a>
+                               href="{% url "dashboard:page-delete" pk=page.id %}">{% translate "Delete" %}</a>
                           </div>
                         </div>
                       </div>
@@ -108,7 +108,7 @@
             {% include "oscar/dashboard/partials/pagination.html" %}
           </form>
         {% else %}
-          <div>{% trans "No pages found." %}</div>
+          <div>{% translate "No pages found." %}</div>
         {% endif %}
       </div>
     </div>

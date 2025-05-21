@@ -3,13 +3,13 @@
 {% load i18n %}
 
 {% block title %}
-  {% trans "Partners" %} | {{ block.super }}
+  {% translate "Partners" %} | {{ block.super }}
 {% endblock title %}
 {% block breadcrumbs %}
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="{% url "dashboard:partner-list" %}">{% trans "Partners" %}</a>
+        <a href="{% url "dashboard:partner-list" %}">{% translate "Partners" %}</a>
       </li>
       <li class="breadcrumb-item active" aria-current="page">{{ partner.name }}</li>
     </ol>
@@ -17,20 +17,20 @@
 {% endblock breadcrumbs %}
 {% block header %}
   <div>
-    <h2 class="mb-0">{% trans "Manage users" %}</h2>
+    <h2 class="mb-0">{% translate "Manage users" %}</h2>
     <div class="btn-group d-flex justify-content-between">
       <a class="btn btn-primary dropdown-toggle icon-link"
          data-bs-toggle="dropdown"
          href="#">
         <iconify-icon icon="mdi:plus-circle" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
-        {% trans "Link a user" %}
+        {% translate "Link a user" %}
       </a>
       <ul class="dropdown-menu dropdown-menu-end">
         <li>
-          <a href="{% url "dashboard:partner-user-create" partner_pk=partner.pk %}">{% trans "Link a new user" %}</a>
+          <a href="{% url "dashboard:partner-user-create" partner_pk=partner.pk %}">{% translate "Link a new user" %}</a>
         </li>
         <li>
-          <a href="{% url "dashboard:partner-user-select" partner_pk=partner.pk %}">{% trans "Link an existing user" %}</a>
+          <a href="{% url "dashboard:partner-user-select" partner_pk=partner.pk %}">{% translate "Link an existing user" %}</a>
         </li>
       </ul>
     </div>
@@ -41,9 +41,9 @@
     <table class="align-middle table table-striped table-bordered">
       <thead>
         <tr>
-          <th>{% trans "Email" %}</th>
-          <th>{% trans "First name" %}</th>
-          <th>{% trans "Last name" %}</th>
+          <th>{% translate "Email" %}</th>
+          <th>{% translate "First name" %}</th>
+          <th>{% translate "Last name" %}</th>
           <th>&nbsp;</th>
         </tr>
       </thead>
@@ -61,7 +61,7 @@
                 {% csrf_token %}
                 <button type="submit"
                         class="btn btn-danger"
-                        data-loading-text="{% trans "Unlinking..." %}">{% trans "Unlink user" %}</button>
+                        data-loading-text="{% translate "Unlinking..." %}">{% translate "Unlink user" %}</button>
               </form>
             </td>
           </tr>
@@ -69,9 +69,9 @@
       </tbody>
     </table>
   {% else %}
-    <p>{% trans "No users linked." %}</p>
+    <p>{% translate "No users linked." %}</p>
   {% endif %}
   {% include "oscar/dashboard/partials/pagination.html" %}
-  <h1>{% trans "Update details" %}</h1>
+  <h1>{% translate "Update details" %}</h1>
   {% include "oscar/dashboard/partials/form.html" %}
 {% endblock dashboard_content %}

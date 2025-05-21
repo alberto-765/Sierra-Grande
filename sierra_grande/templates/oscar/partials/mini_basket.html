@@ -2,7 +2,7 @@
 {% load i18n %}
 
 <div class="basket-mini col-sm-5 text-end d-none d-md-block">
-  <strong>{% trans "Basket total:" %}</strong>
+  <strong>{% translate "Basket total:" %}</strong>
   {% if request.basket.is_tax_known %}
     {{ request.basket.total_incl_tax|currency:request.basket.currency }}
   {% else %}
@@ -11,7 +11,7 @@
   <div class="btn-group">
     <button type="button"
             class="{% block mini_basket_btn_classes %}btn btn-outline-secondary{% endblock %}"
-            onclick="window.location.href='{% url 'basket:summary' %}';">{% trans "View basket" %}</button>
+            onclick="window.location.href='{% url 'basket:summary' %}';">{% translate "View basket" %}</button>
     <button type="button"
             class="{% block mini_basket_toggle_classes %}btn btn-outline-secondary dropdown-toggle dropdown-toggle-split{% endblock %}"
             data-toggle="dropdown"

@@ -9,26 +9,26 @@
   {{ block.super }} reviews
 {% endblock body_class %}
 {% block title %}
-  {% trans "Reviews" %} | {{ block.super }}
+  {% translate "Reviews" %} | {{ block.super }}
 {% endblock title %}
 {% block breadcrumbs %}
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
+        <a href="{% url 'dashboard:index' %}">{% translate "Dashboard" %}</a>
       </li>
-      <li class="breadcrumb-item active" aria-current="page">{% trans "Reviews" %}</li>
+      <li class="breadcrumb-item active" aria-current="page">{% translate "Reviews" %}</li>
     </ol>
   </nav>
 {% endblock breadcrumbs %}
 {% block headertext %}
-  {% trans "Reviews" %}
+  {% translate "Reviews" %}
 {% endblock headertext %}
 {% block dashboard_content %}
   <div class="card">
     <span class="card-header icon-link fw-normal">
       <iconify-icon icon="stash:search-light" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
-      {% trans "Review Search" %}
+      {% translate "Review Search" %}
     </span>
     <div class="card-body">{% crispy form %}</div>
   </div>
@@ -44,23 +44,23 @@
           <table class="align-middle table table-striped table-bordered table-hover">
             <caption class="container-fluid">
               <div class="d-flex">
-                {% trans "Update status of selected reviews" %}
+                {% translate "Update status of selected reviews" %}
                 {{ review_form.status }}
                 <input type="hidden" name="action" value="update_selected_review_status" />
                 <button type="submit"
                         name="update"
                         class="btn btn-success"
-                        data-loading-text="{% trans "Updating..." %}">{% trans "Update" %}</button>
+                        data-loading-text="{% translate "Updating..." %}">{% translate "Update" %}</button>
               </div>
             </caption>
             <tr>
               <th></th>
-              <th>{% trans "Title" context "Review title" %}</th>
-              <th>{% trans "Product" %}</th>
-              <th>{% trans "User" %}</th>
+              <th>{% translate "Title" context "Review title" %}</th>
+              <th>{% translate "Product" %}</th>
+              <th>{% translate "User" %}</th>
               <th>{% anchor 'score' _("Score") %}</th>
               <th>{% anchor 'total_votes' _("Votes") %}</th>
-              <th>{% trans "Status" %}</th>
+              <th>{% translate "Status" %}</th>
               <th>{% anchor 'date_created' _("Date created") %}</th>
               <th></th>
             </tr>
@@ -79,7 +79,7 @@
                   {% if review.product %}
                     <a href='{{ review.product.get_absolute_url }}'>{{ review.product.title }}</a>
                   {% else %}
-                    {% trans "[Product deleted]" %}
+                    {% translate "[Product deleted]" %}
                   {% endif %}
                 </td>
                 <td>
@@ -111,19 +111,19 @@
                                   id="dropdownMenuButton"
                                   data-bs-toggle="dropdown"
                                   aria-haspopup="true"
-                                  aria-expanded="false">{% trans "Actions" %}</button>
+                                  aria-expanded="false">{% translate "Actions" %}</button>
                           <div class="dropdown-menu dropdown-menu-end"
                                aria-labelledby="dropdownMenuButton">
                             {% if review.title and review.product %}
                               <a class="dropdown-item"
                                  href="{% url 'catalogue:reviews-detail' product_slug=review.product.slug product_pk=review.product.id pk=review.id %}">
-                                {% trans "View on site" %}
+                                {% translate "View on site" %}
                               </a>
                             {% endif %}
                             <a class="dropdown-item"
-                               href="{% url 'dashboard:reviews-update' pk=review.id %}">{% trans "Edit" %}</a>
+                               href="{% url 'dashboard:reviews-update' pk=review.id %}">{% translate "Edit" %}</a>
                             <a class="dropdown-item"
-                               href="{% url 'dashboard:reviews-delete' pk=review.id %}">{% trans "Delete" %}</a>
+                               href="{% url 'dashboard:reviews-delete' pk=review.id %}">{% translate "Delete" %}</a>
                           </div>
                         </div>
                       </div>
@@ -134,7 +134,7 @@
               {% include "oscar/dashboard/partials/pagination.html" %}
             </form>
           {% else %}
-            <div>{% trans "No reviews found." %}</div>
+            <div>{% translate "No reviews found." %}</div>
           {% endif %}
         </div>
       </div>

@@ -4,13 +4,13 @@
 {% load widget_tweaks %}
 
 {% block title %}
-  {% trans "Checkout gateway" %} | {{ block.super }}
+  {% translate "Checkout gateway" %} | {{ block.super }}
 {% endblock title %}
 {% block checkout_nav %}
   {% include "oscar/checkout/nav.html" with step=0 %}
 {% endblock checkout_nav %}
 {% block checkout_title %}
-  {% trans "Who are you?" %}
+  {% translate "Who are you?" %}
 {% endblock checkout_title %}
 {% block content %}
   <form method="post" class="card card-body bg-light">
@@ -29,7 +29,7 @@
           {{ form.options.2 }}
           <div class="hstack">
             {% render_field form.password class+="form-control me-sm-2" %}
-            <small><a href="{% url "password-reset" %}" tabindex="-1">{% trans "Get a password reminder" %}</a></small>
+            <small><a href="{% url "password-reset" %}" tabindex="-1">{% translate "Get a password reminder" %}</a></small>
             {% for error in form.password.errors %}<span class="text-danger">{{ error }}</span>{% endfor %}
           </div>
         </div>
@@ -45,7 +45,7 @@
         <div class="col-sm-3">
           <button type="submit"
                   class="btn btn-lg w-100 btn-primary"
-                  data-loading-text="{% trans "Continuing..." %}">{% trans "Continue" %}</button>
+                  data-loading-text="{% translate "Continuing..." %}">{% translate "Continue" %}</button>
         </div>
       </div>
     </div>

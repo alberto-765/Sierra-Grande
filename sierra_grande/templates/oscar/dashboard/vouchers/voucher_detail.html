@@ -4,16 +4,16 @@
 {% load i18n %}
 
 {% block title %}
-  {{ voucher }} | {% trans "Vouchers" %} | {{ block.super }}
+  {{ voucher }} | {% translate "Vouchers" %} | {{ block.super }}
 {% endblock title %}
 {% block breadcrumbs %}
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="{% url "dashboard:index" %}">{% trans "Dashboard" %}</a>
+        <a href="{% url "dashboard:index" %}">{% translate "Dashboard" %}</a>
       </li>
       <li class="breadcrumb-item">
-        <a href="{% url "dashboard:voucher-list" %}">{% trans "Vouchers" %}</a>
+        <a href="{% url "dashboard:voucher-list" %}">{% translate "Vouchers" %}</a>
       </li>
       <li class="breadcrumb-item active" aria-current="page">{{ voucher }}</li>
     </ol>
@@ -24,24 +24,24 @@
 {% endblock headertext %}
 {% block dashboard_content %}
   <div class="table-header">
-    <h2 class="mb-0">{% trans "Voucher details" %}</h2>
+    <h2 class="mb-0">{% translate "Voucher details" %}</h2>
   </div>
   {% include "oscar/dashboard/vouchers/partials/voucher_details_table.html" %}
   <div class="table-header">
-    <h2 class="mb-0">{% trans "Attached offers" %}</h2>
+    <h2 class="mb-0">{% translate "Attached offers" %}</h2>
   </div>
   <table class="align-middle table table-striped table-bordered table-hover">
     {% if voucher.offers.exists %}
       <thead>
         <tr>
-          <th>{% trans "Offer name" %}</th>
-          <th>{% trans "Start date" %}</th>
-          <th>{% trans "End date" %}</th>
-          <th>{% trans "Is available?" %}</th>
-          <th>{% trans "Priority" %}</th>
-          <th>{% trans "Incentive" %}</th>
-          <th>{% trans "Condition" %}</th>
-          <th>{% trans "Restrictions" %}</th>
+          <th>{% translate "Offer name" %}</th>
+          <th>{% translate "Start date" %}</th>
+          <th>{% translate "End date" %}</th>
+          <th>{% translate "Is available?" %}</th>
+          <th>{% translate "Priority" %}</th>
+          <th>{% translate "Incentive" %}</th>
+          <th>{% translate "Condition" %}</th>
+          <th>{% translate "Restrictions" %}</th>
         </tr>
       </thead>
       <tbody>
@@ -54,9 +54,9 @@
             <td>{{ offer.end_datetime|default:"-" }}</td>
             <td>
               {% if offer.is_available %}
-                <span class="badge bg-success">{% trans "Yes" %}</span>
+                <span class="badge bg-success">{% translate "Yes" %}</span>
               {% else %}
-                <span class="badge bg-danger">{% trans "No" %}</span>
+                <span class="badge bg-danger">{% translate "No" %}</span>
               {% endif %}
             </td>
             <td>{{ offer.priority }}</td>
@@ -77,44 +77,44 @@
       </tbody>
     {% else %}
       <tr>
-        <td>{% trans "No offers are attached to this voucher." %}</td>
+        <td>{% translate "No offers are attached to this voucher." %}</td>
       </tr>
     {% endif %}
   </table>
   <div class="table-header">
-    <h2 class="mb-0">{% trans "Voucher performance" %}</h2>
+    <h2 class="mb-0">{% translate "Voucher performance" %}</h2>
   </div>
   <table class="align-middle table table-striped table-bordered table-hover">
     <tbody>
       <tr>
-        <th>{% trans "Number of basket additions" %}</th>
+        <th>{% translate "Number of basket additions" %}</th>
         <td>{{ voucher.num_basket_additions }}</td>
       </tr>
       <tr>
-        <th>{% trans "Number of orders" %}</th>
+        <th>{% translate "Number of orders" %}</th>
         <td>{{ voucher.num_orders }}</td>
       </tr>
       <tr>
-        <th>{% trans "Total discount" %}</th>
+        <th>{% translate "Total discount" %}</th>
         <td>{{ voucher.total_discount|currency }}</td>
       </tr>
     </tbody>
   </table>
   <div class="table-header">
-    <h2 class="mb-0">{% trans "Recent orders" %}</h2>
+    <h2 class="mb-0">{% translate "Recent orders" %}</h2>
   </div>
   <table class="align-middle table table-striped table-bordered table-hover">
     {% if not discounts %}
       <tr>
-        <td>{% trans "No orders have been placed that use this voucher." %}</td>
+        <td>{% translate "No orders have been placed that use this voucher." %}</td>
       </tr>
     {% else %}
       <thead>
         <tr>
-          <th>{% trans "Order number" %}</th>
-          <th>{% trans "Order total" %}</th>
-          <th>{% trans "Discount" %}</th>
-          <th>{% trans "Date placed" %}</th>
+          <th>{% translate "Order number" %}</th>
+          <th>{% translate "Order total" %}</th>
+          <th>{% translate "Discount" %}</th>
+          <th>{% translate "Date placed" %}</th>
         </tr>
       </thead>
       <tbody>
@@ -136,19 +136,19 @@
   <div class="form-actions">
     {% if not voucher.voucher_set %}
       <a class="btn btn-primary"
-         href="{% url 'dashboard:voucher-update' pk=voucher.id %}">{% trans "Edit" %}</a> {% trans "or" %}
+         href="{% url 'dashboard:voucher-update' pk=voucher.id %}">{% translate "Edit" %}</a> {% translate "or" %}
     {% else %}
       <a class="btn btn-primary"
-         href="{% url 'dashboard:voucher-set-update' pk=voucher.voucher_set.pk %}">{% trans "Edit set" %}</a> {% trans "or" %}
+         href="{% url 'dashboard:voucher-set-update' pk=voucher.voucher_set.pk %}">{% translate "Edit set" %}</a> {% translate "or" %}
     {% endif %}
     <a class="btn btn-danger"
        href="{% url 'dashboard:voucher-delete' pk=voucher.id %}">
       {% if not voucher.voucher_set %}
-        {% trans "Delete" %}
+        {% translate "Delete" %}
       {% else %}
-        {% trans "Delete from set" %}
+        {% translate "Delete from set" %}
       {% endif %}
-    </a> {% trans "or" %}
-    <a href="{% if not voucher.voucher_set %}{% url 'dashboard:voucher-list' %}{% else %}{% url 'dashboard:voucher-set-detail' pk=voucher.voucher_set.pk %}{% endif %}">{% trans "cancel" %}</a>
+    </a> {% translate "or" %}
+    <a href="{% if not voucher.voucher_set %}{% url 'dashboard:voucher-list' %}{% else %}{% url 'dashboard:voucher-set-detail' pk=voucher.voucher_set.pk %}{% endif %}">{% translate "cancel" %}</a>
   </div>
 {% endblock dashboard_content %}

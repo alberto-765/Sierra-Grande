@@ -5,13 +5,13 @@
 {% load shipping_tags %}
 
 {% block title %}
-  {% trans "Shipping method" %} | {{ block.super }}
+  {% translate "Shipping method" %} | {{ block.super }}
 {% endblock title %}
 {% block checkout_nav %}
   {% include 'oscar/checkout/nav.html' with step=2 %}
 {% endblock checkout_nav %}
 {% block checkout_title %}
-  {% trans "Shipping method" %}
+  {% translate "Shipping method" %}
 {% endblock checkout_title %}
 {% block order_contents %}
 {% endblock order_contents %}
@@ -22,8 +22,8 @@
 {% block shipping_method %}
   <div class="basket-title">
     <div class="row">
-      <h4 class="col-sm-8 m-0">{% trans "Method" %}</h4>
-      <h4 class="col-sm-3 m-0">{% trans "Cost" %}</h4>
+      <h4 class="col-sm-8 m-0">{% translate "Method" %}</h4>
+      <h4 class="col-sm-3 m-0">{% translate "Cost" %}</h4>
     </div>
   </div>
   {% for method in methods %}
@@ -35,10 +35,10 @@
           {% if method.is_discounted %}
             <small>
               {% shipping_charge_discount method basket as discount %}
-              {% blocktrans with amount=discount|currency:basket.currency name=method.discount_name %}
+              {% blocktranslate with amount=discount|currency:basket.currency name=method.discount_name %}
                                 This includes a discount of <strong>{{ amount }}</strong> as
                                 your basket qualifies for the <strong>{{ name }}</strong> offer.
-                            {% endblocktrans %}
+                            {% endblocktranslate %}
             </small>
           {% endif %}
         </div>
@@ -56,7 +56,7 @@
             <input type="hidden" name="method_code" value="{{ method.code }}" />
             <button type="submit"
                     class="btn btn-lg btn-primary float-end"
-                    data-loading-text="{% trans 'Submitting...' %}">{% trans "Select option" %}</button>
+                    data-loading-text="{% translate 'Submitting...' %}">{% translate "Select option" %}</button>
           </form>
         </div>
       </div>

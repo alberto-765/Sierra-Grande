@@ -8,30 +8,30 @@
 {% load crispy_forms_tags %}
 
 {% block title %}
-  {% trans "Vouchers" %} | {{ block.super }}
+  {% translate "Vouchers" %} | {{ block.super }}
 {% endblock title %}
 {% block breadcrumbs %}
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="{% url "dashboard:index" %}">{% trans "Dashboard" %}</a>
+        <a href="{% url "dashboard:index" %}">{% translate "Dashboard" %}</a>
       </li>
       {% if form.is_bound %}
         <li class="breadcrumb-item">
-          <a href="{% url "dashboard:voucher-list" %}">{% trans "Vouchers" %}</a>
+          <a href="{% url "dashboard:voucher-list" %}">{% translate "Vouchers" %}</a>
         </li>
       {% endif %}
-      <li class="breadcrumb-item active" aria-current="page">{% trans "Vouchers" %}</li>
+      <li class="breadcrumb-item active" aria-current="page">{% translate "Vouchers" %}</li>
     </ol>
   </nav>
 {% endblock breadcrumbs %}
 {% block header %}
   <div class="hstack justify-content-between align-items-center">
-    <h2 class="mb-0">{% trans "Vouchers" %}</h2>
+    <h2 class="mb-0">{% translate "Vouchers" %}</h2>
     <a href="{% url "dashboard:voucher-create" %}"
        class="btn btn-primary icon-link">
       <iconify-icon icon="mdi:plus-circle" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
-      {% trans "Create new voucher" %}
+      {% translate "Create new voucher" %}
     </a>
   </div>
 {% endblock header %}
@@ -40,7 +40,7 @@
     {% block search_form %}
       <div class="card">
         <span class="card-header icon-link fw-normal">
-          <iconify-icon icon="stash:search-light" width="1rem" height="1rem" aria-hidden="true"></iconify-icon> {% trans "Search" %}
+          <iconify-icon icon="stash:search-light" width="1rem" height="1rem" aria-hidden="true"></iconify-icon> {% translate "Search" %}
         </span>
         <div class="card-body">
           <div class="vstack gap-3">
@@ -62,9 +62,9 @@
         <span class="card-header icon-link fw-normal">
           <iconify-icon icon="streamline:discount-percent-coupon" width="1rem" height="1rem" aria-hidden="true" inline></iconify-icon>
           {% if search_filters %}
-            {% trans "Voucher Search Results" %}
+            {% translate "Voucher Search Results" %}
           {% else %}
-            {% trans "All Vouchers" %}
+            {% translate "All Vouchers" %}
           {% endif %}
         </span>
         <div class="card-body {% if vouchers %}p-0{% endif %}">
@@ -74,15 +74,15 @@
                 {% block table_head %}
                   <thead>
                     <tr>
-                      <th>{% trans "Name" %}</th>
-                      <th>{% trans "Code" %}</th>
-                      <th>{% trans "Status" %}</th>
+                      <th>{% translate "Name" %}</th>
+                      <th>{% translate "Code" %}</th>
+                      <th>{% translate "Status" %}</th>
                       <th>{% anchor "num_offers" _("Num Offers") %}</th>
                       <th>{% anchor "num_basket_additions" _("Num baskets") %}</th>
                       <th>{% anchor "num_orders" _("Num orders") %}</th>
                       <th>{% anchor "date_created" _("Date created") %}</th>
                       {% if form.is_bound and form.cleaned_data.in_set is not False %}
-                        <th>{% trans "Set" %}</th>
+                        <th>{% translate "Set" %}</th>
                       {% endif %}
                       <th></th>
                     </tr>
@@ -100,9 +100,9 @@
                         </td>
                         <td>
                           {% if voucher.is_active %}
-                            <span class="badge bg-success">{% trans "Active" %}</span>
+                            <span class="badge bg-success">{% translate "Active" %}</span>
                           {% else %}
-                            <span class="badge bg-secondary">{% trans "Inactive" %}</span>
+                            <span class="badge bg-secondary">{% translate "Inactive" %}</span>
                           {% endif %}
                         </td>
                         <td>{{ voucher.num_offers }}</td>
@@ -127,26 +127,26 @@
                                         id="dropdownMenuButton"
                                         data-bs-toggle="dropdown"
                                         aria-haspopup="true"
-                                        aria-expanded="false">{% trans "Actions" %}</button>
+                                        aria-expanded="false">{% translate "Actions" %}</button>
                                 <div class="dropdown-menu dropdown-menu-end"
                                      aria-labelledby="dropdownMenuButton">
                                   <a class="dropdown-item"
-                                     href="{% url "dashboard:voucher-stats" pk=voucher.id %}">{% trans "Stats" %}</a>
+                                     href="{% url "dashboard:voucher-stats" pk=voucher.id %}">{% translate "Stats" %}</a>
                                   {% if not voucher.voucher_set %}
                                     <a class="dropdown-item"
-                                       href="{% url "dashboard:voucher-update" pk=voucher.id %}">{% trans "Edit" %}</a>
+                                       href="{% url "dashboard:voucher-update" pk=voucher.id %}">{% translate "Edit" %}</a>
                                   {% else %}
                                     <a class="dropdown-item"
                                        href="{% url "dashboard:voucher-set-update" pk=voucher.voucher_set.pk %}">
-                                      {% trans "Edit set" %}
+                                      {% translate "Edit set" %}
                                     </a>
                                   {% endif %}
                                   <a class="dropdown-item"
                                      href="{% url "dashboard:voucher-delete" pk=voucher.id %}">
                                     {% if not voucher.voucher_set %}
-                                      {% trans "Delete" %}
+                                      {% translate "Delete" %}
                                     {% else %}
-                                      {% trans "Delete from set" %}
+                                      {% translate "Delete from set" %}
                                     {% endif %}
                                   </a>
                                 </div>
@@ -160,7 +160,7 @@
                 </tbody>
               </table>
             {% else %}
-              <div>{% trans "No vouchers found." %}</div>
+              <div>{% translate "No vouchers found." %}</div>
             {% endif %}
             {% include "oscar/dashboard/partials/pagination.html" %}
           </div>

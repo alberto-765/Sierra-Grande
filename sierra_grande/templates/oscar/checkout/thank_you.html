@@ -5,34 +5,34 @@
 {% load image_tags %}
 
 {% block title %}
-  {% blocktrans with number=order.number %}
+  {% blocktranslate with number=order.number %}
         Order {{ number }}: confirmation
-    {% endblocktrans %} | {{ block.super }}
+    {% endblocktranslate %} | {{ block.super }}
 {% endblock title %}
 {% block checkout_nav %}
   {% include "oscar/checkout/nav.html" with step=5 %}
 {% endblock checkout_nav %}
 {% block checkout_title %}
-  {% blocktrans with number=order.number %}
+  {% blocktranslate with number=order.number %}
         Order {{ number }}: confirmation
-    {% endblocktrans %}
+    {% endblocktranslate %}
 {% endblock checkout_title %}
 {% block content %}
   <p class="lead">
-    {% blocktrans with number=order.number %}
+    {% blocktranslate with number=order.number %}
         Your order has been placed and a confirmation email has been sent - your order number is
         <strong>{{ number }}</strong>.
-        {% endblocktrans %}
-    {% trans "Please make a note of this reference or print this page and quote it in any communication with us regarding your order." %}
+        {% endblocktranslate %}
+    {% translate "Please make a note of this reference or print this page and quote it in any communication with us regarding your order." %}
   </p>
   <div class="row shipping-payment">
     <div class="col-sm-6">
       {% block shipping_info %}
         <div class="sub-header">
-          <h2 class="mb-0">{% trans "Shipping" %}</h2>
+          <h2 class="mb-0">{% translate "Shipping" %}</h2>
         </div>
         <div class="card card-body bg-light">
-          <h3>{% trans "Address" %}</h3>
+          <h3>{% translate "Address" %}</h3>
           {% if order.shipping_address %}
             <address>
               {% for field in order.shipping_address.active_address_fields %}
@@ -41,25 +41,25 @@
               {% endfor %}
             </address>
             {% if order.shipping_address.phone_number %}
-              <h4>{% trans "Contact" %}</h4>
+              <h4>{% translate "Contact" %}</h4>
               <p>
-                {% trans "Phone" %}: {{ order.shipping_address.phone_number }}
+                {% translate "Phone" %}: {{ order.shipping_address.phone_number }}
                 {% if order.guest_email %}
                   <br />
-                  {% trans "Email" %}: {{ order.guest_email }}
+                  {% translate "Email" %}: {{ order.guest_email }}
                 {% endif %}
               </p>
             {% endif %}
             {% if order.shipping_address.notes %}
-              <h4>{% trans "Instructions" %}</h4>
+              <h4>{% translate "Instructions" %}</h4>
               <p>{{ order.shipping_address.notes|linebreaks }}</p>
             {% endif %}
           {% else %}
-            <p>{% trans "No shipping address required." %}</p>
+            <p>{% translate "No shipping address required." %}</p>
           {% endif %}
         </div>
         <div class="card card-body bg-light">
-          <h3>{% trans "Shipping method" %}</h3>
+          <h3>{% translate "Shipping method" %}</h3>
           <p>{{ order.shipping_method }}</p>
         </div>
       {% endblock shipping_info %}
@@ -67,27 +67,27 @@
     <div class="col-sm-6">
       {% block payment_info %}
         <div class="sub-header">
-          <h2 class="mb-0">{% trans "Payment" %}</h2>
+          <h2 class="mb-0">{% translate "Payment" %}</h2>
         </div>
         <div class="card card-body bg-light">
-          <h3>{% trans "Payment" %}</h3>
+          <h3>{% translate "Payment" %}</h3>
           {% for source in order.sources.all %}
             <p>
               {% if source.reference %}
-                {% blocktrans with amount=source.amount_allocated|currency:source.currency type=source.source_type.name reference=source.reference %}
+                {% blocktranslate with amount=source.amount_allocated|currency:source.currency type=source.source_type.name reference=source.reference %}
                                 Allocation of {{ amount }} from type {{ type }} (reference: {{ reference }})
-                            {% endblocktrans %}
+                            {% endblocktranslate %}
               {% else %}
-                {% blocktrans with amount=source.amount_allocated|currency:source.currency type=source.source_type.name %}
+                {% blocktranslate with amount=source.amount_allocated|currency:source.currency type=source.source_type.name %}
                                 Allocation of {{ amount }} from type {{ type }}
-                            {% endblocktrans %}
+                            {% endblocktranslate %}
               {% endif %}
             </p>
           {% empty %}
-            <p>{% trans "No payment was required for this order." %}</p>
+            <p>{% translate "No payment was required for this order." %}</p>
           {% endfor %}
           {% if order.billing_address %}
-            <h4>{% trans "Billing address" %}</h4>
+            <h4>{% translate "Billing address" %}</h4>
             <address>
               {% for field in order.billing_address.active_address_fields %}
                 {{ field }}
@@ -101,13 +101,13 @@
   </div>
   {% block order_contents %}
     <div class="sub-header">
-      <h2 class="mb-0">{% trans "Order contents" %}</h2>
+      <h2 class="mb-0">{% translate "Order contents" %}</h2>
     </div>
     <div class="basket-title">
       <div class="row">
-        <p class="col-sm-9 h4">{% trans "Items purchased" %}</p>
-        <p class="col-sm-1 h4 text-center">{% trans "Quantity" %}</p>
-        <p class="col-sm-2 h4 text-end">{% trans "Total" %}</p>
+        <p class="col-sm-9 h4">{% translate "Items purchased" %}</p>
+        <p class="col-sm-1 h4 text-center">{% translate "Quantity" %}</p>
+        <p class="col-sm-2 h4 text-end">{% translate "Total" %}</p>
       </div>
     </div>
     {% for line in order.lines.all %}
@@ -151,7 +151,7 @@
         <div class="col-sm-6">&nbsp;</div>
         <div class="col-sm-6">
           <div class="sub-header">
-            <h2 class="mb-0">{% trans "Totals" %}</h2>
+            <h2 class="mb-0">{% translate "Totals" %}</h2>
           </div>
           {% include "oscar/order/partials/basket_totals.html" %}
         </div>
@@ -161,12 +161,12 @@
   {% block order_tracking %}
     {% if not order.user %}
       <div class="sub-header">
-        <h2 class="mb-0">{% trans "Tracking your order" %}</h2>
+        <h2 class="mb-0">{% translate "Tracking your order" %}</h2>
       </div>
       <p>
-        {% trans "You can track the status of your order" %}
+        {% translate "You can track the status of your order" %}
         <a class="btn btn-primary"
-           href="{% url "customer:anon-order" order_number=order.number hash=order.verification_hash %}">{% trans "View order status" %}</a>.
+           href="{% url "customer:anon-order" order_number=order.number hash=order.verification_hash %}">{% translate "View order status" %}</a>.
       </p>
     {% endif %}
   {% endblock order_tracking %}
@@ -177,12 +177,12 @@
           <p>
             <a onclick="window.print()"
                href="#"
-               class="btn btn-primary w-100 btn-lg">{% trans "Print this page" %}</a>
+               class="btn btn-primary w-100 btn-lg">{% translate "Print this page" %}</a>
           </p>
         </div>
         <div class="col-sm-4 offset-sm-4">
           <p>
-            <a href="{{ homepage_url }}" class="btn btn-primary w-100 btn-lg">{% trans "Continue shopping" %}</a>
+            <a href="{{ homepage_url }}" class="btn btn-primary w-100 btn-lg">{% translate "Continue shopping" %}</a>
           </p>
         </div>
       </div>

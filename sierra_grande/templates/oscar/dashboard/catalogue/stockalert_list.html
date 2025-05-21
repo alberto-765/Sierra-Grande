@@ -6,20 +6,20 @@
   {{ block.super }} catalogue
 {% endblock body_class %}
 {% block title %}
-  {% trans "Stock alerts" %} | {{ block.super }}
+  {% translate "Stock alerts" %} | {{ block.super }}
 {% endblock title %}
 {% block breadcrumbs %}
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
+        <a href="{% url 'dashboard:index' %}">{% translate "Dashboard" %}</a>
       </li>
-      <li class="breadcrumb-item active" aria-current="page">{% trans "Stock alerts" %}</li>
+      <li class="breadcrumb-item active" aria-current="page">{% translate "Stock alerts" %}</li>
     </ol>
   </nav>
 {% endblock breadcrumbs %}
 {% block headertext %}
-  {% trans "Stock alerts" %}
+  {% translate "Stock alerts" %}
 {% endblock headertext %}
 {% block dashboard_content %}
   <div class="card">
@@ -35,7 +35,7 @@
                   id="dropdownMenuButton"
                   data-bs-toggle="dropdown"
                   aria-haspopup="true"
-                  aria-expanded="false">{% trans "Filter" %}</button>
+                  aria-expanded="false">{% translate "Filter" %}</button>
           <div class="dropdown-menu dropdown-menu-end"
                aria-labelledby="dropdownMenuButton">
             {% for item in filter_dropdown %}
@@ -49,12 +49,12 @@
       {% if alerts %}
         <table class="table table-striped table-bordered table-hover align-middle">
           <tr>
-            <th>{% trans "Product" %}</th>
-            <th>{% trans "Partner" %}</th>
-            <th>{% trans "Low stock threshold" %}</th>
-            <th>{% trans "Current available stock" %}</th>
-            <th>{% trans "Date alert raised" %}</th>
-            <th>{% trans "Status" %}</th>
+            <th>{% translate "Product" %}</th>
+            <th>{% translate "Partner" %}</th>
+            <th>{% translate "Low stock threshold" %}</th>
+            <th>{% translate "Current available stock" %}</th>
+            <th>{% translate "Date alert raised" %}</th>
+            <th>{% translate "Status" %}</th>
             <th></th>
           </tr>
           {% for alert in alerts %}
@@ -71,14 +71,14 @@
               <td>{{ alert.status }}</td>
               <td>
                 <a class="btn btn-info"
-                   href="{% url 'dashboard:catalogue-product' pk=alert.stockrecord.product.id %}">{% trans "Update" %}</a>
+                   href="{% url 'dashboard:catalogue-product' pk=alert.stockrecord.product.id %}">{% translate "Update" %}</a>
               </td>
             </tr>
           {% endfor %}
         </table>
         {% include "oscar/dashboard/partials/pagination.html" %}
       {% else %}
-        <div>{% trans "No stock alerts found." %}</div>
+        <div>{% translate "No stock alerts found." %}</div>
       {% endif %}
     </div>
   </div>

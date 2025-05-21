@@ -7,22 +7,22 @@
 
 {% block extra_breadcrumbs %}
   <li class="breadcrumb-item">
-    <a href="{% url 'customer:order-list' %}">{% trans "Order history" %}</a>
+    <a href="{% url 'customer:order-list' %}">{% translate "Order history" %}</a>
   </li>
 {% endblock extra_breadcrumbs %}
 {% block tabcontent %}
   {% if order.status %}
-    <h2 class="mb-0">{% trans "Status" %}</h2>
+    <h2 class="mb-0">{% translate "Status" %}</h2>
     <p>{{ order.status }}</p>
     <hr />
   {% endif %}
   <table class="table table-striped table-bordered align-middle">
     <thead>
       <tr>
-        <th>{% trans "Product" %}</th>
-        <th>{% trans "Qty" %}</th>
-        <th>{% trans "Line price excl. tax" %}</th>
-        <th>{% trans "Line price incl. tax" %}</th>
+        <th>{% translate "Product" %}</th>
+        <th>{% translate "Qty" %}</th>
+        <th>{% translate "Line price excl. tax" %}</th>
+        <th>{% translate "Line price incl. tax" %}</th>
         <th></th>
       </tr>
     </thead>
@@ -42,7 +42,7 @@
                 {% iffeature "reviews" %}
                 {% if product|is_review_permitted:user %}
                   <a class="btn btn-secondary"
-                     href="{% url 'catalogue:reviews-add' product_slug=product.slug product_pk=product.id %}#addreview">{% trans "Write a review" %}</a>
+                     href="{% url 'catalogue:reviews-add' product_slug=product.slug product_pk=product.id %}#addreview">{% translate "Write a review" %}</a>
                 {% endif %}
               {% endiffeature %}
             {% else %}
@@ -62,12 +62,12 @@
                 <button id="reorder_line_{{ line.id }}"
                         class="btn btn-success"
                         type="submit"
-                        data-loading-text="{% trans "Re-ordering..." context "Buy again" %}">
-                  {% trans "Re-order" context "Buy again" %}
+                        data-loading-text="{% translate "Re-ordering..." context "Buy again" %}">
+                  {% translate "Re-order" context "Buy again" %}
                 </button>
               </form>
             {% else %}
-              {% trans "Not available anymore" %}
+              {% translate "Not available anymore" %}
             {% endif %}
           </td>
         </tr>
@@ -77,13 +77,13 @@
       {% block discount_totals %}
         {% if discounts %}
           <tr>
-            <td colspan="4">{% trans "Basket total (excl. discounts)" %}</td>
+            <td colspan="4">{% translate "Basket total (excl. discounts)" %}</td>
             <td colspan="2">{{ order.basket_total_before_discounts_incl_tax|currency:order.currency }}</td>
           </tr>
           {% for discount in discounts %}
             <tr>
               <td colspan="4">
-                <span class="badge bg-success">{% trans "Discount" %}</span>
+                <span class="badge bg-success">{% translate "Discount" %}</span>
                 {{ discount.offer_name }}
               </td>
               <td colspan="2">- {{ discount.amount|currency:order.currency }}</td>
@@ -94,12 +94,12 @@
       {% block basket_total %}
         {% if discounts %}
           <tr>
-            <th colspan="4">{% trans "Basket total (inc. discounts)" %}</th>
+            <th colspan="4">{% translate "Basket total (inc. discounts)" %}</th>
             <td colspan="2">{{ order.basket_total_incl_tax|currency:order.currency }}</td>
           </tr>
         {% else %}
           <tr>
-            <th colspan="4">{% trans "Basket total" %}</th>
+            <th colspan="4">{% translate "Basket total" %}</th>
             <td colspan="2">{{ order.basket_total_incl_tax|currency:order.currency }}</td>
           </tr>
         {% endif %}
@@ -108,32 +108,32 @@
     {% block shipping_totals %}
       {% if order.has_shipping_discounts %}
         <tr>
-          <td colspan="4">{% trans "Shipping total (excl. discounts)" %}</td>
+          <td colspan="4">{% translate "Shipping total (excl. discounts)" %}</td>
           <td colspan="2">{{ order.shipping_before_discounts_incl_tax|currency:order.currency }}</td>
         </tr>
         {% for discount in order.shipping_discounts %}
           <tr>
             <td colspan="4">
-              <span class="badge bg-success">{% trans "Discount" %}</span>
+              <span class="badge bg-success">{% translate "Discount" %}</span>
               {{ discount.offer_name }}
             </td>
             <td colspan="2">- {{ discount.amount|currency:order.currency }}</td>
           </tr>
         {% endfor %}
         <tr>
-          <th colspan="4">{% trans "Shipping total (inc. discounts)" %}</th>
+          <th colspan="4">{% translate "Shipping total (inc. discounts)" %}</th>
           <td colspan="2">{{ order.shipping_incl_tax|currency:order.currency }}</td>
         </tr>
       {% else %}
         <tr>
-          <th colspan="4">{% trans "Shipping total" %}</th>
+          <th colspan="4">{% translate "Shipping total" %}</th>
           <td colspan="2">{{ order.shipping_incl_tax|currency:order.currency }}</td>
         </tr>
       {% endif %}
     {% endblock shipping_totals %}
     {% block order_total %}
       <tr>
-        <th colspan="4">{% trans "Order total" %}</th>
+        <th colspan="4">{% translate "Order total" %}</th>
         <td colspan="2">{{ order.total_incl_tax|currency:order.currency }}</td>
       </tr>
     {% endblock order_total %}
@@ -148,21 +148,21 @@
     <input type="hidden" name="action" value="reorder" />
     <button type="submit"
             class="btn btn-success"
-            data-loading-text="{% trans "Re-ordering..." context "Buy again" %}">
-      {% trans "Re-order all items" context "Buy again" %}
+            data-loading-text="{% translate "Re-ordering..." context "Buy again" %}">
+      {% translate "Re-order all items" context "Buy again" %}
     </button>
   </form>
 {% endblock order_actions %}
 <hr />
-<h2 class="mb-0">{% trans "Shipping Method" %}</h2>
+<h2 class="mb-0">{% translate "Shipping Method" %}</h2>
 <p>{{ order.shipping_method }}</p>
 <hr />
-<h2 class="mb-0">{% trans "Shipping Address" %}</h2>
+<h2 class="mb-0">{% translate "Shipping Address" %}</h2>
 <table class="table table-striped table-bordered align-middle">
   <tr>
-    <th>{% trans "Address" %}</th>
-    <th>{% trans "Contact Number" %}</th>
-    <th>{% trans "Shipping Notes" %}</th>
+    <th>{% translate "Address" %}</th>
+    <th>{% translate "Contact Number" %}</th>
+    <th>{% translate "Shipping Notes" %}</th>
   </tr>
   <tr>
     <td>

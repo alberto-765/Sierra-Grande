@@ -6,16 +6,16 @@
 
 {% block body_class %}{{ block.super }} create-page partner{% endblock %}
 {% block title %}
-  {{ title }} | {{ partner.name }} | {% trans "Partners" %} | {{ block.super }}
+  {{ title }} | {{ partner.name }} | {% translate "Partners" %} | {{ block.super }}
 {% endblock %}
 {% block breadcrumbs %}
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
+        <a href="{% url 'dashboard:index' %}">{% translate "Dashboard" %}</a>
       </li>
       <li class="breadcrumb-item">
-        <a href="{% url 'dashboard:partner-list' %}">{% trans "Partners" %}</a>
+        <a href="{% url 'dashboard:partner-list' %}">{% translate "Partners" %}</a>
       </li>
       {% if partner %}
         <li class="breadcrumb-item">

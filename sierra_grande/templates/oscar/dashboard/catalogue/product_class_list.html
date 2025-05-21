@@ -46,10 +46,10 @@
                     <a href="{% url "dashboard:catalogue-class-update" class.id %}">{{ class.name }}</a>
                   </td>
                   <td>
-                    <a href="{% url "dashboard:catalogue-class-update" class.id %}">{{ class.requires_shipping|yesno }}</a>
+                    {{ class.requires_shipping|yesno:_("Yes,No") }}
                   </td>
                   <td>
-                    <a href="{% url "dashboard:catalogue-class-update" class.id %}">{{ class.track_stock|yesno }}</a>
+                    {{ class.track_stock|yesno:_("Yes,No") }}
                   </td>
                   <td>
                     <div class="dropdown">
@@ -70,7 +70,7 @@
                         <li {% if class.products_count %} data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title=" {% blocktranslate count amount=class.products_count %} {{amount}} products are {{ remove_tooltip }} {% plural %} {{amount}} product is {{ remove_tooltip }} {% endblocktranslate %} " {% endif %}>
                           {% comment %} Toggle modal for delete the item {% endcomment %}
                           <button type="button"
-                                  class="dropdown-item"
+                                  class="dropdown-item dropdown__deleteButton"
                                   data-bs-pk="{{ class.id }}"
                                   data-bs-name="{{ class.name }}"
                                   data-bs-toggle="modal"
@@ -90,54 +90,10 @@
       {% endif %}
     </div>
   </div>
-  <!-- Modal Body -->
-  <div class="modal fade deleteModal"
-       tabindex="-1"
-       data-bs-backdrop="static"
-       data-bs-keyboard="false"
-       role="dialog"
-       aria-labelledby="deleteModal__Title"
-       aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered"
-         role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="deleteModal__Title">{% translate "Remove Product Type" %}</h5>
-          <button type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          {% translate "Are you sure to remove the product type" %} <span class="deleteModal__body"></span>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% translate "Cancel" %}</button>
-          <button type="button" class="btn btn-danger">
-            <iconify-icon icon="mdi:delete" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
-            {% translate "Delete" %}
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
+
+  {% include "oscar/partials/delete_modal.html" with body_title="Remove Product Type" body_text="Are you sure to remove the product type" %}
 {% endblock dashboard_content %}
 {% block onbodyload %}
   {{ block.super }}
-  oscar.dashboard.initTooltips();
-  const modal = document.querySelector(".deleteModal");
-  if(modal) {
-  modal.addEventListener("show.bs.modal", (event) => {
-  const button = event.relatedTarget;
-  const pk = button.dataset.bsPk;
-  const name =  button.dataset.bsName;
-  const modalBody = modal.querySelector(".deleteModal__body");
-  const deleteButton = modal.querySelector(".btn-danger");
-  modalTitle.textContent = `Remove ${name}`;
-  modalBody.textContent = `${name}`;
-  deleteButton.onclick = function() {
-  window.location.href = "{% url 'dashboard:catalogue-class-delete' 0 %}".replace(/0$/, pk);
-  }
-  });
-  }
+  oscar.dashboard.initDeleteModal('{% url "dashboard:catalogue-class-delete" pk=9999 %}', '9999')
 {% endblock onbodyload %}

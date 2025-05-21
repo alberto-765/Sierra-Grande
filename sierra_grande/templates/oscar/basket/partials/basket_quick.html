@@ -29,7 +29,7 @@
             </p>
           </div>
           <div class="col-sm-1 text-center">
-            <strong>{% trans "Qty" %}</strong> {{ line.quantity }}
+            <strong>{% translate "Qty" %}</strong> {{ line.quantity }}
           </div>
           <div class="col-sm-3 price_color text-end">{{ line.unit_price_excl_tax|currency:request.basket.currency }}</div>
         </div>
@@ -38,19 +38,19 @@
     <li class=" form-actions">
       <p class="text-end">
         {% if request.basket.is_tax_known %}
-          <small>{% trans "Total:" %} {{ request.basket.total_incl_tax|currency:request.basket.currency }}</small>
+          <small>{% translate "Total:" %} {{ request.basket.total_incl_tax|currency:request.basket.currency }}</small>
         {% else %}
-          <small>{% trans "Total:" %} {{ request.basket.total_excl_tax|currency:request.basket.currency }}</small>
+          <small>{% translate "Total:" %} {{ request.basket.total_excl_tax|currency:request.basket.currency }}</small>
         {% endif %}
       </p>
-      <a href="{% url 'basket:summary' %}" class="btn btn-info btn-sm">{% trans "View basket" %}</a>
+      <a href="{% url 'basket:summary' %}" class="btn btn-info btn-sm">{% translate "View basket" %}</a>
       <a href="{% url 'checkout:index' %}"
          class="btn btn-primary btn-sm float-end">      <iconify-icon icon="fa-solid:shopping-cart" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
-      {% trans "Checkout" %}</a>
+      {% translate "Checkout" %}</a>
     </li>
   {% else %}
     <li>
-      <p>{% trans "Your basket is empty." %}</p>
+      <p>{% translate "Your basket is empty." %}</p>
     </li>
   {% endif %}
 </ul>

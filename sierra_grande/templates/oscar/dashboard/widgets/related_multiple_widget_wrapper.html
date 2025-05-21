@@ -7,7 +7,7 @@
       <a class="text-success related-widget-wrapper-link add-related"
          id="create_id_{{ name }}"
          href="{{ add_related_url }}?{{ url_params }}"
-         title="{% blocktrans with model_name=model|lower %}Add another {{ model_name }}{% endblocktrans %}"
+         title="{% blocktranslate with model_name=model|lower %}Add another {{ model_name }}{% endblocktranslate %}"
          data-bs-toggle="tooltip">
         <iconify-icon icon="heroicons:plus-circle-16-solid" width="1.2rem" height="1.2rem" inline></iconify-icon>
       </a>

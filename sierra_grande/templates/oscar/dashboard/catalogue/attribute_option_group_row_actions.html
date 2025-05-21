@@ -6,16 +6,16 @@
           type="button"
           id="dropdownMenuButton"
           data-bs-toggle="dropdown"
-          aria-expanded="false">{% trans "Actions" %}</button>
+          aria-expanded="false">{% translate "Actions" %}</button>
   <div class="dropdown-menu dropdown-menu-end"
        aria-labelledby="dropdownMenuButton">
     <a class="dropdown-item"
        href="{% url 'dashboard:catalogue-attribute-option-group-update' pk=record.id %}{% querystring %}">
-      {% trans "Edit Attribute Option Group" %}
+      {% translate "Edit Attribute Option Group" %}
     </a>
     <a class="dropdown-item"
        href="{% url 'dashboard:catalogue-attribute-option-group-delete' pk=record.id %}{% querystring %}">
-      {% trans "Delete" %}
+      {% translate "Delete" %}
     </a>
   </div>
 </div>

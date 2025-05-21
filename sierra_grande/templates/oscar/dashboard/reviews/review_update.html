@@ -7,7 +7,7 @@
   {{ block.super }} create-page
 {% endblock body_class %}
 {% block title %}
-  {% trans "Update review" %} | {{ block.super }}
+  {% translate "Update review" %} | {{ block.super }}
 {% endblock
 {% block title %}
   %}
@@ -15,23 +15,23 @@
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
-          <a href="{% url "dashboard:index" %}">{% trans "Dashboard" %}</a>
+          <a href="{% url "dashboard:index" %}">{% translate "Dashboard" %}</a>
         </li>
         <li class="breadcrumb-item">
-          <a href="{% url "dashboard:reviews-list" %}">{% trans "Reviews" %}</a>
+          <a href="{% url "dashboard:reviews-list" %}">{% translate "Reviews" %}</a>
         </li>
-        <li class="breadcrumb-item active" aria-current="page">{% blocktrans %}Review #{{ review.id }}{% endblocktrans %}</li>
+        <li class="breadcrumb-item active" aria-current="page">{% blocktranslate %}Review #{{ review.id }}{% endblocktranslate %}</li>
       </ol>
     </nav>
   {% endblock breadcrumbs %}
   {% block headertext %}
-    {% blocktrans with review_id=review.id %}Review #{{ review_id }}{% endblocktrans %}
+    {% blocktranslate with review_id=review.id %}Review #{{ review_id }}{% endblocktranslate %}
   {% endblock headertext %}
   {% block dashboard_content %}
     <form method="post" class="form-stacked" enctype="multipart/form-data">
       {% csrf_token %}
       <div class="table-header">
-        <h3>{% trans "Review information" %}</h3>
+        <h3>{% translate "Review information" %}</h3>
       </div>
       <div class="card card-body bg-light">
         <div class="clearfix">
@@ -73,9 +73,9 @@
         <div class="form-actions">
           <button class="btn btn-primary"
                   type="submit"
-                  data-loading-text="{% trans "Saving..." %}">{% trans "Save" %}</button>
-          {% trans "or" %}
-          <a href="{% url "dashboard:reviews-list" %}">{% trans "cancel" %}</a>
+                  data-loading-text="{% translate "Saving..." %}">{% translate "Save" %}</button>
+          {% translate "or" %}
+          <a href="{% url "dashboard:reviews-list" %}">{% translate "cancel" %}</a>
         </div>
       </div>
     </form>

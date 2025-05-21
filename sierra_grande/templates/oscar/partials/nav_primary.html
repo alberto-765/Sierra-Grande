@@ -18,16 +18,16 @@
     <a class="btn btn-secondary float-end btn-cart ms-auto d-inline-block d-md-none"
        href="{% url 'basket:summary' %}">
       <iconify-icon icon="fa-solid:shopping-cart" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
-      {% trans "Basket" %}
+      {% translate "Basket" %}
       {% if not request.basket.is_empty %}
         {% if request.basket.is_tax_known %}
-          {% blocktrans with total=request.basket.total_incl_tax|currency:request.basket.currency %}
+          {% blocktranslate with total=request.basket.total_incl_tax|currency:request.basket.currency %}
                         Total: {{ total }}
-                    {% endblocktrans %}
+                    {% endblocktranslate %}
         {% else %}
-          {% blocktrans with total=request.basket.total_excl_tax|currency:request.basket.currency %}
+          {% blocktranslate with total=request.basket.total_excl_tax|currency:request.basket.currency %}
                         Total: {{ total }}
-                    {% endblocktrans %}
+                    {% endblocktranslate %}
         {% endif %}
       {% endif %}
     </a>
@@ -46,12 +46,12 @@
                  aria-haspopup="true"
                  aria-expanded="false">
                 {% block browse_store_text %}
-                  {% trans "Browse store" %}
+                  {% translate "Browse store" %}
                 {% endblock browse_store_text %}
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 {% category_tree depth=1 as tree_categories %}
-                <a class="dropdown-item" href="{% url 'catalogue:index' %}">{% trans "All products" %}</a>
+                <a class="dropdown-item" href="{% url 'catalogue:index' %}">{% translate "All products" %}</a>
                 {% if tree_categories %}
                   <div class="dropdown-divider"></div>
                   {% for tree_category in tree_categories %}
@@ -60,7 +60,7 @@
                 {% endif %}
                 <div class="dropdown-divider"></div>
                 {% block nav_dropdown_extra_items %}
-                  <a class="dropdown-item" href="{% url 'offer:list' %}">{% trans "Offers" %}</a>
+                  <a class="dropdown-item" href="{% url 'offer:list' %}">{% translate "Offers" %}</a>
                 {% endblock nav_dropdown_extra_items %}
               </div>
             </li>

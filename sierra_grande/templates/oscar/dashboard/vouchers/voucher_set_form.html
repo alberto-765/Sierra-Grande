@@ -6,18 +6,18 @@
 {% block body_class %}{{ block.super }} create-page{% endblock %}
 
 {% block title %}
-    {{ title }} | {% trans "Voucher sets" %} | {{ block.super }}
+    {{ title }} | {% translate "Voucher sets" %} | {{ block.super }}
 {% endblock %}
 
 {% block breadcrumbs %}
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a></li>
-            <li class="breadcrumb-item"><a href="{% url 'dashboard:voucher-list' %}">{% trans "Voucher sets" %}</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'dashboard:index' %}">{% translate "Dashboard" %}</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'dashboard:voucher-list' %}">{% translate "Voucher sets" %}</a></li>
             {% if voucher_set %}
                 <li class="breadcrumb-item"><a href="{% url 'dashboard:voucher-set-detail' pk=voucher_set.pk %}">{{ voucher_set }}</a></li>
             {% endif %}
-            <li class="breadcrumb-item active" aria-current="page">{% trans "Edit" %}</li>
+            <li class="breadcrumb-item active" aria-current="page">{% translate "Edit" %}</li>
         </ol>
     </nav>
 {% endblock %}

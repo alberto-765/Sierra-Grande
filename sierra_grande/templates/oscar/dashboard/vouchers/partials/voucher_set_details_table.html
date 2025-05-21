@@ -2,49 +2,49 @@
 
 <table class="align-middle table table-striped table-bordered">
   <caption>
-    <h3>{% trans "Voucher set" %}</h3>
+    <h3>{% translate "Voucher set" %}</h3>
   </caption>
   <tbody>
     <tr>
-      <th>{% trans "Title" %}</th>
+      <th>{% translate "Title" %}</th>
       <td>{{ voucher_set.name }}</td>
     </tr>
     <tr>
-      <th>{% trans "Start" %}</th>
+      <th>{% translate "Start" %}</th>
       <td>{{ voucher_set.start_datetime }}</td>
     </tr>
     <tr>
-      <th>{% trans "End" %}</th>
+      <th>{% translate "End" %}</th>
       <td>{{ voucher_set.end_datetime }}</td>
     </tr>
     <tr>
-      <th>{% trans "Description" %}</th>
+      <th>{% translate "Description" %}</th>
       <td>{{ voucher_set.description }}</td>
     </tr>
     <tr>
-      <th>{% trans "Number of vouchers" %}</th>
+      <th>{% translate "Number of vouchers" %}</th>
       <td>{{ voucher_set.count }}</td>
     </tr>
     <tr>
-      <th>{% trans "Number of offers" %}</th>
+      <th>{% translate "Number of offers" %}</th>
       <td>{{ voucher_set.vouchers.first.offers.count|default:0 }}</td>
     </tr>
     <tr>
-      <th>{% trans "Status" %}</th>
+      <th>{% translate "Status" %}</th>
       <td>
         {% if voucher_set.is_active %}
-          <span class="badge bg-success">{% trans "Active" %}</span>
+          <span class="badge bg-success">{% translate "Active" %}</span>
         {% else %}
-          <span class="badge bg-secondary">{% trans "Inactive" %}</span>
+          <span class="badge bg-secondary">{% translate "Inactive" %}</span>
         {% endif %}
       </td>
     </tr>
     <tr>
-      <th>{% trans "Created" %}</th>
+      <th>{% translate "Created" %}</th>
       <td>{{ voucher_set.date_created }}</td>
     </tr>
     <tr>
-      <th>{% trans "Usage" %}</th>
+      <th>{% translate "Usage" %}</th>
       <td>{{ voucher_set.vouchers.first.get_usage_display }}</td>
     </tr>
   </tbody>

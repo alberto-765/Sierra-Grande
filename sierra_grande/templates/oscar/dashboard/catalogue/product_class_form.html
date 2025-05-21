@@ -4,7 +4,7 @@
 {% load crispy_forms_tags %}
 
 {% block title %}
-  {{ title }} | {% trans "Create product type" %} | {{ block.super }}
+  {{ title }} | {% translate "Create product type" %} | {{ block.super }}
 {% endblock title %}
 {% block body_class %}
   {{ block.super }} create-page
@@ -13,10 +13,10 @@
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="{% url "dashboard:index" %}">{% trans "Dashboard" %}</a>
+        <a href="{% url "dashboard:index" %}">{% translate "Dashboard" %}</a>
       </li>
       <li class="breadcrumb-item">
-        <a href="{% url "dashboard:catalogue-class-list" %}">{% trans "Product Type" %}</a>
+        <a href="{% url "dashboard:catalogue-class-list" %}">{% translate "Product Type" %}</a>
       </li>
       <li class="breadcrumb-item active" aria-current="page">{{ title }}</li>
     </ol>
@@ -38,7 +38,7 @@
              data-bs-target="#product-detail-pane"
              role="tab"
              aria-controls="product-detail-pane"
-             aria-selected="true">{% trans "Product Class details" %}</a>
+             aria-selected="true">{% translate "Product Class details" %}</a>
         </li>
         <li class="nav-item" role="presentation">
           <a class="nav-link"
@@ -48,7 +48,7 @@
              data-bs-target="#product-attributes-pane"
              role="tab"
              aria-controls="product-attributes-pane"
-             aria-selected="false">{% trans "Product attributes" %}</a>
+             aria-selected="false">{% translate "Product attributes" %}</a>
         </li>
       </ul>
     </div>
@@ -70,11 +70,11 @@
           {{ attributes_formset.non_form_errors }}
           <thead class="table-light">
             <tr>
-              <td class="w-25">{% trans "Name" %}</td>
-              <td class="w-25">{% trans "Code" %}</td>
-              <td>{% trans "Type" %}</td>
-              <td>{% trans "Required" %}</td>
-              <td>{% trans "Delete" %}</td>
+              <td class="w-25">{% translate "Name" %}</td>
+              <td class="w-25">{% translate "Code" %}</td>
+              <td>{% translate "Type" %}</td>
+              <td>{% translate "Required" %}</td>
+              <td>{% translate "Delete" %}</td>
             </tr>
           </thead>
           <tbody>
@@ -83,8 +83,9 @@
                 {% for hidden_field in attribute_form.hidden_fields %}{{ hidden_field }}{% endfor %}
                 <td>{% include "oscar/dashboard/partials/form_field.html" with field=attribute_form.name nolabel=True %}</td>
                 <td>{% include "oscar/dashboard/partials/form_field.html" with field=attribute_form.code nolabel=True %}</td>
-                <td>
+                <td class="vstack row-gap-3">
                   {% include "oscar/dashboard/partials/form_field.html" with field=attribute_form.type nolabel=True %}
+                  
                   {% include "oscar/dashboard/partials/form_field.html" with field=attribute_form.option_group nolabel=True %}
                 </td>
                 <td>
@@ -102,10 +103,10 @@
       <div class="align-items-center bg-dark column-gap-4 fixed-bottom hstack justify-content-end p-4">
         <a href="#"
            onclick="window.history.go(-1);return false"
-           class="text-decoration-none">{% trans "Cancel" %}</a>
+           class="btn btn-secondary">{% translate "Cancel" %}</a>
         <button class="btn btn-primary"
                 type="submit"
-                data-loading-text="{% trans "Saving..." %}">{% trans "Save" %}</button>
+                data-loading-text="{% translate "Saving..." %}">{% translate "Save" %}</button>
       </div>
     {% endblock fixed_actions_group %}
   </form>

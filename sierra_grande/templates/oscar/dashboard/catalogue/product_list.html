@@ -7,27 +7,27 @@
   {{ block.super }} catalogue
 {% endblock body_class %}
 {% block title %}
-  {% trans "Products" %} | {{ block.super }}
+  {% translate "Products" %} | {{ block.super }}
 {% endblock title %}
 {% block breadcrumbs %}
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="{% url "dashboard:index" %}">{% trans "Dashboard" %}</a>
+        <a href="{% url "dashboard:index" %}">{% translate "Dashboard" %}</a>
       </li>
-      <li class="breadcrumb-item active" aria-current="page">{% trans "Products" %}</li>
+      <li class="breadcrumb-item active" aria-current="page">{% translate "Products" %}</li>
     </ol>
   </nav>
 {% endblock breadcrumbs %}
 {% block headertext %}
-  {% trans "Products" %}
+  {% translate "Products" %}
 {% endblock headertext %}
 {% block dashboard_content %}
   {% block create_product %}
     <div class="card">
       <span class="icon-link card-header fw-normal">
         <iconify-icon icon="gridicons:create" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
-        {% trans "Create new product" %}
+        {% translate "Create new product" %}
       </span>
       <div class="card-body">
         <form action="{% url "dashboard:catalogue-product-create" %}"
@@ -37,9 +37,9 @@
           <div class="col-sm-auto">
             <button class="btn btn-primary icon-link w-100"
                     type="submit"
-                    data-loading-text="{% trans "Submitting..." %}">
+                    data-loading-text="{% translate "Submitting..." %}">
               <iconify-icon icon="mdi:plus-circle" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
-              {% trans "New Product" %}
+              {% translate "New Product" %}
             </button>
           </div>
         </form>
@@ -50,7 +50,7 @@
     <div class="card">
       <span class="card-header icon-link fw-normal">
         <iconify-icon icon="stash:search-light" width="1rem" height="1rem" aria-hidden="true" inline></iconify-icon>
-        {% trans "Search Products" %}
+        {% translate "Search Products" %}
       </span>
       <div class="card-body">
         <form method="get" class="row align-items-center g-3">
@@ -61,9 +61,9 @@
           <div class="col-sm-auto">
             <button type="submit"
                     class="btn btn-primary icon-link w-100"
-                    data-loading-text="{% trans "Searching..." %}">
+                    data-loading-text="{% translate "Searching..." %}">
               <iconify-icon icon="material-symbols:search-rounded" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
-              {% trans "Search" %}
+              {% translate "Search" %}
             </button>
           </div>
         </form>
@@ -104,7 +104,7 @@
         {% endif %}
         {{ products.get_caption_display }}
       </span>
-      <div class="card-body">{% trans "No products found." %}</div>
+      <div class="card-body">{% translate "No products found." %}</div>
     </div>
   {% endif %}
 {% endblock dashboard_content %}

@@ -27,7 +27,6 @@ checkbox and radio inputs differently to other widgets.
                 {{ field.label|safe }}
               </label>
             {% elif field.widget_type == 'radioselect' %}
-              hola
               {% render_field field class+="form-check-input" %}
             {% else %}
               {% render_field field class+="form-control" %}

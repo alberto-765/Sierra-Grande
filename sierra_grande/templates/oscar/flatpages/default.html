@@ -10,7 +10,7 @@
     <h2 class="mb-0">{{ flatpage.title }}</h2>
     {% if user.is_staff %}
       <a class="icon-link d-none d-md-block"
-         href="{% url "dashboard:page-update" pk=flatpage.id %}"><small><iconify-icon icon="fluent:edit-28-filled" width="1rem" height="1rem" aria-hidden="true"></iconify-icon> {% trans "Edit this page" %}</small></a>
+         href="{% url "dashboard:page-update" pk=flatpage.id %}"><small><iconify-icon icon="fluent:edit-28-filled" width="1rem" height="1rem" aria-hidden="true"></iconify-icon> {% translate "Edit this page" %}</small></a>
     {% endif %}
   </div>
 {% endblock header %}
@@ -18,7 +18,7 @@
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="{{ homepage_url }}">{% trans "Home" %}</a>
+        <a href="{{ homepage_url }}">{% translate "Home" %}</a>
       </li>
       <li class="breadcrumb-item active" aria-current="page">{{ flatpage.title }}</li>
     </ol>

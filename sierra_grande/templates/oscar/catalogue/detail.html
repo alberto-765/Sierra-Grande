@@ -18,7 +18,7 @@
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="{{ homepage_url }}">{% trans "Home" %}</a>
+        <a href="{{ homepage_url }}">{% translate "Home" %}</a>
       </li>
       {% with category=product.get_categories.first %}
         {% for c in category.get_ancestors_and_self %}
@@ -56,7 +56,7 @@
           {% if user.is_staff %}
             <a class="float-end d-none d-md-block"
                href="{% url "dashboard:catalogue-product" pk=product.id %}">
-              <small><i class="fas fa-pencil-alt"></i> {% trans "Edit this product" %}</small>
+              <small><i class="fas fa-pencil-alt"></i> {% translate "Edit this product" %}</small>
             </a>
           {% endif %}
           <h1>{{ product.get_title }}</h1>
@@ -73,7 +73,7 @@
           {% endblock product_basket_form %}
         {% else %}
           {% block variants %}
-            <h2 class="mb-0">{% trans "Variants:" %}</h2>
+            <h2 class="mb-0">{% translate "Variants:" %}</h2>
             {% for child in product.get_public_children %}
               {% purchase_info_for_product request child as child_session %}
               {% if child_session.availability.is_available_to_buy %}
@@ -91,44 +91,44 @@
   {% block product_description %}
     {% if product.description %}
       <div id="product_description" class="sub-header">
-        <h2 class="mb-0">{% trans "Product Description" %}</h2>
+        <h2 class="mb-0">{% translate "Product Description" %}</h2>
       </div>
       <p>{{ product.description|safe }}</p>
     {% endif %}
   {% endblock product_description}
   {% block product_info %}
     <div class="sub-header">
-      <h2 class="mb-0">{% trans "Product Information" %}</h2>
+      <h2 class="mb-0">{% translate "Product Information" %}</h2>
     </div>
     <table class="table table-striped align-middle">
       {% if product.upc %}
         <tr>
-          <th>{% trans "UPC" %}</th>
+          <th>{% translate "UPC" %}</th>
           <td>{{ product.upc }}</td>
         </tr>
       {% endif %}
       <tr>
-        <th>{% trans "Product Type" %}</th>
+        <th>{% translate "Product Type" %}</th>
         <td>{{ product.get_product_class.name }}</td>
       </tr>
       {% purchase_info_for_product request product as session %}
       {% if session.price.exists %}
         <tr>
-          <th>{% trans "Price (excl. tax)" %}</th>
+          <th>{% translate "Price (excl. tax)" %}</th>
           <td>{{ session.price.excl_tax|currency:session.price.currency }}</td>
         </tr>
         {% if session.price.is_tax_known %}
           <tr>
-            <th>{% trans "Price (incl. tax)" %}</th>
+            <th>{% translate "Price (incl. tax)" %}</th>
             <td>{{ session.price.incl_tax|currency:session.price.currency }}</td>
           </tr>
           <tr>
-            <th>{% trans "Tax" %}</th>
+            <th>{% translate "Tax" %}</th>
             <td>{{ session.price.tax|currency:session.price.currency }}</td>
           </tr>
         {% endif %}
         <tr>
-          <th>{% trans "Availability" %}</th>
+          <th>{% translate "Availability" %}</th>
           <td>{{ session.availability.message }}</td>
         </tr>
       {% endif %}
@@ -140,7 +140,7 @@
       {% endfor %}
       {% iffeature "reviews" %}
       <tr>
-        <th>{% trans "Number of reviews" %}</th>
+        <th>{% translate "Number of reviews" %}</th>
         <td>{{ product.num_approved_reviews }}</td>
       </tr>
     {% endiffeature %}
@@ -152,19 +152,19 @@
     <div id="reviews" class="sub-header">
       {% if product.num_approved_reviews > 3 %}
         <a href="{% url "catalogue:reviews-list" product_slug=product.slug product_pk=product.id %}"
-           class="btn float-end">{% trans "See all reviews" %}</a>
+           class="btn float-end">{% translate "See all reviews" %}</a>
       {% endif %}
-      <h2 class="mb-0">{% trans "Customer Reviews" %}</h2>
+      <h2 class="mb-0">{% translate "Customer Reviews" %}</h2>
     </div>
     {% if product.num_approved_reviews == 0 %}
       <p>
         {% if product|is_review_permitted:user %}
           {% url "catalogue:reviews-add" product_slug=product.slug product_pk=product.id as add_review_url %}
-          {% blocktrans %}This product does not have any reviews yet -
+          {% blocktranslate %}This product does not have any reviews yet -
                             <a href="{{ add_review_url }}#addreview">be the first to write one</a>.
-                        {% endblocktrans %}
+                        {% endblocktranslate %}
         {% else %}
-          {% trans "This product does not have any reviews yet" %}.
+          {% translate "This product does not have any reviews yet" %}.
         {% endif %}
       </p>
     {% else %}
@@ -180,7 +180,7 @@
 {% with recommended_products=product.sorted_recommended_products|slice:":6" %}
   {% if recommended_products %}
     <div class="sub-header">
-      <h2 class="mb-0">{% trans "Recommended items" %}</h2>
+      <h2 class="mb-0">{% translate "Recommended items" %}</h2>
     </div>
     <ul class="row list-unstyled mx-0">
       {% for product in recommended_products %}

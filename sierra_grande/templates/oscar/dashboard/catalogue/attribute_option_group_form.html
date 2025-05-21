@@ -4,7 +4,7 @@
 {% load crispy_forms_tags %}
 
 {% block title %}
-  {{ title }} | {% trans "Create Attribute Option Group" %} | {{ block.super }}
+  {{ title }} | {% translate "Create Attribute Option Group" %} | {{ block.super }}
 {% endblock title %}
 {% block body_class %}
   {{ block.super }} create-page
@@ -20,10 +20,10 @@
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
-          <a href="{% url "dashboard:index" %}">{% trans "Dashboard" %}</a>
+          <a href="{% url "dashboard:index" %}">{% translate "Dashboard" %}</a>
         </li>
         <li class="breadcrumb-item">
-          <a href="{% url "dashboard:catalogue-attribute-option-group-list" %}">{% trans "Attribute Option Group" %}</a>
+          <a href="{% url "dashboard:catalogue-attribute-option-group-list" %}">{% translate "Attribute Option Group" %}</a>
         </li>
         <li class="breadcrumb-item active" aria-current="page">{{ title }}</li>
       </ol>
@@ -46,7 +46,7 @@
              data-bs-target="#attribute-option-group-detail-pane"
              role="tab"
              aria-controls="attribute-option-group-detail-pane"
-             aria-selected="true">{% trans "Attribute Option Group Details" %}</a>
+             aria-selected="true">{% translate "Attribute Option Group Details" %}</a>
         </li>
         <li class="nav-item" role="presentation">
           <a class="nav-link"
@@ -56,7 +56,7 @@
              data-bs-target="#attribute-options-pane"
              role="tab"
              aria-controls="attribute-options-pane"
-             aria-selected="false">{% trans "Attribute Options" %}</a>
+             aria-selected="false">{% translate "Attribute Options" %}</a>
         </li>
       </ul>
     </div>
@@ -82,10 +82,10 @@
             <table class="table table-bordered align-middle table-hover mb-0">
               {{ attribute_option_formset.management_form }}
               {{ attribute_option_formset.non_form_errors }}
-              <thead>
+              <thead class="table-light">
                 <tr>
-                  <td class="w-50">{% trans "Option" %}</td>
-                  <td class="w-50">{% trans "Delete?" %}</td>
+                  <td class="w-50">{% translate "Option" %}</td>
+                  <td class="w-50">{% translate "Select for delete" %}</td>
                 </tr>
               </thead>
               <tbody>
@@ -108,14 +108,12 @@
     </div>
     {% block fixed_actions_group %}
       <div class="form-actions-fixed align-items-center bg-dark column-gap-4 fixed-bottom hstack justify-content-end p-3">
-        <button class="btn btn-primary"
-                type="submit"
-                data-loading-text="{% trans "Saving..." %}">{% trans "Save" %}</button>
         <a class="btn btn-secondary"
            href="#"
            {% if not is_popup %}onclick="window.history.go(-1);return false"{% else %}onclick="window.close();return false;"{% endif %}>
-          {% trans "Cancel" %}
+          {% translate "Cancel" %}
         </a>
+        <button class="btn btn-primary" type="submit" data-loading-text="{% translate "Saving..." %}">{% translate "Save" %}</button>
       </div>
     {% endblock fixed_actions_group %}
   </form>

@@ -7,14 +7,14 @@
           id="dropdownMenuButton--{{ record.id }}"
           data-bs-toggle="dropdown"
           aria-haspopup="true"
-          aria-expanded="false">{% trans "Actions" %}</button>
+          aria-expanded="false">{% translate "Actions" %}</button>
   <div class="dropdown-menu dropdown-menu-end"
        aria-labelledby="dropdownMenuButton--{{ record.id }}">
     <a class="dropdown-item"
        href="{% url 'dashboard:catalogue-option-update' pk=record.id %}{% querystring %}">
-      {% trans "Edit Option" %}
+      {% translate "Edit Option" %}
     </a>
     <a class="dropdown-item"
-       href="{% url 'dashboard:catalogue-option-delete' pk=record.id %}{% querystring %}">{% trans "Delete" %}</a>
+       href="{% url 'dashboard:catalogue-option-delete' pk=record.id %}{% querystring %}">{% translate "Delete" %}</a>
   </div>
 </div>

@@ -3,13 +3,13 @@
 {% load i18n %}
 
 {% block title %}
-  {% trans "Order preview" %} | {{ block.super }}
+  {% translate "Order preview" %} | {{ block.super }}
 {% endblock title %}
 {% block checkout_nav %}
   {% include "oscar/checkout/nav.html" with step=4 %}
 {% endblock checkout_nav %}
 {% block checkout_title %}
-  {% trans "Preview order" %}
+  {% translate "Preview order" %}
 {% endblock checkout_title %}
 {% block place_order %}
   <form method="post"
@@ -33,7 +33,7 @@
           <button id="place-order"
                   type="submit"
                   class="btn btn-primary btn-lg w-100"
-                  data-loading-text="{% trans "Submitting..." %}">{% trans "Place order" %}</button>
+                  data-loading-text="{% translate "Submitting..." %}">{% translate "Place order" %}</button>
         </div>
       </div>
     </div>

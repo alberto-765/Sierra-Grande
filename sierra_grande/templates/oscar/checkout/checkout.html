@@ -6,7 +6,7 @@
 {% load purchase_info_tags %}
 
 {% block title %}
-  {% trans "Checkout" %} | {{ block.super }}
+  {% translate "Checkout" %} | {{ block.super }}
 {% endblock title %}
 {% block checkout_nav %}
   {% include "oscar/checkout/nav.html" %}
@@ -17,14 +17,14 @@
     {% block shipping_address %}
       <div class="col-sm-6">
         <div class="sub-header">
-          <h2 class="mb-0">{% trans "Shipping" %}</h2>
+          <h2 class="mb-0">{% translate "Shipping" %}</h2>
         </div>
         {% if shipping_address %}
           <div class="card card-body bg-light">
             <h3>
-              {% trans "Address" %}
+              {% translate "Address" %}
               {% block shipping_address_actions %}
-                <a href="{% url "checkout:shipping-address" %}" class="float-end">{% trans "Change" %}</a>
+                <a href="{% url "checkout:shipping-address" %}" class="float-end">{% translate "Change" %}</a>
               {% endblock shipping_address_actions %}
             </h3>
             <address>
@@ -34,17 +34,17 @@
               {% endfor %}
             </address>
             {% if shipping_address.phone_number %}
-              <h4>{% trans "Contact" %}</h4>
+              <h4>{% translate "Contact" %}</h4>
               <p>
-                {% trans "Phone" %}: {{ shipping_address.phone_number }}
+                {% translate "Phone" %}: {{ shipping_address.phone_number }}
                 {% if guest_email %}
                   <br />
-                  {% trans "Email" %}: {{ guest_email }}
+                  {% translate "Email" %}: {{ guest_email }}
                 {% endif %}
               </p>
             {% endif %}
             {% if shipping_address.notes %}
-              <h4>{% trans "Instructions" %}</h4>
+              <h4>{% translate "Instructions" %}</h4>
               <p>{{ shipping_address.notes|linebreaks }}</p>
             {% endif %}
           </div>
@@ -52,9 +52,9 @@
         {% if shipping_method %}
           <div class="card card-body bg-light card card-body bg-light-info">
             <h3>
-              {% trans "Shipping method" %}
+              {% translate "Shipping method" %}
               {% block shipping_method_actions %}
-                <a href="{% url "checkout:shipping-method" %}" class="float-end">{% trans "Change" %}</a>
+                <a href="{% url "checkout:shipping-method" %}" class="float-end">{% translate "Change" %}</a>
               {% endblock shipping_method_actions %}
             </h3>
             <p>
@@ -69,14 +69,14 @@
     {% block payment_method %}
       <div class="col-sm-6">
         <div class="sub-header">
-          <h2 class="mb-0">{% trans "Payment" %}</h2>
+          <h2 class="mb-0">{% translate "Payment" %}</h2>
         </div>
         <div class="card card-body bg-light card card-body bg-light-success">
           <h3>
-            {% trans "Payment" %}
-            <a href="{% url "checkout:payment-details" %}" class="float-end">{% trans "Change" %}</a>
+            {% translate "Payment" %}
+            <a href="{% url "checkout:payment-details" %}" class="float-end">{% translate "Change" %}</a>
           </h3>
-          <p>{% trans "Payment details to go here" %}</p>
+          <p>{% translate "Payment details to go here" %}</p>
         </div>
       </div>
     {% endblock payment_method %}
@@ -84,15 +84,15 @@
   {% block order_contents %}
     <div class="sub-header">
       {% block order_contents_actions %}
-        <a href="{% url "basket:summary" %}" class="float-end">{% trans "Edit order contents" %}</a>
+        <a href="{% url "basket:summary" %}" class="float-end">{% translate "Edit order contents" %}</a>
       {% endblock order_contents_actions %}
-      <h2 class="mb-0">{% trans "Order contents" %}</h2>
+      <h2 class="mb-0">{% translate "Order contents" %}</h2>
     </div>
     <div class="basket-title">
       <div class="row">
-        <p class="col-sm-9 h4">{% trans "Item" %}</p>
-        <p class="col-sm-1 h4 text-center">{% trans "Quantity" %}</p>
-        <p class="col-sm-2 h4 text-end">{% trans "Total" %}</p>
+        <p class="col-sm-9 h4">{% translate "Item" %}</p>
+        <p class="col-sm-1 h4 text-center">{% translate "Quantity" %}</p>
+        <p class="col-sm-2 h4 text-end">{% translate "Total" %}</p>
       </div>
     </div>
     {% for line in basket.all_lines %}
@@ -136,7 +136,7 @@
       <div class="col-sm-6">&nbsp;</div>
       <div class="col-sm-6">
         <div class="sub-header">
-          <h2 class="mb-0">{% trans "Totals" %}</h2>
+          <h2 class="mb-0">{% translate "Totals" %}</h2>
         </div>
         {% include "oscar/basket/partials/basket_totals.html" %}
       </div>

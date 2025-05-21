@@ -13,10 +13,10 @@
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
+        <a href="{% url 'dashboard:index' %}">{% translate "Dashboard" %}</a>
       </li>
       <li class="breadcrumb-item">
-        <a href="{% url 'dashboard:users-index' %}">{% trans "Customers" %}</a>
+        <a href="{% url 'dashboard:users-index' %}">{% translate "Customers" %}</a>
       </li>
       <li class="breadcrumb-item active" aria-current="page">{{ customer.email }}</li>
     </ol>
@@ -30,64 +30,64 @@
     {% block user_general_info %}
       <div class="col-md-12">
         <div class="table-header">
-          <h2>{% trans "General" %}</h2>
+          <h2>{% translate "General" %}</h2>
         </div>
         <table class="align-middle table table-bordered">
           <tr>
-            <th>{% trans "Name" %}</th>
+            <th>{% translate "Name" %}</th>
             <td>{{ customer.get_full_name|default:"-" }}</td>
           </tr>
           <tr>
-            <th>{% trans "Email" %}</th>
+            <th>{% translate "Email" %}</th>
             <td>{{ customer.email }}</td>
           </tr>
           <tr>
-            <th>{% trans "Active" %}?</th>
+            <th>{% translate "Active" %}?</th>
             <td>{{ customer.is_active|yesno:_("Yes,No") }}</td>
           </tr>
           <tr>
-            <th>{% trans "Superuser" %}?</th>
+            <th>{% translate "Superuser" %}?</th>
             <td>{{ customer.is_superuser|yesno:_("True,False") }}</td>
           </tr>
           <tr>
-            <th>{% trans "Staff" %}?</th>
+            <th>{% translate "Staff" %}?</th>
             <td>{{ customer.is_staff|yesno:_("True,False") }}</td>
           </tr>
           <tr>
-            <th>{% trans "Last login" %}</th>
+            <th>{% translate "Last login" %}</th>
             <td>{{ customer.last_login }}</td>
           </tr>
           <tr>
-            <th>{% trans "Date joined" %}</th>
+            <th>{% translate "Date joined" %}</th>
             <td>{{ customer.date_joined }}</td>
           </tr>
           {% if customer.userrecord %}
             {% with record=customer.userrecord %}
               <tr>
-                <th>{% trans "Products viewed" %}</th>
+                <th>{% translate "Products viewed" %}</th>
                 <td>{{ record.num_product_views|default:0 }}</td>
               </tr>
               <tr>
-                <th>{% trans "Number of orders" %}</th>
+                <th>{% translate "Number of orders" %}</th>
                 <td>{{ record.num_orders|default:0 }}</td>
               </tr>
               <tr>
-                <th>{% trans "Number of ordered items" %}</th>
+                <th>{% translate "Number of ordered items" %}</th>
                 <td>{{ record.num_order_items|default:0 }}</td>
               </tr>
               <tr>
-                <th>{% trans "Total spent" %}</th>
+                <th>{% translate "Total spent" %}</th>
                 <td>{{ record.total_spent|default:0|currency }}</td>
               </tr>
             {% endwith %}
           {% endif %}
           <tr>
-            <th>{% trans "Reviews written" %}</th>
+            <th>{% translate "Reviews written" %}</th>
             <td>{{ customer.reviews.count }}</td>
           </tr>
           {% if customer.email %}
             <tr>
-              <th>{% trans "Actions" %}</th>
+              <th>{% translate "Actions" %}</th>
               <td>
                 <form id="password_reset_form"
                       action="{% url 'dashboard:user-password-reset' pk=customer.id %}"
@@ -95,8 +95,8 @@
                   {% csrf_token %}
                   <button type="submit"
                           class="btn btn-primary"
-                          data-loading-text="{% trans "Sending..." %}">
-                    {% trans "Send password reset email" %}
+                          data-loading-text="{% translate "Sending..." %}">
+                    {% translate "Send password reset email" %}
                   </button>
                 </form>
               </td>
@@ -112,13 +112,13 @@
         {% block tab_nav %}
           <ul class="nav nav-tabs mb-0" role="tablist">
             <li class="nav-item">
-              <a class="nav-link active" href="#user_orders" data-toggle="tab">{% trans "Orders" %}</a>
+              <a class="nav-link active" href="#user_orders" data-toggle="tab">{% translate "Orders" %}</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#user_addresses" data-toggle="tab">{% trans "Addresses" %}</a>
+              <a class="nav-link" href="#user_addresses" data-toggle="tab">{% translate "Addresses" %}</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#user_reviews" data-toggle="tab">{% trans "Reviews" %}</a>
+              <a class="nav-link" href="#user_reviews" data-toggle="tab">{% translate "Reviews" %}</a>
             </li>
           </ul>
         {% endblock tab_nav %}
@@ -126,15 +126,15 @@
           {% block user_orders %}
             <div id="user_orders" class="tab-pane fade show active" role="tabpanel">
               <table class="align-middle table table-striped table-bordered table-hover">
-                <caption>{% trans "Orders" %}</caption>
+                <caption>{% translate "Orders" %}</caption>
                 {% with orders=customer.orders.all %}
                   {% if orders %}
                     <tr>
-                      <th>{% trans "Order Number" %}</th>
-                      <th>{% trans "Num items" %}</th>
-                      <th>{% trans "Total value" %}</th>
-                      <th>{% trans "Date placed" %}</th>
-                      <th>{% trans "Status" %}</th>
+                      <th>{% translate "Order Number" %}</th>
+                      <th>{% translate "Num items" %}</th>
+                      <th>{% translate "Total value" %}</th>
+                      <th>{% translate "Date placed" %}</th>
+                      <th>{% translate "Status" %}</th>
                       <th></th>
                     </tr>
                     {% for order in orders %}
@@ -148,13 +148,13 @@
                         <td>{{ order.status|default:"-" }}</td>
                         <td>
                           <a href="{% url 'dashboard:order-detail' number=order.number %}"
-                             class="btn btn-info">{% trans "View" %}</a>
+                             class="btn btn-info">{% translate "View" %}</a>
                         </td>
                       </tr>
                     {% endfor %}
                   {% else %}
                     <tr>
-                      <td>{% trans "This customer has not placed any orders yet." %}</td>
+                      <td>{% translate "This customer has not placed any orders yet." %}</td>
                     </tr>
                   {% endif %}
                 {% endwith %}
@@ -163,7 +163,7 @@
           {% endblock user_orders %}
           {% block user_addresses %}
             <div id="user_addresses" class="tab-pane fade" role="tabpanel">
-              <h2>{% trans "Addresses" %}</h2>
+              <h2>{% translate "Addresses" %}</h2>
               <div class="row">
                 {% for address in customer.addresses.all %}
                   <div class="col-md-3">
@@ -179,7 +179,7 @@
                   <div class="row">
                   {% endif %}
                 {% empty %}
-                  <p>{% trans "This customer has not saved any addresses." %}</p>
+                  <p>{% translate "This customer has not saved any addresses." %}</p>
                 {% endfor %}
               </div>
             </div>
@@ -187,14 +187,14 @@
           {% block user_reviews %}
             <div id="user_reviews" class="tab-pane fade" role="tabpanel">
               <table class="align-middle table table-striped table-bordered table-hover">
-                <caption>{% trans "Reviews" %}</caption>
+                <caption>{% translate "Reviews" %}</caption>
                 {% if customer.reviews.count %}
                   <tr>
-                    <th>{% trans "Product ID" %}</th>
-                    <th>{% trans "Score" %}</th>
-                    <th>{% trans "Title" context "Product review title" %}</th>
-                    <th>{% trans "Body" %}</th>
-                    <th>{% trans "Date created" %}</th>
+                    <th>{% translate "Product ID" %}</th>
+                    <th>{% translate "Score" %}</th>
+                    <th>{% translate "Title" context "Product review title" %}</th>
+                    <th>{% translate "Body" %}</th>
+                    <th>{% translate "Date created" %}</th>
                   </tr>
                   {% for review in customer.reviews.all %}
                     <tr>
@@ -207,7 +207,7 @@
                   {% endfor %}
                 {% else %}
                   <tr>
-                    <td>{% trans "This customer has not written any reviews yet." %}</td>
+                    <td>{% translate "This customer has not written any reviews yet." %}</td>
                   </tr>
                 {% endif %}
               </table>

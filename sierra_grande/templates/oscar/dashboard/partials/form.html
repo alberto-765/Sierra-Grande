@@ -11,11 +11,7 @@
   {% endif %}
   {% crispy form %}
   <div class="form-actions-fixed align-items-center bg-dark column-gap-4 fixed-bottom hstack justify-content-end p-3">
-    <button type="submit"
-            class="btn btn-primary"
-            data-loading-text="{% trans 'Saving...' %}">{% trans "Save" %}</button>
-    <button type="button"
-            class="btn btn-secondary"
-            onclick="window.history.go(-1);return false">{% trans "Cancel" %}</button>
+    <button type="button" class="btn btn-secondary" onclick="window.history.go(-1);return false">{% translate "Cancel" %}</button>
+    <button type="submit" class="btn btn-primary" data-loading-text="{% translate 'Saving...' %}">{% translate "Save" %}</button>
   </div>
 </form>

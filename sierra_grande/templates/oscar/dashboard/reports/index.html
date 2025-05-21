@@ -7,27 +7,27 @@
   {{ block.super }} reports
 {% endblock body_class %}
 {% block title %}
-  {% trans "Reports" %} | {{ block.super }}
+  {% translate "Reports" %} | {{ block.super }}
 {% endblock title %}
 {% block breadcrumbs %}
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
+        <a href="{% url 'dashboard:index' %}">{% translate "Dashboard" %}</a>
       </li>
-      <li class="breadcrumb-item active" aria-current="page">{% trans "Reporting Dashboard" %}</li>
+      <li class="breadcrumb-item active" aria-current="page">{% translate "Reporting Dashboard" %}</li>
     </ol>
   </nav>
 {% endblock breadcrumbs %}
 {% block headertext %}
-  {% trans "Reporting dashboard" %}
+  {% translate "Reporting dashboard" %}
 {% endblock headertext %}
 {% block dashboard_content %}
   <div class="vstack gap-4">
     <div class="card">
       <span class="card-header icon-link fw-normal">
         <iconify-icon icon="mdi:report-areaspline" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
-        {% trans "Reporting dashboard" %}
+        {% translate "Reporting dashboard" %}
       </span>
       <div class="card-body">{% crispy form %}</div>
     </div>

@@ -107,7 +107,7 @@ class RangeProductForm(forms.Form):
             "upload_type",
             Submit(
                 "submit",
-                _("Go!"),
+                _("Add"),
                 data_loading_text=_("Running..."),
             ),
         )

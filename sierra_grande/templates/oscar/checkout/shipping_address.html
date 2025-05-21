@@ -3,24 +3,24 @@
 {% load i18n %}
 
 {% block title %}
-  {% trans "Shipping address" %} | {{ block.super }}
+  {% translate "Shipping address" %} | {{ block.super }}
 {% endblock title %}
 {% block checkout_nav %}
   {% include "oscar/checkout/nav.html" with step=1 %}
 {% endblock checkout_nav %}
 {% block checkout_title %}
-  {% trans "Shipping address" %}
+  {% translate "Shipping address" %}
 {% endblock checkout_title %}
 {% block order_contents %}
 {% endblock order_contents %}
 {% block shipping_address %}
   <div class="col-sm-12">
     <div class="sub-header">
-      <h2 class="mb-0">{% trans "Where should we ship to?" %}</h2>
+      <h2 class="mb-0">{% translate "Where should we ship to?" %}</h2>
     </div>
     {% if user.is_authenticated %}
       {% if addresses %}
-        <h3>{% trans "An address from your address book?" %}</h3>
+        <h3>{% translate "An address from your address book?" %}</h3>
         <div class="choose-block">
           <div class="row">
             {% for address in addresses %}
@@ -45,23 +45,23 @@
                       {% if address.is_default_for_shipping %}
                         <button type="submit"
                                 class="btn btn-success btn-large ship-address"
-                                data-loading-text="{% trans "Saving..." %}">
-                          <i class="fas fa-check-circle"></i> {% trans "Ship to your default shipping address" %}
+                                data-loading-text="{% translate "Saving..." %}">
+                          <i class="fas fa-check-circle"></i> {% translate "Ship to your default shipping address" %}
                         </button>
                       {% else %}
                         <button type="submit"
                                 class="btn btn-primary btn-large ship-address"
-                                data-loading-text="{% trans "Saving..." %}">
-                          {% trans "Ship to this address" %}
+                                data-loading-text="{% translate "Saving..." %}">
+                          {% translate "Ship to this address" %}
                         </button>
                       {% endif %}
                       <div class="btn-group address-controls">
                         <a href="{% url "checkout:user-address-update" pk=address.id %}"
-                           class="btn btn-secondary">{% trans "Edit address" %}</a>
+                           class="btn btn-secondary">{% translate "Edit address" %}</a>
                         <button class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"></button>
                         <ul class="dropdown-menu">
                           <a href="{% url "checkout:user-address-delete" pk=address.id %}"
-                             class="btn-remove-address nav-link">{% trans "Delete" %}</a>
+                             class="btn-remove-address nav-link">{% translate "Delete" %}</a>
                         </ul>
                       </div>
                     </form>
@@ -75,7 +75,7 @@
             {% endfor %}
           </div>
         </div>
-        <h3>{% trans "Or a new address?" %}</h3>
+        <h3>{% translate "Or a new address?" %}</h3>
       {% endif %}
     {% endif %}
     {% block new_address_form %}
@@ -89,8 +89,8 @@
             <div class="offset-sm-4 col-sm-8">
               <button type="submit"
                       class="btn btn-lg btn-primary"
-                      data-loading-text="{% trans "Continuing..." %}">{% trans "Continue" %}</button>
-              {% trans "or" %} <a href="{% url "basket:summary" %}">{% trans "return to basket" %}</a>
+                      data-loading-text="{% translate "Continuing..." %}">{% translate "Continue" %}</button>
+              {% translate "or" %} <a href="{% url "basket:summary" %}">{% translate "return to basket" %}</a>
             </div>
           </div>
         </form>

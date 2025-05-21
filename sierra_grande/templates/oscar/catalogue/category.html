@@ -18,7 +18,7 @@
     {% if user.is_staff %}
       <a class="float-end d-none d-md-block"
          href="{% url "dashboard:catalogue-category-update" pk=category.id %}">
-        <small><i class="fas fa-pencil-alt"></i> {% trans "Edit this category" %}</small></a>
+        <small><i class="fas fa-pencil-alt"></i> {% translate "Edit this category" %}</small></a>
     {% endif %}
   </div>
 {% endblock header %}
@@ -26,7 +26,7 @@
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="{{ homepage_url }}">{% trans "Home" %}</a>
+        <a href="{{ homepage_url }}">{% translate "Home" %}</a>
       </li>
       {% for category in category.get_ancestors %}
         <li class="breadcrumb-item">

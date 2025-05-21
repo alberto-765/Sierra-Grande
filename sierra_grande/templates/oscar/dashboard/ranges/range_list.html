@@ -3,30 +3,30 @@
 {% load i18n %}
 
 {% block title %}
-  {% trans "Ranges" %} | {{ block.super }}
+  {% translate "Ranges" %} | {{ block.super }}
 {% endblock title %}
 {% block breadcrumbs %}
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="{% url "dashboard:index" %}">{% trans "Dashboard" %}</a>
+        <a href="{% url "dashboard:index" %}">{% translate "Dashboard" %}</a>
       </li>
-      <li class="breadcrumb-item active" aria-current="page">{% trans "Ranges" %}</li>
+      <li class="breadcrumb-item active" aria-current="page">{% translate "Ranges" %}</li>
     </ol>
   </nav>
 {% endblock breadcrumbs %}
 {% block header %}
   <div class="hstack justify-content-between align-items-center">
-    <h2 class="mb-0">{% trans "Ranges" %}</h2>
+    <h2 class="mb-0">{% translate "Ranges" %}</h2>
     <a href="{% url "dashboard:range-create" %}"
-       class="btn btn-primary icon-link"><iconify-icon icon="mdi:plus-circle" width="1rem" height="1rem" aria-hidden="true"></iconify-icon> {% trans "Create new range" %}</a>
+       class="btn btn-primary icon-link"><iconify-icon icon="mdi:plus-circle" width="1rem" height="1rem" aria-hidden="true"></iconify-icon> {% translate "Create new range" %}</a>
   </div>
 {% endblock header %}
 {% block dashboard_content %}
   <div class="card">
     <div class="card-header icon-link fw-normal">
       <iconify-icon icon="fe:elipsis-h" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
-      {% trans "Ranges" %}
+      {% translate "Ranges" %}
     </div>
     <div class="card-body {% if ranges %}p-0{% endif %}">
       {% if ranges %}
@@ -34,10 +34,10 @@
           <table class="align-middle table table-hover table-bordered">
             <thead>
               <tr>
-                <th>{% trans "Name" %}</th>
-                <th>{% trans "Num products" %}</th>
-                <th>{% trans "Is public?" %}</th>
-                <th>{% trans "Date created" %}</th>
+                <th>{% translate "Name" %}</th>
+                <th>{% translate "Num products" %}</th>
+                <th>{% translate "Is public?" %}</th>
+                <th>{% translate "Date created" %}</th>
                 <th></th>
               </tr>
             </thead>
@@ -52,14 +52,14 @@
                     {% endif %}
                   </td>
                   {% if range.includes_all_products %}
-                    <td>{% trans "All" %}</td>
+                    <td>{% translate "All" %}</td>
                   {% else %}
                     <td>{{ range.num_products|default:"-" }}</td>
                   {% endif %}
                   {% if range.is_public %}
-                    <td>{% trans "Yes" %}</td>
+                    <td>{% translate "Yes" %}</td>
                   {% else %}
-                    <td>{% trans "No" %}</td>
+                    <td>{% translate "No" %}</td>
                   {% endif %}
                   <td>{{ range.date_created }}</td>
                   <td>
@@ -70,22 +70,22 @@
                                 id="dropdownMenuButton"
                                 data-bs-toggle="dropdown"
                                 aria-haspopup="true"
-                                aria-expanded="false">{% trans "Actions" %}</button>
+                                aria-expanded="false">{% translate "Actions" %}</button>
                         <div class="dropdown-menu dropdown-menu-end"
                             aria-labelledby="dropdownMenuButton">
                           {% if range.is_editable %}
                             <a class="dropdown-item"
-                              href="{% url "dashboard:range-update" pk=range.id %}">{% trans "Edit" %}</a>
+                              href="{% url "dashboard:range-update" pk=range.id %}">{% translate "Edit" %}</a>
                             {% if not range.includes_all_products %}
                               <a class="dropdown-item"
-                                href="{% url "dashboard:range-products" pk=range.id %}">{% trans "Edit products" %}</a>
+                                href="{% url "dashboard:range-products" pk=range.id %}">{% translate "Edit products" %}</a>
                             {% endif %}
                           {% endif %}
                           {% if range.is_public %}
-                            <a class="dropdown-item" href="{{ range.get_absolute_url }}">{% trans "View on site" %}</a>
+                            <a class="dropdown-item" href="{{ range.get_absolute_url }}">{% translate "View on site" %}</a>
                           {% endif %}
                           <a class="dropdown-item"
-                            href="{% url "dashboard:range-delete" pk=range.id %}">{% trans "Delete" %}</a>
+                            href="{% url "dashboard:range-delete" pk=range.id %}">{% translate "Delete" %}</a>
                         </div>
                       </div>
                     </div>
@@ -97,7 +97,7 @@
         </div>
         {% include "oscar/dashboard/partials/pagination.html" %}
       {% else %}
-        <div>{% trans "No ranges found." %}</div>
+        <div>{% translate "No ranges found." %}</div>
       {% endif %}
     </div>
   </div>

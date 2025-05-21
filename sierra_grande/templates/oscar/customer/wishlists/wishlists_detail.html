@@ -8,13 +8,13 @@
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="{{ homepage_url }}">{% trans "Home" %}</a>
+        <a href="{{ homepage_url }}">{% translate "Home" %}</a>
       </li>
       <li class="breadcrumb-item">
-        <a href="{% url "customer:summary" %}">{% trans "Account" %}</a>
+        <a href="{% url "customer:summary" %}">{% translate "Account" %}</a>
       </li>
       <li class="breadcrumb-item">
-        <a href="{% url "customer:wishlists-list" %}">{% trans "Wish Lists" %}</a>
+        <a href="{% url "customer:wishlists-list" %}">{% translate "Wish Lists" %}</a>
       </li>
       <li class="breadcrumb-item active" aria-current="page">{{ wishlist.name }}</li>
     </ol>
@@ -28,9 +28,9 @@
       <table class="table table-striped table-bordered align-middle">
         <tbody>
           <tr>
-            <th colspan="2">{% trans "Product" %}</th>
-            <th>{% trans "Quantity" %}</th>
-            <th>{% trans "Action" %}</th>
+            <th colspan="2">{% translate "Product" %}</th>
+            <th>{% translate "Quantity" %}</th>
+            <th>{% translate "Action" %}</th>
           </tr>
           {% for subform in form %}
             {% with line=subform.instance product=subform.instance.product %}
@@ -61,7 +61,7 @@
                   {% if product and product.is_public %}
                     <a href="{{ line.product.get_absolute_url }}">{{ line.get_title }}</a>
                   {% else %}
-                    <em>{{ line.get_title }} ({% trans "Not available anymore" %})</em>
+                    <em>{{ line.get_title }} ({% translate "Not available anymore" %})</em>
                   {% endif %}
                 </td>
                 <td>
@@ -77,17 +77,17 @@
                 <td>
                   <div class="btn-group">
                     {% if product %}
-                      <a class="btn btn-secondary" href="{{ line.product.get_absolute_url }}">{% trans "View product" %}</a>
+                      <a class="btn btn-secondary" href="{{ line.product.get_absolute_url }}">{% translate "View product" %}</a>
                       <button class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"></button>
                     {% else %}
                       <a class="btn btn-secondary dropdown-toggle"
                          data-toggle="dropdown"
-                         href="#">{% trans "Actions" %}</a>
+                         href="#">{% translate "Actions" %}</a>
                     {% endif %}
                     <ul class="dropdown-menu dropdown-menu-end">
                       <li>
                         <a href="{% url "customer:wishlists-remove-product" key=wishlist.key line_pk=line.pk %}"
-                           class="dropdown-item">{% trans "Remove" %}</a>
+                           class="dropdown-item">{% translate "Remove" %}</a>
                       </li>
                       {% for other_wishlist in other_wishlists %}
                         <li>
@@ -95,9 +95,9 @@
                           <a href="{% url "customer:wishlists-move-product-to-another" key=wishlist.key line_pk=line.pk to_key=other_wishlist.key %}"
                              class="dropdown-item">
                             <!-- djlint:on -->
-                            {% blocktrans with name=other_wishlist.name %}
+                            {% blocktranslate with name=other_wishlist.name %}
                                 Move to '{{ name }}' wish list
-                            {% endblocktrans %}
+                            {% endblocktranslate %}
                           </a>
                         </li>
                       {% endfor %}
@@ -112,7 +112,7 @@
             <td>
               <button class="btn btn-primary"
                       type="submit"
-                      data-loading-text="{% trans "Updating..." %}">{% trans "Update quantities" %}</button>
+                      data-loading-text="{% translate "Updating..." %}">{% translate "Update quantities" %}</button>
             </td>
             <td></td>
           </tr>
@@ -120,6 +120,6 @@
       </table>
     </form>
   {% else %}
-    {% trans "Your wish list is empty." %}
+    {% translate "Your wish list is empty." %}
   {% endif %}
 {% endblock tabcontent %}

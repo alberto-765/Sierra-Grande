@@ -4,26 +4,26 @@
 {% load crispy_forms_tags %}
 
 {% block title %}
-  {% trans "Link an existing user" %} | {{ partner.name }} | {% trans "Partners" %} | {{ block.super }}
+  {% translate "Link an existing user" %} | {{ partner.name }} | {% translate "Partners" %} | {{ block.super }}
 {% endblock %}
 {% block breadcrumbs %}
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
+        <a href="{% url 'dashboard:index' %}">{% translate "Dashboard" %}</a>
       </li>
       <li class="breadcrumb-item">
-        <a href="{% url 'dashboard:partner-list' %}">{% trans "Partners" %}</a>
+        <a href="{% url 'dashboard:partner-list' %}">{% translate "Partners" %}</a>
       </li>
       <li class="breadcrumb-item">
         <a href="{% url 'dashboard:partner-manage' pk=partner.id %}">{{ partner.name }}</a>
       </li>
-      <li class="breadcrumb-item active" aria-current="page">{% trans "Link an existing user" %}</li>
+      <li class="breadcrumb-item active" aria-current="page">{% translate "Link an existing user" %}</li>
     </ol>
   </nav>
 {% endblock %}
 {% block headertext %}
-  {% trans "Link an existing user" %}
+  {% translate "Link an existing user" %}
 {% endblock %}
 {% block dashboard_content %}
   {% block users_form %}
@@ -43,9 +43,9 @@
                 {% block users_header %}
                   <thead>
                     <tr>
-                      <th>{% trans 'Email' %}</th>
-                      <th>{% trans 'First name' %}</th>
-                      <th>{% trans 'Last name' %}</th>
+                      <th>{% translate 'Email' %}</th>
+                      <th>{% translate 'First name' %}</th>
+                      <th>{% translate 'Last name' %}</th>
                       <th>&nbsp;</th>
                     </tr>
                   </thead>
@@ -59,16 +59,16 @@
                         <td>{{ user.last_name|default:"-" }}</td>
                         <td>
                           {% if user in partner_users %}
-                            {% blocktrans with name=partner.name %}
+                            {% blocktranslate with name=partner.name %}
                                                             User is already linked to {{ name }}.
-                                                        {% endblocktrans %}
+                                                        {% endblocktranslate %}
                           {% else %}
                             <form action="{% url 'dashboard:partner-user-link' partner_pk=partner.id user_pk=user.id %}"
                                   method="post">
                               {% csrf_token %}
                               <button type="submit"
                                       class="btn btn-primary"
-                                      data-loading-text="{% trans 'Linking...' %}">{% trans 'Link user' %}</button>
+                                      data-loading-text="{% translate 'Linking...' %}">{% translate 'Link user' %}</button>
                             </form>
                           {% endif %}
                         </td>
@@ -81,7 +81,7 @@
             {% include "oscar/dashboard/partials/pagination.html" %}
           </div>
         {% else %}
-          <div>{% trans "No users found." %}</div>
+          <div>{% translate "No users found." %}</div>
         {% endif %}
       </div>
     </div>

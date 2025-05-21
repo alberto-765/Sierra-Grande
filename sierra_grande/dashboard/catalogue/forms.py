@@ -2,7 +2,7 @@
 from crispy_bootstrap5.bootstrap5 import FloatingField
 from crispy_bootstrap5.bootstrap5 import Switch
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout
+from crispy_forms.layout import Layout, Row, Column
 from django import forms
 from django.core import exceptions
 from django.utils.translation import gettext_lazy as _
@@ -13,6 +13,7 @@ from oscar.core.utils import slugify
 from oscar.forms.widgets import DateTimePickerInput
 from oscar.forms.widgets import ImageInput
 from treebeard.forms import movenodeform_factory
+from tinymce.widgets import TinyMCE
 
 Product = get_model("catalogue", "Product")
 ProductClass = get_model("catalogue", "ProductClass")
@@ -44,7 +45,14 @@ BaseCategoryForm = movenodeform_factory(
         "meta_description",
     ],
     exclude=["ancestors_are_public"],
-    widgets={"meta_description": forms.Textarea(attrs={"class": "no-widget-init"})},
+    widgets={
+        "meta_description": forms.Textarea(
+            attrs={"class": "no-widget-init", "rows": 5}
+        ),
+        "description": TinyMCE(
+            attrs={"cols": 80, "rows": 30},
+        ),
+    },
 )
 
 
@@ -468,15 +476,21 @@ class ProductAttributesForm(forms.ModelForm):
 
 
 class AttributeOptionGroupForm(forms.ModelForm):
-    class Meta:
-        model = AttributeOptionGroup
-        fields = ["name"]
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_tag = False
-        self.helper.layout = Layout(FloatingField("name"))
+        self.helper.layout = Layout(
+            Row(
+                Column(
+                    FloatingField("name", wrapper_class=" "), css_class="col-sm-auto"
+                )
+            ),
+        )
+
+    class Meta:
+        model = AttributeOptionGroup
+        fields = ["name"]
 
 
 class AttributeOptionForm(forms.ModelForm):
@@ -497,7 +511,7 @@ class OptionForm(forms.ModelForm):
         self.helper.layout = Layout(
             FloatingField("name"),
             FloatingField("type"),
-            Switch("require)d"),
+            Switch("required"),
             FloatingField("order"),
             FloatingField("help_text"),
             FloatingField("option_group"),

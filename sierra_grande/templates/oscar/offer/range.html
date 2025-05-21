@@ -12,7 +12,7 @@
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="{{ homepage_url }}">{% trans "Home" %}</a>
+        <a href="{{ homepage_url }}">{% translate "Home" %}</a>
       </li>
       <li class="breadcrumb-item active" aria-current="page">{{ range.name }}</li>
     </ol>
@@ -35,6 +35,6 @@
       </div>
     </section>
   {% else %}
-    <p class="nonefound">{% trans "No products found." %}</p>
+    <p class="nonefound">{% translate "No products found." %}</p>
   {% endif %}
 {% endblock content %}

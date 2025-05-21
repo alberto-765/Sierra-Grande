@@ -3,20 +3,25 @@
 {% load category_tags %}
 {% load i18n %}
 
+{% block extrahead %}
+  {{ block.super }}
+  {{ form.media }}
+{% endblock extrahead %}
+
 {% block body_class %}
   {{ block.super }} create-page catalogue
 {% endblock body_class %}
 {% block title %}
-  {{ title }} | {% trans "Categories" %} | {{ block.super }}
+  {{ title }} | {% translate "Categories" %} | {{ block.super }}
 {% endblock title %}
 {% block breadcrumbs %}
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="{% url "dashboard:index" %}">{% trans "Dashboard" %}</a>
+        <a href="{% url "dashboard:index" %}">{% translate "Dashboard" %}</a>
       </li>
       <li class="breadcrumb-item">
-        <a href="{% url "dashboard:catalogue-category-list" %}">{% trans "Categories" %}</a>
+        <a href="{% url "dashboard:catalogue-category-list" %}">{% translate "Categories" %}</a>
       </li>
       <li class="breadcrumb-item active" aria-current="page">{{ title }}</li>
     </ol>
@@ -45,7 +50,7 @@
              data-bs-target="#category-detail-pane"
              role="tab"
              aria-controls="category-detail-pane"
-             aria-selected="true">{% trans "Category details" %}</a>
+             aria-selected="true">{% translate "Category details" %}</a>
         </li>
         <li class="nav-item" role="presentation">
           <a class="nav-link"
@@ -55,7 +60,7 @@
              data-bs-target="#category-seo-pane"
              role="tab"
              aria-controls="category-seo-pane"
-             aria-selected="false">{% trans "Search engine optimisation" %}</a>
+             aria-selected="false">{% translate "Search engine optimisation" %}</a>
         </li>
       </ul>
     </div>
@@ -93,19 +98,19 @@
     </div>
     {% block fixed_actions_group %}
       <div class="form-actions-fixed align-items-center bg-dark column-gap-4 fixed-bottom hstack justify-content-end p-3">
-        <a href="{% url "dashboard:catalogue-category-list" %}">{% trans "Cancel" %}</a>
+        <a href="{% url "dashboard:catalogue-category-list" %}">{% translate "Cancel" %}</a>
         <button class="btn btn-secondary"
                 name="action"
                 type="submit"
                 value="continue"
-                data-loading-text="{% trans "Saving..." %}">{% trans "Save and continue editing" %}</button>
+                data-loading-text="{% translate "Saving..." %}">{% translate "Save and continue editing" %}</button>
         <button class="btn btn-primary"
                 name="action"
                 type="submit"
                 value="save"
-                data-loading-text="{% trans "Saving..." %}">{% trans "Save" %}</button>
+                data-loading-text="{% translate "Saving..." %}">{% translate "Save" %}</button>
         {% if category %}
-          <a class="btn btn-success" href="{{ category.get_absolute_url }}">{% trans "View on site" %}</a>
+          <a class="btn btn-success" href="{{ category.get_absolute_url }}">{% translate "View on site" %}</a>
         {% endif %}
       </div>
     {% endblock fixed_actions_group %}

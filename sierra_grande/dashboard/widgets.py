@@ -1,6 +1,6 @@
 import copy
 import re
-from django import forms
+from django.forms import Widget, SelectMultiple
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.utils.html import format_html
@@ -8,7 +8,7 @@ from django.utils.html import format_html
 SMALL_LIST_THRESHOLD = 4
 
 
-class RelatedFieldWidgetWrapper(forms.Widget):
+class RelatedFieldWidgetWrapper(Widget):
     """
     This class is a wrapper to a given widget to add the add icon for the
     Oscar dashboard.
@@ -49,7 +49,7 @@ class RelatedFieldWidgetWrapper(forms.Widget):
         # Convert the model's object name into lowercase, with dashes between
         # the camel-cased words
         model_object_name = "-".join(
-            re.sub("([a-z])([A-Z])", r"\1 \2", model_object_name).lower().split(),
+            re.sub("([a-z])([A-Z])", r"\1 \2", model_object_name).lower().split()
         )
         # Does not specify current app
         return reverse(
@@ -60,7 +60,7 @@ class RelatedFieldWidgetWrapper(forms.Widget):
     def get_context(self, name, value, attrs):
         rel_model = self.rel.model
         app_label = rel_model._meta.app_label
-        model_name = rel_model._meta.model_name
+        model_name = rel_model._meta.object_name
         verbose_name = rel_model._meta.verbose_name
         info = (app_label, model_name)
 
@@ -122,7 +122,7 @@ class RelatedMultipleFieldWidgetWrapper(RelatedFieldWidgetWrapper):
     template_name = "oscar/dashboard/widgets/related_multiple_widget_wrapper.html"
 
 
-class CustomSelectMultiple(forms.SelectMultiple):
+class CustomSelectMultiple(SelectMultiple):
     def __init__(self, model_name="item", attrs=None):
         self.model_name = model_name
         super().__init__(attrs)

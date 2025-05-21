@@ -6,38 +6,38 @@
   {{ block.super }} users
 {% endblock body_class %}
 {% block title %}
-  {% blocktrans with id=alert.id %}Update alert #{{ id }}{% endblocktrans %} | {{ block.super }}
+  {% blocktranslate with id=alert.id %}Update alert #{{ id }}{% endblocktranslate %} | {{ block.super }}
 {% endblock title %}
 {% block breadcrumbs %}
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="{% url "dashboard:index" %}">{% trans "Dashboard" %}</a>
+        <a href="{% url "dashboard:index" %}">{% translate "Dashboard" %}</a>
       </li>
       <li class="breadcrumb-item">
-        <a href="{% url "dashboard:user-alert-list" %}">{% trans "Product alerts" %}</a>
+        <a href="{% url "dashboard:user-alert-list" %}">{% translate "Product alerts" %}</a>
       </li>
       <li class="breadcrumb-item active" aria-current="page">
-        {% blocktrans with id=alert.id %}Alert #{{ id }}{% endblocktrans %}
+        {% blocktranslate with id=alert.id %}Alert #{{ id }}{% endblocktranslate %}
       </li>
     </ol>
   </nav>
 {% endblock breadcrumbs %}
 {% block headertext %}
-  {% blocktrans with id=alert.id %}Product alert #{{ id }}{% endblocktrans %}
+  {% blocktranslate with id=alert.id %}Product alert #{{ id }}{% endblocktranslate %}
 {% endblock headertext %}
 {% block dashboard_content %}
   <div class="table-header">
-    <h2 class="mb-0">{% blocktrans with id=alert.id %}Product alert #{{ id }}{% endblocktrans %}</h2>
+    <h2 class="mb-0">{% blocktranslate with id=alert.id %}Product alert #{{ id }}{% endblocktranslate %}</h2>
     <div class="float-end">
       <form method="post" class="hstack">
         {% csrf_token %}
         {% include "oscar/dashboard/partials/form_fields_inline.html" wrapper_class="mb-0" %}
         <button type="submit"
                 class="btn btn-primary"
-                data-loading-text="{% trans "Saving..." %}">{% trans "Save" %}</button>
+                data-loading-text="{% translate "Saving..." %}">{% translate "Save" %}</button>
         <a href="{% url "dashboard:user-alert-list" %}"
-           class="btn btn-secondary">{% trans "cancel" %}</a>
+           class="btn btn-secondary">{% translate "cancel" %}</a>
       </form>
     </div>
   </div>

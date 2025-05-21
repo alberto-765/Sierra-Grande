@@ -22,13 +22,13 @@
                 <a href="{% url 'customer:notifications-inbox' %}"
                    class="nav-link mt-2 mt-lg-0">
                   <iconify-icon icon="ph:sign-in-bold" width="256" height="256" class="me-2"></iconify-icon>
-                  {% trans "Account" %}
+                  {% translate "Account" %}
                   <span class="badge bg-warning">{{ num_unread_notifications }}</span>
                 </a>
               {% else %}
                 <a href="{% url 'customer:summary' %}" class="nav-link mt-2 mt-lg-0">
                   <iconify-icon icon="ph:sign-in-bold" width="256" height="256" class="me-2"></iconify-icon>
-                  {% trans "Account" %}
+                  {% translate "Account" %}
                 </a>
               {% endif %}
             </li>
@@ -36,14 +36,14 @@
               <li class="nav-item me-2">
                 <a href="{% url 'dashboard:index' %}" class="nav-link">
                   <i class="fas fa-list-ul me-2"></i>
-                  {% trans "Dashboard" %}
+                  {% translate "Dashboard" %}
                 </a>
               </li>
             {% endif %}
             <li class="nav-item me-2">
               <a id="logout_link" href="{% url 'customer:logout' %}" class="nav-link">
                 <i class="fas fa-sign-out-alt me-2"></i>
-                {% trans "Logout" %}
+                {% translate "Logout" %}
               </a>
             </li>
           {% endblock nav_account_navbar_authenticated %}
@@ -51,7 +51,7 @@
           <li class="nav-item me-2">
             <a id="login_link" href="{% url 'customer:login' %}" class="nav-link">
               <iconify-icon icon="ph:sign-in-bold" class="me-2"></iconify-icon>
-              {% trans "Login or register" %}
+              {% translate "Login or register" %}
             </a>
           </li>
         {% endif %}

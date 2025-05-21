@@ -7,7 +7,7 @@
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="{{ homepage_url }}">{% trans "Home" %}</a>
+        <a href="{{ homepage_url }}">{% translate "Home" %}</a>
       </li>
       <li class="breadcrumb-item active" aria-current="page">{{ wishlist_title }}</li>
     </ol>
@@ -30,7 +30,7 @@
         </div>
       </section>
     {% else %}
-      <p class="nonefound">{% trans "This wish list is empty." %}</p>
+      <p class="nonefound">{% translate "This wish list is empty." %}</p>
     {% endif %}
   </div>
 {% endblock %}

@@ -2,7 +2,6 @@ var oscar = ((o) => {
     'use strict';
 
     function onFileChange (evt) {
-        debugger;
         if (!window.FileReader) return;
 
         const fileInput = evt.target;
@@ -170,14 +169,18 @@ var oscar = ((o) => {
                 const alertContainer = document.getElementById('messages');
                 // document.getElementById('messages').style.display = 'none';
                 if (alertContainer) {
-                    const alertDom = document.querySelector('.alert.alert-dismissible');
-                    const alert = bootstrap.Alert.getOrCreateInstance(alertDom);
-                    alert.close();
+                    const alertsDom = document.querySelectorAll('.alert.alert-dismissible');
+                    alertsDom.forEach((alertDom, index) => {
+                        const alert = bootstrap.Alert.getOrCreateInstance(alertDom);
+                        alert.close();
 
-                    // Listen for the closed event
-                    alertDom.addEventListener('closed.bs.alert', () => {
-                        alertContainer.style.display = 'none';
-                    }, { once: true });
+                        // Listen for the closed event
+                        if (index == 0) {
+                            alertDom.addEventListener('closed.bs.alert', () => {
+                                alertContainer.style.display = 'none';
+                            }, { once: true });
+                        }
+                    });
                 }
             }, 60 * 1000);
         },
@@ -189,180 +192,9 @@ var oscar = ((o) => {
                 Inputmask().mask(input);
             });
         },
-
-        // TODO: Selects custom
-        // initSelects: function (el) {
-        //     // Find all selects
-        //     const selects = (el || document).querySelectorAll('select:not(.no-widget-init)');
-
-        //     // For normal filtering without ajax call
-        //     const setupLocalFiltering = (select, searchInput, optionsContainer) => {
-        //         searchInput.addEventListener('keyup', () => {
-        //             const query = searchInput.value.toLowerCase();
-
-        //             // Clean the options
-        //             optionsContainer.innerHTML = '';
-
-        //             Array.from(select.options).forEach(option => {
-        //                 if (option.text.toLowerCase().includes(query)) {
-        //                     const optionEl = document.createElement('div');
-        //                     optionEl.className = 'option-item';
-        //                     optionEl.textContent = option.text;
-        //                     optionEl.dataset.value = option.value;
-        //                     optionsContainer.appendChild(optionEl);
-        //                 }
-        //             });
-
-        //             // Show the container
-        //             if (optionsContainer.children.length > 0) {
-        //                 optionsContainer.style.display = 'block';
-        //             } else {
-        //                 optionsContainer.style.display = 'none';
-        //             }
-        //         });
-        //     };
-
-        //     // For single select (normal)
-        //     const setupSingleSelect = (select, optionsContainer) => {
-        //         optionsContainer.addEventListener('click', (e) => {
-        //             if (e.target.classList.contains('option-item')) {
-        //                 const value = e.target.dataset.value;
-        //                 const text = e.target.textContent;
-
-        //                 // Update real select
-        //                 Array.from(select.options).forEach(option => {
-        //                     option.selected = (option.value === value);
-        //                 });
-
-        //                 // Update the visualization
-        //                 const displayValue = select.previousElementSibling;
-        //                 if (displayValue.tagName === 'INPUT') {
-        //                     displayValue.value = text;
-        //                 }
-
-        //                 // Hidde options
-        //                 optionsContainer.style.display = 'none';
-
-        //                 // Dispatch the change envet
-        //                 select.dispatchEvent(new Event('change', { bubbles: true }));
-        //             }
-        //         });
-        //     };
-
-        //     // For related select (multiple)
-        //     const setupMultipleRelatedSelect = (select, optionsContainer) => {
-        //         // Create container for selected items
-        //         const selectedContainer = document.createElement('div');
-        //         selectedContainer.className = 'selected-items';
-        //         select.parentNode.insertBefore(selectedContainer, optionsContainer);
-
-        //         // Update initial sections
-        //         updateSelectedItems(select, selectedContainer);
-
-        //         optionsContainer.addEventListener('click', (e) => {
-        //             if (e.target.classList.contains('option-item')) {
-        //                 const value = e.target.dataset.value;
-
-        //                 // Update real select
-        //                 Array.from(select.options).forEach(option => {
-        //                     if (option.value === value) {
-        //                         option.selected = !option.selected;
-        //                     }
-        //                 });
-
-        //                 // Update visualization
-        //                 updateSelectedItems(select, selectedContainer);
-
-        //                 // Dispatch event
-        //                 select.dispatchEvent(new Event('change', { bubbles: true }));
-        //             }
-        //         });
-        //     };
-
-        //     // For related selects (single)
-        //     const setupSingleRelatedSelect = (select, optionsContainer) => {
-        //         setupSingleSelect(select, optionsContainer);
-        //     };
-
-        //     // Update selected items
-        //     const updateSelectedItems = (select, container) => {
-        //         container.innerHTML = '';
-
-        //         Array.from(select.selectedOptions).forEach(option => {
-        //             const badge = document.createElement('span');
-        //             badge.className = 'badge bg-primary me-1';
-        //             badge.innerHTML = `${ option.text } <button type="button" class="btn-close btn-close-white"
-        //                               data-value="${ option.value }"></button>`;
-        //             container.appendChild(badge);
-        //         });
-
-        //         // Event to remove items
-        //         container.querySelectorAll('.btn-close').forEach(btn => {
-        //             btn.addEventListener('click', () => {
-        //                 const value = btn.dataset.value;
-
-        //                 Array.from(select.options).forEach(option => {
-        //                     if (option.value === value) {
-        //                         option.selected = false;
-        //                     }
-        //                 });
-
-        //                 updateSelectedItems(select, container);
-        //                 select.dispatchEvent(new Event('change', { bubbles: true }));
-        //             });
-        //         });
-        //     };
-
-
-        //     // Process each element
-        //     selects.forEach(select => {
-
-        //         // Create wrapper
-        //         const wrapper = document.createElement('div');
-        //         wrapper.className = 'custom-select-wrapper';
-        //         select.parentNode.insertBefore(wrapper, select);
-        //         wrapper.appendChild(select);
-
-        //         // Create search field
-        //         const searchInput = document.createElement('input');
-        //         searchInput.type = 'text';
-        //         searchInput.className = 'form-control custom-select-search';
-        //         searchInput.placeholder = 'Buscar...';
-        //         wrapper.insertBefore(searchInput, select);
-
-        //         // Create options container
-        //         const optionsContainer = document.createElement('div');
-        //         optionsContainer.className = 'options-container';
-        //         wrapper.appendChild(optionsContainer);
-
-        //         // For selects with ajax
-        //         if (select.dataset.ajaxUrl) {
-        //             // Configure HTMX for the search
-        //             searchInput.setAttribute('hx-post', select.dataset.ajaxUrl);
-        //             searchInput.setAttribute('hx-trigger', 'keyup changed delay:500ms');
-        //             searchInput.setAttribute('hx-target', '.options-container');
-
-        //             // Indicate the load
-        //             const spinner = document.createElement('span');
-        //             spinner.className = 'htmx-indicator';
-        //             spinner.innerHTML = '<div class="spinner-border spinner-border-sm"></div>';
-        //             searchInput.after(spinner);
-        //         } else {
-        //             // For normal selects, using local filter
-        //             setupLocalFiltering(select, searchInput, optionsContainer);
-        //         }
-
-        //         // Multiple select or relationated
-        //         if (select.multiple || select.closest('.related-widget-wrapper.multiple')) {
-        //             setupMultipleRelatedSelect(select, optionsContainer);
-        //         } else if (select.closest('.related-widget-wrapper.single')) {
-        //             setupSingleRelatedSelect(select, optionsContainer);
-        //         } else {
-        //             setupSingleSelect(select, optionsContainer);
-        //         }
-        //     });
-        // },
         initDatePickers: function (el) {
+            // TODO: FINISH THIS AND REMOVE COMMENTS
+
             const theme = localStorage.getItem('theme') || 'auto';
 
             // Date picker inputs
@@ -452,6 +284,7 @@ var oscar = ((o) => {
                 // });
             });
         },
+        // TODO: TEST THIS OF TINYMCE
         filebrowser_callback: function (field_name, url, type, win) {
             var filebrowserUrl = '/filebrowser/browse/?pop=2&type=' + type;
             tinymce.activeEditor.windowManager.openUrl({
@@ -468,18 +301,6 @@ var oscar = ((o) => {
             });
         },
         initForms: function () {
-            // Show errors in all forms
-            // const forms = document.querySelectorAll('.needs-validation');
-            // forms.forEach((form) => {
-            //     form.addEventListener('submit', event => {
-            //         if (!form.checkValidity()) {
-            //             event.preventDefault();
-            //             event.stopPropagation();
-            //         }
-
-            //         form.classList.add('was-validated');
-            //     }, { passive: false, });
-            // });
 
             // Handle button loading states
             document.querySelectorAll('[data-loading-text]').forEach((input) => {
@@ -562,53 +383,34 @@ var oscar = ((o) => {
                 });
             });
         },
-        initDropzones: function (el) {
-            // Initialize Dropzone.js for file uploads
-            const fileInputs = el.querySelectorAll('input[type="file"]');
-
-            fileInputs.forEach(input => {
-                // Create dropzone container
-                const dropzoneContainer = document.createElement('div');
-                dropzoneContainer.className = 'dropzone';
-                input.parentNode.insertBefore(dropzoneContainer, input);
-
-                // Hide original input but keep it for form compatibility
-                input.style.display = 'none';
-
-                // Initialize Dropzone
-                new Dropzone(dropzoneContainer, {
-                    url: input.closest('form').getAttribute('action') || window.location.href,
-                    paramName: input.getAttribute('name'),
-                    acceptedFiles: input.getAttribute('accept') || '',
-                    maxFiles: 1,
-                    autoProcessQueue: false, // Don't upload immediately
-                    previewTemplate: '<div class="dz-preview dz-file-preview"><div class="dz-image"><img data-dz-thumbnail /></div><div class="dz-details"><div class="dz-filename"><span data-dz-name></span></div><div class="dz-size"><span data-dz-size></span></div></div><div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div><div class="dz-error-message"><span data-dz-errormessage></span></div></div>',
-
-                    init: function () {
-                        // Set up event to transfer the file to the original input when added
-                        this.on('addedfile', function (file) {
-                            // Create a FileList-like object
-                            const dataTransfer = new DataTransfer();
-                            dataTransfer.items.add(file);
-                            input.files = dataTransfer.files;
-
-                            // Trigger change event on the original input
-                            const event = new Event('change', { bubbles: true });
-                            input.dispatchEvent(event);
-                        });
-                    }
-                });
-            });
-        },
         initTooltips: () => {
             const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
             const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
         },
+        initDeleteModal: (deleteAction, replacePattern) => {
+            o.dashboard.initTooltips();
+            const modal = document.querySelector(".deleteModal");
+            const form = document.querySelector('.deleteModal__form');
+            if (modal && form && deleteAction?.trim()) {
+                modal.addEventListener("show.bs.modal", (event) => {
+                    const button = event.relatedTarget;
+                    const pk = button.dataset.bsPk;
+                    const name = button.dataset.bsName;
+                    const modalBody = modal.querySelector(".deleteModal__body");
+                    modalBody.textContent = name;
+                    form.action = deleteAction.replace(replacePattern, pk);
+                });
+            } else {
+                document.querySelectorAll('.dropdown__deleteButton').forEach(btn => {
+                    btn.disabled = true;
+                });
+            }
+        },
         offers: {
             init: function () {
-                oscar.dashboard.offers.adjustBenefitForm();
+                o.dashboard.offers.adjustBenefitForm();
                 document.getElementById('id_type').addEventListener('change', function () {
-                    oscar.dashboard.offers.adjustBenefitForm();
+                    o.dashboard.offers.adjustBenefitForm();
                 });
             },
             adjustBenefitForm: function () {
@@ -638,26 +440,19 @@ var oscar = ((o) => {
             },
 
             toggleOptionGroup: function (typeSelect) {
-                const optionGroupId = typeSelect.getAttribute('id').replace('type', 'option_group');
-                const optionGroupSelect = document.getElementById(optionGroupId);
-                if (!optionGroupSelect) return;
-
-                const formField = optionGroupSelect.closest('.form_field');
+                const optionGroupSelect = document.getElementById(typeSelect.id.replace('type', 'option_group'));
                 const value = typeSelect.value;
+
+                optionGroupSelect.closest('.related-widget-wrapper').parentElement.parentElement.classList.toggle('d-none');
                 const showOptionGroup = value === 'option' || value === 'multi_option';
 
-                if (formField) {
-                    formField.classList.add(showOptionGroup ? '' : 'd-none');
-                }
-
                 if (showOptionGroup) {
-                    optionGroupSelect.setAttribute('required', 'required');
+                    optionGroupSelect.required = true;
                 } else {
-                    optionGroupSelect.removeAttribute('required');
+                    optionGroupSelect.required = false;
                 }
             }
         },
-
         ranges: {
             init: function () {
                 document.querySelectorAll('[data-behaviours~="remove"]').forEach(btn => {
@@ -680,7 +475,6 @@ var oscar = ((o) => {
                 });
             }
         },
-
         orders: {
             initTabs: function () {
                 if (location.hash) {
@@ -715,8 +509,10 @@ var oscar = ((o) => {
                 });
             }
         },
-
         reordering: (function () {
+            // TODO: What is this for?
+
+
             let options = {
                 handle: '.btn-handle',
                 submit_url: '#'
@@ -768,8 +564,9 @@ var oscar = ((o) => {
                 saveOrder: saveOrder
             };
         }()),
-
         filereader: {
+            // TODO: TEST THIS
+
             init: function () {
                 if (window.FileReader) {
                     document.querySelectorAll('input[type="file"]').forEach(input => {
@@ -778,7 +575,6 @@ var oscar = ((o) => {
                 }
             },
         },
-
         product_lists: {
             init: function () {
                 const imageModal = document.getElementById("product-image-modal");
@@ -804,13 +600,10 @@ var oscar = ((o) => {
                 });
             }
         },
-
         initWidgets: function (el) {
             o.dashboard.initDatePickers(el);
             o.dashboard.initMasks(el);
-            // o.dashboard.initSelects(el);
             o.dashboard.initProductImages(el);
-            // o.dashboard.initDropzones(el);
         },
     };
 

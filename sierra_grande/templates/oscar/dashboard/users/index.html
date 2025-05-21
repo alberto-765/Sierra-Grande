@@ -8,18 +8,18 @@
   {{ block.super }} users
 {% endblock body_class %}
 {% block title %}
-  {% trans "Customers" %} | {{ block.super }}
+  {% translate "Customers" %} | {{ block.super }}
 {% endblock title %}
 {% block headertext %}
-  {% trans "Customers" %}
+  {% translate "Customers" %}
 {% endblock headertext %}
 {% block breadcrumbs %}
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="{% url "dashboard:index" %}">{% trans "Dashboard" %}</a>
+        <a href="{% url "dashboard:index" %}">{% translate "Dashboard" %}</a>
       </li>
-      <li class="breadcrumb-item active" aria-current="page">{% trans "Customers" %}</li>
+      <li class="breadcrumb-item active" aria-current="page">{% translate "Customers" %}</li>
     </ol>
   </nav>
 {% endblock breadcrumbs %}
@@ -27,7 +27,7 @@
   <div class="card">
     <span class="card-header icon-link fw-normal">
       <iconify-icon icon="stash:search-light" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
-      {% trans "Search" %}
+      {% translate "Search" %}
     </span>
     <div class="card-body">
       <form method="get" class="hstack gap-3">
@@ -35,8 +35,8 @@
         <button type="submit"
                 name="search"
                 class="btn btn-primary"
-                data-loading-text="{% trans "Searching..." %}">{% trans "Search" %}</button>
-        <a href="{% url "dashboard:users-index" %}" class="btn btn-secondary">{% trans "Reset" %}</a>
+                data-loading-text="{% translate "Searching..." %}">{% translate "Search" %}</button>
+        <a href="{% url "dashboard:users-index" %}" class="btn btn-secondary">{% translate "Reset" %}</a>
       </form>
     </div>
   </div>
@@ -52,7 +52,7 @@
       <div class="card">
         <span class="card-header fw-normal">{{ queryset_description }}<span>
           <div class="card-body p-0 text-bg-light">
-            <div class="card-title">{% trans "No customers found." %}</div>
+            <div class="card-title">{% translate "No customers found." %}</div>
           </div>
         </div>
       {% endif %}

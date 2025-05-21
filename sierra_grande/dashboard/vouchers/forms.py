@@ -43,31 +43,43 @@ class VoucherForm(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.form_method = "post"
         self.helper.layout = Layout(
-            FloatingField("name"),
-            FloatingField("code"),
-            Field(
-                "start_datetime",
-                template="oscar/forms/widgets/floating_field_date_picker.html",
-            ),
-            Field(
-                "end_datetime",
-                template="oscar/forms/widgets/floating_field_date_picker.html",
-            ),
-            FloatingField("usage"),
-            FloatingField("offers"),
-            Div(
-                Submit(
-                    "submit",
-                    _("Save"),
-                    data_loading_text=_("Saving..."),
+            Row(
+                Column(FloatingField("name"), css_class="col-lg-4 col-md-6"),
+                Column(FloatingField("code"), css_class="col-lg-4 col-md-6"),
+                Column(
+                    Field(
+                        "start_datetime",
+                        template="oscar/forms/widgets/floating_field_date_picker.html",
+                    ),
+                    css_class="col-lg-4 col-md-6",
                 ),
-                HTML(
-                    '<a class="btn btn-secondary"'
-                    f'href="{reverse("dashboard:voucher-list")}"'
-                    f'role="button">{gettext("Cancel")}</>',
+                Column(
+                    Field(
+                        "end_datetime",
+                        template="oscar/forms/widgets/floating_field_date_picker.html",
+                    ),
+                    css_class="col-lg-4 col-md-6",
                 ),
-                css_class="hstack column-gap-3 pt-3",
-            ),
+                Column(FloatingField("usage"), css_class="col-lg-4 col-md-6"),
+                Column(FloatingField("offers"), css_class="col-lg-4 col-md-6"),
+                Column(
+                    HTML(
+                        '<a class="btn btn-secondary w-100"'
+                        f'href="{reverse("dashboard:voucher-list")}"'
+                        f'role="button">{gettext("Cancel")}</a>',
+                    ),
+                    css_class="col-6 col-md-auto",
+                ),
+                Column(
+                    Submit(
+                        "submit",
+                        _("Save"),
+                        data_loading_text=_("Saving..."),
+                        css_class="w-100",
+                    ),
+                    css_class="col-6 col-md-auto",
+                ),
+            )
         )
 
     class Meta:
@@ -191,33 +203,52 @@ class VoucherSetForm(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.form_method = "post"
         self.helper.layout = Layout(
-            FloatingField("name"),
-            FloatingField("code_length"),
-            FloatingField("description"),
-            Field(
-                "start_datetime",
-                template="oscar/forms/widgets/floating_field_date_picker.html",
-            ),
-            Field(
-                "end_datetime",
-                template="oscar/forms/widgets/floating_field_date_picker.html",
-            ),
-            FloatingField("count"),
-            FloatingField("usage"),
-            FloatingField("offers"),
-            Div(
-                Submit(
-                    "submit",
-                    _("Save"),
-                    data_loading_text=_("Saving..."),
+            Row(
+                Column(FloatingField("name"), css_class="col-lg-4 col-md-6"),
+                Column(FloatingField("code_length"), css_class="col-lg-4 col-md-6"),
+                Column(FloatingField("description"), css_class="col-lg-4 col-md-6"),
+                Column(
+                    Field(
+                        "start_datetime",
+                        template="oscar/forms/widgets/floating_field_date_picker.html",
+                    ),
+                    css_class="col-lg-4 col-md-6",
                 ),
-                HTML(
-                    '<a class="btn btn-secondary"'
-                    f'href="{reverse("dashboard:voucher-set-list")}"'
-                    f'role="button">{gettext("Cancel")}</href=>',
+                Column(
+                    Field(
+                        "end_datetime",
+                        template="oscar/forms/widgets/floating_field_date_picker.html",
+                    ),
+                    css_class="col-lg-4 col-md-6",
                 ),
-                css_class="hstack column-gap-3 pt-3",
-            ),
+                Column(FloatingField("count"), css_class="col-lg-4 col-md-6"),
+                Column(
+                    FloatingField("usage", wrapper_class="mb-3 mb-md-0"),
+                    css_class="col-lg-4 col-md-6",
+                ),
+                Column(
+                    FloatingField("offers", wrapper_class="mb-3 mb-md-0"),
+                    css_class="col-lg-4 col-md-6",
+                ),
+                Column(
+                    HTML(
+                        '<a class="btn btn-secondary w-100"'
+                        f'href="{reverse("dashboard:voucher-set-list")}"'
+                        f'role="button">{gettext("Cancel")}</a>',
+                    ),
+                    css_class="col-6 col-md-auto",
+                ),
+                Column(
+                    Submit(
+                        "submit",
+                        _("Save"),
+                        data_loading_text=_("Saving..."),
+                        css_class="w-100",
+                    ),
+                    css_class="col-6 col-md-auto",
+                ),
+                css_class="align-items-center",
+            )
         )
 
     class Meta:

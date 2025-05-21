@@ -3,35 +3,35 @@
 {% load i18n %}
 
 {% block title %}
-  {% trans "Emails" %} | {{ block.super }}
+  {% translate "Emails" %} | {{ block.super }}
 {% endblock title %}
 {% block breadcrumbs %}
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="{% url "dashboard:index" %}">{% trans "Dashboard" %}</a>
+        <a href="{% url "dashboard:index" %}">{% translate "Dashboard" %}</a>
       </li>
-      <li class="breadcrumb-item active" aria-current="page">{% trans "Emails" %}</li>
+      <li class="breadcrumb-item active" aria-current="page">{% translate "Emails" %}</li>
     </ol>
   </nav>
 {% endblock breadcrumbs %}
 {% block headertext %}
-  {% trans "Emails" %}
+  {% translate "Emails" %}
 {% endblock headertext %}
 {% block dashboard_content %}
   <div class="card">
     <div class="card-header icon-link">
       <iconify-icon icon="mdi:envelope" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
-      {% trans "Emails" %}
+      {% translate "Emails" %}
     </div>
     <div class="card-body {% if commtypes %}p-0{% endif %}">
       {% if commtypes %}
         <table class="table table-striped table-bordered table-hover align-middle">
           <thead>
             <tr>
-              <th>{% trans "Code" %}</th>
-              <th>{% trans "Name" %}</th>
-              <th>{% trans "Category" %}</th>
+              <th>{% translate "Code" %}</th>
+              <th>{% translate "Name" %}</th>
+              <th>{% translate "Category" %}</th>
               <th></th>
             </tr>
           </thead>
@@ -45,14 +45,14 @@
                 <td>{{ commtype.category }}</td>
                 <td>
                   <a class="btn btn-success"
-                     href="{% url "dashboard:comms-update" commtype.code %}">{% trans "Edit" %}</a>
+                     href="{% url "dashboard:comms-update" commtype.code %}">{% translate "Edit" %}</a>
                 </td>
               </tr>
             {% endfor %}
           </tbody>
         </table>
       {% else %}
-        <div>{% trans "There are no defined emails to edit." %}</div>
+        <div>{% translate "There are no defined emails to edit." %}</div>
       {% endif %}
       {% include "oscar/dashboard/partials/pagination.html" %}
     </div>

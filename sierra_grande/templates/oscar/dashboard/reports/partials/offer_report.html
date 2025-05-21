@@ -8,8 +8,8 @@
     <div class="table-container table-responsive-md">
       <table class="table table-striped table-bordered table-hover">
         <tr>
-          <th>{% trans "Offer" %}</th>
-          <th>{% trans "Total discount" %}</th>
+          <th>{% translate "Offer" %}</th>
+          <th>{% translate "Total discount" %}</th>
         </tr>
         {% for offer_discount in objects %}
           <tr>
@@ -24,7 +24,7 @@
   {% else %}
     {% block dashboard_content_cardClass %}
     {% endblock dashboard_content_cardClass %}
-    <div>{% trans "No results found." %}</div>
+    <div>{% translate "No results found." %}</div>
   {% endif %}
   {% include "oscar/dashboard/partials/pagination.html" %}
 {% endblock report %}

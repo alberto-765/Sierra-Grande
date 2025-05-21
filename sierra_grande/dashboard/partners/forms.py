@@ -39,6 +39,16 @@ class PartnerCreateForm(forms.ModelForm):
         # the dashboard, it seems sensible to enforce as it's the only field
         # in the form.
         self.fields["name"].required = True
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.layout = Layout(
+            Row(
+                Column(
+                    FloatingField("name", wrapper_class=" "),
+                    css_class="col-sm-auto",
+                )
+            )
+        )
 
     class Meta:
         model = Partner

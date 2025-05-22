@@ -2,18 +2,23 @@
 from crispy_bootstrap5.bootstrap5 import FloatingField
 from crispy_bootstrap5.bootstrap5 import Switch
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Row, Column
+from crispy_forms.layout import HTML
+from crispy_forms.layout import Column
+from crispy_forms.layout import Div
+from crispy_forms.layout import Layout
+from crispy_forms.layout import Row
 from django import forms
 from django.core import exceptions
 from django.utils.translation import gettext_lazy as _
+from django.utils.translation import pgettext
 from oscar.core.loading import get_class
 from oscar.core.loading import get_classes
 from oscar.core.loading import get_model
 from oscar.core.utils import slugify
 from oscar.forms.widgets import DateTimePickerInput
 from oscar.forms.widgets import ImageInput
-from treebeard.forms import movenodeform_factory
 from tinymce.widgets import TinyMCE
+from treebeard.forms import movenodeform_factory
 
 Product = get_model("catalogue", "Product")
 ProductClass = get_model("catalogue", "ProductClass")
@@ -47,7 +52,7 @@ BaseCategoryForm = movenodeform_factory(
     exclude=["ancestors_are_public"],
     widgets={
         "meta_description": forms.Textarea(
-            attrs={"class": "no-widget-init", "rows": 5}
+            attrs={"class": "no-widget-init", "rows": 5},
         ),
         "description": TinyMCE(
             attrs={"cols": 80, "rows": 30},
@@ -63,11 +68,17 @@ class SEOFormMixin:
         return [
             field
             for field in self
-            if not field.is_hidden and not self.is_seo_field(field)
+            if not field.is_hidden
+            and "attr" not in field.id_for_label
+            and not self.is_seo_field(field)
         ]
 
     def seo_form_fields(self):
-        return [field for field in self if self.is_seo_field(field)]
+        return [
+            field
+            for field in self
+            if self.is_seo_field(field) and "attr" not in field.id_for_label
+        ]
 
     def is_seo_field(self, field):
         return field.name in self.seo_fields
@@ -242,24 +253,6 @@ class ProductForm(SEOFormMixin, forms.ModelForm):
         "image": _attr_image_field,
     }
 
-    class Meta:
-        model = Product
-        fields = [
-            "title",
-            "upc",
-            "description",
-            "is_public",
-            "is_discountable",
-            "structure",
-            "slug",
-            "meta_title",
-            "meta_description",
-        ]
-        widgets = {
-            "structure": forms.HiddenInput(),
-            "meta_description": forms.Textarea(attrs={"class": "no-widget-init"}),
-        }
-
     def __init__(self, product_class, *args, data=None, parent=None, **kwargs):
         self.set_initial(product_class, parent, kwargs)
         super().__init__(data, *args, **kwargs)
@@ -284,6 +277,30 @@ class ProductForm(SEOFormMixin, forms.ModelForm):
             )
         if "title" in self.fields:
             self.fields["title"].widget = forms.TextInput(attrs={"autocomplete": "off"})
+
+    class Meta:
+        model = Product
+        fields = [
+            "title",
+            "upc",
+            "description",
+            "is_public",
+            "is_discountable",
+            "structure",
+            "slug",
+            "meta_title",
+            "meta_description",
+        ]
+        widgets = {
+            "structure": forms.HiddenInput(),
+            "meta_description": forms.Textarea(attrs={"class": "no-widget-init"}),
+            "description": TinyMCE(
+                attrs={"cols": 80, "rows": 30},
+            ),
+        }
+
+    def attr_form_fields(self):
+        return [field for field in self if "attr" in field.id_for_label]
 
     def set_initial(self, product_class, parent, kwargs):
         """
@@ -362,12 +379,74 @@ class StockAlertSearchForm(forms.Form):
 
 
 class ProductCategoryForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.disable_csrf = True
+        self.helper.layout = Layout(
+            FloatingField("category"),
+        )
+
     class Meta:
         model = ProductCategory
         fields = ("category",)
 
 
 class ProductImageForm(forms.ModelForm):
+    def __init__(self, *args, data=None, **kwargs):
+        self.prefix = kwargs.get("prefix")
+        instance = kwargs.get("instance")
+        if not instance:
+            initial = {"display_order": self.get_display_order()}
+            initial.update(kwargs.get("initial", {}))
+            kwargs["initial"] = initial
+        super().__init__(data, *args, **kwargs)
+
+        re_order = Div(
+            HTML(
+                f"""<a href="#" class="btn btn-outline-info btn-handle btn-reorder
+                text-center">
+                <iconify-icon icon="fa-solid:arrows-alt" width="1rem" height="1rem"
+                aria-hidden="true"></iconify-icon>
+                {pgettext("Change the sequence order", "Re-order")} </a>""",
+            ),
+            css_class="text-center",
+        )
+        if not self.instance.id:
+            re_order = Div(
+                Div(
+                    HTML(
+                        f"""<a href="#" class="btn btn-outline-info btn-handle
+                        btn-reorder disabled aria-disabled="true">
+                        <iconify-icon icon="fa-solid:arrows-alt" width="1rem"
+                        height="1rem" aria-hidden="true"></iconify-icon>
+                        {pgettext("Change the sequence order", "Re-order")} </a>""",
+                    ),
+                    data_bs_toggle="tooltip",
+                    data_bs_title=_("Upload an image to reorder"),
+                    css_class="reorder__wrapper d-inline-block",
+                ),
+                css_class="text-center",
+            )
+
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.disable_csrf = True
+        self.helper.layout = Layout(
+            Column(
+                ("product"),
+                Div(
+                    ("original"),
+                    re_order,
+                    css_class="mb-3",
+                ),
+                FloatingField("caption"),
+                Switch("DELETE"),
+                ("display_order"),
+            ),
+        )
+
     class Meta:
         model = ProductImage
         fields = ["product", "original", "caption", "display_order"]
@@ -378,15 +457,6 @@ class ProductImageForm(forms.ModelForm):
             "original": ImageInput(),
             "display_order": forms.HiddenInput(),
         }
-
-    def __init__(self, *args, data=None, **kwargs):
-        self.prefix = kwargs.get("prefix")
-        instance = kwargs.get("instance")
-        if not instance:
-            initial = {"display_order": self.get_display_order()}
-            initial.update(kwargs.get("initial", {}))
-            kwargs["initial"] = initial
-        super().__init__(data, *args, **kwargs)
 
     def get_display_order(self):
         return int(self.prefix.split("-").pop())
@@ -483,8 +553,9 @@ class AttributeOptionGroupForm(forms.ModelForm):
         self.helper.layout = Layout(
             Row(
                 Column(
-                    FloatingField("name", wrapper_class=" "), css_class="col-sm-auto"
-                )
+                    FloatingField("name", wrapper_class=" "),
+                    css_class="col-sm-auto",
+                ),
             ),
         )
 
@@ -500,10 +571,6 @@ class AttributeOptionForm(forms.ModelForm):
 
 
 class OptionForm(forms.ModelForm):
-    class Meta:
-        model = Option
-        fields = ["name", "type", "required", "order", "help_text", "option_group"]
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
@@ -516,3 +583,7 @@ class OptionForm(forms.ModelForm):
             FloatingField("help_text"),
             FloatingField("option_group"),
         )
+
+    class Meta:
+        model = Option
+        fields = ["name", "type", "required", "order", "help_text", "option_group"]

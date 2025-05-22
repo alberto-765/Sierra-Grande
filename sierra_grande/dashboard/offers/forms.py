@@ -2,16 +2,17 @@ from crispy_bootstrap5.bootstrap5 import FloatingField
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import HTML
 from crispy_forms.layout import Column
+from crispy_forms.layout import Field
 from crispy_forms.layout import Hidden
 from crispy_forms.layout import Layout
 from crispy_forms.layout import Reset
 from crispy_forms.layout import Row
-from crispy_forms.layout import Submit, Field
+from crispy_forms.layout import Submit
 from django import forms
 from django.conf import settings
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-from oscar.core.loading import get_model, get_class
+from oscar.core.loading import get_model
 from oscar.forms import widgets
 
 ConditionalOffer = get_model("offer", "ConditionalOffer")
@@ -184,10 +185,12 @@ class ConditionForm(forms.ModelForm):
             layout_elements.extend(
                 [
                     HTML(
-                        '<div class="mb-2"> Or choose a pre-defined one <iconify-icon icon="fluent-emoji-flat:down-arrow" width="1rem" height="1rem" aria-hidden="true" inline></iconify-icon></div>'
+                        """<div class="mb-2"> Or choose a pre-defined one <iconify-icon
+                        icon="fluent-emoji-flat:down-arrow" width="1rem" height="1rem"
+                        aria-hidden="true" inline></iconify-icon></div>""",
                     ),
                     FloatingField("custom_condition"),
-                ]
+                ],
             )
         else:
             # No custom conditions and so the type/range/value fields
@@ -274,10 +277,12 @@ class BenefitForm(forms.ModelForm):
             layout_elements.extend(
                 [
                     HTML(
-                        '<div class="mb-2"> Or choose a pre-defined one <iconify-icon icon="fluent-emoji-flat:down-arrow" width="1rem" height="1rem" aria-hidden="true" inline></iconify-icon></div>'
+                        """<div class="mb-2"> Or choose a pre-defined one <iconify-icon
+                        icon="fluent-emoji-flat:down-arrow" width="1rem" height="1rem"
+                        aria-hidden="true" inline></iconify-icon></div>""",
                     ),
                     FloatingField("custom_benefit"),
-                ]
+                ],
             )
         else:
             # No custom benefit and so the type fields
@@ -402,7 +407,7 @@ class OfferSearchForm(forms.Form):
                         '<a class="link-offset-3-hover link-underline '
                         'link-underline-opacity-0 link-underline-opacity-75-hover" '
                         'data-bs-toggle="modal" data-bs-target="#SearchModal" '
-                        'href="#">{{ _("Advanced Search") }}</a>',
+                        f'href="#">{_("Advanced Search")}</a>',
                     ),
                     css_class="col-auto",
                 ),

@@ -3,7 +3,6 @@ from crispy_bootstrap5.bootstrap5 import FloatingField
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import HTML
 from crispy_forms.layout import Column
-from crispy_forms.layout import Div
 from crispy_forms.layout import Hidden
 from crispy_forms.layout import Layout
 from crispy_forms.layout import Reset
@@ -79,7 +78,7 @@ class VoucherForm(forms.ModelForm):
                     ),
                     css_class="col-6 col-md-auto",
                 ),
-            )
+            ),
         )
 
     class Meta:
@@ -174,7 +173,7 @@ class VoucherSearchForm(forms.Form):
                         '<a class="link-offset-3-hover link-underline '
                         'link-underline-opacity-0 link-underline-opacity-75-hover" '
                         'data-bs-toggle="modal" data-bs-target="#SearchModal" '
-                        'href="#">{{ _("Advanced Search") }}</a>',
+                        f'href="#">{_("Advanced Search")}</a>',
                     ),
                     css_class="col-auto",
                 ),
@@ -201,7 +200,7 @@ class VoucherSetForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
-        self.helper.form_method = "post"
+        self.helper.form_tag = False
         self.helper.layout = Layout(
             Row(
                 Column(FloatingField("name"), css_class="col-lg-4 col-md-6"),
@@ -223,32 +222,15 @@ class VoucherSetForm(forms.ModelForm):
                 ),
                 Column(FloatingField("count"), css_class="col-lg-4 col-md-6"),
                 Column(
-                    FloatingField("usage", wrapper_class="mb-3 mb-md-0"),
+                    FloatingField("usage", wrapper_class="mb-0"),
                     css_class="col-lg-4 col-md-6",
                 ),
                 Column(
-                    FloatingField("offers", wrapper_class="mb-3 mb-md-0"),
+                    FloatingField("offers", wrapper_class="m-0"),
                     css_class="col-lg-4 col-md-6",
-                ),
-                Column(
-                    HTML(
-                        '<a class="btn btn-secondary w-100"'
-                        f'href="{reverse("dashboard:voucher-set-list")}"'
-                        f'role="button">{gettext("Cancel")}</a>',
-                    ),
-                    css_class="col-6 col-md-auto",
-                ),
-                Column(
-                    Submit(
-                        "submit",
-                        _("Save"),
-                        data_loading_text=_("Saving..."),
-                        css_class="w-100",
-                    ),
-                    css_class="col-6 col-md-auto",
                 ),
                 css_class="align-items-center",
-            )
+            ),
         )
 
     class Meta:

@@ -1,0 +1,27 @@
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+<div class="sortable-handle col-md">
+  {% for field in form %}
+    {% if field.is_hidden %}
+      {{ field|as_crispy_field }}
+    {% elif "original" in field.id_for_label %}
+      <div>{{ field|as_crispy_field }}</div>
+      {% if not form.instance.id %}
+        <div class="reorder__wrapper d-inline-block"
+             data-bs-toggle="tooltip"
+             data-bs-title="{% translate "Upload an image to reorder" %}">
+        {% endif %}
+        <a href="#"
+           class="btn btn-outline-info btn-handle btn-reorder {% if not form.instance.id %}disabled{% endif %}"
+           {% if not form.instance.id %}aria-disabled="true"{% endif %}>
+          <iconify-icon icon="fa-solid:arrows-alt" width="1ren" height="1rem" aria-hidden="true"></iconify-icon>
+          {% translate "Re-order" context "Change the sequence order" %}
+        </a>
+        {% if not form.instance.id %}</div>{% endif %}
+    {% else %}
+      {{ field|as_crispy_field }}
+    {% endif %}
+  {% endfor %}
+  {% if form.non_field_errors %}<span class="text-danger">{{ form.non_field_errors }}</span>{% endif %}
+</div>

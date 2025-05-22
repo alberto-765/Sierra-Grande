@@ -107,8 +107,8 @@ class OrderStatsForm(forms.Form):
                 ),
                 Column(
                     HTML(
-                        '<a href="{{ self.action }}" '
-                        'class="btn btn-secondary w-100">{{ _("Reset") }}</a>',
+                        f"""<a href="{self.action}"
+                        'class="btn btn-secondary w-100">{_("Reset")}</a>""",
                     ),
                     css_class="col-sm-auto",
                 ),
@@ -208,7 +208,7 @@ class OrderSearchForm(forms.Form):
                         '<a class="link-offset-3-hover link-underline '
                         'link-underline-opacity-0 link-underline-opacity-75-hover" '
                         'data-bs-toggle="modal" data-bs-target="#SearchModal" '
-                        'href="#">{{ _("Advanced Search") }}</a>',
+                        'href="#">{ _("Advanced Search") }</a>',
                     ),
                     css_class="col-auto",
                 ),

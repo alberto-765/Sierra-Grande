@@ -1,0 +1,88 @@
+{% load static %}
+{% block top_tagbar %}
+
+<div class="top-tagbar">
+    <div class="container-fluid">
+        <div class="row justify-content-between align-items-center">
+            <div class="col-md-4 col-9">
+                <div class="fs-14 fw-medium">
+                    <i class="bi bi-clock align-middle me-2"></i> <span id="current-time"></span>
+                </div>
+            </div>
+            <div class="col-md-4 col-6 d-none d-xxl-block">
+                <div class="d-flex align-items-center justify-content-center gap-3 fs-14 fw-medium">
+                    <div>
+                        <i class="bi bi-envelope align-middle me-2"></i> support@themesbrand.com
+                    </div>
+                    <div>
+                        <i class="bi bi-globe align-middle me-2"></i> www.themesbrand.com
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-3">
+                <div class="d-flex align-items-center justify-content-end gap-3 fs-14">
+                    <a href="#!" class="text-reset fw-normal d-none d-lg-block">
+                        Balance: <span class="fw-semibold">$8451.36</span>
+                    </a>
+                    <hr class="vr d-none d-lg-block">
+                    <div class="dropdown topbar-head-dropdown topbar-tag-dropdown justify-content-end">
+                        <button type="button" class="btn btn-icon btn-topbar text-reset rounded-circle fs-14 fw-medium" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img id="header-lang-img" src="{% static 'images/flags/us.svg' %}" alt="Header Language" height="16" class="rounded-circle me-2"> <span id="lang-name">English</span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end">
+    
+                            <!-- item-->
+                            <a href="javascript:void(0);" class="dropdown-item notify-item language py-2" data-lang="en" title="English">
+                                <img src="{% static 'images/flags/us.svg' %}" alt="user-image" class="me-2 rounded-circle" height="18">
+                                <span class="align-middle">English</span>
+                            </a>
+    
+                            <!-- item-->
+                            <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="sp" title="Spanish">
+                                <img src="{% static 'images/flags/spain.svg' %}" alt="user-image" class="me-2 rounded-circle" height="18">
+                                <span class="align-middle">Española</span>
+                            </a>
+    
+                            <!-- item-->
+                            <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="gr" title="German">
+                                <img src="{% static 'images/flags/germany.svg' %}" alt="user-image" class="me-2 rounded-circle" height="18"> <span class="align-middle">Deutsche</span>
+                            </a>
+    
+                            <!-- item-->
+                            <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="it" title="Italian">
+                                <img src="{% static 'images/flags/italy.svg' %}" alt="user-image" class="me-2 rounded-circle" height="18">
+                                <span class="align-middle">Italiana</span>
+                            </a>
+    
+                            <!-- item-->
+                            <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="ru" title="Russian">
+                                <img src="{% static 'images/flags/russia.svg' %}" alt="user-image" class="me-2 rounded-circle" height="18">
+                                <span class="align-middle">русский</span>
+                            </a>
+    
+                            <!-- item-->
+                            <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="ch" title="Chinese">
+                                <img src="{% static 'images/flags/china.svg' %}" alt="user-image" class="me-2 rounded-circle" height="18">
+                                <span class="align-middle">中国人</span>
+                            </a>
+    
+                            <!-- item-->
+                            <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="fr" title="French">
+                                <img src="{% static 'images/flags/french.svg' %}" alt="user-image" class="me-2 rounded-circle" height="18">
+                                <span class="align-middle">français</span>
+                            </a>
+    
+                            <!-- item-->
+                            <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="sa" title="Arabic">
+                                <img src="{% static 'images/flags/sa.svg' %}" alt="user-image" class="me-2 rounded-circle" height="18">
+                                <span class="align-middle">عربى</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock top_tagbar %}

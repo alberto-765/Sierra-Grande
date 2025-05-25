@@ -1,0 +1,90 @@
+{% extends 'account/base.html' %}
+{% load static %}
+{% load i18n %}
+{% load account socialaccount %}
+{% load crispy_forms_tags %}
+
+{% block title %}Sign In{% endblock title %}
+    
+{% block content %}
+
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6">
+                            <div class="auth-card mx-lg-3">
+                                <div class="card border-0 mb-0">
+                                    <div class="card-header bg-primary border-0">
+                                        <div class="row">
+                                            <div class="col-lg-4 col-3">
+                                                <img src="{% static 'images/auth/img-1.png' %}" alt="" class="img-fluid">
+                                            </div>
+                                            <div class="col-lg-8 col-9">
+                                                <h1 class="text-white lh-base fw-lighter">Join Our Toner Store</h1>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="text-muted fs-15">Sign in to continue to Toner.</p>
+                                        <div class="p-2">
+                                            <form class="needs-validation" novalidate method="POST" action="{% url 'account_login' %}">
+                                                {% for message in messages %}
+                                                <div class="alert {{ message.tags }} mb-4" role="alert">
+                                                    <strong>{{ message }}</strong>
+                                                </div>
+                                                {% endfor %} 
+                                                {% if field.help_text %}
+                                                    <div class="alert alert-danger mb-4" role="alert">
+                                                        <strong>{{ field.help_text }}</strong>
+                                                    </div>
+                                                {% endif %}
+                                                {% csrf_token %}
+                                                <div class="mb-3">
+                                                    {{ form.login|as_crispy_field }}
+                                                </div>
+                
+                                                <div class="mb-3 position-relative">
+                                                    <div class="float-end">
+                                                        <a href="{% url 'account_reset_password' %}" class="text-muted">Forgot password?</a>
+                                                    </div>
+                                                    {{ form.password|as_crispy_field }}
+                                                    <button class="btn btn-link position-absolute mt-4 end-0 top-0 text-decoration-none text-muted password-addon" type="button" id="password-addon"><i class="ri-eye-fill align-middle"></i></button>
+                                                </div>
+                
+                                                <div class="form-check">
+                                                    {{ form.remember|as_crispy_field }}
+                                                </div>
+                
+                                                <div class="mt-4">
+                                                    <button class="btn btn-primary w-100" type="submit">Sign In</button>
+                                                </div>
+                
+                                                <div class="mt-4 pt-2 text-center">
+                                                    <div class="signin-other-title">
+                                                        <h5 class="fs-13 mb-4 title">Sign In with</h5>
+                                                    </div>
+                                                    <div class="pt-2 hstack gap-2 justify-content-center">
+
+                                                        <a href="{% provider_login_url 'google' %}" class="btn btn-soft-danger btn-icon"><i class="ri-google-fill fs-16"></i></a>
+                                                       
+                                                    </div>
+                                                </div>
+                                            </form>
+                
+                                            <div class="text-center mt-5">
+                                                <p class="mb-0">Don't have an account ? <a href="{{ signup_url }}" class="fw-semibold text-secondary text-decoration-underline"> SignUp</a> </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!--end col-->
+                    </div><!--end row-->
+                </div><!--end container-->
+
+{% endblock content %}
+               
+{% block extra_js %}
+
+    <script src="{% static 'js/pages/password-addon.init.js' %}"></script>
+
+{% endblock extra_js %}

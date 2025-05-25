@@ -1,0 +1,44 @@
+{% extends "account/base.html" %}
+{% load static %}
+{% load i18n %}
+{% block title %}{% trans "Sign Out" %}{% endblock title %}
+    
+{% block content %}
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6">
+                            <div class="auth-card mx-lg-3">
+                                <div class="card border-0 mb-0">
+                                    <div class="card-header bg-primary border-0">
+                                        <div class="row">
+                                            <div class="col-lg-4 col-3">
+                                                <img src="{% static 'images/auth/img-1.png' %}" alt="" class="img-fluid">
+                                            </div>
+                                            <div class="col-lg-8 col-9">
+                                                <h1 class="text-white lh-base fw-lighter">{% trans "Sign Out" %}</h1>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body text-center">
+
+                                        <div class="mb-4">
+                                            <img src="{% static 'images/users/avatar-1.jpg' %}" alt="" class="avatar-md rounded-circle">
+                                        </div>
+                                        <p class="text-muted">{% trans 'Are you sure you want to sign out?' %}</p>
+
+                                        <form method="post" action="{% url 'account_logout' %}">
+                                            
+                                            {% csrf_token %}
+                                            {% if redirect_field_value %}
+                                            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+                                            {% endif %}
+                                            <button type="submit" class="btn btn-primary w-100">{% trans 'Sign Out' %}</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!--end col-->
+                    </div><!--end row-->
+                </div><!--end container-->
+
+{% endblock content %}

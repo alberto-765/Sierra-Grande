@@ -1,0 +1,65 @@
+/* Paddings for nabvar icon */
+.navbar {
+    --bs-navbar-toggler-padding-y: none;
+    --bs-navbar-toggler-padding-x: none;
+}
+
+.offcanvas {
+    --bs-offcanvas-width: 325px;
+    --bs-offcanvas-padding-x: 1.5rem;
+}
+
+/* Navbar custom icon links */
+.icon-link-hover--custom {
+    --bs-icon-link-transform: scale(1.1)
+}
+
+/* Custom styles for breadcrumb */
+.breadcrumb {
+    --bs-bg-opacity: 1;
+    --bs-breadcrumb-bg: rgba(var(--bs-tertiary-bg-rgb), var(--bs-bg-opacity));
+    --bs-breadcrumb-margin-bottom: 1.8rem;
+    --bs-breadcrumb-padding-x: 1rem;
+    --bs-breadcrumb-padding-y: 1rem;
+    --bs-breadcrumb-border-radius: var(--bs-border-radius);
+
+    a {
+        --bs-link-underline-opacity: 0;
+        text-underline-offset: 0.25em;
+        -webkit-text-decoration-color: rgba(var(--bs-link-color-rgb), var(--bs-link-underline-opacity, 1));
+        text-decoration-color: rgba(var(--bs-link-color-rgb), var(--bs-link-underline-opacity, 1));
+
+        &:hover {
+            --bs-link-underline-opacity: 1;
+        }
+    }
+}
+
+/* Add margin and padding to pages with fixed-bottom menú */
+main:has(.form-actions-fixed) {
+    margin-bottom: 5rem;
+}
+
+/* Custom list_group triangle */
+.list-group-custom > .list-group-item-action.active {
+    position: relative;
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        right: -10px;
+        transform: translateY(-50%);
+        width: 0;
+        height: 0;
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+        border-left: 10px solid var(--bs-list-group-active-bg);
+        /* Match your background color */
+    }
+}
+
+/* Form messages alerts */
+.messages__alert {
+    --bs-alert-margin-bottom: none;
+}

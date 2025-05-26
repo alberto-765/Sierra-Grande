@@ -405,9 +405,13 @@ SOCIALACCOUNT_FORMS = {"signup": "sierra_grande.users.forms.UserSocialSignupForm
 
 # django-compressor
 # ------------------------------------------------------------------------------
-# https://django-compressor.readthedocs.io/en/latest/quickstart/#installation
+# https://django-compressor.readthedocs.io/en/latest/STATIC_URL/#installation
 INSTALLED_APPS += ["compressor"]
 STATICFILES_FINDERS += ["compressor.finders.CompressorFinder"]
+COMPRESS_CSS_FILTERS = [
+    "compressor.filters.sass.SassFilter",  # Compiles SCSS to CSS
+    "compressor.filters.css_default.CssAbsoluteFilter",  # Handles URL paths
+]
 
 # HAYSTACK
 # ------------------------------------------------------------------------------

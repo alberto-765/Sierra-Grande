@@ -243,5 +243,10 @@ sentry_sdk.init(
 )
 
 
-# Your stuff...
+# django-compressor
 # ------------------------------------------------------------------------------
+# https://django-compressor.readthedocs.io/en/latest/STATIC_URL/#installation
+COMPRESS_OFFLINE = True
+COMPRESS_CSS_FILTERS += [
+    "compressor.filters.cssmin.CSSMinFilter"  # Handles CSS minification
+]

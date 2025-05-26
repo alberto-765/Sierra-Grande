@@ -49,6 +49,9 @@ profile = "django"
 [tool.djlint.css]
 indent_size = 2
 
+[tool.djlint.scss]
+indent_size = 2
+
 [tool.djlint.js]
 indent_size = 2
 

@@ -1,1 +1,0 @@
-dragula([document.getElementById("unassigned-task"),document.getElementById("todo-task"),document.getElementById("inprogress-task"),document.getElementById("reviews-task"),document.getElementById("completed-task"),document.getElementById("new-task")]);

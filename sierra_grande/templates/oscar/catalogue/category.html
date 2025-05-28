@@ -8,12 +8,12 @@
 {% block description %}
   {{ category.get_meta_description }}
 {% endblock description %}
-{% block header %}
+{% block main_header %}
   <div class="d-flex justify-content-between align-items-center">
     <h1>
-      {% block headertext %}
+      {% block main_header_content %}
         {{ category.name }}
-      {% endblock headertext %}
+      {% endblock main_header_content %}
     </h1>
     {% if user.is_staff %}
       <a class="float-end d-none d-md-block"
@@ -21,7 +21,7 @@
         <small><i class="fas fa-pencil-alt"></i> {% translate "Edit this category" %}</small></a>
     {% endif %}
   </div>
-{% endblock header %}
+{% endblock main_header %}
 {% block breadcrumbs %}
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">

@@ -1,34 +1,34 @@
-{% extends 'oscar/dashboard/layout.html' %}
+{% extends "oscar/dashboard/layout.html" %}
 
 {% load i18n %}
 {% load crispy_forms_tags %}
 
 {% block title %}
   {% translate "Link an existing user" %} | {{ partner.name }} | {% translate "Partners" %} | {{ block.super }}
-{% endblock %}
+{% endblock title %}
 {% block breadcrumbs %}
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="{% url 'dashboard:index' %}">{% translate "Dashboard" %}</a>
+        <a href="{% url "dashboard:index" %}">{% translate "Dashboard" %}</a>
       </li>
       <li class="breadcrumb-item">
-        <a href="{% url 'dashboard:partner-list' %}">{% translate "Partners" %}</a>
+        <a href="{% url "dashboard:partner-list" %}">{% translate "Partners" %}</a>
       </li>
       <li class="breadcrumb-item">
-        <a href="{% url 'dashboard:partner-manage' pk=partner.id %}">{{ partner.name }}</a>
+        <a href="{% url "dashboard:partner-manage" pk=partner.id %}">{{ partner.name }}</a>
       </li>
       <li class="breadcrumb-item active" aria-current="page">{% translate "Link an existing user" %}</li>
     </ol>
   </nav>
-{% endblock %}
-{% block headertext %}
+{% endblock breadcrumbs%}
+{% block main_header_content %}
   {% translate "Link an existing user" %}
-{% endblock %}
+{% endblock main_header_content%}
 {% block dashboard_content %}
   {% block users_form %}
     <div class="card card-body">{% crispy form %}</div>
-  {% endblock %}
+  {% endblock users_form%}
   {% if form.is_bound %}
     <div class="card">
       <div class="card-header icon-link">
@@ -43,9 +43,9 @@
                 {% block users_header %}
                   <thead>
                     <tr>
-                      <th>{% translate 'Email' %}</th>
-                      <th>{% translate 'First name' %}</th>
-                      <th>{% translate 'Last name' %}</th>
+                      <th>{% translate "Email" %}</th>
+                      <th>{% translate "First name" %}</th>
+                      <th>{% translate "Last name" %}</th>
                       <th>&nbsp;</th>
                     </tr>
                   </thead>
@@ -63,12 +63,14 @@
                                                             User is already linked to {{ name }}.
                                                         {% endblocktranslate %}
                           {% else %}
-                            <form action="{% url 'dashboard:partner-user-link' partner_pk=partner.id user_pk=user.id %}"
+                            <form action="{% url "dashboard:partner-user-link" partner_pk=partner.id user_pk=user.id %}"
                                   method="post">
                               {% csrf_token %}
                               <button type="submit"
                                       class="btn btn-primary"
-                                      data-loading-text="{% translate 'Linking...' %}">{% translate 'Link user' %}</button>
+                                      data-loading-text="{% translate "Linking..." %}">
+                                {% translate "Link user" %}
+                              </button>
                             </form>
                           {% endif %}
                         </td>

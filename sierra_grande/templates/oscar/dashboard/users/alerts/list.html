@@ -19,9 +19,9 @@
     </ol>
   </nav>
 {% endblock breadcrumbs %}
-{% block headertext %}
+{% block main_header_content %}
   {% translate "Product alerts" %}
-{% endblock headertext %}
+{% endblock main_header_content %}
 {% block dashboard_content %}
   <div class="card">
     <span class="card-header icon-link fw-normal">
@@ -32,10 +32,13 @@
       <form method="get" class="row row-gap-3 align-items-center">
         {% include "oscar/dashboard/partials/form_fields_inline.html" with form=form wrapper_class="mb-0" col_class="col-xxl-auto col-lg" %}
         <div class="col-sm-auto col">
-          <button type="submit" class="btn btn-primary w-100" data-loading-text="{% translate "Searching..." %}">{% translate "Search" %}</button>
+          <button type="submit"
+                  class="btn btn-primary w-100"
+                  data-loading-text="{% translate "Searching..." %}">{% translate "Search" %}</button>
         </div>
         <div class="col-sm-auto col">
-          <a href="{% url "dashboard:user-alert-list" %}" class="btn btn-secondary w-100">{% translate "Reset" %}</a>
+          <a href="{% url "dashboard:user-alert-list" %}"
+             class="btn btn-secondary w-100">{% translate "Reset" %}</a>
         </div>
       </form>
     </div>

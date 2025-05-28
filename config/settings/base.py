@@ -220,6 +220,7 @@ STATICFILES_DIRS = [str(APPS_DIR / "static")]
 
 # https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#staticfiles-finders
 STATICFILES_FINDERS = [
+    "compressor.finders.CompressorFinder",
     "django.contrib.staticfiles.finders.FileSystemFinder",  # Looks for files in the STATICFILES_DIRS setting
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",  # Looks for files in the static subdirectory of each app
 ]
@@ -407,11 +408,8 @@ SOCIALACCOUNT_FORMS = {"signup": "sierra_grande.users.forms.UserSocialSignupForm
 # ------------------------------------------------------------------------------
 # https://django-compressor.readthedocs.io/en/latest/STATIC_URL/#installation
 INSTALLED_APPS += ["compressor"]
-STATICFILES_FINDERS += ["compressor.finders.CompressorFinder"]
-COMPRESS_CSS_FILTERS = [
-    "compressor.filters.sass.SassFilter",  # Compiles SCSS to CSS
-    "compressor.filters.css_default.CssAbsoluteFilter",  # Handles URL paths
-]
+# STATICFILES_FINDERS += ["compressor.finders.CompressorFinder"]
+COMPRESS_PRECOMPILERS = (("text/x-scss", "django_libsass.SassCompiler"),)
 
 # HAYSTACK
 # ------------------------------------------------------------------------------
@@ -552,11 +550,12 @@ OSCAR_DASHBOARD_NAVIGATION = [
         "url_name": "dashboard:reports-index",
     },
 ]
-
+OSCAR_SHOP_NAME = "Sierra Grande"
+OSCAR_SHOP_TAGLINE = "caca"
 
 # TinyMCE
 # ------------------------------------------------------------------------------
-TINYMCE_JS_URL = str(Path(STATIC_URL) / "tinymce/tinymce.min.js")
+TINYMCE_JS_URL = str(Path(STATIC_URL) / "libs/tinymce/tinymce.min.js")
 TINYMCE_DEFAULT_CONFIG = {
     "license_key": "gpl",
     "api_key": env.str("TINYMCE_LICENSE_KEY", default=""),

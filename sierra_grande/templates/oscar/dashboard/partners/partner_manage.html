@@ -22,8 +22,8 @@
     </ol>
   </nav>
 {% endblock breadcrumbs %}
-{% block header %}
-{% endblock header %}
+{% block main_header %}
+{% endblock main_header %}
 {% block dashboard_content %}
   <div class="card">
     <div class="card-header icon-link">
@@ -63,7 +63,9 @@
                       {% csrf_token %}
                       <button type="submit"
                               class="btn btn-danger"
-                              data-loading-text="{% translate 'Unlinking...' %}">{% translate 'Unlink user' %}</button>
+                              data-loading-text="{% translate 'Unlinking...' %}">
+                        {% translate 'Unlink user' %}
+                      </button>
                     </form>
                   </td>
                 </tr>

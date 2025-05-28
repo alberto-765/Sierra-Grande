@@ -23,28 +23,28 @@
 	function setLanguage (lang) {
 		if (document.getElementById("header-lang-img")) {
 			if (lang == "en") {
-				document.getElementById("header-lang-img").src = "../assets/images/flags/us.svg";
+				document.getElementById("header-lang-img").src = "../static/img/flags/us.svg";
 				document.getElementById("lang-name").innerHTML = "English";
 			} else if (lang == "sp") {
-				document.getElementById("header-lang-img").src = "../assets/images/flags/spain.svg";
+				document.getElementById("header-lang-img").src = "../static/img/flags/spain.svg";
 				document.getElementById("lang-name").innerHTML = "Española";
 			} else if (lang == "gr") {
-				document.getElementById("header-lang-img").src = "../assets/images/flags/germany.svg";
+				document.getElementById("header-lang-img").src = "../static/img/flags/germany.svg";
 				document.getElementById("lang-name").innerHTML = "Deutsche";
 			} else if (lang == "it") {
-				document.getElementById("header-lang-img").src = "../assets/images/flags/italy.svg";
+				document.getElementById("header-lang-img").src = "../static/img/flags/italy.svg";
 				document.getElementById("lang-name").innerHTML = "Italiana";
 			} else if (lang == "ru") {
-				document.getElementById("header-lang-img").src = "../assets/images/flags/russia.svg";
+				document.getElementById("header-lang-img").src = "../static/img/flags/russia.svg";
 				document.getElementById("lang-name").innerHTML = "русский";
 			} else if (lang == "ch") {
-				document.getElementById("header-lang-img").src = "../assets/images/flags/china.svg";
+				document.getElementById("header-lang-img").src = "../static/img/flags/china.svg";
 				document.getElementById("lang-name").innerHTML = "中国人";
 			} else if (lang == "fr") {
-				document.getElementById("header-lang-img").src = "../assets/images/flags/french.svg";
+				document.getElementById("header-lang-img").src = "../static/img/flags/french.svg";
 				document.getElementById("lang-name").innerHTML = "français";
 			} else if (lang == "sa") {
-				document.getElementById("header-lang-img").src = "../assets/images/flags/sa.svg";
+				document.getElementById("header-lang-img").src = "../static/img/flags/sa.svg";
 				document.getElementById("lang-name").innerHTML = "عربى";
 			}
 			localStorage.setItem("language", lang);
@@ -520,14 +520,6 @@
 		}
 
 		/**
-		 * Two-column layout menu scroll add
-		 */
-		if (document.documentElement.getAttribute("data-layout") == "twocolumn") {
-			document.getElementById("scrollbar").removeAttribute("data-simplebar");
-			document.getElementById("scrollbar").classList.remove("h-100");
-		}
-
-		/**
 		 * Horizontal layout menu
 		 */
 		if (document.documentElement.getAttribute("data-layout") == "horizontal") {
@@ -541,10 +533,7 @@
 			Array.from(verticalOverlay).forEach(function (element) {
 				element.addEventListener("click", function () {
 					document.body.classList.remove("vertical-sidebar-enable");
-					if (sessionStorage.getItem("data-layout") == "twocolumn")
-						document.body.classList.add("twocolumn-panel");
-					else
-						document.documentElement.setAttribute("data-sidebar-size", sessionStorage.getItem("data-sidebar-size"));
+					document.documentElement.setAttribute("data-sidebar-size", sessionStorage.getItem("data-sidebar-size"));
 				});
 			});
 		}
@@ -553,16 +542,6 @@
 	function windowResizeHover () {
 		var windowSize = document.documentElement.clientWidth;
 		if (windowSize < 1025 && windowSize > 767) {
-			document.body.classList.remove("twocolumn-panel");
-			if (sessionStorage.getItem("data-layout") == "twocolumn") {
-				document.documentElement.setAttribute("data-layout", "twocolumn");
-				if (document.getElementById("customizer-layout03")) {
-					document.getElementById("customizer-layout03").click();
-				}
-				twoColumnMenuGenerate();
-				initTwoColumnActiveMenu();
-				isCollapseMenu();
-			}
 			if (sessionStorage.getItem("data-layout") == "vertical") {
 				document.documentElement.setAttribute("data-sidebar-size", "sm");
 			}
@@ -570,16 +549,6 @@
 				document.querySelector(".hamburger-icon").classList.add("open");
 			}
 		} else if (windowSize >= 1025) {
-			document.body.classList.remove("twocolumn-panel");
-			if (sessionStorage.getItem("data-layout") == "twocolumn") {
-				document.documentElement.setAttribute("data-layout", "twocolumn");
-				if (document.getElementById("customizer-layout03")) {
-					document.getElementById("customizer-layout03").click();
-				}
-				twoColumnMenuGenerate();
-				initTwoColumnActiveMenu();
-				isCollapseMenu();
-			}
 			if (sessionStorage.getItem("data-layout") == "vertical") {
 				document.documentElement.setAttribute(
 					"data-sidebar-size",
@@ -591,12 +560,6 @@
 			}
 		} else if (windowSize <= 767) {
 			document.body.classList.remove("vertical-sidebar-enable");
-			document.body.classList.add("twocolumn-panel");
-			if (sessionStorage.getItem("data-layout") == "twocolumn") {
-				document.documentElement.setAttribute("data-layout", "vertical");
-				hideShowLayoutOptions("vertical");
-				isCollapseMenu();
-			}
 			if (sessionStorage.getItem("data-layout") != "horizontal") {
 				document.documentElement.setAttribute("data-sidebar-size", "lg");
 			}
@@ -678,13 +641,6 @@
 				document.documentElement.setAttribute("data-sidebar-size", "lg");
 			}
 		}
-
-		//Two column menu
-		if (document.documentElement.getAttribute("data-layout") == "twocolumn") {
-			document.body.classList.contains("twocolumn-panel") ?
-				document.body.classList.remove("twocolumn-panel") :
-				document.body.classList.add("twocolumn-panel");
-		}
 	}
 
 	function windowLoadContent () {
@@ -696,28 +652,12 @@
 		});
 
 		window.addEventListener("load", function () {
-			var isTwoColumn = document.documentElement.getAttribute("data-layout");
-			if (isTwoColumn == "twocolumn") {
-				initTwoColumnActiveMenu();
-			} else {
-				initActiveMenu();
-			}
+			initActiveMenu();
 			isLoadBodyElement();
 			addEventListenerOnSmHoverMenu();
 		});
 		if (document.getElementById("topnav-hamburger-icon")) {
 			document.getElementById("topnav-hamburger-icon").addEventListener("click", toggleHamburgerMenu);
-		}
-		var isValues = sessionStorage.getItem("defaultAttribute");
-		var defaultValues = JSON.parse(isValues);
-		var windowSize = document.documentElement.clientWidth;
-
-		if (defaultValues["data-layout"] == "twocolumn" && windowSize < 767) {
-			Array.from(document.getElementById("two-column-menu").querySelectorAll("li")).forEach(function (item) {
-				item.addEventListener("click", function (e) {
-					document.body.classList.remove("twocolumn-panel");
-				});
-			});
 		}
 	}
 
@@ -729,45 +669,6 @@
 		}
 	}
 
-	// Two-column menu activation
-	function initTwoColumnActiveMenu () {
-		// two column sidebar active js
-		var currentPath = location.pathname == "/" ? "index.html" : location.pathname.substring(1);
-		currentPath = currentPath.substring(currentPath.lastIndexOf("/") + 1);
-		if (currentPath) {
-			if (document.body.className == "twocolumn-panel") {
-				document.getElementById("two-column-menu").querySelector('[href="' + currentPath + '"]').classList.add("active");
-			}
-			// navbar-nav
-			var a = document.getElementById("navbar-nav").querySelector('[href="' + currentPath + '"]');
-			if (a) {
-				a.classList.add("active");
-				var parentCollapseDiv = a.closest(".collapse.menu-dropdown");
-				if (parentCollapseDiv && parentCollapseDiv.parentElement.closest(".collapse.menu-dropdown")) {
-					parentCollapseDiv.classList.add("show");
-					parentCollapseDiv.parentElement.children[0].classList.add("active");
-					parentCollapseDiv.parentElement.closest(".collapse.menu-dropdown").parentElement.classList.add("twocolumn-item-show");
-					if (parentCollapseDiv.parentElement.parentElement.parentElement.parentElement.closest(".collapse.menu-dropdown")) {
-						var menuIdSub = parentCollapseDiv.parentElement.parentElement.parentElement.parentElement.closest(".collapse.menu-dropdown").getAttribute("id");
-						parentCollapseDiv.parentElement.parentElement.parentElement.parentElement.closest(".collapse.menu-dropdown").parentElement.classList.add("twocolumn-item-show");
-						parentCollapseDiv.parentElement.closest(".collapse.menu-dropdown").parentElement.classList.remove("twocolumn-item-show");
-						if (document.getElementById("two-column-menu").querySelector('[href="#' + menuIdSub + '"]'))
-							document.getElementById("two-column-menu").querySelector('[href="#' + menuIdSub + '"]').classList.add("active");
-					}
-					var menuId = parentCollapseDiv.parentElement.closest(".collapse.menu-dropdown").getAttribute("id");
-					if (document.getElementById("two-column-menu").querySelector('[href="#' + menuId + '"]'))
-						document.getElementById("two-column-menu").querySelector('[href="#' + menuId + '"]').classList.add("active");
-				} else {
-					a.closest(".collapse.menu-dropdown").parentElement.classList.add("twocolumn-item-show");
-					var menuId = parentCollapseDiv.getAttribute("id");
-					if (document.getElementById("two-column-menu").querySelector('[href="#' + menuId + '"]'))
-						document.getElementById("two-column-menu").querySelector('[href="#' + menuId + '"]').classList.add("active");
-				}
-			} else {
-				document.body.classList.add("twocolumn-panel");
-			}
-		}
-	}
 
 	// two-column sidebar active js
 	function initActiveMenu () {
@@ -1071,19 +972,6 @@
 				document.getElementById("layout-width").style.display = "block";
 			}
 			initActiveMenu();
-		} else if (dataLayout == "twocolumn") {
-			document.getElementById("scrollbar").removeAttribute("data-simplebar");
-			document.getElementById("scrollbar").classList.remove("h-100");
-			if (document.getElementById("theme-settings-offcanvas")) {
-				document.getElementById("sidebar-size").style.display = "none";
-				document.getElementById("sidebar-view").style.display = "none";
-				document.getElementById("sidebar-color").style.display = "block";
-				if (document.getElementById("sidebar-img")) {
-					document.getElementById("sidebar-img").style.display = "block";
-				}
-				document.getElementById("layout-position").style.display = "none";
-				document.getElementById("layout-width").style.display = "none";
-			}
 		}
 	}
 
@@ -1149,13 +1037,6 @@
 							document.getElementById("sidebarimg-none").click();
 						}
 						hideShowLayoutOptions("horizontal");
-					} else if (x.value == "twocolumn") {
-						hideShowLayoutOptions("twocolumn");
-						document.documentElement.setAttribute("data-layout-width", "fluid");
-						document.getElementById("layout-width-fluid").click();
-						twoColumnMenuGenerate();
-						initTwoColumnActiveMenu();
-						isCollapseMenu();
 					}
 				}
 
@@ -1324,16 +1205,6 @@
 		}
 	}
 
-	function setLayoutMode (mode, modeType, modeTypeId, html) {
-		var isModeTypeId = document.getElementById(modeTypeId);
-		html.setAttribute(mode, modeType);
-		if (isModeTypeId) {
-			document.getElementById(modeTypeId).click();
-			document.getElementById("sidebar-color-" + modeType).click();
-			document.getElementById("topbar-color-" + modeType).click();
-		}
-	}
-
 	function resetLayout () {
 		if (document.getElementById("reset-layout")) {
 			document.getElementById("reset-layout").addEventListener("click", function () {
@@ -1345,7 +1216,6 @@
 
 
 	function init () {
-		twoColumnMenuGenerate();
 		isCustomDropdown();
 		isCustomDropdownResponsive();
 		initFullScreen();
@@ -1372,12 +1242,6 @@
 				if (simpleBar) simpleBar.getContentElement();
 			}
 
-			if (document.getElementsByClassName("twocolumn-iconview")[0]) {
-				var simpleBar1 = new SimpleBar(
-					document.getElementsByClassName("twocolumn-iconview")[0]
-				);
-				if (simpleBar1) simpleBar1.getContentElement();
-			}
 			clearTimeout(timeOutFunctionId);
 		}
 	}

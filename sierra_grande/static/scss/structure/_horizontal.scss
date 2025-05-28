@@ -1,13 +1,8 @@
 //
 // _horizontal.scss
-// 
+//
 
 [data-layout="horizontal"] {
-
-    .main-content {
-        margin-left: 0;
-    }
-
     @media (min-width: 1024.1px) {
 
         .top-tagbar {
@@ -242,7 +237,7 @@
         }
     }
 
-    &:is([data-bs-theme="dark"]) {
+    &[data-bs-theme="dark"] {
         .navbar-header {
             .horizontal-logo {
                 .logo-dark {

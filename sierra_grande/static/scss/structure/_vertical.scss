@@ -1,6 +1,6 @@
 //
 // _vertical.scss
-// 
+//
 
 .app-content {
     margin-left: $vertical-menu-width;
@@ -10,18 +10,6 @@
         padding: 0 15px 10px 15px;
         margin-top: $header-height;
     }
-}
-
-.main-content {
-    transition: all .1s ease-out;
-
-    @media (min-width: 768px) {
-        margin-left: $vertical-menu-width;
-    }
-}
-
-.page-content {
-    padding: calc(#{$header-height} + #{$top-tagbar-height} + #{$grid-gutter-width}) calc(#{$grid-gutter-width} * 0.5) $footer-height calc(#{$grid-gutter-width} * 0.5);
 }
 
 .navbar-menu {
@@ -291,14 +279,6 @@
     /********** sm-hover **********/
     &[data-sidebar-size="sm-hover"] {
 
-        .main-content {
-            margin-left: $vertical-menu-width-sm;
-
-            @media (max-width: 767.98px) {
-                margin-left: 0;
-            }
-        }
-
         .logo {
             span.logo-lg {
                 display: none;
@@ -467,12 +447,6 @@
 
     /********** sidebar md **********/
     &[data-sidebar-size="md"] {
-        @media (min-width: 768px) {
-            .main-content {
-                margin-left: $vertical-menu-width-md;
-            }
-        }
-
         .navbar-brand-box {
             width: $vertical-menu-width-md;
         }
@@ -637,20 +611,6 @@
 
 .bg-vertical-gradient-4 {
     background: linear-gradient(to left, #{$cyan-700}, #{$cyan-800});
-}
-
-//sidebar-images
-.sidebar-background {
-    position: absolute;
-    z-index: -1;
-    height: 100%;
-    width: 100%;
-    display: block;
-    top: 0;
-    left: 0;
-    background-size: cover;
-    background-position: 50%;
-    opacity: .07;
 }
 
 [data-bs-theme="dark"] {

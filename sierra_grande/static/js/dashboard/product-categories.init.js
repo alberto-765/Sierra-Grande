@@ -2,73 +2,73 @@
 var categoryListData = [
     {
         'id': 1,
-        "categoryImg": "../assets/images/ecommerce/headphone.png",
+        "categoryImg": "../static/img/ecommerce/headphone.png",
         "categoryTitle": "Headphone",
         "subCategory": ["Wireless", "Gaming", "Circumaural (over-ear)", "Supra-aural (on-ear)", "Over-Ear Headphones", "On-Ear Headphones", "True Wireless Earbuds"],
         "description": "Headphones are a pair of small speakers used for listening to sound from a computer, music player or other such electronic device."
     }, {
         'id': 2,
-        "categoryImg": "../assets/images/ecommerce/smart-watch.png",
+        "categoryImg": "../static/img/ecommerce/smart-watch.png",
         "categoryTitle": "Watch",
         "subCategory": ["Digital Watches", "Dive Watches", "Pilot's Watches", "Field Watches", "Analog Watches", "Quartz Watches"],
         "description": "A watch is a symbol of time and wearing a watch implies that you respect the importance of time."
     }, {
         'id': 3,
-        "categoryImg": "../assets/images/ecommerce/sofa.png",
+        "categoryImg": "../static/img/ecommerce/sofa.png",
         "categoryTitle": "Furniture",
         "subCategory": ["Beds", "Cabinets", "Chairs & Seating", "Desks"],
         "description": "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores"
     }, {
         'id': 4,
-        "categoryImg": "../assets/images/ecommerce/clothes.png",
+        "categoryImg": "../static/img/ecommerce/clothes.png",
         "categoryTitle": "Clothing",
         "subCategory": ["Casual Wear", "Formal Wear", "Business Attire", "Sportswear", "Jackets and coats", "Suits"],
         "description": "In enim justo rhoncus ut imperdiet a venenatis vitae justo. Nullam dictum felis eu pede mollis pretium integer tincidunt aenean vulputate eleifend tellus."
     }, {
         'id': 5,
-        "categoryImg": "../assets/images/ecommerce/baby-shoe.png",
+        "categoryImg": "../static/img/ecommerce/baby-shoe.png",
         "categoryTitle": "Footwear",
         "subCategory": ["Athletic Shoes", "Leather Shoes", "Figure Shoes", "Crocs"],
         "description": "It will be as simple as Occidental; in fact, it will be Occidental. To an English person, it will seem like simplified English, as a skeptical Cambridge friend"
     }, {
         'id': 6,
-        "categoryImg": "../assets/images/ecommerce/light-bulb.png",
+        "categoryImg": "../static/img/ecommerce/light-bulb.png",
         "categoryTitle": "Lighting",
         "subCategory": ["Ambient Lighting", "Task Lighting", "Accent Lighting", "Track Light"],
         "description": "To achieve this, it would be necessary to have uniform grammar, pronunciation and more common words. If several languages coalesce, the grammar of the resulting."
     }, {
         'id': 7,
-        "categoryImg": "../assets/images/ecommerce/cosmetics.png",
+        "categoryImg": "../static/img/ecommerce/cosmetics.png",
         "categoryTitle": "Beauty & Personal Care",
         "subCategory": ["Baby Care", "Deodorants", "Feminine Care", "Fragrances"],
         "description": "Beauty Care is basically the science of beauty treatment that involves skin Care, hair Care, manicure, pedicure, Anti- aging treatments, facials, styling and so on."
     }, {
         'id': 8,
-        "categoryImg": "../assets/images/ecommerce/book.png",
+        "categoryImg": "../static/img/ecommerce/book.png",
         "categoryTitle": "Books",
         "subCategory": ["Fantasy", "Horror", "Mystery", "Romance", "Classics", "Poetry", "Short stories"],
         "description": "Books are portable and compact, and thus have an advantage over other media forms. Unlike other print media, books most often deal with a single subject."
     }, {
         'id': 9,
-        "categoryImg": "../assets/images/ecommerce/smart-watch.png",
+        "categoryImg": "../static/img/ecommerce/smart-watch.png",
         "categoryTitle": "Other Accessories",
         "subCategory": ["Bags", "Eyewear", "Belts", "Hair accessories"],
         "description": "For science, music, sport, etc, Europe uses the same vocabulary. The languages only differ in their grammar, their pronunciation and their most common words."
     }, , {
         'id': 10,
-        "categoryImg": "../assets/images/ecommerce/cosmetics.png",
+        "categoryImg": "../static/img/ecommerce/cosmetics.png",
         "categoryTitle": "Beauty & Personal Care",
         "subCategory": ["Baby Care", "Deodorants", "Feminine Care", "Fragrances"],
         "description": "Beauty Care is basically the science of beauty treatment that involves skin Care, hair Care, manicure, pedicure, Anti- aging treatments, facials, styling and so on."
     }, {
         'id': 11,
-        "categoryImg": "../assets/images/ecommerce/book.png",
+        "categoryImg": "../static/img/ecommerce/book.png",
         "categoryTitle": "Books",
         "subCategory": ["Fantasy", "Horror", "Mystery", "Romance", "Classics", "Poetry", "Short stories"],
         "description": "Books are portable and compact, and thus have an advantage over other media forms. Unlike other print media, books most often deal with a single subject."
     }, {
         'id': 12,
-        "categoryImg": "../assets/images/ecommerce/smart-watch.png",
+        "categoryImg": "../static/img/ecommerce/smart-watch.png",
         "categoryTitle": "Other Accessories",
         "subCategory": ["Bags", "Eyewear", "Belts", "Hair accessories"],
         "description": "For science, music, sport, etc, Europe uses the same vocabulary. The languages only differ in their grammar, their pronunciation and their most common words."

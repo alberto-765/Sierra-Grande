@@ -105,7 +105,3 @@ OSCAR_ORDER_STATUS_PIPELINE = {
 # ------------------------------------------------------------------------------
 # https://django-compressor.readthedocs.io/en/latest/STATIC_URL/#installation
 COMPRESS_SASS_SOURCE_MAP = True  # Source maps for debugging SCSS in browser tools
-COMPRESS_CSS_FILTERS = [
-    "compressor.filters.sass.SassFilter",  # Compiles SCSS to CSS
-    "compressor.filters.css_default.CssAbsoluteFilter",  # Handles URL paths
-]

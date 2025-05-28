@@ -8,10 +8,10 @@ var options = {
         "id",
         "discount",
         "couponTitle",
-        "code",        
+        "code",
         "productType",
         "startDate",
-        "endDate",        
+        "endDate",
         "status",
     ],
     page: perPage,
@@ -49,7 +49,7 @@ var couponsList = new List("couponsList", options).on("updated", function (list)
     }
 
     if (list.matchingItems.length == perPage) {
-        document.querySelector(".pagination.listjs-pagination").firstElementChild.children[0].click()
+        document.querySelector(".pagination.listjs-pagination").firstElementChild.children[0].click();
     }
 
     if (list.matchingItems.length > 0) {
@@ -63,44 +63,44 @@ var couponsList = new List("couponsList", options).on("updated", function (list)
 //load json records
 const xhttp = new XMLHttpRequest();
 xhttp.onload = function () {
-    var json_records = JSON.parse(this.responseText);  
-        Array.from(json_records).forEach(function (element) {
-            couponsList.add({
-            id: `<a href="javascript:void(0);" class="fw-medium link-primary">#TB${element.id}</a>`,
-            discount: `<h5 class="mb-0 fs-16">${element.discount}</h5>`,         
+    var json_records = JSON.parse(this.responseText);
+    Array.from(json_records).forEach(function (element) {
+        couponsList.add({
+            id: `<a href="javascript:void(0);" class="fw-medium link-primary">#TB${ element.id }</a>`,
+            discount: `<h5 class="mb-0 fs-16">${ element.discount }</h5>`,
             couponTitle: element.couponTitle,
-            code: element.code,         
+            code: element.code,
             startDate: element.startDate,
             endDate: element.endDate,
-            productType:isProductType(element.productType),
+            productType: isProductType(element.productType),
             status: isStatus(element.status),
-            });
-            couponsList.sort('id', { order: "desc" });
-            refreshCallbacks();
         });
-    
-        couponsList.remove("id", `<a href="javascript:void(0);" class="fw-medium link-primary">#TB01</a>`);
-}
+        couponsList.sort('id', { order: "desc" });
+        refreshCallbacks();
+    });
+
+    couponsList.remove("id", `<a href="javascript:void(0);" class="fw-medium link-primary">#TB01</a>`);
+};
 xhttp.open("GET", "../assets/json/coupons-list.json");
 xhttp.send();
 
 var idField = document.getElementById("id-field"),
-couponTitleField = document.getElementById("couponTitle-field"),
-codeField = document.getElementById("code-field"),
-productTypeField = document.getElementById("productType-field"),
-startDateField = document.getElementById("startdate-field"),
-endDateField = document.getElementById("enddate-field"),
-discountField = document.getElementById("discount-field"),
-statusField = document.getElementById("status-Field")
-addBtn = document.getElementById("add-btn")
+    couponTitleField = document.getElementById("couponTitle-field"),
+    codeField = document.getElementById("code-field"),
+    productTypeField = document.getElementById("productType-field"),
+    startDateField = document.getElementById("startdate-field"),
+    endDateField = document.getElementById("enddate-field"),
+    discountField = document.getElementById("discount-field"),
+    statusField = document.getElementById("status-Field");
+addBtn = document.getElementById("add-btn");
 editBtn = document.getElementById("edit-btn"),
-removeBtns = document.getElementsByClassName("remove-item-btn"),
-viewBtns = document.getElementsByClassName("view-item-btn"),
-editBtns = document.getElementsByClassName("edit-item-btn");
+    removeBtns = document.getElementsByClassName("remove-item-btn"),
+    viewBtns = document.getElementsByClassName("view-item-btn"),
+    editBtns = document.getElementsByClassName("edit-item-btn");
 
 refreshCallbacks();
 
-var productTypeVal = new Choices(productTypeField)
+var productTypeVal = new Choices(productTypeField);
 var statusVal = new Choices(statusField);
 
 document.getElementById("showModal").addEventListener("show.bs.modal", function (e) {
@@ -120,10 +120,10 @@ document.getElementById("showModal").addEventListener("show.bs.modal", function 
 
 //Add Coupon
 var count = 13;
-var forms = document.querySelectorAll('.tablelist-form')
+var forms = document.querySelectorAll('.tablelist-form');
 Array.prototype.slice.call(forms).forEach(function (form) {
     form.addEventListener('submit', function (event) {
-        
+
         event.preventDefault();
 
         var errorMsg = document.getElementById("alert-error-msg");
@@ -137,27 +137,27 @@ Array.prototype.slice.call(forms).forEach(function (form) {
             text = "Please enter a coupon title";
             errorMsg.innerHTML = text;
             return false;
-        }else if (codeField.value == "") {
+        } else if (codeField.value == "") {
             text = "Please enter a code";
             errorMsg.innerHTML = text;
             return false;
-        }else if (productTypeField.value == "") {
+        } else if (productTypeField.value == "") {
             text = "Please select a product type";
             errorMsg.innerHTML = text;
             return false;
-        }else if (startDateField.value == "") {
+        } else if (startDateField.value == "") {
             text = "Please select a start date";
             errorMsg.innerHTML = text;
             return false;
-        }else if (endDateField.value == "") {
+        } else if (endDateField.value == "") {
             text = "Please select a end date";
             errorMsg.innerHTML = text;
             return false;
-        }else if (discountField.value == "") {
+        } else if (discountField.value == "") {
             text = "Please enter discount";
             errorMsg.innerHTML = text;
             return false;
-        }else if (statusField.value == "") {
+        } else if (statusField.value == "") {
             text = "Please select a delivery status";
             errorMsg.innerHTML = text;
             return false;
@@ -167,9 +167,9 @@ Array.prototype.slice.call(forms).forEach(function (form) {
         if (
             couponTitleField.value !== "" &&
             codeField.value !== "" &&
-            productTypeField.value !== "" &&            
+            productTypeField.value !== "" &&
             startDateField.value !== "" &&
-            endDateField.value !== "" && 
+            endDateField.value !== "" &&
             discountField.value !== "" &&
             statusField.value !== "" && !editlist
         ) {
@@ -180,7 +180,7 @@ Array.prototype.slice.call(forms).forEach(function (form) {
                 productType: productTypeField.value,
                 startDate: startDateField.value,
                 endDate: endDateField.value,
-                discount: `<h5 class="mb-0 fs-16">${discountField.value}</h5>`,
+                discount: `<h5 class="mb-0 fs-16">${ discountField.value }</h5>`,
                 status: isStatus(statusField.value),
             });
             couponsList.sort('id', { order: "desc" });
@@ -212,14 +212,14 @@ Array.prototype.slice.call(forms).forEach(function (form) {
                 isid = new DOMParser().parseFromString(x._values.id, "text/html");
                 var selectedid = isid.body.firstElementChild.innerHTML;
                 if (selectedid == itemId) {
-                    x.values({                        
+                    x.values({
                         id: '<a href="javascript:void(0);" class="fw-medium link-primary">#TB' + idField.value + "</a>",
                         couponTitle: couponTitleField.value,
                         code: codeField.value,
                         productType: productTypeField.value,
                         startDate: startDateField.value,
                         endDate: endDateField.value,
-                        discount: `<h5 class="mb-0 fs-16">${discountField.value}</h5>`,
+                        discount: `<h5 class="mb-0 fs-16">${ discountField.value }</h5>`,
                         status: isStatus(statusField.value),
                     });
                 }
@@ -237,28 +237,28 @@ Array.prototype.slice.call(forms).forEach(function (form) {
             });
         }
         return true;
-    })
+    });
 });
 
-function refreshCallbacks() {
-    if (removeBtns){        
-        Array.from(removeBtns).forEach(function (btn) {                        
+function refreshCallbacks () {
+    if (removeBtns) {
+        Array.from(removeBtns).forEach(function (btn) {
             btn.addEventListener("click", function (e) {
                 e.target.closest("tr").children[0].innerText;
                 itemId = e.target.closest("tr").children[0].innerText;
                 var itemValues = couponsList.get({
                     id: itemId,
-                });                
-                
+                });
+
 
                 Array.from(itemValues).forEach(function (x) {
                     deleteid = new DOMParser().parseFromString(x._values.id, "text/html");
-                    
+
                     var isElem = deleteid.body.firstElementChild;
-                    var isdeleteid = deleteid.body.firstElementChild.innerHTML; 
-                    if (isdeleteid == itemId) {                        
+                    var isdeleteid = deleteid.body.firstElementChild.innerHTML;
+                    if (isdeleteid == itemId) {
                         document.getElementById("delete-record").addEventListener("click", function () {
-                            
+
                             couponsList.remove("id", isElem.outerHTML);
                             document.getElementById("deleteRecord-close").click();
                             Swal.fire({
@@ -270,16 +270,16 @@ function refreshCallbacks() {
                                 showCloseButton: true
                             });
                         });
-                    }                    
+                    }
                 });
             });
         });
     }
 
     //editBtns
-    if (editBtns){
+    if (editBtns) {
         Array.from(editBtns).forEach(function (btn) {
-            btn.addEventListener("click", function (e) {                
+            btn.addEventListener("click", function (e) {
                 e.target.closest("tr").children[0].innerText;
                 itemId = e.target.closest("tr").children[0].innerText;
                 var itemValues = couponsList.get({
@@ -289,16 +289,16 @@ function refreshCallbacks() {
                 Array.from(itemValues).forEach(function (x) {
                     isid = new DOMParser().parseFromString(x._values.id, "text/html");
                     var selectedid = isid.body.firstElementChild.innerHTML;
-                    
+
                     if (selectedid == itemId) {
                         editlist = true;
                         idField.value = selectedid;
                         couponTitleField.value = x._values.couponTitle;
                         codeField.value = x._values.code;
 
-                        //discount 
-                        discountVal =  new DOMParser().parseFromString(x._values.discount, "text/html");
-                        discountField.value = discountVal.body.firstElementChild.innerHTML
+                        //discount
+                        discountVal = new DOMParser().parseFromString(x._values.discount, "text/html");
+                        discountField.value = discountVal.body.firstElementChild.innerHTML;
 
 
                         // statusVal
@@ -308,8 +308,8 @@ function refreshCallbacks() {
                         });
                         val = new DOMParser().parseFromString(x._values.status, "text/html");
                         var statusSelec = val.body.firstElementChild.innerHTML;
-                        statusVal.setChoiceByValue(statusSelec);       
-                        
+                        statusVal.setChoiceByValue(statusSelec);
+
 
 
                         // productnameVal
@@ -337,40 +337,40 @@ function refreshCallbacks() {
 
 
     //View button
-    if(viewBtns){
-    Array.from(viewBtns).forEach(function (btn) {
-        btn.addEventListener("click", function (e) {
-           
-            e.target.closest("tr").children[0].innerText;
-            itemId = e.target.closest("tr").children[0].innerText;
-            var itemValues = couponsList.get({
-                id: itemId,
-            });
+    if (viewBtns) {
+        Array.from(viewBtns).forEach(function (btn) {
+            btn.addEventListener("click", function (e) {
 
-            Array.from(itemValues).forEach(function (x) {
-                isid = new DOMParser().parseFromString(x._values.id, "text/html");                
-                var selectedid = isid.body.firstElementChild.innerHTML;
-                console.log("isid",selectedid)
-                if (selectedid == itemId) {
-                    var codeBlock = `
+                e.target.closest("tr").children[0].innerText;
+                itemId = e.target.closest("tr").children[0].innerText;
+                var itemValues = couponsList.get({
+                    id: itemId,
+                });
+
+                Array.from(itemValues).forEach(function (x) {
+                    isid = new DOMParser().parseFromString(x._values.id, "text/html");
+                    var selectedid = isid.body.firstElementChild.innerHTML;
+                    console.log("isid", selectedid);
+                    if (selectedid == itemId) {
+                        var codeBlock = `
                 <div class="offcanvas-header bg-warning-subtle">
-                        <h5 class="offcanvas-title" id="couponDetails">${x._values.couponTitle}</h5>
+                        <h5 class="offcanvas-title" id="couponDetails">${ x._values.couponTitle }</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
                 <div class="offcanvas-body">
                 <div>
-                    <img src="../assets/images/ecommerce/offer-banner.jpg" alt="" class="img-thumbnail">
+                    <img src="../static/img/ecommerce/offer-banner.jpg" alt="" class="img-thumbnail">
                 </div>
                 <div class="mt-3">
                     <div class="table-responsive">
                         <table class="table table-borderless">
                             <tr>
                                 <td><span class="text-muted">Use Code</span></td>
-                                <td><span class="fw-medium">${x._values.code}</span></td>
+                                <td><span class="fw-medium">${ x._values.code }</span></td>
                             </tr>
                             <tr>
                                 <td><span class="text-muted">Discount</span></td>
-                                <td><span class="fw-medium text-uppercase">${new DOMParser().parseFromString(x._values.discount, "text/html").body.firstElementChild.innerHTML}</span></td>
+                                <td><span class="fw-medium text-uppercase">${ new DOMParser().parseFromString(x._values.discount, "text/html").body.firstElementChild.innerHTML }</span></td>
                             </tr>
                             <tr>
                                 <td><span class="text-muted">Start Date</span></td>
@@ -378,37 +378,37 @@ function refreshCallbacks() {
                             </tr>
                             <tr>
                                 <td><span class="text-muted">END Date</span></td>
-                                <td><span class="fw-medium">${x._values.endDate}</span></td>
+                                <td><span class="fw-medium">${ x._values.endDate }</span></td>
                             </tr>
                             <tr>
                                 <td><span class="text-muted">Product Type</span></td>
-                                <td><span class="fw-medium">${x._values.productType}</span></td>
+                                <td><span class="fw-medium">${ x._values.productType }</span></td>
                             </tr>
                             <tr>
                                 <td><span class="text-muted">Status</span></td>
-                                <td>${x._values.status}</td>
+                                <td>${ x._values.status }</td>
                             </tr>
                         </table>
                     </div>
                 </div>
             </div>`;
-                    document.getElementById('couponDetails').innerHTML = codeBlock;
-                }
+                        document.getElementById('couponDetails').innerHTML = codeBlock;
+                    }
 
+                });
             });
         });
-    });
-}
+    }
 };
 
-function isStatus(val) {
+function isStatus (val) {
     switch (val) {
         case "Active":
             return (
                 '<span class="badge bg-success-subtle text-success  text-uppercase">' +
                 val +
                 "</span>"
-         );
+            );
         case "Expired":
             return (
                 '<span class="badge bg-danger-subtle text-danger  text-uppercase">' +
@@ -418,48 +418,48 @@ function isStatus(val) {
     }
 }
 
-function isProductType(val) {
+function isProductType (val) {
     switch (val) {
         case "Headphones":
-            return (               
-                val                
+            return (
+                val
             );
         case "Watch":
-            return (                
-                val                
+            return (
+                val
             );
         case "Furniture":
-            return (               
-                val                
+            return (
+                val
             );
         case "Clothing":
-            return (                
-                val                
-            );    
+            return (
+                val
+            );
         case "Footwear":
-            return (                
-                val                
-            );   
+            return (
+                val
+            );
         case "Lighting":
-            return (                
-                val                
-            );     
+            return (
+                val
+            );
         case "Beauty & Personal Care":
-            return (                
-                val                
-            );   
+            return (
+                val
+            );
         case "Books":
-            return (                
-                val                
-        );
+            return (
+                val
+            );
         case "Other Accessories":
-            return (                
-                val                
-        );                                                 
+            return (
+                val
+            );
     }
 }
 
-function clearFields() {
+function clearFields () {
     couponTitleField.value = "";
     codeField.value = "";
     startDateField.value = "";

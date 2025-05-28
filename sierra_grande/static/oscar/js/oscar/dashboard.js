@@ -406,6 +406,592 @@ var oscar = ((o) => {
                 });
             }
         },
+        index: {
+            init: () => {
+                // get colors array from the string
+                function getChartColorsArray (chartId) {
+                    if (document.getElementById(chartId) !== null) {
+                        var colors = document.getElementById(chartId).getAttribute("data-colors");
+                        if (colors) {
+                            colors = JSON.parse(colors);
+                            return colors.map(function (value) {
+                                var newValue = value.replace(" ", "");
+                                if (newValue.indexOf(",") === -1) {
+                                    var color = getComputedStyle(document.documentElement).getPropertyValue(
+                                        newValue
+                                    );
+                                    if (color) return color;
+                                    else return newValue;
+                                } else {
+                                    var val = value.split(",");
+                                    if (val.length == 2) {
+                                        var rgbaColor = getComputedStyle(
+                                            document.documentElement
+                                        ).getPropertyValue(val[0]);
+                                        rgbaColor = "rgba(" + rgbaColor + "," + val[1] + ")";
+                                        return rgbaColor;
+                                    } else {
+                                        return newValue;
+                                    }
+                                }
+                            });
+                        } else {
+                            console.warn('data-colors atributes not found on', chartId);
+                        }
+                    }
+                }
+
+                var linechartcustomerColors = getChartColorsArray("customer_impression_charts");
+                if (linechartcustomerColors) {
+                    var options = {
+                        series: [{
+                            name: "Orders",
+                            type: "area",
+                            data: [34, 65, 46, 68, 49, 61, 42, 44, 78, 52, 63, 67],
+                        },
+                        {
+                            name: "Earnings",
+                            type: "bar",
+                            data: [
+                                89.25, 98.58, 68.74, 108.87, 77.54, 84.03, 51.24, 28.57, 92.57, 42.36,
+                                88.51, 36.57,
+                            ],
+                        },
+                        {
+                            name: "Refunds",
+                            type: "line",
+                            data: [8, 12, 7, 17, 21, 11, 5, 9, 7, 29, 12, 35],
+                        },
+                        ],
+                        chart: {
+                            height: 310,
+                            type: "line",
+                            toolbar: {
+                                show: false,
+                            },
+                        },
+                        stroke: {
+                            curve: "straight",
+                            dashArray: [0, 0, 8],
+                            width: [0.1, 0, 2],
+                        },
+                        fill: {
+                            opacity: [0.03, 0.9, 1],
+                        },
+                        markers: {
+                            size: [0, 0, 0],
+                            strokeWidth: 2,
+                            hover: {
+                                size: 4,
+                            },
+                        },
+                        xaxis: {
+                            categories: [
+                                "Jan",
+                                "Feb",
+                                "Mar",
+                                "Apr",
+                                "May",
+                                "Jun",
+                                "Jul",
+                                "Aug",
+                                "Sep",
+                                "Oct",
+                                "Nov",
+                                "Dec",
+                            ],
+                            axisTicks: {
+                                show: false,
+                            },
+                            axisBorder: {
+                                show: false,
+                            },
+                        },
+                        grid: {
+                            show: true,
+                            xaxis: {
+                                lines: {
+                                    show: true,
+                                },
+                            },
+                            yaxis: {
+                                lines: {
+                                    show: false,
+                                },
+                            },
+                            padding: {
+                                top: 0,
+                                right: -2,
+                                bottom: 15,
+                                left: 10,
+                            },
+                        },
+                        legend: {
+                            show: true,
+                            horizontalAlign: "center",
+                            offsetX: 0,
+                            offsetY: -5,
+                            markers: {
+                                width: 9,
+                                height: 9,
+                                radius: 6,
+                            },
+                            itemMargin: {
+                                horizontal: 10,
+                                vertical: 0,
+                            },
+                        },
+                        plotOptions: {
+                            bar: {
+                                columnWidth: "20%",
+                                barHeight: "100%",
+                                borderRadius: [8],
+                            },
+                        },
+                        colors: linechartcustomerColors,
+                        tooltip: {
+                            shared: true,
+                            y: [{
+                                formatter: function (y) {
+                                    if (typeof y !== "undefined") {
+                                        return y.toFixed(0);
+                                    }
+                                    return y;
+                                },
+                            },
+                            {
+                                formatter: function (y) {
+                                    if (typeof y !== "undefined") {
+                                        return "$" + y.toFixed(2) + "k";
+                                    }
+                                    return y;
+                                },
+                            },
+                            {
+                                formatter: function (y) {
+                                    if (typeof y !== "undefined") {
+                                        return y.toFixed(0) + " Sales";
+                                    }
+                                    return y;
+                                },
+                            },
+                            ],
+                        },
+                    };
+                    var chart = new ApexCharts(
+                        document.querySelector("#customer_impression_charts"),
+                        options
+                    );
+                    chart.render();
+                }
+
+                // Simple Donut Charts
+                var chartDonutBasicColors = getChartColorsArray("#store-visits-source");
+                if (chartDonutBasicColors) {
+                    var options = {
+                        series: [44, 55, 41, 17, 15],
+                        labels: ["Direct", "Social", "Email", "Other", "Referrals"],
+                        chart: {
+                            height: 333,
+                            type: "donut",
+                        },
+                        legend: {
+                            position: "bottom",
+                        },
+                        stroke: {
+                            show: false
+                        },
+                        dataLabels: {
+                            dropShadow: {
+                                enabled: false,
+                            },
+                        },
+                        colors: chartDonutBasicColors,
+                    };
+
+                    var chart = new ApexCharts(
+                        document.querySelector("#store-visits-source"),
+                        options
+                    );
+                    chart.render();
+                }
+
+                var swiper = new Swiper(".selling-product", {
+                    slidesPerView: "auto",
+                    spaceBetween: 15,
+                    pagination: {
+                        el: ".swiper-pagination",
+                        clickable: true,
+                    },
+                    autoplay: {
+                        delay: 2500,
+                        disableOnInteraction: false,
+                    },
+                });
+
+                function currentTime () {
+                    var ampm = new Date().getHours() >= 12 ? "pm" : "am";
+                    var hour =
+                        new Date().getHours() > 12 ?
+                            new Date().getHours() % 12 :
+                            new Date().getHours();
+                    var minute =
+                        new Date().getMinutes() < 10 ?
+                            "0" + new Date().getMinutes() :
+                            new Date().getMinutes();
+                    if (hour < 10) {
+                        return "0" + hour + ":" + minute + " " + ampm;
+                    } else {
+                        return hour + ":" + minute + " " + ampm;
+                    }
+                }
+
+                setInterval(currentTime, 1000);
+
+
+                //  Line chart datalabel
+                let linechartDatalabelColors = getChartColorsArray("line_chart_datalabel");
+                if (linechartDatalabelColors) {
+                    let options = {
+                        chart: {
+                            height: 405,
+                            zoom: {
+                                enabled: true
+                            },
+                            toolbar: {
+                                show: false
+                            }
+                        },
+                        colors: linechartDatalabelColors,
+                        markers: {
+                            size: 0,
+                            colors: "#ffffff",
+                            strokeColors: linechartDatalabelColors,
+                            strokeWidth: 1,
+                            strokeOpacity: 0.9,
+                            fillOpacity: 1,
+                        },
+                        dataLabels: {
+                            enabled: false,
+                        },
+                        stroke: {
+                            width: [2, 2, 2],
+                            curve: 'smooth'
+                        },
+                        series: [{
+                            name: "Orders",
+                            type: 'line',
+                            data: [180, 274, 346, 290, 370, 420, 490, 542, 510, 580, 636, 745]
+                        },
+                        {
+                            name: "Refunds",
+                            type: 'area',
+                            data: [100, 154, 302, 411, 300, 284, 273, 232, 187, 174, 152, 122]
+                        },
+                        {
+                            name: "Earnings",
+                            type: 'line',
+                            data: [260, 360, 320, 345, 436, 527, 641, 715, 832, 794, 865, 933]
+                        }
+                        ],
+                        fill: {
+                            type: ['solid', 'gradient', 'solid'],
+                            gradient: {
+                                shadeIntensity: 1,
+                                type: "vertical",
+                                inverseColors: false,
+                                opacityFrom: 0.3,
+                                opacityTo: 0.0,
+                                stops: [20, 80, 100, 100]
+                            },
+                        },
+                        grid: {
+                            row: {
+                                colors: ['transparent', 'transparent'], // takes an array which will be repeated on columns
+                                opacity: 0.2
+                            },
+                            borderColor: '#f1f1f1'
+                        },
+                        xaxis: {
+                            categories: [
+                                "Jan",
+                                "Feb",
+                                "Mar",
+                                "Apr",
+                                "May",
+                                "Jun",
+                                "Jul",
+                                "Aug",
+                                "Sep",
+                                "Oct",
+                                "Nov",
+                                "Dec",
+                            ],
+                        },
+                        legend: {
+                            position: 'top',
+                            horizontalAlign: 'right',
+                            floating: true,
+                            offsetY: -25,
+                            offsetX: -5
+                        },
+                        responsive: [{
+                            breakpoint: 600,
+                            options: {
+                                chart: {
+                                    toolbar: {
+                                        show: false
+                                    }
+                                },
+                                legend: {
+                                    show: false
+                                },
+                            }
+                        }]
+                    };
+
+                    let chart = new ApexCharts(
+                        document.querySelector("#line_chart_datalabel"),
+                        options
+                    );
+                    chart.render();
+                }
+
+                // world map with line & markers
+                let vectorMapWorldLineColors = getChartColorsArray("world-map-line-markers");
+                if (vectorMapWorldLineColors) {
+                    const worldlinemap = new jsVectorMap({
+                        map: "world_merc",
+                        selector: "#world-map-line-markers",
+                        zoomOnScroll: false,
+                        zoomButtons: false,
+                        markers: [{
+                            name: "Greenland",
+                            coords: [71.7069, 42.6043],
+                            style: {
+                                image: "../static/img/flags/gl.svg",
+                            }
+                        },
+                        {
+                            name: "Canada",
+                            coords: [56.1304, -106.3468],
+                            style: {
+                                image: "../static/img/flags/ca.svg",
+                            }
+                        },
+                        {
+                            name: "Brazil",
+                            coords: [-14.2350, -51.9253],
+                            style: {
+                                image: "../static/img/flags/br.svg",
+                            }
+                        },
+                        {
+                            name: "Serbia",
+                            coords: [44.0165, 21.0059],
+                            style: {
+                                image: "../static/img/flags/rs.svg",
+                            }
+                        },
+                        {
+                            name: "Russia",
+                            coords: [61, 105],
+                            style: {
+                                image: "../static/img/flags/ru.svg",
+                            }
+                        },
+                        {
+                            name: "US",
+                            coords: [37.0902, -95.7129],
+                            style: {
+                                image: "../static/img/flags/us.svg",
+                            }
+                        },
+                        {
+                            name: "Australia",
+                            coords: [25.2744, 133.7751],
+                            style: {
+                                image: "../static/img/flags/au.svg",
+                            }
+                        },
+                        ],
+                        lines: [{
+                            from: "Canada",
+                            to: "Serbia",
+                        },
+                        {
+                            from: "Russia",
+                            to: "Serbia"
+                        },
+                        {
+                            from: "Greenland",
+                            to: "Serbia"
+                        },
+                        {
+                            from: "Brazil",
+                            to: "Serbia"
+                        },
+                        {
+                            from: "US",
+                            to: "Serbia"
+                        },
+                        {
+                            from: "Australia",
+                            to: "Serbia"
+                        },
+                        ],
+                        regionStyle: {
+                            initial: {
+                                stroke: "#9599ad",
+                                strokeWidth: 0.25,
+                                fill: vectorMapWorldLineColors,
+                                fillOpacity: 1,
+                            },
+                        },
+                        labels: {
+                            markers: {
+                                render (marker, index) {
+                                    return marker.name || marker.labelName || 'Not available';
+                                }
+                            }
+                        },
+                        lineStyle: {
+                            animation: true,
+                            strokeDasharray: "6 3 6",
+                        },
+                    });
+                }
+
+                // Multi-Radial Bar
+                let chartRadialbarMultipleColors = getChartColorsArray("multiple_radialbar");
+                if (chartRadialbarMultipleColors) {
+                    let options = {
+                        series: [85, 69, 45, 78],
+                        chart: {
+                            height: 300,
+                            type: 'radialBar',
+                        },
+                        sparkline: {
+                            enabled: true
+                        },
+                        plotOptions: {
+                            radialBar: {
+                                startAngle: -90,
+                                endAngle: 90,
+                                dataLabels: {
+                                    name: {
+                                        fontSize: '22px',
+                                    },
+                                    value: {
+                                        fontSize: '16px',
+                                    },
+                                    total: {
+                                        show: true,
+                                        label: 'Sales',
+                                        formatter: function (w) {
+                                            return 2922;
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        labels: ['Fashion', 'Electronics', 'Groceries', 'Others'],
+                        colors: chartRadialbarMultipleColors,
+                        legend: {
+                            show: false,
+                            fontSize: '16px',
+                            position: 'bottom',
+                            labels: {
+                                useSeriesColors: true,
+                            },
+                            markers: {
+                                size: 0
+                            },
+                        },
+                    };
+
+                    let chart = new ApexCharts(document.querySelector("#multiple_radialbar"), options);
+                    chart.render();
+                }
+
+
+                //  Spline Area Charts
+                let areachartSplineColors = getChartColorsArray("area_chart_spline");
+                if (areachartSplineColors) {
+                    let options = {
+                        series: [{
+                            name: 'This Month',
+                            data: [49, 54, 48, 54, 67, 88, 96]
+                        }, {
+                            name: 'Last Month',
+                            data: [57, 66, 74, 63, 55, 70, 85]
+                        }],
+                        chart: {
+                            height: 250,
+                            type: 'area',
+                            toolbar: {
+                                show: false
+                            }
+                        },
+                        fill: {
+                            type: ['gradient', 'gradient'],
+                            gradient: {
+                                shadeIntensity: 1,
+                                type: "vertical",
+                                inverseColors: false,
+                                opacityFrom: 0.3,
+                                opacityTo: 0.0,
+                                stops: [50, 70, 100, 100]
+                            },
+                        },
+                        markers: {
+                            size: 4,
+                            colors: "#ffffff",
+                            strokeColors: areachartSplineColors,
+                            strokeWidth: 1,
+                            strokeOpacity: 0.9,
+                            fillOpacity: 1,
+                            hover: {
+                                size: 6,
+                            }
+                        },
+                        grid: {
+                            show: false,
+                            padding: {
+                                top: -35,
+                                right: 0,
+                                bottom: 0,
+                                left: -6,
+                            },
+                        },
+                        legend: {
+                            show: false,
+                        },
+                        dataLabels: {
+                            enabled: false
+                        },
+                        stroke: {
+                            width: [2, 2],
+                            curve: 'smooth'
+                        },
+                        colors: areachartSplineColors,
+                        xaxis: {
+                            labels: {
+                                show: false,
+                            }
+                        },
+                        yaxis: {
+                            labels: {
+                                show: false,
+                            }
+                        },
+                    };
+
+                    let chart = new ApexCharts(document.querySelector("#area_chart_spline"), options);
+                    chart.render();
+                }
+            }
+        },
         offers: {
             init: function () {
                 o.dashboard.offers.adjustBenefitForm();

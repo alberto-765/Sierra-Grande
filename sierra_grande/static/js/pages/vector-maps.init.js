@@ -210,7 +210,7 @@ if (vectorMapWorldMarkersImageColors)
         ],
         markerStyle: {
             initial: {
-                image: "../assets/images/logo-sm.png"
+                image: "../static/img/logo-sm.png"
             }
         },
         labels: {

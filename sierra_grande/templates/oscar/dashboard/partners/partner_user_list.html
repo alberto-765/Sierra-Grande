@@ -15,7 +15,7 @@
     </ol>
   </nav>
 {% endblock breadcrumbs %}
-{% block header %}
+{% block main_header %}
   <div>
     <h2 class="mb-0">{% translate "Manage users" %}</h2>
     <div class="btn-group d-flex justify-content-between">
@@ -35,7 +35,7 @@
       </ul>
     </div>
   </div>
-{% endblock header %}
+{% endblock main_header %}
 {% block dashboard_content %}
   {% if users %}
     <table class="align-middle table table-striped table-bordered">

@@ -4,10 +4,10 @@
 {% load i18n %}
 {% load crispy_forms_tags %}
 
-{% block body_class %}{{ block.super }} create-page partner{% endblock %}
+{% block body_class %}{{ block.super }} create-page partner{% endblock body_class %}
 {% block title %}
   {{ title }} | {{ partner.name }} | {% translate "Partners" %} | {{ block.super }}
-{% endblock %}
+{% endblock title %}
 {% block breadcrumbs %}
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
@@ -25,8 +25,8 @@
       <li class="breadcrumb-item active" aria-current="page">{{ title }}</li>
     </ol>
   </nav>
-{% endblock %}
-{% block headertext %}{{ title }}{% endblock %}
+{% endblock breadcrumbs %}
+{% block main_header_content %}{{ title }}{% endblock %}
 {% block dashboard_content %}
   {% crispy form %}
 {% endblock dashboard_content %}

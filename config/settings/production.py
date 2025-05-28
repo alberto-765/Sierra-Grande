@@ -155,18 +155,12 @@ ANYMAIL = {
 # ------------------------------------------------------------------------------
 # https://django-compressor.readthedocs.io/en/latest/settings/#django.conf.settings.COMPRESS_ENABLED
 COMPRESS_ENABLED = env.bool("COMPRESS_ENABLED", default=True)
+COMPRESS_OFFLINE = True
 # https://django-compressor.readthedocs.io/en/latest/settings/#django.conf.settings.COMPRESS_STORAGE
 COMPRESS_STORAGE = STORAGES["staticfiles"]["BACKEND"]
 # https://django-compressor.readthedocs.io/en/latest/settings/#django.conf.settings.COMPRESS_URL
 COMPRESS_URL = STATIC_URL
-# https://django-compressor.readthedocs.io/en/latest/settings/#django.conf.settings.COMPRESS_FILTERS
-COMPRESS_FILTERS = {
-    "css": [
-        "compressor.filters.css_default.CssAbsoluteFilter",
-        "compressor.filters.cssmin.rCSSMinFilter",
-    ],
-    "js": ["compressor.filters.jsmin.JSMinFilter"],
-}
+
 # Collectfasta
 # ------------------------------------------------------------------------------
 # https://github.com/jasongi/collectfasta#installation
@@ -241,12 +235,3 @@ sentry_sdk.init(
     environment=env("SENTRY_ENVIRONMENT", default="production"),
     traces_sample_rate=env.float("SENTRY_TRACES_SAMPLE_RATE", default=0.0),
 )
-
-
-# django-compressor
-# ------------------------------------------------------------------------------
-# https://django-compressor.readthedocs.io/en/latest/STATIC_URL/#installation
-COMPRESS_OFFLINE = True
-COMPRESS_CSS_FILTERS += [
-    "compressor.filters.cssmin.CSSMinFilter"  # Handles CSS minification
-]

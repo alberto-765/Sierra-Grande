@@ -22,9 +22,9 @@
     </ol>
   </nav>
 {% endblock breadcrumbs %}
-{% block headertext %}
+{% block main_header_content %}
   {% blocktranslate with number=order.number %}Order #{{ number }}{% endblocktranslate %}
-{% endblock headertext %}
+{% endblock main_header_content %}
 {% block dashboard_content %}
   {% block customer_information %}
     <table class="align-middle table table-bordered table-hover">
@@ -737,7 +737,9 @@
           <input type="hidden" value="save_note" name="order_action" />
           {% include "oscar/dashboard/partials/form_fields.html" with form=note_form %}
           <div class="form-actions">
-            <input type="submit" value="{% translate "Save note" %}" class="btn btn-primary" />
+            <input type="submit"
+                   value="{% translate "Save note" %}"
+                   class="btn btn-primary" />
             {% translate "Notes are only editable for 5 minutes after being saved." %}
           </div>
         </form>

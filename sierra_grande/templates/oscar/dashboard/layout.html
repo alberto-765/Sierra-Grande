@@ -5,193 +5,58 @@
 {% load i18n %}
 {% load static %}
 
-{% block extrastyles %}
-  {{ block.super }}
-  <link rel="stylesheet" href="{% static "css/dashboard.css" %}" />
-  <link rel="stylesheet" href="{% static 'css/tempus-dominus.min.css' %}" />
-  {% comment %} <link rel="stylesheet" href="{% static "css/animate.min.css" %}" /> {% endcomment %}
-{% endblock extrastyles %}
 {% block title %}
   {% translate "Dashboard" %} | {{ block.super }}
 {% endblock title %}
-{% block header_page %}
-  <header class="sticky-top bg-body">
-    {% block navbar %}
-      <nav class="navbar navbar-expand-md navbar--custom navbar--custom--slim px-4 bg-body-tertiary">
-        <a class="navbar-brand" href="#">{{ shop_name }}</a>
-        <button class="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarTop"
-                aria-controls="navbarTop"
-                aria-expanded="true"
-                aria-label="Toggle top navbar">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-end" id="navbarTop">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#">
-                {% translate "Welcome" %} <em>{{ user.get_full_name|default:request.user.email }}</em>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link icon-link" href="{{ homepage_url }}">
-                <iconify-icon icon="clarity:house-solid" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
-                {% translate "Return to site" %}
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link icon-link" href="{% url "customer:summary" %}">
-                <iconify-icon icon="mdi:account" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
-                {% translate "Account" %}
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link icon-link" href="{% url "dashboard:logout" %}">
-                <iconify-icon icon="ic:twotone-log-out" aria-hidden="true" width="1rem" height="1rem"></iconify-icon>
-                {% translate "Log out" %}
-              </a>
-            </li>
-            <li class="nav-item dropdown">
-              <button class="btn btn-link nav-link dropdown-toggle"
-                      id="bd-theme"
-                      type="button"
-                      aria-expanded="false"
-                      data-bs-toggle="dropdown"
-                      aria-label="Toggle theme (auto)">
-                <iconify-icon icon="" width="1rem" height="1rem" inline class="theme-icon-active"></iconify-icon>
-                <span class="d-md-none" id="bd-theme-text">{% translate "Toggle theme" %}</span>
-              </button>
-              <ul class="dropdown-menu dropdown-menu-end"
-                  aria-labelledby="bd-theme-text">
-                <li>
-                  <button type="button"
-                          class="dropdown-item d-flex align-items-center icon-link"
-                          data-bs-theme-value="light"
-                          aria-pressed="false">
-                    <iconify-icon icon="line-md:moon-filled-to-sunny-filled-transition" width="1rem" height="1rem" aria-hidden="true" class="btn__icon"></iconify-icon>
-                    {% translate "Light" %}
-                    <iconify-icon icon="system-uicons:check" width="1rem" height="1rem" class="ms-auto d-none btn__check" aria-hidden="true"></iconify-icon>
-                  </button>
-                </li>
-                <li>
-                  <button type="button"
-                          class="dropdown-item d-flex align-items-center icon-link"
-                          data-bs-theme-value="dark"
-                          aria-pressed="false">
-                    <iconify-icon icon="line-md:moon-filled" width="1rem" height="1rem" aria-hidden="true" class="btn__icon"></iconify-icon>
-                    {% translate "Dark" %}
-                    <iconify-icon icon="system-uicons:check" width="1rem" height="1rem" class="ms-auto d-none btn__check" aria-hidden="true"></iconify-icon>
-                  </button>
-                </li>
-                <li>
-                  <button type="button"
-                          class="dropdown-item d-flex align-items-center icon-link"
-                          data-bs-theme-value="auto"
-                          aria-pressed="true">
-                    <iconify-icon icon="line-md:light-dark" width="1rem" height="1rem" aria-hidden="true" class="btn__icon"></iconify-icon>
-                    {% translate "Auto" %}
-                    <iconify-icon icon="system-uicons:check" width="1rem" height="1rem" class="ms-auto d-none btn__check" aria-hidden="true"></iconify-icon>
-                  </button>
-                </li>
-              </ul>
-            </li>
-          </ul>
+{% block layout %}
+  {% block top_tagbar %}
+    {% include "oscar/dashboard/partials/top_tagbar.html" %}
+  {% endblock top_tagbar %}
+  {% block sidebar %}
+    {% include "oscar/dashboard/partials/sidebar.html" %}
+  {% endblock sidebar %}
+  <!-- Vertical Overlay-->
+  <div class="vertical-overlay"></div>
+  <div class="vstack">
+    {% block topbar %}
+      {% include "oscar/dashboard/partials/topbar.html" %}
+    {% endblock topbar %}
+    {% block main %}
+      <div class="container-fluid">
+        {% block breadcrumbs %}
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item active" aria-current="page">
+                <a href="{% url "dashboard:index" %}">{% translate "Dashboard" %}</a>
+              </li>
+            </ol>
+          </nav>
+        {% endblock breadcrumbs %}
+        <div class="vstack row-gap-4">
+          {% include "oscar/dashboard/partials/alert_messages.html" %}
+          {% block main_header %}
+            <h2 class="mb-0">
+              {% block main_header_content %}
+              {% endblock main_header_content %}
+            </h2>
+          {% endblock main_header %}
+          {% block content %}
+            {% block dashboard_content %}
+            {% endblock dashboard_content %}
+          {% endblock content %}
         </div>
-      </nav>
-    {% endblock navbar %}
-    {% block dashboard_nav %}
-      {% dashboard_navigation user as nav_items %}
-      <nav class="navbar navbar-expand-md navbar--custom px-4">
-        <button class="navbar-toggler"
-                type="button"
-                data-bs-toggle="offcanvas"
-                data-bs-target="#menu_offcanvas"
-                aria-controls="menu_offcanvas"
-                aria-label="Toggle administration menu">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="offcanvas offcanvas-start"
-             tabindex="-1"
-             data-bs-scroll="true"
-             id="menu_offcanvas"
-             aria-labelledby="menu__offcanvasLabel">
-          <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="menu__offcanvasLabel">{{ shop_name }}</h5>
-            <button type="button"
-                    class="btn-close"
-                    data-bs-dismiss="offcanvas"
-                    data-bs-target="#menu_offcanvas"
-                    aria-label="Close"></button>
-          </div>
-          <div class="offcanvas-body">
-            <ul class="navbar-nav">
-              {% for item in nav_items %}
-                <li class="nav-item {% if item.has_children %}dropdown{% endif %} ">
-                  <a class="nav-link icon-link {% if forloop.first %}ps-md-0{% endif %} {% if item.has_children %}dropdown-toggle{% endif %}"
-                     href="{% if item.is_heading %}#{% else %}{{ item.url }}{% endif %}"
-                     {% if item.has_children %} id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" {% endif %}>
-                    {% if item.icon %}
-                      <iconify-icon icon="{{ item.icon }}" aria-hidden="true" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
-                    {% endif %}
-                    {{ item.label }}
-                  </a>
-                  {% if item.has_children %}
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      {% for subitem in item.children %}
-                        <a class="dropdown-item icon-link" href="{{ subitem.url }}">
-                          {% if subitem.icon %}
-                            <iconify-icon icon="{{ subitem.icon }}" aria-hidden="true" width="1rem" height="1rem"></iconify-icon>
-                          {% endif %}
-                          {{ subitem.label }}
-                        </a>
-                      {% endfor %}
-                    </div>
-                  {% endif %}
-                </li>
-              {% endfor %}
-            </ul>
-          </div>
-        </div>
-      </nav>
-    {% endblock dashboard_nav %}
-  </header>
-{% endblock header_page %}
-{% block layout_content %}
-  {% block breadcrumbs %}
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item active" aria-current="page">
-          <a href="{% url "dashboard:index" %}">{% translate "Dashboard" %}</a>
-        </li>
-      </ol>
-    </nav>
-  {% endblock breadcrumbs %}
-  <div class="vstack row-gap-4">
-    {% include "oscar/dashboard/partials/alert_messages.html" %}
-    {% block header %}
-      <h2 class="mb-0">
-        {% block headertext %}
-        {% endblock headertext %}
-      </h2>
-    {% endblock header %}
-    {% block content %}
-      {% block dashboard_content %}
-      {% endblock dashboard_content %}
-    {% endblock content %}
+      </div>
+    {% endblock main %}
+    {% block footer %}
+      {% include "oscar/dashboard/partials/footer.html" %}
+    {% endblock footer %}
   </div>
-  <!-- /container -->
-{% endblock layout_content %}
+{% endblock layout %}
 {% block extrascripts %}
   {{ block.super }}
   <script src="{% static "oscar/js/oscar/dashboard.js" %}" defer></script>
   <script src="{% static "oscar/js/oscar/RelatedObjectLookups.js" %}" defer></script>
-  <script src="{% static 'js/inputmask.min.js' %}" defer></script>
-  <script src="{% static 'js/tempus-dominus.min.js' %}" defer></script>
-  {% comment %} <script src="{% static 'js/sortable.min.js' %}" defer></script> {% endcomment %}
-  {% comment %} <script src="{% static 'js/htmx.min.js' %}" defer></script> {% endcomment %}
-  {% comment %} <script src="{% static 'js/quill.min.js' %}" defer></script> {% endcomment %}
+  <script src="{% static 'js/dashboard/inputmask.min.js' %}" defer></script>
 {% endblock extrascripts %}
 {% block onbodyload %}
   {{ block.super }}

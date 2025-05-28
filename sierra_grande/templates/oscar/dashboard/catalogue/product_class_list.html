@@ -12,7 +12,7 @@
     </ol>
   </nav>
 {% endblock breadcrumbs %}
-{% block header %}
+{% block main_header %}
   <div class="hstack justify-content-between align-items-center">
     <h2 class="mb-0">{% translate "Product types" %}</h2>
     <a href="{% url "dashboard:catalogue-class-create" %}"
@@ -20,7 +20,7 @@
       <iconify-icon icon="mdi:plus-circle" width="1rem" height="1rem" aria-hidden="true"></iconify-icon> {% translate "Create new product type" %}
     </a>
   </div>
-{% endblock header %}
+{% endblock main_header %}
 {% block dashboard_content %}
   <div class="card">
     <div class="card-header icon-link">
@@ -45,12 +45,8 @@
                   <td>
                     <a href="{% url "dashboard:catalogue-class-update" class.id %}">{{ class.name }}</a>
                   </td>
-                  <td>
-                    {{ class.requires_shipping|yesno:_("Yes,No") }}
-                  </td>
-                  <td>
-                    {{ class.track_stock|yesno:_("Yes,No") }}
-                  </td>
+                  <td>{{ class.requires_shipping|yesno:_("Yes,No") }}</td>
+                  <td>{{ class.track_stock|yesno:_("Yes,No") }}</td>
                   <td>
                     <div class="dropdown">
                       <button class="btn btn-secondary dropdown-toggle"
@@ -90,7 +86,6 @@
       {% endif %}
     </div>
   </div>
-
   {% include "oscar/partials/delete_modal.html" with body_title="Remove Product Type" body_text="Are you sure to remove the product type" %}
 {% endblock dashboard_content %}
 {% block onbodyload %}

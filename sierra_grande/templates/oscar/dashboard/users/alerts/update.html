@@ -23,9 +23,9 @@
     </ol>
   </nav>
 {% endblock breadcrumbs %}
-{% block headertext %}
+{% block main_header_content %}
   {% blocktranslate with id=alert.id %}Product alert #{{ id }}{% endblocktranslate %}
-{% endblock headertext %}
+{% endblock main_header_content %}
 {% block dashboard_content %}
   <div class="table-header">
     <h2 class="mb-0">{% blocktranslate with id=alert.id %}Product alert #{{ id }}{% endblocktranslate %}</h2>

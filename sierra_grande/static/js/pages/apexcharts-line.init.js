@@ -811,7 +811,7 @@ if (linechartannotationsColors) {
                     size: 0
                 },
                 image: {
-                    path: '../assets/images/logo-sm.png',
+                    path: '../static/img/logo-sm.png',
                     width: 40,
                     height: 40
                 }
@@ -1148,7 +1148,7 @@ function getNewSeries (baseval, yrange) {
 }
 
 function resetData () {
-    // Alternatively, you can also reset the data at certain intervals to prevent creating a huge series 
+    // Alternatively, you can also reset the data at certain intervals to prevent creating a huge series
     data = data.slice(data.length - 10, data.length);
 }
 

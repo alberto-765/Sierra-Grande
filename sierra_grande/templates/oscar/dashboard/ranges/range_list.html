@@ -15,13 +15,13 @@
     </ol>
   </nav>
 {% endblock breadcrumbs %}
-{% block header %}
+{% block main_header %}
   <div class="hstack justify-content-between align-items-center">
     <h2 class="mb-0">{% translate "Ranges" %}</h2>
     <a href="{% url "dashboard:range-create" %}"
        class="btn btn-primary icon-link"><iconify-icon icon="mdi:plus-circle" width="1rem" height="1rem" aria-hidden="true"></iconify-icon> {% translate "Create new range" %}</a>
   </div>
-{% endblock header %}
+{% endblock main_header %}
 {% block dashboard_content %}
   <div class="card">
     <div class="card-header icon-link fw-normal">
@@ -72,20 +72,20 @@
                                 aria-haspopup="true"
                                 aria-expanded="false">{% translate "Actions" %}</button>
                         <div class="dropdown-menu dropdown-menu-end"
-                            aria-labelledby="dropdownMenuButton">
+                             aria-labelledby="dropdownMenuButton">
                           {% if range.is_editable %}
                             <a class="dropdown-item"
-                              href="{% url "dashboard:range-update" pk=range.id %}">{% translate "Edit" %}</a>
+                               href="{% url "dashboard:range-update" pk=range.id %}">{% translate "Edit" %}</a>
                             {% if not range.includes_all_products %}
                               <a class="dropdown-item"
-                                href="{% url "dashboard:range-products" pk=range.id %}">{% translate "Edit products" %}</a>
+                                 href="{% url "dashboard:range-products" pk=range.id %}">{% translate "Edit products" %}</a>
                             {% endif %}
                           {% endif %}
                           {% if range.is_public %}
                             <a class="dropdown-item" href="{{ range.get_absolute_url }}">{% translate "View on site" %}</a>
                           {% endif %}
                           <a class="dropdown-item"
-                            href="{% url "dashboard:range-delete" pk=range.id %}">{% translate "Delete" %}</a>
+                             href="{% url "dashboard:range-delete" pk=range.id %}">{% translate "Delete" %}</a>
                         </div>
                       </div>
                     </div>

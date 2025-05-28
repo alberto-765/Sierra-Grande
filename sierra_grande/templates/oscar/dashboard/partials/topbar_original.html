@@ -1,0 +1,89 @@
+{% load i18n %}
+
+{% block topbar %}
+  <header class="sticky-top bg-body">
+    <nav class="navbar navbar-expand-md navbar--custom navbar--custom--slim px-4 bg-body-tertiary">
+      <a class="navbar-brand" href="#">{{ shop_name }}</a>
+      <button class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarTop"
+              aria-controls="navbarTop"
+              aria-expanded="true"
+              aria-label="Toggle top navbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarTop">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#">
+              {% translate "Welcome" %} <em>{{ user.get_full_name|default:request.user.email }}</em>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link icon-link" href="{{ homepage_url }}">
+              <iconify-icon icon="clarity:house-solid" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
+              {% translate "Return to site" %}
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link icon-link" href="{% url "customer:summary" %}">
+              <iconify-icon icon="mdi:account" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
+              {% translate "Account" %}
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link icon-link" href="{% url "dashboard:logout" %}">
+              <iconify-icon icon="ic:twotone-log-out" aria-hidden="true" width="1rem" height="1rem"></iconify-icon>
+              {% translate "Log out" %}
+            </a>
+          </li>
+          <li class="nav-item dropdown">
+            <button class="btn btn-link nav-link dropdown-toggle"
+                    id="bd-theme"
+                    type="button"
+                    aria-expanded="false"
+                    data-bs-toggle="dropdown"
+                    aria-label="Toggle theme (auto)">
+              <iconify-icon icon="" width="1rem" height="1rem" inline class="theme-icon-active"></iconify-icon>
+              <span class="d-md-none" id="bd-theme-text">{% translate "Toggle theme" %}</span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end"
+                aria-labelledby="bd-theme-text">
+              <li>
+                <button type="button"
+                        class="dropdown-item d-flex align-items-center icon-link"
+                        data-bs-theme-value="light"
+                        aria-pressed="false">
+                  <iconify-icon icon="line-md:moon-filled-to-sunny-filled-transition" width="1rem" height="1rem" aria-hidden="true" class="btn__icon"></iconify-icon>
+                  {% translate "Light" %}
+                  <iconify-icon icon="system-uicons:check" width="1rem" height="1rem" class="ms-auto d-none btn__check" aria-hidden="true"></iconify-icon>
+                </button>
+              </li>
+              <li>
+                <button type="button"
+                        class="dropdown-item d-flex align-items-center icon-link"
+                        data-bs-theme-value="dark"
+                        aria-pressed="false">
+                  <iconify-icon icon="line-md:moon-filled" width="1rem" height="1rem" aria-hidden="true" class="btn__icon"></iconify-icon>
+                  {% translate "Dark" %}
+                  <iconify-icon icon="system-uicons:check" width="1rem" height="1rem" class="ms-auto d-none btn__check" aria-hidden="true"></iconify-icon>
+                </button>
+              </li>
+              <li>
+                <button type="button"
+                        class="dropdown-item d-flex align-items-center icon-link"
+                        data-bs-theme-value="auto"
+                        aria-pressed="true">
+                  <iconify-icon icon="line-md:light-dark" width="1rem" height="1rem" aria-hidden="true" class="btn__icon"></iconify-icon>
+                  {% translate "Auto" %}
+                  <iconify-icon icon="system-uicons:check" width="1rem" height="1rem" class="ms-auto d-none btn__check" aria-hidden="true"></iconify-icon>
+                </button>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+{% endblock topbar %}

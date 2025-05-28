@@ -1,37 +1,38 @@
 {% extends "oscar/dashboard/layout.html" %}
+
 {% load currency_filters %}
 {% load i18n %}
 {% load crispy_forms_tags %}
 
 {% block body_class %}{{ block.super }} create-page{% endblock %}
-
 {% block title %}
-    {{ title }} | {% translate "Vouchers" %} | {{ block.super }}
+  {{ title }} | {% translate "Vouchers" %} | {{ block.super }}
 {% endblock %}
-
 {% block breadcrumbs %}
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{% url 'dashboard:index' %}">{% translate "Dashboard" %}</a></li>
-            <li class="breadcrumb-item"><a href="{% url 'dashboard:voucher-list' %}">{% translate "Vouchers" %}</a></li>
-            {% if voucher %}
-                <li class="breadcrumb-item"><a href="{% url 'dashboard:voucher-stats' pk=voucher.id %}">{{ voucher }}</a></li>
-            {% endif %}
-            <li class="breadcrumb-item active" aria-current="page">{% translate "Edit" %}</li>
-        </ol>
-    </nav>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="{% url 'dashboard:index' %}">{% translate "Dashboard" %}</a>
+      </li>
+      <li class="breadcrumb-item">
+        <a href="{% url 'dashboard:voucher-list' %}">{% translate "Vouchers" %}</a>
+      </li>
+      {% if voucher %}
+        <li class="breadcrumb-item">
+          <a href="{% url 'dashboard:voucher-stats' pk=voucher.id %}">{{ voucher }}</a>
+        </li>
+      {% endif %}
+      <li class="breadcrumb-item active" aria-current="page">{% translate "Edit" %}</li>
+    </ol>
+  </nav>
 {% endblock %}
-
-{% block headertext %}{{ title }}{% endblock %}
-
+{% block main_header_content %}{{ title }}{% endblock %}
 {% block dashboard_content %}
-<div class="card">
+  <div class="card">
     <div class="card-header icon-link">
-        <iconify-icon icon="streamline:discount-percent-coupon" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
-        {% translate "Voucher details" %}
+      <iconify-icon icon="streamline:discount-percent-coupon" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
+      {% translate "Voucher details" %}
     </div>
-    <div class="card-body">
-        {% crispy form %}
-    </div>
-</div>
+    <div class="card-body">{% crispy form %}</div>
+  </div>
 {% endblock dashboard_content %}

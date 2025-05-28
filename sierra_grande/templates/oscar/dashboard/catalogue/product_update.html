@@ -31,9 +31,9 @@
     </ol>
   </nav>
 {% endblock breadcrumbs %}
-{% block headertext %}
+{% block main_header_content %}
   {{ title }}
-{% endblock headertext %}
+{% endblock main_header_content %}
 {% block dashboard_content %}
   <form action="{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}"
         method="post"

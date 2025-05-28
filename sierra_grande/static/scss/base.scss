@@ -1,0 +1,69 @@
+//Fonts
+@import "fonts/fonts";
+
+//Core files
+@import "../libs/bootstrap/css/functions";
+@import "variables";
+@import "variables-dark";
+@import "../libs/bootstrap/css/bootstrap";
+
+// Icons
+@import "plugins/icons/bootstrap-icons";
+
+// Structure
+@import "structure/topbar";
+@import "structure/page-head";
+@import "structure/footer";
+@import "structure/vertical";
+@import "structure/horizontal";
+@import "structure/landing-menu";
+
+// Components
+@import "components/avatar";
+@import "components/accordion";
+@import "components/helper";
+@import "components/preloader";
+@import "components/forms";
+@import "components/widgets";
+@import "components/demos";
+@import "components/print";
+@import "components/ribbons";
+@import "components/toast";
+@import "components/scrollspy";
+
+// Bootstrap custom components
+@import "components/root";
+@import "components/reboot";
+@import "components/alerts";
+@import "components/backgrounds";
+@import "components/badge";
+@import "components/buttons";
+@import "components/breadcrumb";
+@import "components/card";
+@import "components/dropdown";
+@import "components/nav";
+@import "components/table";
+@import "components/modal";
+@import "components/pagination";
+@import "components/progress";
+@import "components/popover";
+@import "components/type";
+@import "components/form-check";
+@import "components/form-control";
+@import "components/list-group";
+
+// Plugins
+@import "plugins/custom-scrollbar";
+@import "plugins/dropzone";
+@import "plugins/swiper";
+@import "plugins/form-input-spin";
+@import "plugins/gridjs";
+// @import "plugins/listjs";
+@import "plugins/apexcharts";
+@import "plugins/google-map";
+@import "plugins/autocomplete"; // autocomplete.js
+@import "plugins/vector-maps";
+@import "plugins/flatpicker";
+@import "plugins/flag-input";
+@import "plugins/tom-select";
+@import "plugins/range-slider"; // Rangeslider.js library

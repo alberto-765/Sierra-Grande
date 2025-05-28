@@ -1,9 +1,9 @@
 // Base styles
-@import "base.scss";
+@import "base";
 
 // Pages
-@import "pages/authentication";
-@import "pages/dashboard";
-@import "pages/errors";
-@import "pages/profile";
-@import "pages/coming-soon";
+@import "pages/dashboard-index";
+// @import "pages/authentication";
+// @import "pages/errors";
+// @import "pages/profile";
+// @import "pages/coming-soon";

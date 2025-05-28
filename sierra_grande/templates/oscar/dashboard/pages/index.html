@@ -19,7 +19,7 @@
     </ol>
   </nav>
 {% endblock breadcrumbs %}
-{% block header %}
+{% block main_header %}
   <div class="hstack justify-content-between col-12">
     <h2 class="mb-0">{% translate "Pages" %}</h2>
     <a href="{% url "dashboard:page-create" %}"
@@ -27,7 +27,7 @@
       <iconify-icon icon="mdi:plus-circle" width="1rem" height="1rem" aria-hidden="true"></iconify-icon> {% translate "Create new page" %}
     </a>
   </div>
-{% endblock header %}
+{% endblock main_header %}
 {% block dashboard_content %}
   <div class="vstack gap-4">
     <div class="card">
@@ -77,7 +77,8 @@
                       <a href="{% url "dashboard:page-update" pk=page.id %}">{{ page.title }}</a>
                     </td>
                     <td>
-                      <a title="{% translate "View on site" %}" href="{{ page.get_absolute_url }}">{{ page.url }}</a>
+                      <a title="{% translate "View on site" %}"
+                         href="{{ page.get_absolute_url }}">{{ page.url }}</a>
                     </td>
                     <td>
                       <div class="btn-toolbar">

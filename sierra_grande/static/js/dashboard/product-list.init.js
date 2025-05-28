@@ -1,7 +1,7 @@
 
 var productListData = [{
     'id': 1,
-    "productImg": "../assets/images/products/img-10.png",
+    "productImg": "../static/img/products/img-10.png",
     "productTitle": "World's most expensive t shirt",
     "category": "Fashion",
     "price": "354.99",
@@ -14,7 +14,7 @@ var productListData = [{
     "publish": "12 Oct, 2021",
 }, {
     'id': 2,
-    "productImg": "../assets/images/products/img-15.png",
+    "productImg": "../static/img/products/img-15.png",
     "productTitle": "Like Style Women Black Handbag",
     "category": "Fashion",
     "price": "742.00",
@@ -26,7 +26,7 @@ var productListData = [{
     "publish": "06 Jan, 2021",
 }, {
     'id': 3,
-    "productImg": "../assets/images/products/img-1.png",
+    "productImg": "../static/img/products/img-1.png",
     "productTitle": "Black Horn Backpack For Men Bags 30 L Backpack",
     "category": "Grocery",
     "price": "150.99",
@@ -39,7 +39,7 @@ var productListData = [{
     "publish": "26 Mar, 2021",
 }, {
     'id': 4,
-    "productImg": "../assets/images/products/img-7.png",
+    "productImg": "../static/img/products/img-7.png",
     "productTitle": "Innovative education book",
     "category": "Kids",
     "price": "96.26",
@@ -50,7 +50,7 @@ var productListData = [{
     "publish": "19 Apr, 2021",
 }, {
     'id': 5,
-    "productImg": "../assets/images/products/img-4.png",
+    "productImg": "../static/img/products/img-4.png",
     "productTitle": "Sangria Girls Mint Green & Off-White Solid Open Toe Flats",
     "category": "Kids",
     "price": "96.26",
@@ -63,7 +63,7 @@ var productListData = [{
     "publish": "30 Mar, 2021",
 }, {
     'id': 6,
-    "productImg": "../assets/images/products/img-5.png",
+    "productImg": "../static/img/products/img-5.png",
     "productTitle": "Lace-Up Casual Shoes For Men",
     "category": "Fashion",
     "price": "229.00",
@@ -76,7 +76,7 @@ var productListData = [{
     "publish": "12 Oct, 2021",
 }, {
     'id': 7,
-    "productImg": "../assets/images/products/img-6.png",
+    "productImg": "../static/img/products/img-6.png",
     "productTitle": "Striped High Neck Casual Men Orange Sweater",
     "category": "Fashion",
     "price": "120.00",
@@ -88,7 +88,7 @@ var productListData = [{
     "publish": "15 May, 2021",
 }, {
     'id': 8,
-    "productImg": "../assets/images/products/img-9.png",
+    "productImg": "../static/img/products/img-9.png",
     "productTitle": "Lace-Up Casual Shoes For Men",
     "category": "Kids",
     "price": "229.00",
@@ -101,7 +101,7 @@ var productListData = [{
     "publish": "21 Jun, 2021",
 }, {
     'id': 9,
-    "productImg": "../assets/images/products/img-10.png",
+    "productImg": "../static/img/products/img-10.png",
     "productTitle": "Printed, Typography Men Round Neck Black T-shirt",
     "category": "Fashion",
     "price": "81.99",
@@ -114,7 +114,7 @@ var productListData = [{
     "publish": "15 Jan, 2021",
 }, {
     'id': 10,
-    "productImg": "../assets/images/products/img-12.png",
+    "productImg": "../static/img/products/img-12.png",
     "productTitle": "Carven Lounge Chair Red",
     "category": "Furniture",
     "price": "209.99",
@@ -126,7 +126,7 @@ var productListData = [{
     "publish": "15 Jun, 2021",
 }, {
     'id': 11,
-    "productImg": "../assets/images/products/img-3.png",
+    "productImg": "../static/img/products/img-3.png",
     "productTitle": "Ninja Pro Max Smartwatch",
     "category": "Watches",
     "price": "309.09",
@@ -138,7 +138,7 @@ var productListData = [{
     "publish": "12 Oct, 2021",
 }, {
     'id': 12,
-    "productImg": "../assets/images/products/img-2.png",
+    "productImg": "../static/img/products/img-2.png",
     "productTitle": "Opinion Striped Round Neck Green T-shirt",
     "category": "Fashion",
     "price": "126.99",

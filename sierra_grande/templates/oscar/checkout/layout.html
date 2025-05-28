@@ -3,14 +3,14 @@
 {% load i18n %}
 {% load category_tags %}
 
-{% block header %}
+{% block main_header %}
   <div class="page_inner">
     <div class="row">{% include "oscar/partials/brand.html" %}</div>
     <!-- /row -->
   </div>
   {% block checkout_nav %}
   {% endblock checkout_nav %}
-{% endblock header %}
+{% endblock main_header %}
 {% block layout_content %}
   <!-- /header -->
   <div class="page_inner">

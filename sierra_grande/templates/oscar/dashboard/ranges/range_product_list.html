@@ -29,9 +29,9 @@
     </ol>
   </nav>
 {% endblock breadcrumbs %}
-{% block headertext %}
+{% block main_header_content %}
   {{ range.name }}: {% translate "products" %}
-{% endblock headertext %}
+{% endblock main_header_content %}
 {% block dashboard_content %}
   <div class="card">
     <div class="card-header">
@@ -62,7 +62,11 @@
       </ul>
     </div>
     <div class="card-body tab-content">
-      <div class="tab-pane fade show active" id="products-included-pane" role="tabpanel" aria-labelledby="products-included" tabindex="0">
+      <div class="tab-pane fade show active"
+           id="products-included-pane"
+           role="tabpanel"
+           aria-labelledby="products-included"
+           tabindex="0">
         {% if range.includes_all_products %}
           <span class="card-text">{% translate "This range contains all products. To add products manually, please unselect the \"Includes All Products\" option on the edit range page." %}</span>
         {% else %}
@@ -72,9 +76,7 @@
                 <iconify-icon icon="gridicons:create" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
                 {% translate "Add products" %}
               </div>
-              <div class="card-body">
-                {% crispy form %}
-              </div>
+              <div class="card-body">{% crispy form %}</div>
             </div>
             {% with uploads=file_uploads_included %}
               {% if uploads %}
@@ -112,14 +114,12 @@
                 </div>
               {% endif %}
             {% endwith %}
-
             <div class="card">
               <div class="card-header hstack justify-content-between align-items-center">
                 <div class="icon-link">
                   <iconify-icon icon="icomoon-free:enter" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
                   {% translate "Products into the range" %}
                 </div>
-
                 {% if products %}
                   <div>
                     <input type="hidden" name="action" value="remove_selected_products" />
@@ -135,7 +135,7 @@
                 {% if products %}
                   <form method="post" class="table-container table-responsive-md">
                     {% csrf_token %}
-                      <table class="table table-bordered table-hover">
+                    <table class="table table-bordered table-hover">
                       <thead>
                         <tr>
                           <th></th>
@@ -165,127 +165,127 @@
                             <td>
                               <a class="btn btn-danger" href="#" data-behaviours="remove">{% translate "Remove" %}</a>
                               {% if range.is_reorderable %}
-                                <a href="#" class="btn btn-info btn-handle"><i class="fas fa-arrows-alt"></i>
-                                  {% translate "Re-order" context "Change the sequence order" %}
-                                </a>
-                              {% endif %}
-                            </td>
-                          </tr>
-                        {% endfor %}
-                      </tbody>
-                    </table>
-                    {% include "oscar/dashboard/partials/pagination.html" %}
-                  </form>
-                {% else %}
-                  <div>{% translate "No products found." %}</div>
-                {% endif %}
-              </div>
-            </div>
-          </div>
-        {% endif %}
-      </div>
-      <div class="tab-pane fade"
-          id="products-excluded-pane"
-          role="tabpanel"
-          aria-labelledby="products-excluded"
-          tabindex="0">
-        <div class="container-fluid">
-          {% crispy form_excluded %}
-          {% with uploads=file_uploads_excluded %}
-            {% if uploads %}
-              <div class="table-header">
-                <h3>{% translate "Upload history" %}</h3>
-              </div>
-              <table class="table table-striped table-bordered table-hover">
-                <thead>
-                  <tr>
-                    <th>{% translate "Filename" %}</th>
-                    <th>{% translate "New products" %}</th>
-                    <th>{% translate "Duplicate products" %}</th>
-                    <th>{% translate "Unknown products" %}</th>
-                    <th>{% translate "Date uploaded" %}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% for upload in uploads %}
-                    <tr>
-                      <td>{{ upload.filepath }}</td>
-                      <td>{{ upload.num_new_skus }}</td>
-                      <td>{{ upload.num_duplicate_skus }}</td>
-                      <td>{{ upload.num_unknown_skus }}</td>
-                      <td>{{ upload.date_uploaded }}</td>
-                    </tr>
-                  {% endfor %}
-                </tbody>
-              </table>
+                              <a href="#" class="btn btn-info btn-handle"><i class="fas fa-arrows-alt"></i>
+                              {% translate "Re-order" context "Change the sequence order" %}
+                            </a>
+                          {% endif %}
+                        </td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+                {% include "oscar/dashboard/partials/pagination.html" %}
+              </form>
+            {% else %}
+              <div>{% translate "No products found." %}</div>
             {% endif %}
-          {% endwith %}
-          {% if range.excluded_products.count %}
-            <form method="post">
-              {% csrf_token %}
-              <table class="table table-bordered table-hover">
-                <caption>
-                  <h3 class="float-left">{% translate "Products excluded from range" %}</h3>
-                  <div class="float-right">
-                    <input type="hidden" name="action" value="remove_excluded_products" />
-                    <button type="submit"
-                            class="btn btn-secondary"
-                            data-loading-text="{% translate "Removing..." %}">
-                      {% translate "Remove selected excluded products" %}
-                    </button>
-                  </div>
-                </caption>
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th>{% translate "UPC" %}</th>
-                    <th>{% translate "Title" context "Product title" %}</th>
-                    <th>{% translate "Is product discountable?" %}</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody class="product_list">
-                  {% for product in range.excluded_products.all %}
-                    <tr id="product_{{ product.pk }}">
-                      <td>
-                        <input type="checkbox" name="selected_product" value="{{ product.id }}" />
-                      </td>
-                      <td>{{ product.upc|default:"-" }}</td>
-                      <td>
-                        <a href="{% url 'dashboard:catalogue-product' pk=product.id %}">{{ product.get_title }}</a>
-                      </td>
-                      <td>
-                        {% if product.is_discountable %}
-                          {% translate "Yes" %}
-                        {% else %}
-                          {% translate "No" %}
-                        {% endif %}
-                      </td>
-                      <td>
-                        <a class="btn btn-danger" href="#" data-behaviours="remove">{% translate "Remove" %}</a>
-                      </td>
-                    </tr>
-                  {% endfor %}
-                </tbody>
-              </table>
-            </form>
-          {% endif %}
+          </div>
         </div>
       </div>
+    {% endif %}
+  </div>
+  <div class="tab-pane fade"
+       id="products-excluded-pane"
+       role="tabpanel"
+       aria-labelledby="products-excluded"
+       tabindex="0">
+    <div class="container-fluid">
+      {% crispy form_excluded %}
+      {% with uploads=file_uploads_excluded %}
+        {% if uploads %}
+          <div class="table-header">
+            <h3>{% translate "Upload history" %}</h3>
+          </div>
+          <table class="table table-striped table-bordered table-hover">
+            <thead>
+              <tr>
+                <th>{% translate "Filename" %}</th>
+                <th>{% translate "New products" %}</th>
+                <th>{% translate "Duplicate products" %}</th>
+                <th>{% translate "Unknown products" %}</th>
+                <th>{% translate "Date uploaded" %}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for upload in uploads %}
+                <tr>
+                  <td>{{ upload.filepath }}</td>
+                  <td>{{ upload.num_new_skus }}</td>
+                  <td>{{ upload.num_duplicate_skus }}</td>
+                  <td>{{ upload.num_unknown_skus }}</td>
+                  <td>{{ upload.date_uploaded }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        {% endif %}
+      {% endwith %}
+      {% if range.excluded_products.count %}
+        <form method="post">
+          {% csrf_token %}
+          <table class="table table-bordered table-hover">
+            <caption>
+              <h3 class="float-left">{% translate "Products excluded from range" %}</h3>
+              <div class="float-right">
+                <input type="hidden" name="action" value="remove_excluded_products" />
+                <button type="submit"
+                        class="btn btn-secondary"
+                        data-loading-text="{% translate "Removing..." %}">
+                  {% translate "Remove selected excluded products" %}
+                </button>
+              </div>
+            </caption>
+            <thead>
+              <tr>
+                <th></th>
+                <th>{% translate "UPC" %}</th>
+                <th>{% translate "Title" context "Product title" %}</th>
+                <th>{% translate "Is product discountable?" %}</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody class="product_list">
+              {% for product in range.excluded_products.all %}
+                <tr id="product_{{ product.pk }}">
+                  <td>
+                    <input type="checkbox" name="selected_product" value="{{ product.id }}" />
+                  </td>
+                  <td>{{ product.upc|default:"-" }}</td>
+                  <td>
+                    <a href="{% url 'dashboard:catalogue-product' pk=product.id %}">{{ product.get_title }}</a>
+                  </td>
+                  <td>
+                    {% if product.is_discountable %}
+                      {% translate "Yes" %}
+                    {% else %}
+                      {% translate "No" %}
+                    {% endif %}
+                  </td>
+                  <td>
+                    <a class="btn btn-danger" href="#" data-behaviours="remove">{% translate "Remove" %}</a>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </form>
+      {% endif %}
     </div>
   </div>
-  <div class="form-actions-fixed align-items-center bg-dark column-gap-4 fixed-bottom hstack justify-content-end p-3">
-    <a href="{% url 'dashboard:range-update' pk=range.id %}"
-       class="btn btn-primary icon-link">
-      {% translate "Return to edit range" %}
-      <iconify-icon icon="tabler:arrow-back" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
-    </a>
-    <a href="{% url 'dashboard:range-list' %}"
-       class="btn btn-secondary icon-link">
-      {% translate "Return to range list" %}
-      <iconify-icon icon="tabler:arrow-back" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
-    </a>
-  </div>
+</div>
+</div>
+<div class="form-actions-fixed align-items-center bg-dark column-gap-4 fixed-bottom hstack justify-content-end p-3">
+  <a href="{% url 'dashboard:range-update' pk=range.id %}"
+     class="btn btn-primary icon-link">
+    {% translate "Return to edit range" %}
+    <iconify-icon icon="tabler:arrow-back" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
+  </a>
+  <a href="{% url 'dashboard:range-list' %}"
+     class="btn btn-secondary icon-link">
+    {% translate "Return to range list" %}
+    <iconify-icon icon="tabler:arrow-back" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
+  </a>
+</div>
 {% endblock dashboard_content %}
 {% block extrascripts %}
   {{ block.super }}

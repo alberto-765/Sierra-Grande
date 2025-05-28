@@ -21,7 +21,7 @@
     </ol>
   </nav>
 {% endblock breadcrumbs %}
-{% block header %}
+{% block main_header %}
   <div>
     <form id="status_form" class="float-end" method="post">
       {% csrf_token %}
@@ -43,7 +43,7 @@
     </form>
     <h1>{{ offer.name }}</h1>
   </div>
-{% endblock header %}
+{% endblock main_header %}
 {% block dashboard_content %}
   <table class="table table-bordered align-middle">
     <tr>

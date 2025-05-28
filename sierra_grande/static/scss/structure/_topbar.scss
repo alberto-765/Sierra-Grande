@@ -326,7 +326,7 @@
     }
 }
 
-&:is([data-bs-theme="dark"]) {
+[data-bs-theme="dark"] {
     .navbar-header {
         .horizontal-logo {
             .logo-dark {
@@ -349,14 +349,6 @@
                 box-shadow: none;
             }
         }
-    }
-
-    .page-content {
-        @media (min-width: 1024.1px) {
-            margin-top: calc(#{$header-height} + #{$top-tagbar-height});
-        }
-
-        padding: calc(45px + #{$grid-gutter-width}) calc(#{$grid-gutter-width} * 0.5) $footer-height calc(#{$grid-gutter-width} * 0.5);
     }
 }
 

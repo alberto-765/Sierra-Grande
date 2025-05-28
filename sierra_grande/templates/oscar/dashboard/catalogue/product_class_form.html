@@ -22,9 +22,9 @@
     </ol>
   </nav>
 {% endblock breadcrumbs %}
-{% block headertext %}
+{% block main_header_content %}
   {{ title }}
-{% endblock headertext %}
+{% endblock main_header_content %}
 {% block dashboard_content %}
   <form class="card wysiwyg" method="post" data-behaviour="tab-nav-errors">
     {% csrf_token %}
@@ -85,7 +85,6 @@
                 <td>{% include "oscar/dashboard/partials/form_field.html" with field=attribute_form.code nolabel=True %}</td>
                 <td class="vstack row-gap-3">
                   {% include "oscar/dashboard/partials/form_field.html" with field=attribute_form.type nolabel=True %}
-                  
                   {% include "oscar/dashboard/partials/form_field.html" with field=attribute_form.option_group nolabel=True %}
                 </td>
                 <td>

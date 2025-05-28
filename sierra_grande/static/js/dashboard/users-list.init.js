@@ -10,7 +10,7 @@ var options = {
         "id",
         "user_name",
         "email_id",
-        "date",        
+        "date",
         "status",
     ],
     page: perPage,
@@ -48,7 +48,7 @@ var usersList = new List("usersList", options).on("updated", function (list) {
     }
 
     if (list.matchingItems.length == perPage) {
-        document.querySelector(".pagination.listjs-pagination").firstElementChild.children[0].click()
+        document.querySelector(".pagination.listjs-pagination").firstElementChild.children[0].click();
     }
 
     if (list.matchingItems.length > 0) {
@@ -60,22 +60,22 @@ var usersList = new List("usersList", options).on("updated", function (list) {
 
 var idField = document.getElementById("id-field"),
     usersImg = document.getElementById("users-img-field"),
-    userNameField = document.getElementById("user-name-field"),    
+    userNameField = document.getElementById("user-name-field"),
     emailField = document.getElementById("email-field"),
     dateField = document.getElementById("date-field"),
-    accountStatusField = document.getElementById("account-status-field"),    
-    addBtn = document.getElementById("add-btn")
-    editBtn = document.getElementById("edit-btn")
-    editBtns = document.getElementsByClassName("edit-item-btn");
-    removeBtns = document.getElementsByClassName("remove-item-btn")
+    accountStatusField = document.getElementById("account-status-field"),
+    addBtn = document.getElementById("add-btn");
+editBtn = document.getElementById("edit-btn");
+editBtns = document.getElementsByClassName("edit-item-btn");
+removeBtns = document.getElementsByClassName("remove-item-btn");
 
-refreshCallbacks();    
+refreshCallbacks();
 
 var accountStatusVal = new Choices(accountStatusField, {
     searchEnabled: false
 });
 document.getElementById("showModal").addEventListener("show.bs.modal", function (e) {
-    if (e.relatedTarget.classList.contains("edit-item-btn")) {        
+    if (e.relatedTarget.classList.contains("edit-item-btn")) {
         document.getElementById("exampleModalLabel").innerHTML = "Edit User";
         document.getElementById("showModal").querySelector(".modal-footer").style.display = "block";
         document.getElementById("add-btn").innerHTML = "Update";
@@ -88,10 +88,10 @@ document.getElementById("showModal").addEventListener("show.bs.modal", function 
         document.getElementById("showModal").querySelector(".modal-footer").style.display = "none";
     }
 });
-    
-function refreshCallbacks() {
+
+function refreshCallbacks () {
     // removeBtns
-    if (removeBtns){
+    if (removeBtns) {
         Array.from(removeBtns).forEach(function (btn) {
             btn.addEventListener("click", function (e) {
                 e.target.closest("tr").children[1].innerText;
@@ -99,13 +99,13 @@ function refreshCallbacks() {
                 var itemValues = usersList.get({
                     id: itemId,
                 });
-    
+
                 Array.from(itemValues).forEach(function (x) {
                     deleteid = new DOMParser().parseFromString(x._values.id, "text/html");
-                    
+
                     var isElem = deleteid.body.firstElementChild;
                     var isdeleteid = deleteid.body.firstElementChild.innerHTML;
-    
+
                     if (isdeleteid == itemId) {
                         document.getElementById("delete-record").addEventListener("click", function () {
                             usersList.remove("id", isElem.outerHTML);
@@ -119,14 +119,14 @@ function refreshCallbacks() {
                                 showCloseButton: true
                             });
                         });
-                    }                    
+                    }
                 });
             });
         });
     }
 
     // editBtns
-    if (editBtns){
+    if (editBtns) {
         Array.from(editBtns).forEach(function (btn) {
             btn.addEventListener("click", function (e) {
                 e.target.closest("tr").children[1].innerText;
@@ -143,17 +143,17 @@ function refreshCallbacks() {
                         idField.value = selectedid;
 
                         var userName = new DOMParser().parseFromString(x._values.user_name, "text/html");
-                        
+
                         var userImgVal = userName.body.querySelector(".user-profile-img").src;
                         usersImg.src = userImgVal;
 
                         var userNameVal = userName.body.querySelector(".user_name").innerHTML;
                         userNameField.value = userNameVal;
 
-                        emailField.value = x._values.email_id;                        
-                        dateField.value = x._values.date;                       
+                        emailField.value = x._values.email_id;
+                        dateField.value = x._values.date;
 
-                        
+
                         // statusVal
                         if (accountStatusVal) accountStatusVal.destroy();
                         accountStatusVal = new Choices(accountStatusField, {
@@ -167,7 +167,7 @@ function refreshCallbacks() {
                             dateFormat: "d M, Y",
                             defaultDate: x._values.date,
                         });
-                        
+
                     }
                 });
             });
@@ -179,7 +179,7 @@ function refreshCallbacks() {
 //Add User
 
 var count = 11;
-var forms = document.querySelectorAll('.tablelist-form')
+var forms = document.querySelectorAll('.tablelist-form');
 Array.prototype.slice.call(forms).forEach(function (form) {
     form.addEventListener('submit', function (event) {
 
@@ -196,15 +196,15 @@ Array.prototype.slice.call(forms).forEach(function (form) {
             text = "Please enter User name";
             errorMsg.innerHTML = text;
             return false;
-        }else if (emailField.value == "") {
+        } else if (emailField.value == "") {
             text = "Please enter User email";
             errorMsg.innerHTML = text;
             return false;
-        }else if (dateField.value == "") {
+        } else if (dateField.value == "") {
             text = "Please select a date";
             errorMsg.innerHTML = text;
             return false;
-        }else if (accountStatusField.value == "") {
+        } else if (accountStatusField.value == "") {
             text = "Please select a account status";
             errorMsg.innerHTML = text;
             return false;
@@ -213,17 +213,16 @@ Array.prototype.slice.call(forms).forEach(function (form) {
 
         if (
             userNameField.value !== "" &&
-            emailField.value !== "" &&            
+            emailField.value !== "" &&
             dateField.value !== "" &&
             accountStatusField.value !== "" && !editlist
-        )
-        {
+        ) {
             usersList.add({
-               id: `<a href="javascript:void(0);" class="fw-medium link-primary">${count}</a>`,
+                id: `<a href="javascript:void(0);" class="fw-medium link-primary">${ count }</a>`,
                 user_name: '<div class="d-flex align-items-center gap-2">\
-                <div class="flex-shrink-0"><img src="'+usersImg.src+'" alt="" class="avatar-xs rounded-circle user-profile-img"></div>\
-                <div class="flex-grow-1 ms-2 user_name">'+userNameField.value+'</div>\
-                </div>',  
+                <div class="flex-shrink-0"><img src="'+ usersImg.src + '" alt="" class="avatar-xs rounded-circle user-profile-img"></div>\
+                <div class="flex-grow-1 ms-2 user_name">'+ userNameField.value + '</div>\
+                </div>',
                 email_id: emailField.value,
                 date: dateField.value,
                 status: isStatus(accountStatusField.value)
@@ -243,9 +242,9 @@ Array.prototype.slice.call(forms).forEach(function (form) {
                 showCloseButton: true
             });
         }
-         else if (
+        else if (
             userNameField.value !== "" &&
-            emailField.value !== "" &&            
+            emailField.value !== "" &&
             dateField.value !== "" &&
             accountStatusField.value !== "" && editlist
         ) {
@@ -260,11 +259,11 @@ Array.prototype.slice.call(forms).forEach(function (form) {
                     x.values({
                         id: '<a href="javascript:void(0);" class="fw-medium link-primary">' + idField.value + "</a>",
                         user_name: '<div class="d-flex align-items-center gap-2">\
-                        <div class="flex-shrink-0"><img src="'+usersImg.src+'" alt="" class="avatar-xs rounded-circle user-profile-img"></div>\
-                        <div class="flex-grow-1 ms-2 user_name">'+userNameField.value+'</div>\
-                        </div>', 
+                        <div class="flex-shrink-0"><img src="'+ usersImg.src + '" alt="" class="avatar-xs rounded-circle user-profile-img"></div>\
+                        <div class="flex-grow-1 ms-2 user_name">'+ userNameField.value + '</div>\
+                        </div>',
                         email_id: emailField.value,
-                        date: dateField.value,                        
+                        date: dateField.value,
                         status: isStatus(accountStatusField.value),
                     });
                 }
@@ -282,34 +281,34 @@ Array.prototype.slice.call(forms).forEach(function (form) {
             });
         }
         return true;
-    })
+    });
 }
 );
 
 
 const xhttp = new XMLHttpRequest();
 xhttp.onload = function () {
-    var json_records = JSON.parse(this.responseText);    
-   
-        Array.from(json_records).forEach(function (element) {
-            
-            usersList.add({
-            id: `<a href="javascript:void(0);" class="fw-medium link-primary">#VZ${element.id}</a>`,
+    var json_records = JSON.parse(this.responseText);
+
+    Array.from(json_records).forEach(function (element) {
+
+        usersList.add({
+            id: `<a href="javascript:void(0);" class="fw-medium link-primary">#VZ${ element.id }</a>`,
             user_name: '<div class="d-flex align-items-center gap-2">\
-            <div class="flex-shrink-0"><img src="'+element.user_name[0]+'" alt="" class="avatar-xs rounded-circle user-profile-img"></div>\
-            <div class="flex-grow-1 ms-2 user_name">'+element.user_name[1]+'</div>\
-            </div>',            
-            // user_name: element.user_name,            
+            <div class="flex-shrink-0"><img src="'+ element.user_name[0] + '" alt="" class="avatar-xs rounded-circle user-profile-img"></div>\
+            <div class="flex-grow-1 ms-2 user_name">'+ element.user_name[1] + '</div>\
+            </div>',
+            // user_name: element.user_name,
             email_id: element.email_id,
-            date: element.date,           
+            date: element.date,
             status: isStatus(element.status)
-            });
-            usersList.sort('id', { order: "desc" });
-            refreshCallbacks();
         });
-    
+        usersList.sort('id', { order: "desc" });
+        refreshCallbacks();
+    });
+
     usersList.remove("id", `<a href="javascript:void(0);" class="fw-medium link-primary">#VZ001</a>`);
-}
+};
 xhttp.open("GET", "../assets/json/users-list.json");
 xhttp.send();
 
@@ -320,7 +319,7 @@ isCount = new DOMParser().parseFromString(
 
 var isValue = isCount.body.firstElementChild.innerHTML;
 
-function isStatus(val) {
+function isStatus (val) {
     switch (val) {
         case "Active":
             return (
@@ -333,11 +332,11 @@ function isStatus(val) {
                 '<span class="badge bg-danger-subtle text-danger ">' +
                 val +
                 "</span>"
-            );       
+            );
     }
 }
 
-function clearFields() {
+function clearFields () {
     userNameField.value = "";
     emailField.value = "";
     dateField.value = "";
@@ -346,7 +345,7 @@ function clearFields() {
     if (accountStatusVal) accountStatusVal.destroy();
     accountStatusVal = new Choices(accountStatusField);
 
-    document.getElementById("users-img-field").src = "../assets/images/users/user-dummy-img.jpg";
+    document.getElementById("users-img-field").src = "../static/img/users/user-dummy-img.jpg";
 
     document.getElementById("users-image-input").value = "";
 }

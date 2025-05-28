@@ -20,13 +20,15 @@
         <li class="breadcrumb-item">
           <a href="{% url "dashboard:reviews-list" %}">{% translate "Reviews" %}</a>
         </li>
-        <li class="breadcrumb-item active" aria-current="page">{% blocktranslate %}Review #{{ review.id }}{% endblocktranslate %}</li>
+        <li class="breadcrumb-item active" aria-current="page">
+          {% blocktranslate %}Review #{{ review.id }}{% endblocktranslate %}
+        </li>
       </ol>
     </nav>
   {% endblock breadcrumbs %}
-  {% block headertext %}
+  {% block main_header_content %}
     {% blocktranslate with review_id=review.id %}Review #{{ review_id }}{% endblocktranslate %}
-  {% endblock headertext %}
+  {% endblock main_header_content %}
   {% block dashboard_content %}
     <form method="post" class="form-stacked" enctype="multipart/form-data">
       {% csrf_token %}

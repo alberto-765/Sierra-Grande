@@ -19,9 +19,9 @@
     </ol>
   </nav>
 {% endblock breadcrumbs %}
-{% block headertext %}
+{% block main_header_content %}
   {{ offer.name }}
-{% endblock headertext %}
+{% endblock main_header_content %}
 {% block content %}
   {% if not offer.is_available %}
     <div class="alert alert-danger">{% translate " This offer is no longer available." %}</div>

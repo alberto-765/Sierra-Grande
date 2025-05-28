@@ -290,7 +290,7 @@ if (chartStorkeRadialbarColors) {
                 hollow: {
                     margin: 15,
                     size: '65%',
-                    image: '../assets/images/comingsoon.png',
+                    image: '../static/img/comingsoon.png',
                     imageWidth: 56,
                     imageHeight: 56,
                     imageClipped: false
@@ -312,7 +312,7 @@ if (chartStorkeRadialbarColors) {
         fill: {
             type: 'image',
             image: {
-                src: ['../assets/images/small/img-4.jpg'],
+                src: ['../static/img/small/img-4.jpg'],
             }
         },
         stroke: {

@@ -24,72 +24,68 @@
     </ol>
   </nav>
 {% endblock breadcrumbs %}
-{% block headertext %}
+{% block main_header_content %}
   {{ title }}
-{% endblock headertext %}
+{% endblock main_header_content %}
 {% block dashboard_content %}
   <div class="card">
     <div class="card-header icon-link fw-normal">
       <iconify-icon icon="flowbite:filter-solid" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>{% translate "Filter" %}
     </div>
-    <div class="card-body">
-      {% crispy form %}
-    </div>
+    <div class="card-body">{% crispy form %}</div>
   </div>
   <div class="card">
     <div class="card-header icon-link">
       <iconify-icon icon="fa-solid:shopping-cart" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
-      {% translate "Summary" %}</caption>
+    {% translate "Summary" %}</caption>
+  </div>
+  <div class="card-body p-0">
+    <div class="table-container table-responsive-md">
+      <table class="table table-striped table-bordered table-hover align-middle">
+        <tr>
+          <th>{% translate "Total orders" %}</th>
+          <td>{{ total_orders }}</td>
+        </tr>
+        <tr>
+          <th>{% translate "Total lines" %}</th>
+          <td>{{ total_lines }}</td>
+        </tr>
+        <tr>
+          <th>{% translate "Total revenue" %}</th>
+          <td>{{ total_revenue|currency }}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+{% if order_status_breakdown %}
+  <div class="card">
+    <div class="card-header icon-link">
+      <iconify-icon icon="fa-solid:shopping-cart" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
+      {% translate "Order status breakdown" %}
     </div>
     <div class="card-body p-0">
       <div class="table-container table-responsive-md">
-        <table class="table table-striped table-bordered table-hover align-middle">
-          <tr>
-            <th>{% translate "Total orders" %}</th>
-            <td>{{ total_orders }}</td>
-          </tr>
-          <tr>
-            <th>{% translate "Total lines" %}</th>
-            <td>{{ total_lines }}</td>
-          </tr>
-          <tr>
-            <th>{% translate "Total revenue" %}</th>
-            <td>{{ total_revenue|currency }}</td>
-          </tr>
+        <table class="align-middle table table-striped table-bordered table-hover">
+          <thead>
+            <tr>
+              <th>{% translate "Status" %}</th>
+              <th>{% translate "Frequency" %}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for dict in order_status_breakdown %}
+              <tr>
+                <td>
+                  <a href="{% url "dashboard:order-list" %}{% querystring "status"=dict.status %}">{{ dict.status }}</a>
+                </td>
+                <td>{{ dict.freq }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
         </table>
       </div>
     </div>
   </div>
-
-
-  {% if order_status_breakdown %}
-    <div class="card">
-      <div class="card-header icon-link">
-        <iconify-icon icon="fa-solid:shopping-cart" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
-        {% translate "Order status breakdown" %}
-      </div>
-      <div class="card-body p-0">
-        <div class="table-container table-responsive-md">
-          <table class="align-middle table table-striped table-bordered table-hover">
-            <thead>
-              <tr>
-                <th>{% translate "Status" %}</th>
-                <th>{% translate "Frequency" %}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for dict in order_status_breakdown %}
-                <tr>
-                  <td>
-                    <a href="{% url "dashboard:order-list" %}{% querystring "status"=dict.status %}">{{ dict.status }}</a>
-                  </td>
-                  <td>{{ dict.freq }}</td>
-                </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  {% endif %}
+{% endif %}
 {% endblock dashboard_content %}

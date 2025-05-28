@@ -2,7 +2,7 @@
 
 var productListData = [{
     'id': 1,
-    "productImg": "../assets/images/products/img-10.png",
+    "productImg": "../static/img/products/img-10.png",
     "productTitle": "World's most expensive t shirt",
     "description": "T-Shirt house best black boys T-Shirt fully cotton material & all size available hirt fully cotton material & all size available.",
     "category": "Fashion",
@@ -14,7 +14,7 @@ var productListData = [{
     "size": ["s", "m", "l"],
 }, {
     'id': 2,
-    "productImg": "../assets/images/products/img-15.png",
+    "productImg": "../static/img/products/img-15.png",
     "productTitle": "Like Style Women Black Handbag",
     "description": "T-Shirt house best black boys T-Shirt fully cotton material & all size available hirt fully cotton material & all size available.",
     "category": "Fashion",
@@ -25,7 +25,7 @@ var productListData = [{
     "color": ["light", "dark"],
 }, {
     'id': 3,
-    "productImg": "../assets/images/products/img-1.png",
+    "productImg": "../static/img/products/img-1.png",
     "productTitle": "Black Horn Backpack For Men Bags 30 L Backpack",
     "description": "T-Shirt house best black boys T-Shirt fully cotton material & all size available hirt fully cotton material & all size available.",
     "category": "Grocery",
@@ -37,7 +37,7 @@ var productListData = [{
     "size": ["s", "m", "l"],
 }, {
     'id': 4,
-    "productImg": "../assets/images/products/img-7.png",
+    "productImg": "../static/img/products/img-7.png",
     "productTitle": "Innovative education book",
     "description": "T-Shirt house best black boys T-Shirt fully cotton material & all size available hirt fully cotton material & all size available.",
     "category": "Kids",
@@ -47,7 +47,7 @@ var productListData = [{
     "stock": "In stock",
 }, {
     'id': 5,
-    "productImg": "../assets/images/products/img-4.png",
+    "productImg": "../static/img/products/img-4.png",
     "productTitle": "Sangria Girls Mint Green & Off-White Solid Open Toe Flats",
     "description": "T-Shirt house best black boys T-Shirt fully cotton material & all size available hirt fully cotton material & all size available.",
     "category": "Kids",
@@ -59,7 +59,7 @@ var productListData = [{
     "size": ["40", "41", "42"],
 }, {
     'id': 6,
-    "productImg": "../assets/images/products/img-5.png",
+    "productImg": "../static/img/products/img-5.png",
     "productTitle": "Lace-Up Casual Shoes For Men",
     "description": "T-Shirt house best black boys T-Shirt fully cotton material & all size available hirt fully cotton material & all size available.",
     "category": "Fashion",
@@ -71,7 +71,7 @@ var productListData = [{
     "size": ["40", "41", "42"],
 }, {
     'id': 7,
-    "productImg": "../assets/images/products/img-6.png",
+    "productImg": "../static/img/products/img-6.png",
     "productTitle": "Striped High Neck Casual Men Orange Sweater",
     "description": "T-Shirt house best black boys T-Shirt fully cotton material & all size available hirt fully cotton material & all size available.",
     "category": "Fashion",
@@ -82,7 +82,7 @@ var productListData = [{
     "size": ["s", "m", "l", "xl"],
 }, {
     'id': 8,
-    "productImg": "../assets/images/products/img-9.png",
+    "productImg": "../static/img/products/img-9.png",
     "productTitle": "Lace-Up Casual Shoes For Men",
     "description": "T-Shirt house best black boys T-Shirt fully cotton material & all size available hirt fully cotton material & all size available.",
     "category": "Kids",
@@ -94,7 +94,7 @@ var productListData = [{
     "size": ["s", "l"],
 }, {
     'id': 9,
-    "productImg": "../assets/images/products/img-10.png",
+    "productImg": "../static/img/products/img-10.png",
     "productTitle": "Printed, Typography Men Round Neck Black T-shirt",
     "description": "T-Shirt house best black boys T-Shirt fully cotton material & all size available hirt fully cotton material & all size available.",
     "category": "Fashion",
@@ -106,7 +106,7 @@ var productListData = [{
     "size": ["s", "m", "l", "xl"],
 }, {
     'id': 10,
-    "productImg": "../assets/images/products/img-12.png",
+    "productImg": "../static/img/products/img-12.png",
     "productTitle": "Carven Lounge Chair Red",
     "description": "T-Shirt house best black boys T-Shirt fully cotton material & all size available hirt fully cotton material & all size available.",
     "category": "Furniture",
@@ -117,7 +117,7 @@ var productListData = [{
     "color": ["secondary", "dark", "danger", "light"],
 }, {
     'id': 11,
-    "productImg": "../assets/images/products/img-3.png",
+    "productImg": "../static/img/products/img-3.png",
     "productTitle": "Ninja Pro Max Smartwatch",
     "description": "T-Shirt house best black boys T-Shirt fully cotton material & all size available hirt fully cotton material & all size available.",
     "category": "Watches",
@@ -128,7 +128,7 @@ var productListData = [{
     "color": ["secondary", "info"],
 }, {
     'id': 12,
-    "productImg": "../assets/images/products/img-2.png",
+    "productImg": "../static/img/products/img-2.png",
     "productTitle": "Opinion Striped Round Neck Green T-shirt",
     "description": "T-Shirt house best black boys T-Shirt fully cotton material & all size available hirt fully cotton material & all size available.",
     "category": "Fashion",

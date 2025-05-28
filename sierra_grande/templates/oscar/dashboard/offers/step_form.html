@@ -35,13 +35,13 @@
     </ol>
   </nav>
 {% endblock breadcrumbs %}
-{% block headertext %}
+{% block main_header_content %}
   {% if not offer.pk %}
     {% translate "Create new offer" %}
   {% else %}
     {{ offer.name }}
   {% endif %}
-{% endblock headertext %}
+{% endblock main_header_content %}
 {% block dashboard_content %}
   <div class="row">
     <div class="col-md-3">

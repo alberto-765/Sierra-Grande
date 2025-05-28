@@ -1488,7 +1488,7 @@ Array.from(Invoices).forEach(function (raw) {
             badge = "danger";
     }
     if (raw.img) {
-        var avatar_ = `<img src='../assets/images/users/` + raw.img + `' alt='' class='avatar-xs rounded-circle me-2'>`;
+        var avatar_ = `<img src='../static/img/users/` + raw.img + `' alt='' class='avatar-xs rounded-circle me-2'>`;
     } else {
         var avtar_title = (raw.customer).split(" ");
         var letters = null;

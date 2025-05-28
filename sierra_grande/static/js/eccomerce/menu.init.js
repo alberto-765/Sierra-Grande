@@ -17,28 +17,28 @@ function initLanguage () {
 function setLanguage (lang) {
     if (document.getElementById("header-lang-img")) {
         if (lang == "en") {
-            document.getElementById("header-lang-img").src = "../assets/images/flags/us.svg";
+            document.getElementById("header-lang-img").src = "../static/img/flags/us.svg";
             document.getElementById("lang-name").innerHTML = "English";
         } else if (lang == "sp") {
-            document.getElementById("header-lang-img").src = "../assets/images/flags/spain.svg";
+            document.getElementById("header-lang-img").src = "../static/img/flags/spain.svg";
             document.getElementById("lang-name").innerHTML = "Española";
         } else if (lang == "gr") {
-            document.getElementById("header-lang-img").src = "../assets/images/flags/germany.svg";
+            document.getElementById("header-lang-img").src = "../static/img/flags/germany.svg";
             document.getElementById("lang-name").innerHTML = "Deutsche";
         } else if (lang == "it") {
-            document.getElementById("header-lang-img").src = "../assets/images/flags/italy.svg";
+            document.getElementById("header-lang-img").src = "../static/img/flags/italy.svg";
             document.getElementById("lang-name").innerHTML = "Italiana";
         } else if (lang == "ru") {
-            document.getElementById("header-lang-img").src = "../assets/images/flags/russia.svg";
+            document.getElementById("header-lang-img").src = "../static/img/flags/russia.svg";
             document.getElementById("lang-name").innerHTML = "русский";
         } else if (lang == "ch") {
-            document.getElementById("header-lang-img").src = "../assets/images/flags/china.svg";
+            document.getElementById("header-lang-img").src = "../static/img/flags/china.svg";
             document.getElementById("lang-name").innerHTML = "中国人";
         } else if (lang == "fr") {
-            document.getElementById("header-lang-img").src = "../assets/images/flags/french.svg";
+            document.getElementById("header-lang-img").src = "../static/img/flags/french.svg";
             document.getElementById("lang-name").innerHTML = "français";
         } else if (lang == "sa") {
-            document.getElementById("header-lang-img").src = "../assets/images/flags/sa.svg";
+            document.getElementById("header-lang-img").src = "../static/img/flags/sa.svg";
             document.getElementById("lang-name").innerHTML = "عربى";
         }
         localStorage.setItem("language", lang);

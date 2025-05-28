@@ -7,7 +7,7 @@ File: Ecommerce Dashboard init js
 */
 
 // get colors array from the string
-function getChartColorsArray(chartId) {
+function getChartColorsArray (chartId) {
     if (document.getElementById(chartId) !== null) {
         var colors = document.getElementById(chartId).getAttribute("data-colors");
         if (colors) {
@@ -227,7 +227,7 @@ var swiper = new Swiper(".selling-product", {
     },
 });
 
-function currentTime() {
+function currentTime () {
     var ampm = new Date().getHours() >= 12 ? "pm" : "am";
     var hour =
         new Date().getHours() > 12 ?

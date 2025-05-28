@@ -8,16 +8,16 @@ File: invoceslist init js
 
 // list js
 
-function getTime (params) {
+function getTime(params) {
     params = new Date(params);
     if (params.getHours() != null) {
         var hour = params.getHours();
-        var minute = (params.getMinutes()) ? params.getMinutes() : 0;
+        var minute = (params.getMinutes()) ? params.getMinutes() : 00;
         return hour + ":" + minute;
     }
 }
 
-function tConvert (time) {
+function tConvert(time) {
     var d = new Date(time);
     time_s = (d.getHours() + ':' + d.getMinutes());
     var t = time_s.split(":");
@@ -30,7 +30,7 @@ function tConvert (time) {
     return (hours + ':' + minutes + ' ' + newformat);
 }
 
-var str_dt = function formatDate (date) {
+var str_dt = function formatDate(date) {
     var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
         "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
     ];
@@ -73,26 +73,26 @@ var Invoices = [{
         tax: '123456789'
     },
     prducts: [{
-        product_name: 'World most expensive t shirt',
-        product_details: 'Graphic Print Men & Women Sweatshirt',
-        rates: (rate = 266.24),
-        quantity: (qty = 3),
-        amount: (rate * qty)
-    },
-    {
-        product_name: 'Ninja Pro Max Smartwatch',
-        product_details: 'large display of 40mm (1.6″ inch), 27 sports mode, SpO2 monitor',
-        rates: (rate = 247.27),
-        quantity: (qty = 1),
-        amount: (rate * qty)
-    },
-    {
-        product_name: 'Girls Mint Green & Off-White Open Toe Flats',
-        product_details: 'Fabric:Synthetic · Colour:Green · Shoe Type:Sandals',
-        rates: (rate = 24.07),
-        quantity: (qty = 4),
-        amount: (rate * qty)
-    }
+            product_name: 'World most expensive t shirt',
+            product_details: 'Graphic Print Men & Women Sweatshirt',
+            rates: (rate = 266.24),
+            quantity: (qty = 3),
+            amount: (rate * qty)
+        },
+        {
+            product_name: 'Ninja Pro Max Smartwatch',
+            product_details: 'large display of 40mm (1.6″ inch), 27 sports mode, SpO2 monitor',
+            rates: (rate = 247.27),
+            quantity: (qty = 1),
+            amount: (rate * qty)
+        },
+        {
+            product_name: 'Girls Mint Green & Off-White Open Toe Flats',
+            product_details: 'Fabric:Synthetic · Colour:Green · Shoe Type:Sandals',
+            rates: (rate = 24.07),
+            quantity: (qty = 4),
+            amount: (rate * qty)
+        }
     ],
     payment_details: {
         payment_method: 'VISA',
@@ -137,26 +137,26 @@ var Invoices = [{
         tax: '123456789'
     },
     prducts: [{
-        product_name: 'World most expensive t shirt',
-        product_details: 'Graphic Print Men & Women Sweatshirt',
-        rates: (rate = 266.24),
-        quantity: (qty = 3),
-        amount: (rate * qty)
-    },
-    {
-        product_name: 'Ninja Pro Max Smartwatch',
-        product_details: 'large display of 40mm (1.6″ inch), 27 sports mode, SpO2 monitor',
-        rates: (rate = 247.27),
-        quantity: (qty = 1),
-        amount: (rate * qty)
-    },
-    {
-        product_name: 'Girls Mint Green & Off-White Open Toe Flats',
-        product_details: 'Fabric:Synthetic · Colour:Green · Shoe Type:Sandals',
-        rates: (rate = 24.07),
-        quantity: (qty = 4),
-        amount: (rate * qty)
-    }
+            product_name: 'World most expensive t shirt',
+            product_details: 'Graphic Print Men & Women Sweatshirt',
+            rates: (rate = 266.24),
+            quantity: (qty = 3),
+            amount: (rate * qty)
+        },
+        {
+            product_name: 'Ninja Pro Max Smartwatch',
+            product_details: 'large display of 40mm (1.6″ inch), 27 sports mode, SpO2 monitor',
+            rates: (rate = 247.27),
+            quantity: (qty = 1),
+            amount: (rate * qty)
+        },
+        {
+            product_name: 'Girls Mint Green & Off-White Open Toe Flats',
+            product_details: 'Fabric:Synthetic · Colour:Green · Shoe Type:Sandals',
+            rates: (rate = 24.07),
+            quantity: (qty = 4),
+            amount: (rate * qty)
+        }
     ],
     payment_details: {
         payment_method: 'VISA',
@@ -201,26 +201,26 @@ var Invoices = [{
         tax: '123456789'
     },
     prducts: [{
-        product_name: 'World most expensive t shirt',
-        product_details: 'Graphic Print Men & Women Sweatshirt',
-        rates: (rate = 266.24),
-        quantity: (qty = 3),
-        amount: (rate * qty)
-    },
-    {
-        product_name: 'Ninja Pro Max Smartwatch',
-        product_details: 'large display of 40mm (1.6″ inch), 27 sports mode, SpO2 monitor',
-        rates: (rate = 247.27),
-        quantity: (qty = 1),
-        amount: (rate * qty)
-    },
-    {
-        product_name: 'Girls Mint Green & Off-White Open Toe Flats',
-        product_details: 'Fabric:Synthetic · Colour:Green · Shoe Type:Sandals',
-        rates: (rate = 24.07),
-        quantity: (qty = 4),
-        amount: (rate * qty)
-    }
+            product_name: 'World most expensive t shirt',
+            product_details: 'Graphic Print Men & Women Sweatshirt',
+            rates: (rate = 266.24),
+            quantity: (qty = 3),
+            amount: (rate * qty)
+        },
+        {
+            product_name: 'Ninja Pro Max Smartwatch',
+            product_details: 'large display of 40mm (1.6″ inch), 27 sports mode, SpO2 monitor',
+            rates: (rate = 247.27),
+            quantity: (qty = 1),
+            amount: (rate * qty)
+        },
+        {
+            product_name: 'Girls Mint Green & Off-White Open Toe Flats',
+            product_details: 'Fabric:Synthetic · Colour:Green · Shoe Type:Sandals',
+            rates: (rate = 24.07),
+            quantity: (qty = 4),
+            amount: (rate * qty)
+        }
     ],
     payment_details: {
         payment_method: 'VISA',
@@ -265,26 +265,26 @@ var Invoices = [{
         tax: '123456789'
     },
     prducts: [{
-        product_name: 'World most expensive t shirt',
-        product_details: 'Graphic Print Men & Women Sweatshirt',
-        rates: (rate = 266.24),
-        quantity: (qty = 3),
-        amount: (rate * qty)
-    },
-    {
-        product_name: 'Ninja Pro Max Smartwatch',
-        product_details: 'large display of 40mm (1.6″ inch), 27 sports mode, SpO2 monitor',
-        rates: (rate = 247.27),
-        quantity: (qty = 1),
-        amount: (rate * qty)
-    },
-    {
-        product_name: 'Girls Mint Green & Off-White Open Toe Flats',
-        product_details: 'Fabric:Synthetic · Colour:Green · Shoe Type:Sandals',
-        rates: (rate = 24.07),
-        quantity: (qty = 4),
-        amount: (rate * qty)
-    }
+            product_name: 'World most expensive t shirt',
+            product_details: 'Graphic Print Men & Women Sweatshirt',
+            rates: (rate = 266.24),
+            quantity: (qty = 3),
+            amount: (rate * qty)
+        },
+        {
+            product_name: 'Ninja Pro Max Smartwatch',
+            product_details: 'large display of 40mm (1.6″ inch), 27 sports mode, SpO2 monitor',
+            rates: (rate = 247.27),
+            quantity: (qty = 1),
+            amount: (rate * qty)
+        },
+        {
+            product_name: 'Girls Mint Green & Off-White Open Toe Flats',
+            product_details: 'Fabric:Synthetic · Colour:Green · Shoe Type:Sandals',
+            rates: (rate = 24.07),
+            quantity: (qty = 4),
+            amount: (rate * qty)
+        }
     ],
     payment_details: {
         payment_method: 'VISA',
@@ -329,26 +329,26 @@ var Invoices = [{
         tax: '123456789'
     },
     prducts: [{
-        product_name: 'World most expensive t shirt',
-        product_details: 'Graphic Print Men & Women Sweatshirt',
-        rates: (rate = 266.24),
-        quantity: (qty = 3),
-        amount: (rate * qty)
-    },
-    {
-        product_name: 'Ninja Pro Max Smartwatch',
-        product_details: 'large display of 40mm (1.6″ inch), 27 sports mode, SpO2 monitor',
-        rates: (rate = 247.27),
-        quantity: (qty = 1),
-        amount: (rate * qty)
-    },
-    {
-        product_name: 'Girls Mint Green & Off-White Open Toe Flats',
-        product_details: 'Fabric:Synthetic · Colour:Green · Shoe Type:Sandals',
-        rates: (rate = 24.07),
-        quantity: (qty = 4),
-        amount: (rate * qty)
-    }
+            product_name: 'World most expensive t shirt',
+            product_details: 'Graphic Print Men & Women Sweatshirt',
+            rates: (rate = 266.24),
+            quantity: (qty = 3),
+            amount: (rate * qty)
+        },
+        {
+            product_name: 'Ninja Pro Max Smartwatch',
+            product_details: 'large display of 40mm (1.6″ inch), 27 sports mode, SpO2 monitor',
+            rates: (rate = 247.27),
+            quantity: (qty = 1),
+            amount: (rate * qty)
+        },
+        {
+            product_name: 'Girls Mint Green & Off-White Open Toe Flats',
+            product_details: 'Fabric:Synthetic · Colour:Green · Shoe Type:Sandals',
+            rates: (rate = 24.07),
+            quantity: (qty = 4),
+            amount: (rate * qty)
+        }
     ],
     payment_details: {
         payment_method: 'VISA',
@@ -393,26 +393,26 @@ var Invoices = [{
         tax: '123456789'
     },
     prducts: [{
-        product_name: 'World most expensive t shirt',
-        product_details: 'Graphic Print Men & Women Sweatshirt',
-        rates: (rate = 266.24),
-        quantity: (qty = 3),
-        amount: (rate * qty)
-    },
-    {
-        product_name: 'Ninja Pro Max Smartwatch',
-        product_details: 'large display of 40mm (1.6″ inch), 27 sports mode, SpO2 monitor',
-        rates: (rate = 247.27),
-        quantity: (qty = 1),
-        amount: (rate * qty)
-    },
-    {
-        product_name: 'Girls Mint Green & Off-White Open Toe Flats',
-        product_details: 'Fabric:Synthetic · Colour:Green · Shoe Type:Sandals',
-        rates: (rate = 24.07),
-        quantity: (qty = 4),
-        amount: (rate * qty)
-    }
+            product_name: 'World most expensive t shirt',
+            product_details: 'Graphic Print Men & Women Sweatshirt',
+            rates: (rate = 266.24),
+            quantity: (qty = 3),
+            amount: (rate * qty)
+        },
+        {
+            product_name: 'Ninja Pro Max Smartwatch',
+            product_details: 'large display of 40mm (1.6″ inch), 27 sports mode, SpO2 monitor',
+            rates: (rate = 247.27),
+            quantity: (qty = 1),
+            amount: (rate * qty)
+        },
+        {
+            product_name: 'Girls Mint Green & Off-White Open Toe Flats',
+            product_details: 'Fabric:Synthetic · Colour:Green · Shoe Type:Sandals',
+            rates: (rate = 24.07),
+            quantity: (qty = 4),
+            amount: (rate * qty)
+        }
     ],
     payment_details: {
         payment_method: 'VISA',
@@ -457,26 +457,26 @@ var Invoices = [{
         tax: '123456789'
     },
     prducts: [{
-        product_name: 'World most expensive t shirt',
-        product_details: 'Graphic Print Men & Women Sweatshirt',
-        rates: (rate = 266.24),
-        quantity: (qty = 3),
-        amount: (rate * qty)
-    },
-    {
-        product_name: 'Ninja Pro Max Smartwatch',
-        product_details: 'large display of 40mm (1.6″ inch), 27 sports mode, SpO2 monitor',
-        rates: (rate = 247.27),
-        quantity: (qty = 1),
-        amount: (rate * qty)
-    },
-    {
-        product_name: 'Girls Mint Green & Off-White Open Toe Flats',
-        product_details: 'Fabric:Synthetic · Colour:Green · Shoe Type:Sandals',
-        rates: (rate = 24.07),
-        quantity: (qty = 4),
-        amount: (rate * qty)
-    }
+            product_name: 'World most expensive t shirt',
+            product_details: 'Graphic Print Men & Women Sweatshirt',
+            rates: (rate = 266.24),
+            quantity: (qty = 3),
+            amount: (rate * qty)
+        },
+        {
+            product_name: 'Ninja Pro Max Smartwatch',
+            product_details: 'large display of 40mm (1.6″ inch), 27 sports mode, SpO2 monitor',
+            rates: (rate = 247.27),
+            quantity: (qty = 1),
+            amount: (rate * qty)
+        },
+        {
+            product_name: 'Girls Mint Green & Off-White Open Toe Flats',
+            product_details: 'Fabric:Synthetic · Colour:Green · Shoe Type:Sandals',
+            rates: (rate = 24.07),
+            quantity: (qty = 4),
+            amount: (rate * qty)
+        }
     ],
     payment_details: {
         payment_method: 'VISA',
@@ -522,25 +522,25 @@ var Invoices = [{
     },
     prducts: [{
         product_name: 'Macbook Pro',
-        product_details: 'Graphic Print Men & Women Sweatshirt',
-        rates: (rate = 266.24),
-        quantity: (qty = 3),
-        amount: (rate * qty)
-    },
-    {
-        product_name: 'Smart Watch for Mans',
-        product_details: 'large display of 40mm (1.6″ inch), 27 sports mode, SpO2 monitor',
-        rates: (rate = 247.27),
-        quantity: (qty = 1),
-        amount: (rate * qty)
-    },
-    {
-        product_name: 'Borosil Paper Cup',
-        product_details: 'Fabric:Synthetic · Colour:Green · Shoe Type:Sandals',
-        rates: (rate = 24.07),
-        quantity: (qty = 4),
-        amount: (rate * qty)
-    }
+            product_details: 'Graphic Print Men & Women Sweatshirt',
+            rates: (rate = 266.24),
+            quantity: (qty = 3),
+            amount: (rate * qty)
+        },
+        {
+            product_name: 'Smart Watch for Mans',
+            product_details: 'large display of 40mm (1.6″ inch), 27 sports mode, SpO2 monitor',
+            rates: (rate = 247.27),
+            quantity: (qty = 1),
+            amount: (rate * qty)
+        },
+        {
+            product_name: 'Borosil Paper Cup',
+            product_details: 'Fabric:Synthetic · Colour:Green · Shoe Type:Sandals',
+            rates: (rate = 24.07),
+            quantity: (qty = 4),
+            amount: (rate * qty)
+        }
     ],
     payment_details: {
         payment_method: 'VISA',
@@ -585,26 +585,26 @@ var Invoices = [{
         tax: '123456789'
     },
     prducts: [{
-        product_name: 'World most expensive t shirt',
-        product_details: 'Graphic Print Men & Women Sweatshirt',
-        rates: (rate = 266.24),
-        quantity: (qty = 3),
-        amount: (rate * qty)
-    },
-    {
-        product_name: 'Ninja Pro Max Smartwatch',
-        product_details: 'large display of 40mm (1.6″ inch), 27 sports mode, SpO2 monitor',
-        rates: (rate = 247.27),
-        quantity: (qty = 1),
-        amount: (rate * qty)
-    },
-    {
-        product_name: 'Girls Mint Green & Off-White Open Toe Flats',
-        product_details: 'Fabric:Synthetic · Colour:Green · Shoe Type:Sandals',
-        rates: (rate = 24.07),
-        quantity: (qty = 4),
-        amount: (rate * qty)
-    }
+            product_name: 'World most expensive t shirt',
+            product_details: 'Graphic Print Men & Women Sweatshirt',
+            rates: (rate = 266.24),
+            quantity: (qty = 3),
+            amount: (rate * qty)
+        },
+        {
+            product_name: 'Ninja Pro Max Smartwatch',
+            product_details: 'large display of 40mm (1.6″ inch), 27 sports mode, SpO2 monitor',
+            rates: (rate = 247.27),
+            quantity: (qty = 1),
+            amount: (rate * qty)
+        },
+        {
+            product_name: 'Girls Mint Green & Off-White Open Toe Flats',
+            product_details: 'Fabric:Synthetic · Colour:Green · Shoe Type:Sandals',
+            rates: (rate = 24.07),
+            quantity: (qty = 4),
+            amount: (rate * qty)
+        }
     ],
     payment_details: {
         payment_method: 'VISA',
@@ -649,26 +649,26 @@ var Invoices = [{
         tax: '123456789'
     },
     prducts: [{
-        product_name: 'World most expensive t shirt',
-        product_details: 'Graphic Print Men & Women Sweatshirt',
-        rates: (rate = 266.24),
-        quantity: (qty = 3),
-        amount: (rate * qty)
-    },
-    {
-        product_name: 'Ninja Pro Max Smartwatch',
-        product_details: 'large display of 40mm (1.6″ inch), 27 sports mode, SpO2 monitor',
-        rates: (rate = 247.27),
-        quantity: (qty = 1),
-        amount: (rate * qty)
-    },
-    {
-        product_name: 'Girls Mint Green & Off-White Open Toe Flats',
-        product_details: 'Fabric:Synthetic · Colour:Green · Shoe Type:Sandals',
-        rates: (rate = 24.07),
-        quantity: (qty = 4),
-        amount: (rate * qty)
-    }
+            product_name: 'World most expensive t shirt',
+            product_details: 'Graphic Print Men & Women Sweatshirt',
+            rates: (rate = 266.24),
+            quantity: (qty = 3),
+            amount: (rate * qty)
+        },
+        {
+            product_name: 'Ninja Pro Max Smartwatch',
+            product_details: 'large display of 40mm (1.6″ inch), 27 sports mode, SpO2 monitor',
+            rates: (rate = 247.27),
+            quantity: (qty = 1),
+            amount: (rate * qty)
+        },
+        {
+            product_name: 'Girls Mint Green & Off-White Open Toe Flats',
+            product_details: 'Fabric:Synthetic · Colour:Green · Shoe Type:Sandals',
+            rates: (rate = 24.07),
+            quantity: (qty = 4),
+            amount: (rate * qty)
+        }
     ],
     payment_details: {
         payment_method: 'VISA',
@@ -713,26 +713,26 @@ var Invoices = [{
         tax: '123456789'
     },
     prducts: [{
-        product_name: 'World most expensive t shirt',
-        product_details: 'Graphic Print Men & Women Sweatshirt',
-        rates: (rate = 266.24),
-        quantity: (qty = 3),
-        amount: (rate * qty)
-    },
-    {
-        product_name: 'Ninja Pro Max Smartwatch',
-        product_details: 'large display of 40mm (1.6″ inch), 27 sports mode, SpO2 monitor',
-        rates: (rate = 247.27),
-        quantity: (qty = 1),
-        amount: (rate * qty)
-    },
-    {
-        product_name: 'Girls Mint Green & Off-White Open Toe Flats',
-        product_details: 'Fabric:Synthetic · Colour:Green · Shoe Type:Sandals',
-        rates: (rate = 24.07),
-        quantity: (qty = 4),
-        amount: (rate * qty)
-    }
+            product_name: 'World most expensive t shirt',
+            product_details: 'Graphic Print Men & Women Sweatshirt',
+            rates: (rate = 266.24),
+            quantity: (qty = 3),
+            amount: (rate * qty)
+        },
+        {
+            product_name: 'Ninja Pro Max Smartwatch',
+            product_details: 'large display of 40mm (1.6″ inch), 27 sports mode, SpO2 monitor',
+            rates: (rate = 247.27),
+            quantity: (qty = 1),
+            amount: (rate * qty)
+        },
+        {
+            product_name: 'Girls Mint Green & Off-White Open Toe Flats',
+            product_details: 'Fabric:Synthetic · Colour:Green · Shoe Type:Sandals',
+            rates: (rate = 24.07),
+            quantity: (qty = 4),
+            amount: (rate * qty)
+        }
     ],
     payment_details: {
         payment_method: 'VISA',
@@ -777,26 +777,26 @@ var Invoices = [{
         tax: '123456789'
     },
     prducts: [{
-        product_name: 'World most expensive t shirt',
-        product_details: 'Graphic Print Men & Women Sweatshirt',
-        rates: (rate = 266.24),
-        quantity: (qty = 3),
-        amount: (rate * qty)
-    },
-    {
-        product_name: 'Ninja Pro Max Smartwatch',
-        product_details: 'large display of 40mm (1.6″ inch), 27 sports mode, SpO2 monitor',
-        rates: (rate = 247.27),
-        quantity: (qty = 1),
-        amount: (rate * qty)
-    },
-    {
-        product_name: 'Girls Mint Green & Off-White Open Toe Flats',
-        product_details: 'Fabric:Synthetic · Colour:Green · Shoe Type:Sandals',
-        rates: (rate = 24.07),
-        quantity: (qty = 4),
-        amount: (rate * qty)
-    }
+            product_name: 'World most expensive t shirt',
+            product_details: 'Graphic Print Men & Women Sweatshirt',
+            rates: (rate = 266.24),
+            quantity: (qty = 3),
+            amount: (rate * qty)
+        },
+        {
+            product_name: 'Ninja Pro Max Smartwatch',
+            product_details: 'large display of 40mm (1.6″ inch), 27 sports mode, SpO2 monitor',
+            rates: (rate = 247.27),
+            quantity: (qty = 1),
+            amount: (rate * qty)
+        },
+        {
+            product_name: 'Girls Mint Green & Off-White Open Toe Flats',
+            product_details: 'Fabric:Synthetic · Colour:Green · Shoe Type:Sandals',
+            rates: (rate = 24.07),
+            quantity: (qty = 4),
+            amount: (rate * qty)
+        }
     ],
     payment_details: {
         payment_method: 'MasterCard',
@@ -841,26 +841,26 @@ var Invoices = [{
         tax: '123456789'
     },
     prducts: [{
-        product_name: 'World most expensive t shirt',
-        product_details: 'Graphic Print Men & Women Sweatshirt',
-        rates: (rate = 266.24),
-        quantity: (qty = 3),
-        amount: (rate * qty)
-    },
-    {
-        product_name: 'Ninja Pro Max Smartwatch',
-        product_details: 'large display of 40mm (1.6″ inch), 27 sports mode, SpO2 monitor',
-        rates: (rate = 247.27),
-        quantity: (qty = 1),
-        amount: (rate * qty)
-    },
-    {
-        product_name: 'Girls Mint Green & Off-White Open Toe Flats',
-        product_details: 'Fabric:Synthetic · Colour:Green · Shoe Type:Sandals',
-        rates: (rate = 24.07),
-        quantity: (qty = 4),
-        amount: (rate * qty)
-    }
+            product_name: 'World most expensive t shirt',
+            product_details: 'Graphic Print Men & Women Sweatshirt',
+            rates: (rate = 266.24),
+            quantity: (qty = 3),
+            amount: (rate * qty)
+        },
+        {
+            product_name: 'Ninja Pro Max Smartwatch',
+            product_details: 'large display of 40mm (1.6″ inch), 27 sports mode, SpO2 monitor',
+            rates: (rate = 247.27),
+            quantity: (qty = 1),
+            amount: (rate * qty)
+        },
+        {
+            product_name: 'Girls Mint Green & Off-White Open Toe Flats',
+            product_details: 'Fabric:Synthetic · Colour:Green · Shoe Type:Sandals',
+            rates: (rate = 24.07),
+            quantity: (qty = 4),
+            amount: (rate * qty)
+        }
     ],
     payment_details: {
         payment_method: 'MasterCard',
@@ -905,26 +905,26 @@ var Invoices = [{
         tax: '123456789'
     },
     prducts: [{
-        product_name: 'World most expensive t shirt',
-        product_details: 'Graphic Print Men & Women Sweatshirt',
-        rates: (rate = 266.24),
-        quantity: (qty = 3),
-        amount: (rate * qty)
-    },
-    {
-        product_name: 'Ninja Pro Max Smartwatch',
-        product_details: 'large display of 40mm (1.6″ inch), 27 sports mode, SpO2 monitor',
-        rates: (rate = 247.27),
-        quantity: (qty = 1),
-        amount: (rate * qty)
-    },
-    {
-        product_name: 'Girls Mint Green & Off-White Open Toe Flats',
-        product_details: 'Fabric:Synthetic · Colour:Green · Shoe Type:Sandals',
-        rates: (rate = 24.07),
-        quantity: (qty = 4),
-        amount: (rate * qty)
-    }
+            product_name: 'World most expensive t shirt',
+            product_details: 'Graphic Print Men & Women Sweatshirt',
+            rates: (rate = 266.24),
+            quantity: (qty = 3),
+            amount: (rate * qty)
+        },
+        {
+            product_name: 'Ninja Pro Max Smartwatch',
+            product_details: 'large display of 40mm (1.6″ inch), 27 sports mode, SpO2 monitor',
+            rates: (rate = 247.27),
+            quantity: (qty = 1),
+            amount: (rate * qty)
+        },
+        {
+            product_name: 'Girls Mint Green & Off-White Open Toe Flats',
+            product_details: 'Fabric:Synthetic · Colour:Green · Shoe Type:Sandals',
+            rates: (rate = 24.07),
+            quantity: (qty = 4),
+            amount: (rate * qty)
+        }
     ],
     payment_details: {
         payment_method: 'MasterCard',
@@ -969,26 +969,26 @@ var Invoices = [{
         tax: '123456789'
     },
     prducts: [{
-        product_name: 'World most expensive t shirt',
-        product_details: 'Graphic Print Men & Women Sweatshirt',
-        rates: (rate = 266.24),
-        quantity: (qty = 3),
-        amount: (rate * qty)
-    },
-    {
-        product_name: 'Ninja Pro Max Smartwatch',
-        product_details: 'large display of 40mm (1.6″ inch), 27 sports mode, SpO2 monitor',
-        rates: (rate = 247.27),
-        quantity: (qty = 1),
-        amount: (rate * qty)
-    },
-    {
-        product_name: 'Girls Mint Green & Off-White Open Toe Flats',
-        product_details: 'Fabric:Synthetic · Colour:Green · Shoe Type:Sandals',
-        rates: (rate = 24.07),
-        quantity: (qty = 4),
-        amount: (rate * qty)
-    }
+            product_name: 'World most expensive t shirt',
+            product_details: 'Graphic Print Men & Women Sweatshirt',
+            rates: (rate = 266.24),
+            quantity: (qty = 3),
+            amount: (rate * qty)
+        },
+        {
+            product_name: 'Ninja Pro Max Smartwatch',
+            product_details: 'large display of 40mm (1.6″ inch), 27 sports mode, SpO2 monitor',
+            rates: (rate = 247.27),
+            quantity: (qty = 1),
+            amount: (rate * qty)
+        },
+        {
+            product_name: 'Girls Mint Green & Off-White Open Toe Flats',
+            product_details: 'Fabric:Synthetic · Colour:Green · Shoe Type:Sandals',
+            rates: (rate = 24.07),
+            quantity: (qty = 4),
+            amount: (rate * qty)
+        }
     ],
     payment_details: {
         payment_method: 'MasterCard',
@@ -1033,26 +1033,26 @@ var Invoices = [{
         tax: '123456789'
     },
     prducts: [{
-        product_name: 'World most expensive t shirt',
-        product_details: 'Graphic Print Men & Women Sweatshirt',
-        rates: (rate = 266.24),
-        quantity: (qty = 3),
-        amount: (rate * qty)
-    },
-    {
-        product_name: 'Ninja Pro Max Smartwatch',
-        product_details: 'large display of 40mm (1.6″ inch), 27 sports mode, SpO2 monitor',
-        rates: (rate = 247.27),
-        quantity: (qty = 1),
-        amount: (rate * qty)
-    },
-    {
-        product_name: 'Girls Mint Green & Off-White Open Toe Flats',
-        product_details: 'Fabric:Synthetic · Colour:Green · Shoe Type:Sandals',
-        rates: (rate = 24.07),
-        quantity: (qty = 4),
-        amount: (rate * qty)
-    }
+            product_name: 'World most expensive t shirt',
+            product_details: 'Graphic Print Men & Women Sweatshirt',
+            rates: (rate = 266.24),
+            quantity: (qty = 3),
+            amount: (rate * qty)
+        },
+        {
+            product_name: 'Ninja Pro Max Smartwatch',
+            product_details: 'large display of 40mm (1.6″ inch), 27 sports mode, SpO2 monitor',
+            rates: (rate = 247.27),
+            quantity: (qty = 1),
+            amount: (rate * qty)
+        },
+        {
+            product_name: 'Girls Mint Green & Off-White Open Toe Flats',
+            product_details: 'Fabric:Synthetic · Colour:Green · Shoe Type:Sandals',
+            rates: (rate = 24.07),
+            quantity: (qty = 4),
+            amount: (rate * qty)
+        }
     ],
     payment_details: {
         payment_method: 'MasterCard',
@@ -1097,26 +1097,26 @@ var Invoices = [{
         tax: '123456789'
     },
     prducts: [{
-        product_name: 'World most expensive t shirt',
-        product_details: 'Graphic Print Men & Women Sweatshirt',
-        rates: (rate = 266.24),
-        quantity: (qty = 3),
-        amount: (rate * qty)
-    },
-    {
-        product_name: 'Ninja Pro Max Smartwatch',
-        product_details: 'large display of 40mm (1.6″ inch), 27 sports mode, SpO2 monitor',
-        rates: (rate = 247.27),
-        quantity: (qty = 1),
-        amount: (rate * qty)
-    },
-    {
-        product_name: 'Girls Mint Green & Off-White Open Toe Flats',
-        product_details: 'Fabric:Synthetic · Colour:Green · Shoe Type:Sandals',
-        rates: (rate = 24.07),
-        quantity: (qty = 4),
-        amount: (rate * qty)
-    }
+            product_name: 'World most expensive t shirt',
+            product_details: 'Graphic Print Men & Women Sweatshirt',
+            rates: (rate = 266.24),
+            quantity: (qty = 3),
+            amount: (rate * qty)
+        },
+        {
+            product_name: 'Ninja Pro Max Smartwatch',
+            product_details: 'large display of 40mm (1.6″ inch), 27 sports mode, SpO2 monitor',
+            rates: (rate = 247.27),
+            quantity: (qty = 1),
+            amount: (rate * qty)
+        },
+        {
+            product_name: 'Girls Mint Green & Off-White Open Toe Flats',
+            product_details: 'Fabric:Synthetic · Colour:Green · Shoe Type:Sandals',
+            rates: (rate = 24.07),
+            quantity: (qty = 4),
+            amount: (rate * qty)
+        }
     ],
     payment_details: {
         payment_method: 'MasterCard',
@@ -1161,26 +1161,26 @@ var Invoices = [{
         tax: '123456789'
     },
     prducts: [{
-        product_name: 'World most expensive t shirt',
-        product_details: 'Graphic Print Men & Women Sweatshirt',
-        rates: (rate = 266.24),
-        quantity: (qty = 3),
-        amount: (rate * qty)
-    },
-    {
-        product_name: 'Ninja Pro Max Smartwatch',
-        product_details: 'large display of 40mm (1.6″ inch), 27 sports mode, SpO2 monitor',
-        rates: (rate = 247.27),
-        quantity: (qty = 1),
-        amount: (rate * qty)
-    },
-    {
-        product_name: 'Girls Mint Green & Off-White Open Toe Flats',
-        product_details: 'Fabric:Synthetic · Colour:Green · Shoe Type:Sandals',
-        rates: (rate = 24.07),
-        quantity: (qty = 4),
-        amount: (rate * qty)
-    }
+            product_name: 'World most expensive t shirt',
+            product_details: 'Graphic Print Men & Women Sweatshirt',
+            rates: (rate = 266.24),
+            quantity: (qty = 3),
+            amount: (rate * qty)
+        },
+        {
+            product_name: 'Ninja Pro Max Smartwatch',
+            product_details: 'large display of 40mm (1.6″ inch), 27 sports mode, SpO2 monitor',
+            rates: (rate = 247.27),
+            quantity: (qty = 1),
+            amount: (rate * qty)
+        },
+        {
+            product_name: 'Girls Mint Green & Off-White Open Toe Flats',
+            product_details: 'Fabric:Synthetic · Colour:Green · Shoe Type:Sandals',
+            rates: (rate = 24.07),
+            quantity: (qty = 4),
+            amount: (rate * qty)
+        }
     ],
     payment_details: {
         payment_method: 'MasterCard',
@@ -1225,26 +1225,26 @@ var Invoices = [{
         tax: '123456789'
     },
     prducts: [{
-        product_name: 'World most expensive t shirt',
-        product_details: 'Graphic Print Men & Women Sweatshirt',
-        rates: (rate = 266.24),
-        quantity: (qty = 3),
-        amount: (rate * qty)
-    },
-    {
-        product_name: 'Ninja Pro Max Smartwatch',
-        product_details: 'large display of 40mm (1.6″ inch), 27 sports mode, SpO2 monitor',
-        rates: (rate = 247.27),
-        quantity: (qty = 1),
-        amount: (rate * qty)
-    },
-    {
-        product_name: 'Girls Mint Green & Off-White Open Toe Flats',
-        product_details: 'Fabric:Synthetic · Colour:Green · Shoe Type:Sandals',
-        rates: (rate = 24.07),
-        quantity: (qty = 4),
-        amount: (rate * qty)
-    }
+            product_name: 'World most expensive t shirt',
+            product_details: 'Graphic Print Men & Women Sweatshirt',
+            rates: (rate = 266.24),
+            quantity: (qty = 3),
+            amount: (rate * qty)
+        },
+        {
+            product_name: 'Ninja Pro Max Smartwatch',
+            product_details: 'large display of 40mm (1.6″ inch), 27 sports mode, SpO2 monitor',
+            rates: (rate = 247.27),
+            quantity: (qty = 1),
+            amount: (rate * qty)
+        },
+        {
+            product_name: 'Girls Mint Green & Off-White Open Toe Flats',
+            product_details: 'Fabric:Synthetic · Colour:Green · Shoe Type:Sandals',
+            rates: (rate = 24.07),
+            quantity: (qty = 4),
+            amount: (rate * qty)
+        }
     ],
     payment_details: {
         payment_method: 'MasterCard',
@@ -1289,26 +1289,26 @@ var Invoices = [{
         tax: '123456789'
     },
     prducts: [{
-        product_name: 'World most expensive t shirt',
-        product_details: 'Graphic Print Men & Women Sweatshirt',
-        rates: (rate = 266.24),
-        quantity: (qty = 3),
-        amount: (rate * qty)
-    },
-    {
-        product_name: 'Ninja Pro Max Smartwatch',
-        product_details: 'large display of 40mm (1.6″ inch), 27 sports mode, SpO2 monitor',
-        rates: (rate = 247.27),
-        quantity: (qty = 1),
-        amount: (rate * qty)
-    },
-    {
-        product_name: 'Girls Mint Green & Off-White Open Toe Flats',
-        product_details: 'Fabric:Synthetic · Colour:Green · Shoe Type:Sandals',
-        rates: (rate = 24.07),
-        quantity: (qty = 4),
-        amount: (rate * qty)
-    }
+            product_name: 'World most expensive t shirt',
+            product_details: 'Graphic Print Men & Women Sweatshirt',
+            rates: (rate = 266.24),
+            quantity: (qty = 3),
+            amount: (rate * qty)
+        },
+        {
+            product_name: 'Ninja Pro Max Smartwatch',
+            product_details: 'large display of 40mm (1.6″ inch), 27 sports mode, SpO2 monitor',
+            rates: (rate = 247.27),
+            quantity: (qty = 1),
+            amount: (rate * qty)
+        },
+        {
+            product_name: 'Girls Mint Green & Off-White Open Toe Flats',
+            product_details: 'Fabric:Synthetic · Colour:Green · Shoe Type:Sandals',
+            rates: (rate = 24.07),
+            quantity: (qty = 4),
+            amount: (rate * qty)
+        }
     ],
     payment_details: {
         payment_method: 'MasterCard',
@@ -1353,26 +1353,26 @@ var Invoices = [{
         tax: '123456789'
     },
     prducts: [{
-        product_name: 'World most expensive t shirt',
-        product_details: 'Graphic Print Men & Women Sweatshirt',
-        rates: (rate = 266.24),
-        quantity: (qty = 3),
-        amount: (rate * qty)
-    },
-    {
-        product_name: 'Ninja Pro Max Smartwatch',
-        product_details: 'large display of 40mm (1.6″ inch), 27 sports mode, SpO2 monitor',
-        rates: (rate = 247.27),
-        quantity: (qty = 1),
-        amount: (rate * qty)
-    },
-    {
-        product_name: 'Girls Mint Green & Off-White Open Toe Flats',
-        product_details: 'Fabric:Synthetic · Colour:Green · Shoe Type:Sandals',
-        rates: (rate = 24.07),
-        quantity: (qty = 4),
-        amount: (rate * qty)
-    }
+            product_name: 'World most expensive t shirt',
+            product_details: 'Graphic Print Men & Women Sweatshirt',
+            rates: (rate = 266.24),
+            quantity: (qty = 3),
+            amount: (rate * qty)
+        },
+        {
+            product_name: 'Ninja Pro Max Smartwatch',
+            product_details: 'large display of 40mm (1.6″ inch), 27 sports mode, SpO2 monitor',
+            rates: (rate = 247.27),
+            quantity: (qty = 1),
+            amount: (rate * qty)
+        },
+        {
+            product_name: 'Girls Mint Green & Off-White Open Toe Flats',
+            product_details: 'Fabric:Synthetic · Colour:Green · Shoe Type:Sandals',
+            rates: (rate = 24.07),
+            quantity: (qty = 4),
+            amount: (rate * qty)
+        }
     ],
     payment_details: {
         payment_method: 'MasterCard',
@@ -1416,26 +1416,26 @@ var Invoices = [{
         tax: '123456789'
     },
     prducts: [{
-        product_name: 'World most expensive t shirt',
-        product_details: 'Graphic Print Men & Women Sweatshirt',
-        rates: (rate = 266.24),
-        quantity: (qty = 3),
-        amount: (rate * qty)
-    },
-    {
-        product_name: 'Ninja Pro Max Smartwatch',
-        product_details: 'large display of 40mm (1.6″ inch), 27 sports mode, SpO2 monitor',
-        rates: (rate = 247.27),
-        quantity: (qty = 1),
-        amount: (rate * qty)
-    },
-    {
-        product_name: 'Girls Mint Green & Off-White Open Toe Flats',
-        product_details: 'Fabric:Synthetic · Colour:Green · Shoe Type:Sandals',
-        rates: (rate = 24.07),
-        quantity: (qty = 4),
-        amount: (rate * qty)
-    }
+            product_name: 'World most expensive t shirt',
+            product_details: 'Graphic Print Men & Women Sweatshirt',
+            rates: (rate = 266.24),
+            quantity: (qty = 3),
+            amount: (rate * qty)
+        },
+        {
+            product_name: 'Ninja Pro Max Smartwatch',
+            product_details: 'large display of 40mm (1.6″ inch), 27 sports mode, SpO2 monitor',
+            rates: (rate = 247.27),
+            quantity: (qty = 1),
+            amount: (rate * qty)
+        },
+        {
+            product_name: 'Girls Mint Green & Off-White Open Toe Flats',
+            product_details: 'Fabric:Synthetic · Colour:Green · Shoe Type:Sandals',
+            rates: (rate = 24.07),
+            quantity: (qty = 4),
+            amount: (rate * qty)
+        }
     ],
     payment_details: {
         payment_method: 'MasterCard',
@@ -1503,10 +1503,10 @@ Array.from(Invoices).forEach(function (raw) {
         if (avtar_title.length >= 2) {
             var first_letter = avtar_title[0].slice(0, 1);
             var secont_letter = avtar_title[1].slice(0, 1);
-            letters = first_letter + secont_letter;
+            letters = first_letter + secont_letter
         } else {
             var first_letter = avtar_title[0].slice(0, 1);
-            letters = first_letter;
+            letters = first_letter
         }
         var avatar_ = `<div class="flex-shrink-0 avatar-xs me-2"><div class="avatar-title bg-success-subtle text-success rounded-circle fs-12">` + letters + `</div></div>`;
     }
@@ -1514,7 +1514,7 @@ Array.from(Invoices).forEach(function (raw) {
     var tableRawData = `<tr>
                 <th scope="row">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="chk_child" value="#TTB${ raw.invoice_no }">
+                        <input class="form-check-input" type="checkbox" name="chk_child" value="#TTB${raw.invoice_no}">
                     </div>
                 </th>
                 <td class="id"><a href="javascript:void(0);" onclick="ViewInvoice(this);" data-id="` + raw.invoice_no + `" class="fw-medium link-primary">#TTB` + raw.invoice_no + `</a></td>
@@ -1578,20 +1578,20 @@ flatpickr("#date-field", {
 
 var checkAll = document.getElementById("checkAll");
 if (checkAll) {
-    checkAll.onclick = function () {
-        var checkboxes = document.querySelectorAll('.form-check-all input[type="checkbox"]');
-        var checkedCount = document.querySelectorAll('.form-check-all input[type="checkbox"]:checked').length;
-        for (var i = 0; i < checkboxes.length; i++) {
-            checkboxes[i].checked = this.checked;
-            if (checkboxes[i].checked) {
-                checkboxes[i].closest("tr").classList.add("table-active");
-            } else {
-                checkboxes[i].closest("tr").classList.remove("table-active");
-            }
-        }
+  checkAll.onclick = function () {
+    var checkboxes = document.querySelectorAll('.form-check-all input[type="checkbox"]');
+    var checkedCount = document.querySelectorAll('.form-check-all input[type="checkbox"]:checked').length;
+    for (var i = 0; i < checkboxes.length; i++) {
+      checkboxes[i].checked = this.checked;
+      if (checkboxes[i].checked) {
+          checkboxes[i].closest("tr").classList.add("table-active");
+      } else {
+          checkboxes[i].closest("tr").classList.remove("table-active");
+      }
+    }
 
-        (checkedCount > 0) ? document.getElementById("remove-actions").style.display = 'none' : document.getElementById("remove-actions").style.display = 'block';
-    };
+    (checkedCount > 0) ? document.getElementById("remove-actions").style.display = 'none' : document.getElementById("remove-actions").style.display = 'block';
+  };
 }
 
 var perPage = 8;
@@ -1673,7 +1673,7 @@ var idField = document.getElementById("orderId"),
 refreshCallbacks();
 filterContact("All");
 
-function filterContact (isValue) {
+function filterContact(isValue) {
     var values_status = isValue;
     invoiceList.filter(function (data) {
         var statusFilter = false;
@@ -1693,7 +1693,7 @@ function filterContact (isValue) {
     invoiceList.update();
 }
 
-function updateList () {
+function updateList() {
     var values_status = document.querySelector("input[name=status]:checked").value;
     data = userList.filter(function (item) {
         var statusFilter = false;
@@ -1712,7 +1712,7 @@ var table = document.getElementById("invoiceTable");
 var tr = table.getElementsByTagName("tr");
 var trlist = table.querySelectorAll(".list tr");
 
-function SearchData () {
+function SearchData() {
     var isstatus = document.getElementById("idStatus").value;
     var pickerVal = document.getElementById("datepicker-range").value;
 
@@ -1751,7 +1751,7 @@ function SearchData () {
     invoiceList.update();
 }
 
-function ischeckboxcheck () {
+function ischeckboxcheck() {
     Array.from(document.getElementsByName("chk_child")).forEach(function (x) {
         x.addEventListener("change", function (e) {
             if (x.checked == true) {
@@ -1759,18 +1759,18 @@ function ischeckboxcheck () {
             } else {
                 e.target.closest("tr").classList.remove("table-active");
             }
-
+  
             var checkedCount = document.querySelectorAll('[name="chk_child"]:checked').length;
             if (e.target.closest("tr").classList.contains("table-active")) {
-                (checkedCount > 0) ? document.getElementById("remove-actions").style.display = 'block' : document.getElementById("remove-actions").style.display = 'none';
+                (checkedCount > 0) ? document.getElementById("remove-actions").style.display = 'block': document.getElementById("remove-actions").style.display = 'none';
             } else {
-                (checkedCount > 0) ? document.getElementById("remove-actions").style.display = 'block' : document.getElementById("remove-actions").style.display = 'none';
+                (checkedCount > 0) ? document.getElementById("remove-actions").style.display = 'block': document.getElementById("remove-actions").style.display = 'none';
             }
         });
     });
 }
 
-function refreshCallbacks () {
+function refreshCallbacks() {
     Array.from(removeBtns).forEach(function (btn) {
         btn.addEventListener("click", function (e) {
             e.target.closest("tr").children[1].innerText;
@@ -1799,7 +1799,7 @@ document.querySelector("#invoiceList").addEventListener("click", function () {
     ischeckboxcheck();
 });
 
-function clearFields () {
+function clearFields() {
     customerNameField.value = "";
     emailField.value = "";
     dateField.value = "";
@@ -1809,33 +1809,33 @@ function clearFields () {
 document.querySelector(".pagination-next").addEventListener("click", function () {
     document.querySelector(".pagination.listjs-pagination") ?
         document.querySelector(".pagination.listjs-pagination").querySelector(".active") ?
-            document.querySelector(".pagination.listjs-pagination").querySelector(".active").nextElementSibling.children[0].click() : "" : "";
+        document.querySelector(".pagination.listjs-pagination").querySelector(".active").nextElementSibling.children[0].click() : "" : "";
 });
 
 document.querySelector(".pagination-prev").addEventListener("click", function () {
     document.querySelector(".pagination.listjs-pagination") ?
         document.querySelector(".pagination.listjs-pagination").querySelector(".active") ?
-            document.querySelector(".pagination.listjs-pagination").querySelector(".active").previousSibling.children[0].click() : "" : "";
+        document.querySelector(".pagination.listjs-pagination").querySelector(".active").previousSibling.children[0].click() : "" : "";
 });
 
-function ViewInvoice (data) {
+function ViewInvoice(data) {
     var invoice_no = data.getAttribute('data-id');
     localStorage.setItem("invoices-list", JSON.stringify(Invoices));
     localStorage.setItem("option", "view-invoice");
     localStorage.setItem("invoice_no", invoice_no);
-    window.location.assign("invoices-details.html");
+    window.location.assign("invoices-details.html")
 }
 
-function EditInvoice (data) {
+function EditInvoice(data) {
     var invoice_no = data.getAttribute('data-id');
     localStorage.setItem("invoices-list", JSON.stringify(Invoices));
     localStorage.setItem("option", "edit-invoice");
     localStorage.setItem("invoice_no", invoice_no);
-    window.location.assign("invoices-create.html");
+    window.location.assign("invoices-create.html")
 }
 
 // Delete Multiple Records
-function deleteMultiple () {
+function deleteMultiple() {
     ids_array = [];
     var items = document.getElementsByName('chk_child');
     for (i = 0; i < items.length; i++) {
@@ -1843,7 +1843,7 @@ function deleteMultiple () {
             ids_array.push(items[i].value);
         }
     }
-
+    
     if (typeof ids_array !== 'undefined' && ids_array.length > 0) {
         Swal.fire({
             title: "Are you sure?",
@@ -1858,7 +1858,7 @@ function deleteMultiple () {
         }).then(function (result) {
             if (result.value) {
                 for (i = 0; i < ids_array.length; i++) {
-                    invoiceList.remove("id", `<a href="javascript:void(0);" onclick="ViewInvoice(this);" data-id="` + ids_array[i].slice(3) + `" class="fw-medium link-primary">${ ids_array[i] }</a>`);
+                    invoiceList.remove("id", `<a href="javascript:void(0);" onclick="ViewInvoice(this);" data-id="` + ids_array[i].slice(3) + `" class="fw-medium link-primary">${ids_array[i]}</a>`);
                 }
                 document.getElementById("remove-actions").style.display = 'none';
                 document.getElementById("checkAll").checked = false;

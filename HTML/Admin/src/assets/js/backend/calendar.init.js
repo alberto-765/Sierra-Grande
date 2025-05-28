@@ -27,240 +27,240 @@ document.addEventListener("DOMContentLoaded", function () {
     var d = date.getDate();
     var m = date.getMonth();
     var y = date.getFullYear();
-
+    
     var defaultEvents = [{
-        id: 1,
-        title: "Alfred Hurst",
-        start: "2023-01-04",
-        location: 'Atlanta, Georgia',
-        allDay: true,
-        className: "bg-info-subtle",
-        status: "New",
-        payment: "354.99",
-    },
-    {
-        id: 2,
-        title: "Tommy Carey",
-        start: "2023-01-30",
-        className: "bg-info-subtle",
-        location: 'Virginia Beach, Virginia',
-        allDay: true,
-        status: "New",
-        payment: "742.00",
-    },
-    {
-        id: 3,
-        title: "Cassius Brock",
-        start: "2023-02-21",
-        className: "bg-info-subtle",
-        location: 'Sacramento, California',
-        allDay: true,
-        status: "New",
-        payment: "150.99",
-    },
-    {
-        id: 4,
-        title: "Camilla Winters",
-        start: "2023-03-08",
-        className: "bg-info-subtle",
-        location: 'Fresno, California',
-        allDay: true,
-        status: "New",
-        payment: "96.26",
-    },
-    {
-        id: 5,
-        title: "Gabrielle Holden",
-        start: "2023-02-22",
-        className: "bg-info-subtle",
-        location: 'El Paso, Texas',
-        allDay: true,
-        status: "New",
-        payment: "229.00",
-    },
-    {
-        id: 6,
-        title: "Kristina Hooper",
-        start: "2023-03-21",
-        className: "bg-info-subtle",
-        location: 'Seattle, Washington',
-        allDay: true,
-        status: "New",
-        payment: "354.99",
-    },
-    {
-        id: 7,
-        title: "Jacques Leon",
-        start: "2023-03-22",
-        className: "bg-info-subtle",
-        location: 'Fort Worth, Texas',
-        allDay: true,
-        status: "New",
-        payment: "120.00",
-    },
-    {
-        id: 8,
-        title: "Theresa Crawford",
-        start: "2023-04-07",
-        className: "bg-info-subtle",
-        location: 'Atlanta, Georgia',
-        allDay: true,
-        status: "New",
-        payment: "81.99",
-    },
-    {
-        id: 9,
-        title: "Alina Holland",
-        start: "2023-04-16",
-        className: "bg-info-subtle",
-        location: 'Portland, Oregon',
-        allDay: true,
-        status: "New",
-        payment: "209.99",
-    },
-    {
-        id: 10,
-        title: "Edward Rogers",
-        start: "2023-04-22",
-        className: "bg-info-subtle",
-        location: 'Denver, Colorado',
-        allDay: true,
-        status: "New",
-        payment: "309.09",
-    },
-    {
-        id: 153,
-        title: 'Catherine Flores',
-        start: new Date(y, m, 1),
-        className: 'bg-success-subtle',
-        location: 'Charlotte, North Carolina',
-        allDay: true,
-        status: "Delivered",
-        extendedProps: {
-            department: 'All Day Event'
+            id: 1,
+            title: "Alfred Hurst",
+            start: "2023-01-04",
+            location: 'Atlanta, Georgia',
+            allDay: true,
+            className: "bg-info-subtle",
+            status: "New",
+            payment: "354.99",
         },
-        description: 'An all-day event is an event that lasts an entire day or longer',
-        payment: "126.99",
-    },
-    {
-        id: 136,
-        title: 'William Hendrix',
-        start: new Date(y, m, d - 5),
-        end: new Date(y, m, d - 2),
-        allDay: true,
-        status: "New",
-        className: 'bg-info-subtle',
-        location: 'San Francisco, California',
-        extendedProps: {
-            department: 'Long Event'
+        {
+            id: 2,
+            title: "Tommy Carey",
+            start: "2023-01-30",
+            className: "bg-info-subtle",
+            location: 'Virginia Beach, Virginia',
+            allDay: true,
+            status: "New",
+            payment: "742.00",
         },
-        description: 'Long Term Event means an incident that last longer than 12 hours.',
-        payment: "211.99",
-    },
-    {
-        id: 999,
-        title: 'Joan Trimble',
-        start: new Date(y, m, d + 22, 20, 0),
-        end: new Date(y, m, d + 24, 16, 0),
-        allDay: true,
-        status: "New",
-        className: 'bg-info-subtle',
-        location: 'Seattle, Washington',
-        extendedProps: {
-            department: 'Meeting with Alexis'
+        {
+            id: 3,
+            title: "Cassius Brock",
+            start: "2023-02-21",
+            className: "bg-info-subtle",
+            location: 'Sacramento, California',
+            allDay: true,
+            status: "New",
+            payment: "150.99",
         },
-        description: 'A meeting is a gathering of two or more people that has been convened for the purpose of achieving a common goal through verbal interaction, such as sharing information or reaching agreement.',
-        payment: "260.04",
-    },
-    {
-        id: 991,
-        title: 'Emma Harper',
-        start: new Date(y, m, d + 4, 16, 0),
-        end: new Date(y, m, d + 9, 16, 0),
-        allDay: true,
-        status: "New",
-        className: 'bg-info-subtle',
-        location: 'Las Vegas, Nevada',
-        extendedProps: {
-            department: 'Repeating Event'
+        {
+            id: 4,
+            title: "Camilla Winters",
+            start: "2023-03-08",
+            className: "bg-info-subtle",
+            location: 'Fresno, California',
+            allDay: true,
+            status: "New",
+            payment: "96.26",
         },
-        description: 'A recurring or repeating event is simply any event that you will occur more than once on your calendar. ',
-        payment: "354.99",
-    },
-    {
-        id: 112,
-        title: 'Michael Burks',
-        start: new Date(y, m, d, 12, 30),
-        allDay: true,
-        status: "Shipped",
-        className: 'bg-warning-subtle',
-        location: 'San Antonio, Texas',
-        extendedProps: {
-            department: 'Meeting'
+        {
+            id: 5,
+            title: "Gabrielle Holden",
+            start: "2023-02-22",
+            className: "bg-info-subtle",
+            location: 'El Paso, Texas',
+            allDay: true,
+            status: "New",
+            payment: "229.00",
         },
-        description: 'Tell how to boost website traffic',
-        payment: "94.69",
-    },
-    {
-        id: 113,
-        title: 'David McMillan',
-        start: new Date(y, m, d + 9),
-        end: new Date(y, m, d + 11),
-        allDay: true,
-        status: "New",
-        className: 'bg-info-subtle',
-        location: 'Phoenix, Arizona',
-        extendedProps: {
-            department: 'Lunch'
+        {
+            id: 6,
+            title: "Kristina Hooper",
+            start: "2023-03-21",
+            className: "bg-info-subtle",
+            location: 'Seattle, Washington',
+            allDay: true,
+            status: "New",
+            payment: "354.99",
         },
-        description: 'Strategies for Creating Your Weekly Schedule',
-        payment: "350.99",
-    },
-    {
-        id: 875,
-        title: 'Marian Blevins',
-        start: new Date(y, m, d + 1, 19, 0),
-        allDay: true,
-        status: "Cancelled",
-        className: 'bg-danger-subtle',
-        location: 'Los Angeles, California',
-        extendedProps: {
-            department: 'Birthday Party'
+        {
+            id: 7,
+            title: "Jacques Leon",
+            start: "2023-03-22",
+            className: "bg-info-subtle",
+            location: 'Fort Worth, Texas',
+            allDay: true,
+            status: "New",
+            payment: "120.00",
         },
-        description: 'Family slumber party – Bring out the blankets and pillows and have a family slumber party! Play silly party games, share special snacks and wind down the fun with a special movie.',
-        payment: "205.55",
-    },
-    {
-        id: 783,
-        title: 'Amy Krick',
-        start: new Date(y, m, 28),
-        end: new Date(y, m, 29),
-        allDay: true,
-        status: "Shipped",
-        className: 'bg-warning-subtle',
-        location: 'Chicago, Illinois',
-        payment: "154.28",
-    },
-    {
-        id: 456,
-        title: 'Ryan Simmons',
-        start: new Date(y, m, d + 23, 20, 0),
-        end: new Date(y, m, d + 24, 16, 0),
-        allDay: true,
-        className: 'bg-info-subtle',
-        location: 'Los Angeles, California',
-        status: "New",
-        extendedProps: {
-            department: 'Discussion'
+        {
+            id: 8,
+            title: "Theresa Crawford",
+            start: "2023-04-07",
+            className: "bg-info-subtle",
+            location: 'Atlanta, Georgia',
+            allDay: true,
+            status: "New",
+            payment: "81.99",
         },
-        description: 'Tell how to boost website traffic',
-        payment: "180.09",
-    },
+        {
+            id: 9,
+            title: "Alina Holland",
+            start: "2023-04-16",
+            className: "bg-info-subtle",
+            location: 'Portland, Oregon',
+            allDay: true,
+            status: "New",
+            payment: "209.99",
+        },
+        {
+            id: 10,
+            title: "Edward Rogers",
+            start: "2023-04-22",
+            className: "bg-info-subtle",
+            location: 'Denver, Colorado',
+            allDay: true,
+            status: "New",
+            payment: "309.09",
+        },
+        {
+            id: 153,
+            title: 'Catherine Flores',
+            start: new Date(y, m, 1),
+            className: 'bg-success-subtle',
+            location: 'Charlotte, North Carolina',
+            allDay: true,
+            status: "Delivered",
+            extendedProps: {
+                department: 'All Day Event'
+            },
+            description: 'An all-day event is an event that lasts an entire day or longer',
+            payment: "126.99",
+        },
+        {
+            id: 136,
+            title: 'William Hendrix',
+            start: new Date(y, m, d - 5),
+            end: new Date(y, m, d - 2),
+            allDay: true,
+            status: "New",
+            className: 'bg-info-subtle',
+            location: 'San Francisco, California',
+            extendedProps: {
+                department: 'Long Event'
+            },
+            description: 'Long Term Event means an incident that last longer than 12 hours.',
+            payment: "211.99",
+        },
+        {
+            id: 999,
+            title: 'Joan Trimble',
+            start: new Date(y, m, d + 22, 20, 0),
+            end: new Date(y, m, d + 24, 16, 0),
+            allDay: true,
+            status: "New",
+            className: 'bg-info-subtle',
+            location: 'Seattle, Washington',
+            extendedProps: {
+                department: 'Meeting with Alexis'
+            },
+            description: 'A meeting is a gathering of two or more people that has been convened for the purpose of achieving a common goal through verbal interaction, such as sharing information or reaching agreement.',
+            payment: "260.04",
+        },
+        {
+            id: 991,
+            title: 'Emma Harper',
+            start: new Date(y, m, d + 4, 16, 0),
+            end: new Date(y, m, d + 9, 16, 0),
+            allDay: true,
+            status: "New",
+            className: 'bg-info-subtle',
+            location: 'Las Vegas, Nevada',
+            extendedProps: {
+                department: 'Repeating Event'
+            },
+            description: 'A recurring or repeating event is simply any event that you will occur more than once on your calendar. ',
+            payment: "354.99",
+        },
+        {
+            id: 112,
+            title: 'Michael Burks',
+            start: new Date(y, m, d, 12, 30),
+            allDay: true,
+            status: "Shipped",
+            className: 'bg-warning-subtle',
+            location: 'San Antonio, Texas',
+            extendedProps: {
+                department: 'Meeting'
+            },
+            description: 'Tell how to boost website traffic',
+            payment: "94.69",
+        },
+        {
+            id: 113,
+            title: 'David McMillan',
+            start: new Date(y, m, d + 9),
+            end: new Date(y, m, d + 11),
+            allDay: true,
+            status: "New",
+            className: 'bg-info-subtle',
+            location: 'Phoenix, Arizona',
+            extendedProps: {
+                department: 'Lunch'
+            },
+            description: 'Strategies for Creating Your Weekly Schedule',
+            payment: "350.99",
+        },
+        {
+            id: 875,
+            title: 'Marian Blevins',
+            start: new Date(y, m, d + 1, 19, 0),
+            allDay: true,
+            status: "Cancelled",
+            className: 'bg-danger-subtle',
+            location: 'Los Angeles, California',
+            extendedProps: {
+                department: 'Birthday Party'
+            },
+            description: 'Family slumber party – Bring out the blankets and pillows and have a family slumber party! Play silly party games, share special snacks and wind down the fun with a special movie.',
+            payment: "205.55",
+        },                                                                                                                                                                                                                                                          
+        {
+            id: 783,
+            title: 'Amy Krick',
+            start: new Date(y, m, 28),
+            end: new Date(y, m, 29),
+            allDay: true,
+            status: "Shipped",
+            className: 'bg-warning-subtle',
+            location: 'Chicago, Illinois',
+            payment: "154.28",
+        },
+        {
+            id: 456,
+            title: 'Ryan Simmons',
+            start: new Date(y, m, d + 23, 20, 0),
+            end: new Date(y, m, d + 24, 16, 0),
+            allDay: true,
+            className: 'bg-info-subtle',
+            location: 'Los Angeles, California',
+            status: "New",
+            extendedProps: {
+                department: 'Discussion'
+            },
+            description: 'Tell how to boost website traffic',
+            payment: "180.09",
+        },
     ];
 
     var calendarEl = document.getElementById('calendar');
 
-    function addNewEvent (info) {
+    function addNewEvent(info) {
         document.getElementById('form-event').reset();
         document.getElementById('btn-delete-event').setAttribute('hidden', true);
         addEvent.show();
@@ -274,7 +274,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("edit-event-btn").setAttribute("hidden", true);
     }
 
-    function getInitialView () {
+    function getInitialView() {
         if (window.innerWidth >= 768 && window.innerWidth < 1200) {
             return 'timeGridWeek';
         } else if (window.innerWidth <= 768) {
@@ -305,9 +305,9 @@ document.addEventListener("DOMContentLoaded", function () {
             var newView = getInitialView();
             calendar.changeView(newView);
         },
-        eventResize: function (info) {
+        eventResize: function(info) {
             var indexOfSelectedEvent = defaultEvents.findIndex(function (x) {
-                return x.id == info.event.id;
+                return x.id == info.event.id
             });
             if (defaultEvents[indexOfSelectedEvent]) {
                 defaultEvents[indexOfSelectedEvent].title = info.event.title;
@@ -335,7 +335,7 @@ document.addEventListener("DOMContentLoaded", function () {
             // First Modal
             document.getElementById("modal-title").innerHTML = "";
             document.getElementById("event-location-tag").innerHTML = selectedEvent.extendedProps.location === undefined ? "" : selectedEvent.extendedProps.location;
-            document.getElementById("event-payment-tag").innerHTML = selectedEvent.extendedProps.payment === undefined ? "No Location" : '$' + selectedEvent.extendedProps.payment;
+            document.getElementById("event-payment-tag").innerHTML = selectedEvent.extendedProps.payment === undefined ? "No Location" : '$'+selectedEvent.extendedProps.payment;
             document.getElementById("event-description-tag").innerHTML = selectedEvent.extendedProps.description === undefined ? "No Description" : selectedEvent.extendedProps.description;
 
             // Edit Modal
@@ -352,11 +352,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
                 eventCategoryChoice.setChoiceByValue(selectedEvent.classNames[0]);
             }
-
+            
             var st_date = selectedEvent.start;
             var ed_date = selectedEvent.end;
 
-            var date_r = function formatDate (date) {
+            var date_r = function formatDate(date) {
                 var d = new Date(date),
                     month = '' + (d.getMonth() + 1),
                     day = '' + d.getDate(),
@@ -367,12 +367,12 @@ document.addEventListener("DOMContentLoaded", function () {
                     day = '0' + day;
                 return [year, month, day].join('-');
             };
-            var updateDay = null;
-            if (ed_date != null) {
+            var updateDay = null
+            if(ed_date != null){
                 var endUpdateDay = new Date(ed_date);
                 updateDay = endUpdateDay.setDate(endUpdateDay.getDate() - 1);
             }
-
+            
             var r_date = ed_date == null ? (str_dt(st_date)) : (str_dt(st_date)) + ' to ' + (str_dt(updateDay));
             var er_date = ed_date == null ? (date_r(st_date)) : (date_r(st_date)) + ' to ' + (date_r(updateDay));
 
@@ -385,7 +385,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 onChange: function (selectedDates, dateStr, instance) {
                     var date_range = dateStr;
                     var dates = date_range.split("to");
-
+                    
                 },
             });
             document.getElementById("event-start-date-tag").innerHTML = r_date;
@@ -400,13 +400,13 @@ document.addEventListener("DOMContentLoaded", function () {
             addNewEvent(info);
         },
         events: defaultEvents,
-        eventContent: function (arg) {
-            if (arg.event._def.extendedProps.status == 'New') {
-                arg.event._def.ui.classNames = ['bg-info-subtle'];
+        eventContent: function(arg) {
+            if(arg.event._def.extendedProps.status == 'New'){
+                arg.event._def.ui.classNames = ['bg-info-subtle']
             }
             return {
-                html: '<div class="fc-event-title fc-sticky">#TBT8' + arg.event.id + " - " + arg.event.title + '</div>'
-            };
+              html: '<div class="fc-event-title fc-sticky">#TBT8'+arg.event.id+ " - " + arg.event.title+'</div>'
+            }
         },
         eventReceive: function (info) {
             var newid = parseInt(info.event.id);
@@ -422,7 +422,7 @@ document.addEventListener("DOMContentLoaded", function () {
         },
         eventDrop: function (info) {
             var indexOfSelectedEvent = defaultEvents.findIndex(function (x) {
-                return x.id == info.event.id;
+                return x.id == info.event.id
             });
 
             if (defaultEvents[indexOfSelectedEvent]) {
@@ -487,7 +487,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 selectedEvent.setExtendedProp("location", event_location);
                 selectedEvent.setExtendedProp("payment", event_payment);
                 var indexOfSelectedEvent = defaultEvents.findIndex(function (x) {
-                    return x.id == selectedEvent.id;
+                    return x.id == selectedEvent.id
                 });
                 if (defaultEvents[indexOfSelectedEvent]) {
                     defaultEvents[indexOfSelectedEvent].title = updatedTitle;
@@ -517,7 +517,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 defaultEvents.push(newEvent);
             }
             addEvent.hide();
-
+            
             upcomingEvent(defaultEvents);
         }
     });
@@ -550,10 +550,10 @@ document.addEventListener("DOMContentLoaded", function () {
     var searchResultList = document.getElementById("searchResultsList");
     searchResultList.addEventListener("keyup", function () {
         var inputVal = searchResultList.value.toLowerCase();
-        function filterItems (arr, query) {
+        function filterItems(arr, query) {
             return arr.filter(function (el) {
-                return el.title.toLowerCase().indexOf(query.toLowerCase()) !== -1;
-            });
+                return el.title.toLowerCase().indexOf(query.toLowerCase()) !== -1
+            })
         }
 
         var filterData = filterItems(defaultEvents, inputVal);
@@ -562,36 +562,36 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-function flatPickrInit () {
+function flatPickrInit() {
     var config = {
         enableTime: true,
         noCalendar: true,
     };
     var date_range = flatpickr(
         start_date, {
-        enableTime: false,
-        mode: "range",
-        minDate: "today",
-        onChange: function (selectedDates, dateStr, instance) {
-            var date_range = dateStr;
-            var dates = date_range.split("to");
-
-        },
-    });
+            enableTime: false,
+            mode: "range",
+            minDate: "today",
+            onChange: function (selectedDates, dateStr, instance) {
+                var date_range = dateStr;
+                var dates = date_range.split("to");
+                
+            },
+        });
 }
 
-function flatpicekrValueClear () {
+function flatpicekrValueClear() {
     start_date.flatpickr().clear();
 }
 
 
-function eventClicked () {
+function eventClicked() {
     document.getElementById('form-event').classList.add("view-event");
     document.getElementById("event-title").classList.replace("d-block", "d-none");
     document.getElementById("event-category").classList.replace("d-block", "d-none");
     document.getElementById("event-start-date").parentNode.classList.add("d-none");
     document.getElementById("event-start-date").classList.replace("d-block", "d-none");
-
+    
     document.getElementById("event-location").classList.replace("d-block", "d-none");
     document.getElementById("event-payment").classList.replace("d-block", "d-none");
     document.getElementById("event-description").classList.replace("d-block", "d-none");
@@ -602,7 +602,7 @@ function eventClicked () {
     document.getElementById('btn-save-event').setAttribute("hidden", true);
 }
 
-function editEvent (data) {
+function editEvent(data) {
     var data_id = data.getAttribute("data-id");
     if (data_id == 'new-event') {
         document.getElementById('modal-title').innerHTML = "";
@@ -622,7 +622,7 @@ function editEvent (data) {
     }
 }
 
-function eventTyped () {
+function eventTyped() {
     document.getElementById('form-event').classList.remove("view-event");
     document.getElementById("event-title").classList.replace("d-none", "d-block");
     document.getElementById("event-category").classList.replace("d-none", "d-block");
@@ -631,7 +631,7 @@ function eventTyped () {
     document.getElementById("event-location").classList.replace("d-none", "d-block");
     document.getElementById("event-payment").classList.replace("d-none", "d-block");
     document.getElementById("event-description").classList.replace("d-none", "d-block");
-    document.getElementById("event-start-date-tag").classList.replace("d-block", "d-none");
+    document.getElementById("event-start-date-tag").classList.replace("d-block", "d-none")
     document.getElementById("event-payment-tag").classList.replace("d-block", "d-none");;
     document.getElementById("event-location-tag").classList.replace("d-block", "d-none");
     document.getElementById("event-description-tag").classList.replace("d-block", "d-none");
@@ -639,7 +639,7 @@ function eventTyped () {
 }
 
 // upcoming Event
-function upcomingEvent (a) {
+function upcomingEvent(a) {
     a.sort(function (o1, o2) {
         return (new Date(o1.start)) - (new Date(o2.start));
     });
@@ -649,20 +649,20 @@ function upcomingEvent (a) {
         if (element.end) {
             endUpdatedDay = new Date(element.end);
             var updatedDay = endUpdatedDay.setDate(endUpdatedDay.getDate() - 1);
-        }
+          }
         var e_dt = updatedDay ? updatedDay : undefined;
         if (e_dt == "Invalid Date" || e_dt == undefined) {
             e_dt = null;
         } else {
             const newDate = new Date(e_dt).toLocaleDateString('en', { year: 'numeric', month: 'numeric', day: 'numeric' });
             e_dt = new Date(newDate)
-                .toLocaleDateString("en-GB", {
-                    day: "numeric",
-                    month: "short",
-                    year: "numeric",
-                })
-                .split(" ")
-                .join(" ");
+              .toLocaleDateString("en-GB", {
+                day: "numeric",
+                month: "short",
+                year: "numeric",
+              })
+              .split(" ")
+              .join(" ");
         }
         var st_date = element.start ? str_dt(element.start) : null;
         var ed_date = updatedDay ? str_dt(updatedDay) : null;
@@ -675,13 +675,13 @@ function upcomingEvent (a) {
         } else {
             const newDate = new Date(startDate).toLocaleDateString('en', { year: 'numeric', month: 'numeric', day: 'numeric' });
             startDate = new Date(newDate)
-                .toLocaleDateString("en-GB", {
-                    day: "numeric",
-                    month: "short",
-                    year: "numeric",
-                })
-                .split(" ")
-                .join(" ");
+              .toLocaleDateString("en-GB", {
+                day: "numeric",
+                month: "short",
+                year: "numeric",
+              })
+              .split(" ")
+              .join(" ");
         }
 
         var end_dt = (e_dt) ? e_dt : startDate;
@@ -694,20 +694,20 @@ function upcomingEvent (a) {
         }
         var e_time_e = (e_time_e) ? " to " + e_time_e : "";
 
-
+            
 
         u_event = '<div class="card">\
         <div class="card-body">\
             <div class="d-flex align-items-center mb-4">\
-                <p class="mb-0 flex-grow-1">OrderID: <span class="fw-medium">#TBT8'+ element.id + '</span></p>\
+                <p class="mb-0 flex-grow-1">OrderID: <span class="fw-medium">#TBT8'+element.id+'</span></p>\
                 <div class="flex-shrink-0">\
-                    '+ isStatus(element.status) + '\
+                    '+isStatus(element.status)+'\
                 </div>\
             </div>\
-            <h5 class="fs-16">'+ title + '</h5>\
+            <h5 class="fs-16">'+ title +'</h5>\
             <div class="d-flex justify-content-between align-items-center mb-0">\
-                <p class="mb-0"><i class="bi bi-calendar2-check me-1 text-muted align-middle"></i>'+ startDate + '</p>\
-                <p class="mb-0"><i class="bi bi-box-seam me-1 text-muted align-middle"></i>'+ end_dt + '</p>\
+                <p class="mb-0"><i class="bi bi-calendar2-check me-1 text-muted align-middle"></i>'+startDate+'</p>\
+                <p class="mb-0"><i class="bi bi-box-seam me-1 text-muted align-middle"></i>'+end_dt+'</p>\
             </div>\
         </div>\
     </div>';
@@ -715,16 +715,16 @@ function upcomingEvent (a) {
     });
 };
 
-function getTime (params) {
+function getTime(params) {
     params = new Date(params);
     if (params.getHours() != null) {
         var hour = params.getHours();
-        var minute = (params.getMinutes()) ? params.getMinutes() : 0;
+        var minute = (params.getMinutes()) ? params.getMinutes() : 00;
         return hour + ":" + minute;
     }
 }
 
-function isStatus (val) {
+function isStatus(val) {
     switch (val) {
         case "Delivered":
             return ('<span class="badge bg-success-subtle text-success">' + val + "</span>");
@@ -739,7 +739,7 @@ function isStatus (val) {
     }
 }
 
-function tConvert (time) {
+function tConvert(time) {
     var t = time.split(":");
     var hours = t[0];
     var minutes = t[1];
@@ -750,7 +750,7 @@ function tConvert (time) {
     return (hours + ':' + minutes + ' ' + newformat);
 }
 
-var str_dt = function formatDate (date) {
+var str_dt = function formatDate(date) {
     var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     var d = new Date(date),
         month = '' + monthNames[(d.getMonth())],

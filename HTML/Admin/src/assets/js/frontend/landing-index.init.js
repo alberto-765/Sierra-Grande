@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         });
     }
 
-    function radioButtonGroup (buttonGroup) {
+    function radioButtonGroup(buttonGroup) {
         buttonGroup.addEventListener('click', function (event) {
             // only work with buttons
             if (!matchesSelector(event.target, 'li a')) {
@@ -73,7 +73,7 @@ var swiper = new Swiper(".testi-slider", {
         prevEl: ".swiper-button-prev",
     },
     breakpoints: {
-        0: {
+        00: {
             slidesPerView: 1
         },
         768: {

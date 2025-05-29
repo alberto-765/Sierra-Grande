@@ -33,7 +33,7 @@
             <div class="card card-animate">
               <div class="card-body">
                 <div class="d-flex justify-content-between">
-                  <div class="vr rounded bg-secondary opacity-50" style="width: 4px;"></div>
+                  <div class="vr rounded bg-secondary opacity-50 w-4"></div>
                   <div class="flex-grow-1 ms-3">
                     <p class="text-uppercase fw-medium text-muted fs-14 text-truncate">Total Earnings</p>
                     <h4 class="fs-22 fw-semibold mb-3">
@@ -63,7 +63,7 @@
             <div class="card card-animate">
               <div class="card-body">
                 <div class="d-flex justify-content-between">
-                  <div class="vr rounded bg-info opacity-50" style="width: 4px;"></div>
+                  <div class="vr rounded bg-info opacity-50 w-4"></div>
                   <div class="flex-grow-1 ms-3">
                     <p class="text-uppercase fw-medium text-muted fs-14 text-truncate">Orders</p>
                     <h4 class="fs-22 fw-semibold mb-3">
@@ -93,7 +93,7 @@
             <div class="card card-animate">
               <div class="card-body">
                 <div class="d-flex justify-content-between">
-                  <div class="vr rounded bg-warning opacity-50" style="width: 4px;"></div>
+                  <div class="vr rounded bg-warning opacity-50 w-4"></div>
                   <div class="flex-grow-1 ms-3">
                     <p class="text-uppercase fw-medium text-muted fs-14 text-truncate">Customers</p>
                     <h4 class="fs-22 fw-semibold mb-3">
@@ -123,7 +123,7 @@
             <div class="card card-animate">
               <div class="card-body">
                 <div class="d-flex justify-content-between">
-                  <div class="vr rounded bg-primary opacity-50" style="width: 4px;"></div>
+                  <div class="vr rounded bg-primary opacity-50 w-4"></div>
                   <div class="flex-grow-1 ms-3">
                     <p class="text-uppercase fw-medium text-muted fs-14 text-truncate">Products</p>
                     <h4 class="fs-22 fw-semibold mb-3">
@@ -244,7 +244,8 @@
                   <div class="card-body">
                     <h5 class="fs-16">Reached 5k Customers</h5>
                     <p class="text-muted">Hey! Awesome products! Can you share the best product name ?</p>
-                    <a href="statistics.html" class="btn btn-info btn-sm">See Report <i class="bi bi-arrow-right ms-1 align-middle"></i></a>
+                    {% comment %} TODO: SET URL {% endcomment %}
+                    <a href="{% static "statistics.html" %}" class="btn btn-info btn-sm">See Report <i class="bi bi-arrow-right ms-1 align-middle"></i></a>
                   </div>
                 </div>
               </div>
@@ -257,7 +258,7 @@
         <!-- end card -->
         <div class="card overflow-hidden">
           <div class="position-absolute opacity-50 start-0 end-0 top-0 bottom-0"
-               style="background-image: url({% static 'img/sidebar/body-light-1.png' %})"></div>
+               style="background-image: url({% static "img/sidebar/body-light-1.png" %})"></div>
           <div class="card-body d-flex justify-content-between align-items-center z-1">
             <div class="d-flex align-items-center gap-3">
               <div class="flex-shrink-0">
@@ -271,7 +272,8 @@
               </div>
             </div>
             <div>
-              <a href="product-create.html"
+              {% comment %} TODO: SET URL {% endcomment %}
+              <a href="{% static "product-create.html" %}"
                  class="btn btn-success btn-label btn-hover rounded-pill"><i class="bi bi-box-seam label-icon align-middle rounded-pill fs-16 me-2"></i> Add New Product</a>
             </div>
           </div>
@@ -305,7 +307,7 @@
           <div class="card-body">
             <div id="world-map-line-markers"
                  data-colors='["--tb-light"]'
-                 style="height: 255px"></div>
+                 class="h-255"></div>
             <div class="mt-4">
               <h4 class="mb-1">
                 65,802 <small class="fw-normal fs-14">Total Sales</small>
@@ -322,6 +324,7 @@
                           <img src="{% static "img/flags/us.svg" %}"
                                alt=""
                                height="18"
+                               width=""
                                class="rounded-circle" />
                         </div>
                         <h6 class="fw-medium fs-14 mb-0">United States</h6>
@@ -336,7 +339,8 @@
                           <img src="{% static "img/flags/gl.svg" %}"
                                alt=""
                                height="18"
-                               class="rounded-circle" />
+                               class="rounded-circle"
+                               width="" />
                         </div>
                         <h6 class="fw-medium fs-14 mb-0">Greenland</h6>
                       </div>
@@ -350,7 +354,8 @@
                           <img src="{% static "img/flags/br.svg" %}"
                                alt=""
                                height="18"
-                               class="rounded-circle" />
+                               class="rounded-circle"
+                               width="" />
                         </div>
                         <h6 class="fw-medium fs-14 mb-0">Brazil</h6>
                       </div>
@@ -364,6 +369,7 @@
                           <img src="{% static "img/flags/au.svg" %}"
                                alt=""
                                height="18"
+                               width=""
                                class="rounded-circle" />
                         </div>
                         <h6 class="fw-medium fs-14 mb-0">Australia</h6>
@@ -378,6 +384,7 @@
                           <img src="{% static "img/flags/ru.svg" %}"
                                alt=""
                                height="18"
+                               width=""
                                class="rounded-circle" />
                         </div>
                         <h6 class="fw-medium fs-14 mb-0">Russia</h6>
@@ -391,6 +398,7 @@
                         <div>
                           <img src="{% static "img/flags/ca.svg" %}"
                                alt=""
+                               width=""
                                height="18"
                                class="rounded-circle" />
                         </div>
@@ -452,16 +460,21 @@
                 <tbody>
                   <tr>
                     <td>
-                      <a href="orders-overview.html" class="fw-medium link-primary">#TB010331</a>
+                      {% comment %} TODO: SET URL {% endcomment %}
+                      <a href="{% static "orders-overview.html" %}"
+                         class="fw-medium link-primary">#TB010331</a>
                     </td>
                     <td>
-                      <a href="product-overview.html" class="text-reset">Macbook Pro</a>
+                      {% comment %} TODO: SET URL {% endcomment %}
+                      <a href="{% static "product-overview.html" %}" class="text-reset">Macbook Pro</a>
                     </td>
                     <td>
                       <div class="d-flex align-items-center">
                         <div class="flex-shrink-0 me-2">
                           <img src="{% static "img/users/avatar-2.jpg" %}"
                                alt=""
+                               height=""
+                               width=""
                                class="avatar-xxs rounded-circle" />
                         </div>
                         <div class="flex-grow-1">Terry White</div>
@@ -481,16 +494,21 @@
                   <!-- end tr -->
                   <tr>
                     <td>
-                      <a href="orders-overview.html" class="fw-medium link-primary">#TB010332</a>
+                      {% comment %} TODO: SET URL {% endcomment %}
+                      <a href="{% static "orders-overview.html" %}"
+                         class="fw-medium link-primary">#TB010332</a>
                     </td>
                     <td>
-                      <a href="product-overview.html" class="text-reset">Borosil Paper Cup</a>
+                      {% comment %} TODO: SET URL {% endcomment %}
+                      <a href="{% static "product-overview.html" %}" class="text-reset">Borosil Paper Cup</a>
                     </td>
                     <td>
                       <div class="d-flex align-items-center">
                         <div class="flex-shrink-0 me-2">
                           <img src="{% static "img/users/avatar-4.jpg" %}"
                                alt=""
+                               height=""
+                               width=""
                                class="avatar-xxs rounded-circle" />
                         </div>
                         <div class="flex-grow-1">Daniel Gonzalez</div>
@@ -510,16 +528,21 @@
                   <!-- end tr -->
                   <tr>
                     <td>
-                      <a href="orders-overview.html" class="fw-medium link-primary">#TB010333</a>
+                      {% comment %} TODO: SET URL {% endcomment %}
+                      <a href="{% static "orders-overview.html" %}"
+                         class="fw-medium link-primary">#TB010333</a>
                     </td>
                     <td>
-                      <a href="product-overview.html" class="text-reset">Stillbird Helmet</a>
+                      {% comment %} TODO: SET URL {% endcomment %}
+                      <a href="{% static "product-overview.html" %}" class="text-reset">Stillbird Helmet</a>
                     </td>
                     <td>
                       <div class="d-flex align-items-center">
                         <div class="flex-shrink-0 me-2">
                           <img src="{% static "img/users/avatar-3.jpg" %}"
                                alt=""
+                               height=""
+                               width=""
                                class="avatar-xxs rounded-circle" />
                         </div>
                         <div class="flex-grow-1">Stephen Bird</div>
@@ -539,16 +562,21 @@
                   <!-- end tr -->
                   <tr>
                     <td>
-                      <a href="orders-overview.html" class="fw-medium link-primary">#TB010334</a>
+                      {% comment %} TODO: SET URL {% endcomment %}
+                      <a href="{% static "orders-overview.html" %}"
+                         class="fw-medium link-primary">#TB010334</a>
                     </td>
                     <td>
-                      <a href="product-overview.html" class="text-reset">Bentwood Chair</a>
+                      {% comment %} TODO: SET URL {% endcomment %}
+                      <a href="{% static "product-overview.html" %}" class="text-reset">Bentwood Chair</a>
                     </td>
                     <td>
                       <div class="d-flex align-items-center">
                         <div class="flex-shrink-0 me-2">
                           <img src="{% static "img/users/avatar-10.jpg" %}"
                                alt=""
+                               height=""
+                               width=""
                                class="avatar-xxs rounded-circle" />
                         </div>
                         <div class="flex-grow-1">Ashley Silva</div>
@@ -568,16 +596,21 @@
                   <!-- end tr -->
                   <tr>
                     <td>
-                      <a href="orders-overview.html" class="fw-medium link-primary">#TB010335</a>
+                      {% comment %} TODO: SET URL {% endcomment %}
+                      <a href="{% static "orders-overview.html" %}"
+                         class="fw-medium link-primary">#TB010335</a>
                     </td>
                     <td>
-                      <a href="product-overview.html" class="text-reset">Apple Headphone</a>
+                      {% comment %} TODO: SET URL {% endcomment %}
+                      <a href="{% static "product-overview.html" %}" class="text-reset">Apple Headphone</a>
                     </td>
                     <td>
                       <div class="d-flex align-items-center">
                         <div class="flex-shrink-0 me-2">
                           <img src="{% static "img/users/avatar-9.jpg" %}"
                                alt=""
+                               height=""
+                               width=""
                                class="avatar-xxs rounded-circle" />
                         </div>
                         <div class="flex-grow-1">Scott Wilson</div>
@@ -597,16 +630,21 @@
                   <!-- end tr -->
                   <tr>
                     <td>
-                      <a href="orders-overview.html" class="fw-medium link-primary">#TB010336</a>
+                      {% comment %} TODO: SET URL {% endcomment %}
+                      <a href="{% static "orders-overview.html" %}"
+                         class="fw-medium link-primary">#TB010336</a>
                     </td>
                     <td>
-                      <a href="product-overview.html" class="text-reset">Smart Watch for Man's</a>
+                      {% comment %} TODO: SET URL {% endcomment %}
+                      <a href="{% static "product-overview.html" %}" class="text-reset">Smart Watch for Man's</a>
                     </td>
                     <td>
                       <div class="d-flex align-items-center">
                         <div class="flex-shrink-0 me-2">
                           <img src="{% static "img/users/avatar-8.jpg" %}"
                                alt=""
+                               height=""
+                               width=""
                                class="avatar-xxs rounded-circle" />
                         </div>
                         <div class="flex-grow-1">Heather Jimenez</div>
@@ -709,7 +747,9 @@
           <div class="card-header align-items-center d-flex">
             <h4 class="card-title mb-0 flex-grow-1">Stock Report</h4>
             <div class="flex-shrink-0">
-              <a href="statistics.html" class="btn btn-soft-info btn-sm">
+              {% comment %} TODO: SET URL {% endcomment %}
+              <a href="{% static "statistics.html" %}"
+                 class="btn btn-soft-info btn-sm">
                 <i class="ri-file-list-3-line align-middle"></i> Generate Report
               </a>
             </div>
@@ -731,17 +771,22 @@
                 <tbody>
                   <tr>
                     <td>
-                      <a href="product-overview.html" class="fw-medium link-primary">#00541</a>
+                      {% comment %} TODO: SET URL {% endcomment %}
+                      <a href="{% static "product-overview.html" %}"
+                         class="fw-medium link-primary">#00541</a>
                     </td>
                     <td>
                       <div class="d-flex align-items-center">
                         <div class="flex-shrink-0 me-2">
                           <img src="{% static "img/products/img-1.png" %}"
                                alt=""
+                               height=""
+                               width=""
                                class="avatar-xs rounded-circle" />
                         </div>
                         <div class="flex-grow-1">
-                          <a href="product-overview.html" class="text-reset">Rockerz Ear Bluetooth Headphones</a>
+                          {% comment %} TODO: SET URL {% endcomment %}
+                          <a href="{% static "product-overview.html" %}" class="text-reset">Rockerz Ear Bluetooth Headphones</a>
                         </div>
                       </div>
                     </td>
@@ -757,17 +802,22 @@
                   <!-- end tr -->
                   <tr>
                     <td>
-                      <a href="product-overview.html" class="fw-medium link-primary">#07484</a>
+                      {% comment %} TODO: SET URL {% endcomment %}
+                      <a href="{% static "product-overview.html" %}"
+                         class="fw-medium link-primary">#07484</a>
                     </td>
                     <td>
                       <div class="d-flex align-items-center">
                         <div class="flex-shrink-0 me-2">
                           <img src="{% static "img/products/img-5.png" %}"
                                alt=""
+                               height=""
+                               width=""
                                class="avatar-xs rounded-circle" />
                         </div>
                         <div class="flex-grow-1">
-                          <a href="product-overview.html" class="text-reset">United Colors Of Benetton</a>
+                          {% comment %} TODO: SET URL {% endcomment %}
+                          <a href="{% static "product-overview.html" %}" class="text-reset">United Colors Of Benetton</a>
                         </div>
                       </div>
                     </td>
@@ -783,17 +833,22 @@
                   <!-- end tr -->
                   <tr>
                     <td>
-                      <a href="product-overview.html" class="fw-medium link-primary">#01641</a>
+                      {% comment %} TODO: SET URL {% endcomment %}
+                      <a href="{% static "product-overview.html" %}"
+                         class="fw-medium link-primary">#01641</a>
                     </td>
                     <td>
                       <div class="d-flex align-items-center">
                         <div class="flex-shrink-0 me-2">
                           <img src="{% static "img/products/img-4.png" %}"
                                alt=""
+                               height=""
+                               width=""
                                class="avatar-xs rounded-circle" />
                         </div>
                         <div class="flex-grow-1">
-                          <a href="product-overview.html" class="text-reset">Striped Baseball Cap</a>
+                          {% comment %} TODO: SET URL {% endcomment %}
+                          <a href="{% static "product-overview.html" %}" class="text-reset">Striped Baseball Cap</a>
                         </div>
                       </div>
                     </td>
@@ -809,17 +864,22 @@
                   <!-- end tr -->
                   <tr>
                     <td>
-                      <a href="product-overview.html" class="fw-medium link-primary">#00065</a>
+                      {% comment %} TODO: SET URL {% endcomment %}
+                      <a href="{% static "product-overview.html" %}"
+                         class="fw-medium link-primary">#00065</a>
                     </td>
                     <td>
                       <div class="d-flex align-items-center">
                         <div class="flex-shrink-0 me-2">
                           <img src="{% static "img/products/img-3.png" %}"
                                alt=""
+                               height=""
+                               width=""
                                class="avatar-xs rounded-circle" />
                         </div>
                         <div class="flex-grow-1">
-                          <a href="product-overview.html" class="text-reset">350 ml Glass Grocery Container</a>
+                          {% comment %} TODO: SET URL {% endcomment %}
+                          <a href="{% static "product-overview.html" %}" class="text-reset">350 ml Glass Grocery Container</a>
                         </div>
                       </div>
                     </td>
@@ -835,17 +895,22 @@
                   <!-- end tr -->
                   <tr>
                     <td>
-                      <a href="product-overview.html" class="fw-medium link-primary">#00156</a>
+                      {% comment %} TODO: SET URL {% endcomment %}
+                      <a href="{% static "product-overview.html" %}"
+                         class="fw-medium link-primary">#00156</a>
                     </td>
                     <td>
                       <div class="d-flex align-items-center">
                         <div class="flex-shrink-0 me-2">
                           <img src="{% static "img/products/img-2.png" %}"
                                alt=""
+                               height=""
+                               width=""
                                class="avatar-xs rounded-circle" />
                         </div>
                         <div class="flex-grow-1">
-                          <a href="product-overview.html" class="text-reset">One Seater Sofa</a>
+                          {% comment %} TODO: SET URL {% endcomment %}
+                          <a href="{% static "product-overview.html" %}" class="text-reset">One Seater Sofa</a>
                         </div>
                       </div>
                     </td>
@@ -861,17 +926,22 @@
                   <!-- end tr -->
                   <tr>
                     <td>
-                      <a href="product-overview.html" class="fw-medium link-primary">#09102</a>
+                      {% comment %} TODO: SET URL {% endcomment %}
+                      <a href="{% static "product-overview.html" %}"
+                         class="fw-medium link-primary">#09102</a>
                     </td>
                     <td>
                       <div class="d-flex align-items-center">
                         <div class="flex-shrink-0 me-2">
                           <img src="{% static "img/products/img-8.png" %}"
                                alt=""
+                               height=""
+                               width=""
                                class="avatar-xs rounded-circle" />
                         </div>
                         <div class="flex-grow-1">
-                          <a href="product-overview.html" class="text-reset">Men's Running Shoes Active Grip</a>
+                          {% comment %} TODO: SET URL {% endcomment %}
+                          <a href="{% static "product-overview.html" %}" class="text-reset">Men's Running Shoes Active Grip</a>
                         </div>
                       </div>
                     </td>
@@ -902,17 +972,20 @@
             <a href="#" class="flex-shrink-0">View All <i class="ri-arrow-right-line align-bottom ms-1"></i></a>
           </div>
           <div class="card-body px-0">
-            <div data-simplebar style="max-height: 415px;">
+            <div data-simplebar class="h-415">
               <div class="vstack gap-3 px-3">
                 <div class="p-3 border border-dashed rounded-3">
                   <div class="d-flex align-items-center gap-2">
                     <div class="avatar-sm bg-light rounded p-1 flex-shrink-0">
                       <img src="{% static "img/products/img-8.png" %}"
                            alt=""
+                           height=""
+                           width=""
                            class="img-fluid d-block" />
                     </div>
                     <div class="flex-grow-1">
-                      <a href="product-overview.html">
+                      {% comment %} TODO: SET URL {% endcomment %}
+                      <a href="{% static "product-overview.html" %}">
                         <h6>Men's Running Shoes Activ...</h6>
                       </a>
                       <p class="mb-0">
@@ -929,10 +1002,13 @@
                     <div class="avatar-sm bg-light rounded p-1 flex-shrink-0">
                       <img src="{% static "img/products/img-4.png" %}"
                            alt=""
+                           height=""
+                           width=""
                            class="img-fluid d-block" />
                     </div>
                     <div class="flex-grow-1">
-                      <a href="product-overview.html">
+                      {% comment %} TODO: SET URL {% endcomment %}
+                      <a href="{% static "product-overview.html" %}">
                         <h6>Striped Baseball Cap</h6>
                       </a>
                       <p class="mb-0">
@@ -949,10 +1025,13 @@
                     <div class="avatar-sm bg-light rounded p-1 flex-shrink-0">
                       <img src="{% static "img/products/img-3.png" %}"
                            alt=""
+                           height=""
+                           width=""
                            class="img-fluid d-block" />
                     </div>
                     <div class="flex-grow-1">
-                      <a href="product-overview.html">
+                      {% comment %} TODO: SET URL {% endcomment %}
+                      <a href="{% static "product-overview.html" %}">
                         <h6>350 ml Glass Groce...</h6>
                       </a>
                       <p class="mb-0">
@@ -969,10 +1048,13 @@
                     <div class="avatar-sm bg-light rounded p-1 flex-shrink-0">
                       <img src="{% static "img/products/img-6.png" %}"
                            alt=""
+                           height=""
+                           width=""
                            class="img-fluid d-block" />
                     </div>
                     <div class="flex-grow-1">
-                      <a href="product-overview.html">
+                      {% comment %} TODO: SET URL {% endcomment %}
+                      <a href="{% static "product-overview.html" %}">
                         <h6>Monte Carlo Sweaters</h6>
                       </a>
                       <p class="mb-0">
@@ -989,10 +1071,13 @@
                     <div class="avatar-sm bg-light rounded p-1 flex-shrink-0">
                       <img src="{% static "img/products/img-9.png" %}"
                            alt=""
+                           height=""
+                           width=""
                            class="img-fluid d-block" />
                     </div>
                     <div class="flex-grow-1">
-                      <a href="product-overview.html">
+                      {% comment %} TODO: SET URL {% endcomment %}
+                      <a href="{% static "product-overview.html" %}">
                         <h6>Ceramic Coffee Mug</h6>
                       </a>
                       <p class="mb-0">
@@ -1081,22 +1166,26 @@
         <div class="card card-height-100">
           <div class="card-header align-items-center d-flex">
             <h4 class="card-title mb-0 flex-grow-1">New Customers</h4>
-            <a href="users-list.html" class="flex-shrink-0">View All <i class="ri-arrow-right-line align-bottom ms-1"></i></a>
+            {% comment %} TODO: SET URL {% endcomment %}
+            <a href="{% static "users-list.html" %}" class="flex-shrink-0">View All <i class="ri-arrow-right-line align-bottom ms-1"></i></a>
           </div>
           <!-- end card header -->
-          <div data-simplebar style="max-height: 445px;">
+          <div data-simplebar class="h-415">
             <div class="p-3 border-bottom border-bottom-dashed">
               <div class="d-flex align-items-center gap-2">
                 <div class="flex-shrink-0">
                   <img src="{% static "img/users/avatar-2.jpg" %}"
                        alt=""
-                       class="rounded dash-avatar" />
+                       class="rounded dash-avatar"
+                       height=""
+                       width="" />
                 </div>
                 <div class="flex-grow-1">
                   <h6 class="mb-1">Tommy Carey</h6>
                   <p class="fs-13 text-muted mb-0">02 Jan, 2023</p>
                 </div>
                 <div class="flex-shrink-0">
+                  {% comment %} TODO: SET URL {% endcomment %}
                   <a href="mailto:careytommy@toner.com"
                      class="btn btn-icon btn-sm btn-soft-danger"><i class="ph-envelope"></i></a>
                 </div>
@@ -1107,13 +1196,16 @@
                 <div class="flex-shrink-0">
                   <img src="{% static "img/users/avatar-1.jpg" %}"
                        alt=""
-                       class="rounded dash-avatar" />
+                       class="rounded dash-avatar"
+                       height=""
+                       width="" />
                 </div>
                 <div class="flex-grow-1">
                   <h6 class="mb-1">Cassius Brock</h6>
                   <p class="fs-13 text-muted mb-0">24 Nov, 2022</p>
                 </div>
                 <div class="flex-shrink-0">
+                  {% comment %} TODO: SET URL {% endcomment %}
                   <a href="mailto:brock@toner.com"
                      class="btn btn-icon btn-sm btn-soft-danger"><i class="ph-envelope"></i></a>
                 </div>
@@ -1124,13 +1216,16 @@
                 <div class="flex-shrink-0">
                   <img src="{% static "img/users/avatar-3.jpg" %}"
                        alt=""
-                       class="rounded dash-avatar" />
+                       class="rounded dash-avatar"
+                       height=""
+                       width="" />
                 </div>
                 <div class="flex-grow-1">
                   <h6 class="mb-1">Gabrielle Holden</h6>
                   <p class="fs-13 text-muted mb-0">17 Nav, 2022</p>
                 </div>
                 <div class="flex-shrink-0">
+                  {% comment %} TODO: SET URL {% endcomment %}
                   <a href="mailto:gabrielle@toner.com"
                      class="btn btn-icon btn-sm btn-soft-danger"><i class="ph-envelope"></i></a>
                 </div>
@@ -1141,13 +1236,16 @@
                 <div class="flex-shrink-0">
                   <img src="{% static "img/users/avatar-5.jpg" %}"
                        alt=""
-                       class="rounded dash-avatar" />
+                       class="rounded dash-avatar"
+                       height=""
+                       width="" />
                 </div>
                 <div class="flex-grow-1">
                   <h6 class="mb-1">Alfred Hurst</h6>
                   <p class="fs-13 text-muted mb-0">18 Dec, 2021</p>
                 </div>
                 <div class="flex-shrink-0">
+                  {% comment %} TODO: SET URL {% endcomment %}
                   <a href="mailto:" class="btn btn-icon btn-sm btn-soft-danger"><i class="ph-envelope"></i></a>
                 </div>
               </div>
@@ -1157,13 +1255,16 @@
                 <div class="flex-shrink-0">
                   <img src="{% static "img/users/avatar-6.jpg" %}"
                        alt=""
-                       class="rounded dash-avatar" />
+                       class="rounded dash-avatar"
+                       height=""
+                       width="" />
                 </div>
                 <div class="flex-grow-1">
                   <h6 class="mb-1">Kristina Hooper</h6>
                   <p class="fs-13 text-muted mb-0">04 Oct, 2022</p>
                 </div>
                 <div class="flex-shrink-0">
+                  {% comment %} TODO: SET URL {% endcomment %}
                   <a href="mailto:alfredH@toner.com"
                      class="btn btn-icon btn-sm btn-soft-danger"><i class="ph-envelope"></i></a>
                 </div>
@@ -1174,13 +1275,16 @@
                 <div class="flex-shrink-0">
                   <img src="{% static "img/users/avatar-8.jpg" %}"
                        alt=""
-                       class="rounded dash-avatar" />
+                       class="rounded dash-avatar"
+                       height=""
+                       width="" />
                 </div>
                 <div class="flex-grow-1">
                   <h6 class="mb-1">Jacques Leon</h6>
                   <p class="fs-13 text-muted mb-0">02 Jan, 2023</p>
                 </div>
                 <div class="flex-shrink-0">
+                  {% comment %} TODO: SET URL {% endcomment %}
                   <a href="mailto:jacques@toner.com"
                      class="btn btn-icon btn-sm btn-soft-danger"><i class="ph-envelope"></i></a>
                 </div>
@@ -1191,13 +1295,16 @@
                 <div class="flex-shrink-0">
                   <img src="{% static "img/users/avatar-7.jpg" %}"
                        alt=""
-                       class="rounded dash-avatar" />
+                       class="rounded dash-avatar"
+                       height=""
+                       width="" />
                 </div>
                 <div class="flex-grow-1">
                   <h6 class="mb-1">Edward Rogers</h6>
                   <p class="fs-13 mb-0">25 Nov, 2022</p>
                 </div>
                 <div class="flex-shrink-0">
+                  {% comment %} TODO: SET URL {% endcomment %}
                   <a href="mailto:edwardro@toner.com"
                      class="btn btn-icon btn-sm btn-soft-danger"><i class="ph-envelope"></i></a>
                 </div>
@@ -1208,13 +1315,16 @@
                 <div class="flex-shrink-0">
                   <img src="{% static "img/users/avatar-10.jpg" %}"
                        alt=""
-                       class="rounded dash-avatar" />
+                       class="rounded dash-avatar"
+                       height=""
+                       width="" />
                 </div>
                 <div class="flex-grow-1">
                   <h6 class="mb-1">Alina Holland</h6>
                   <p class="fs-13 mb-0">11 Jan, 2023</p>
                 </div>
                 <div class="flex-shrink-0">
+                  {% comment %} TODO: SET URL {% endcomment %}
                   <a href="mailto:hollandalina@toner.com"
                      class="btn btn-icon btn-sm btn-soft-danger"><i class="ph-envelope"></i></a>
                 </div>
@@ -1257,8 +1367,7 @@
                    aria-valuenow="90"
                    aria-valuemin="0"
                    aria-valuemax="100">
-                <div class="progress-bar bg-success bg-opacity-50 progress-bar-striped progress-bar-animated"
-                     style="width: 90%"></div>
+                <div class="progress-bar bg-success bg-opacity-50 progress-bar-striped progress-bar-animated w-90"></div>
               </div>
             </div>
             <div class="mb-4">
@@ -1270,8 +1379,7 @@
                    aria-valuenow="64"
                    aria-valuemin="0"
                    aria-valuemax="100">
-                <div class="progress-bar bg-warning bg-opacity-50 progress-bar-striped progress-bar-animated"
-                     style="width: 64%"></div>
+                <div class="progress-bar bg-warning bg-opacity-50 progress-bar-striped progress-bar-animated w-64"></div>
               </div>
             </div>
             <div class="mb-4">
@@ -1283,8 +1391,7 @@
                    aria-valuenow="77"
                    aria-valuemin="0"
                    aria-valuemax="100">
-                <div class="progress-bar bg-danger bg-opacity-50 progress-bar-striped progress-bar-animated"
-                     style="width: 77%"></div>
+                <div class="progress-bar bg-danger bg-opacity-50 progress-bar-striped progress-bar-animated w-77"></div>
               </div>
             </div>
             <div class="mb-4">
@@ -1296,8 +1403,7 @@
                    aria-valuenow="53"
                    aria-valuemin="0"
                    aria-valuemax="100">
-                <div class="progress-bar bg-info bg-opacity-50 progress-bar-striped progress-bar-animated"
-                     style="width: 53%"></div>
+                <div class="progress-bar bg-info bg-opacity-50 progress-bar-striped progress-bar-animated w-50"></div>
               </div>
             </div>
             <div class="mb-4">
@@ -1309,8 +1415,7 @@
                    aria-valuenow="81"
                    aria-valuemin="0"
                    aria-valuemax="100">
-                <div class="progress-bar bg-primary bg-opacity-50 progress-bar-striped progress-bar-animated"
-                     style="width: 81%"></div>
+                <div class="progress-bar bg-primary bg-opacity-50 progress-bar-striped progress-bar-animated w-81"></div>
               </div>
             </div>
             <div class="mb-4">
@@ -1322,8 +1427,7 @@
                    aria-valuenow="96"
                    aria-valuemin="0"
                    aria-valuemax="100">
-                <div class="progress-bar bg-secondary bg-opacity-50 progress-bar-striped progress-bar-animated"
-                     style="width: 96%"></div>
+                <div class="progress-bar bg-secondary bg-opacity-50 progress-bar-striped progress-bar-animated w-96"></div>
               </div>
             </div>
             <div class="mb-4">
@@ -1335,8 +1439,7 @@
                    aria-valuenow="69"
                    aria-valuemin="0"
                    aria-valuemax="100">
-                <div class="progress-bar bg-success bg-opacity-50 progress-bar-striped progress-bar-animated"
-                     style="width: 69%"></div>
+                <div class="progress-bar bg-success bg-opacity-50 progress-bar-striped progress-bar-animated w-69"></div>
               </div>
             </div>
             <div>
@@ -1348,8 +1451,7 @@
                    aria-valuenow="63"
                    aria-valuemin="0"
                    aria-valuemax="100">
-                <div class="progress-bar bg-dark bg-opacity-50 progress-bar-striped progress-bar-animated"
-                     style="width: 63%"></div>
+                <div class="progress-bar bg-dark bg-opacity-50 progress-bar-striped progress-bar-animated w-64"></div>
               </div>
             </div>
           </div>
@@ -1363,11 +1465,12 @@
 {% endblock dashboard_content %}
 {% block extrascripts %}
   {{ block.super }}
-  <script src="{% static 'js/dashboard/inputmask.min.js' %}" defer></script>
-  <script src="{% static 'libs/apexcharts/apexcharts.min.js' %}" defer></script>
-  <script src="{% static 'libs/apexcharts/apexcharts.min.js' %}" defer></script>
-  <script src="{% static 'libs/jsvectormap/maps/world-merc.js' %}" defer></script>
-  <script src="{% static 'libs/simplebar/simplebar.min.js' %}" defer></script>
+  <script src="{% static "js/dashboard/inputmask.min.js" %}" defer></script>
+  <script src="{% static "libs/apexcharts/apexcharts.min.js" %}" defer></script>
+  <script src="{% static "libs/jsvectormap/jsvectormap.min.js" %}" defer></script>
+  <script src="{% static "libs/jsvectormap/maps/world-merc.js" %}" defer></script>
+  <script src="{% static "libs/simplebar/simplebar.min.js" %}" defer></script>
+  <script src="{% static "libs/swiper/swiper-bundle.min.js" %}" defer></script>
   <script src="{% static "js/app.js" %}" defer></script>
 {% endblock extrascripts %}
 {% block onbodyload %}

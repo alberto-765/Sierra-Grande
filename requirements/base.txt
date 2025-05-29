@@ -23,6 +23,7 @@ django-redis==5.4.0  # https://github.com/jazzband/django-redis
 django-tinymce==4.1.0
 django-filebrowser==4.0.3
 django-grappelli==3.0.10
+django-flatpickr==2.0.3
 # Django Oscar
 # ------------------------------------------------------------------------------
 django-oscar==3.2.5

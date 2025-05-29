@@ -123,6 +123,7 @@ THIRD_PARTY_APPS = [
     "treebeard",
     "easy_thumbnails",
     "django_tables2",
+    "django_flatpickr",
 ]
 
 LOCAL_APPS = [
@@ -551,7 +552,6 @@ OSCAR_DASHBOARD_NAVIGATION = [
     },
 ]
 OSCAR_SHOP_NAME = "Sierra Grande"
-OSCAR_SHOP_TAGLINE = "caca"
 
 # TinyMCE
 # ------------------------------------------------------------------------------

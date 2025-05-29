@@ -2,13 +2,13 @@
 @import "fonts/fonts";
 
 //Core files
-@import "../libs/bootstrap/css/functions";
+@import "../libs/bootstrap/scss/functions";
 @import "variables";
 @import "variables-dark";
-@import "../libs/bootstrap/css/bootstrap";
+@import "../libs/bootstrap/scss/bootstrap";
 
 // Icons
-@import "plugins/icons/bootstrap-icons";
+@import "icons";
 
 // Structure
 @import "structure/topbar";

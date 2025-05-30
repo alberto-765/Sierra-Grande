@@ -1,7 +1,6 @@
 {% extends "oscar/dashboard/base.html" %}
 
 {% load category_tags %}
-{% load dashboard_tags %}
 {% load i18n %}
 {% load static %}
 
@@ -65,7 +64,7 @@
   {{ block.super }}
   <script src="{% static "oscar/js/oscar/dashboard.js" %}" defer></script>
   <script src="{% static "oscar/js/oscar/RelatedObjectLookups.js" %}" defer></script>
-  <script src="{% static 'js/dashboard/inputmask.min.js' %}" defer></script>
+  <script src="{% static 'libs/inputmask/inputmask.min.js' %}" defer></script>
 {% endblock extrascripts %}
 {% block onbodyload %}
   {{ block.super }}

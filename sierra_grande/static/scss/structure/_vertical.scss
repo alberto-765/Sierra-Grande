@@ -13,7 +13,7 @@
 }
 
 .main-content {
-    transition: all .5s ease;
+    transition: all .1s ease;
 
     @media (min-width: 768px) {
         margin-left: $vertical-menu-width;
@@ -32,7 +32,7 @@
     position: fixed;
     top: $top-tagbar-height;
     padding: 0 0 calc(#{$header-height} + 25px) 0;
-    transition: all .5s ease;
+    transition: all .1s ease;
 
     .navbar-nav {
         .nav-link {
@@ -42,6 +42,7 @@
             color: $vertical-menu-item-color;
             font-size: $vertical-menu-item-font-size;
             font-family: $vertical-menu-item-font-family;
+            column-gap: .8rem;
 
             &.active {
                 color: $vertical-menu-item-active-color;
@@ -53,21 +54,13 @@
 
             i {
                 display: inline-block;
-                min-width: $vertical-menu-item-icon-width;
-                font-size: 16px;
-                line-height: inherit;
+                line-height: 1;
             }
 
             svg {
                 width: 18px;
                 margin-right: 0.665rem;
                 color: $vertical-menu-item-color;
-            }
-
-            .badge {
-                margin-left: auto;
-                margin-right: -2px;
-                z-index: 1;
             }
 
             &:hover {
@@ -149,11 +142,6 @@
                 }
             }
         }
-    }
-
-    .btn-vertical-sm-hover {
-        color: $text-muted;
-        display: none;
     }
 }
 
@@ -288,183 +276,6 @@
         display: none;
     }
 
-    /********** sm-hover **********/
-    &[data-sidebar-size="sm-hover"] {
-
-        .main-content {
-            margin-left: $vertical-menu-width-sm;
-
-            @media (max-width: 767.98px) {
-                margin-left: 0;
-            }
-        }
-
-        .logo {
-            span.logo-lg {
-                display: none;
-            }
-
-            span.logo-sm {
-                display: inline-block;
-            }
-        }
-
-        .btn-vertical-sm-hover {
-            display: inline-block;
-        }
-
-        @media (min-width: 768px) {
-            .topnav-hamburger {
-                display: none;
-            }
-        }
-
-        // Side menu
-        .navbar-menu {
-            width: $vertical-menu-width-sm;
-
-            .btn-vertical-sm-hover {
-                display: none;
-
-                i {
-                    &.ri-record-circle-line:before {
-                        content: "\EB7D";
-                    }
-                }
-            }
-
-            // Sidebar Menu
-            .navbar-nav {
-
-                .badge {
-                    display: none;
-                }
-
-                .menu-title {
-                    text-align: center;
-
-                    span {
-                        display: none;
-                    }
-
-                    i {
-                        display: block;
-                        line-height: 36px;
-                        font-size: 1rem;
-                    }
-                }
-
-                .nav-link {
-                    span {
-                        display: none;
-                    }
-
-                    i {
-                        font-size: 18px;
-
-                        &.las,
-                        &.lar,
-                        &.lab {
-                            font-size: 24px;
-                        }
-                    }
-
-                    svg {
-                        margin-right: 0px;
-                    }
-
-                    &:after,
-                    &:before {
-                        display: none;
-                    }
-                }
-
-                .menu-dropdown {
-                    display: none;
-                }
-            }
-
-            &:hover {
-                width: $vertical-menu-width !important;
-                border-right: 1px solid $border-color;
-
-                @media (min-width: 1024.99px) {
-                    .btn-vertical-sm-hover {
-                        display: inline-block;
-                    }
-
-                    .navbar-brand-box {
-                        text-align: left;
-                    }
-                }
-
-                .navbar-nav {
-                    .menu-dropdown.show {
-                        display: block;
-                    }
-                }
-
-                .nav-link {
-
-                    i {
-                        font-size: 18px;
-                    }
-
-                    span,
-                    &:after,
-                    &:before {
-                        display: inline-block;
-                    }
-                }
-
-                .logo {
-                    span.logo-lg {
-                        display: inline-block;
-                    }
-
-                    span.logo-sm {
-                        display: none;
-                    }
-                }
-
-                .menu-title {
-                    text-align: left;
-
-                    span {
-                        display: inline-block;
-                    }
-
-                    i {
-                        display: none;
-                    }
-                }
-            }
-        }
-    }
-
-    /********** sm-hover-active **********/
-    &[data-sidebar-size="sm-hover-active"] {
-        .navbar-brand-box {
-            text-align: left;
-        }
-
-        .topnav-hamburger {
-            display: none;
-        }
-
-        .btn-vertical-sm-hover {
-            display: inline-block;
-        }
-    }
-
-    &:is([data-sidebar-size="sm-hover"], [data-sidebar-size="sm-hover-active"]) {
-        .navbar-header {
-            @media (min-width: 1025px) {
-                padding-left: $grid-gutter-width;
-            }
-        }
-    }
-
     /********** sidebar sm **********/
     &[data-sidebar-size="sm"] {
         @media (min-width: 768px) {
@@ -476,7 +287,7 @@
         }
 
         #page-topbar {
-            z-index: calc(#{$vertical-menu-z-index} + 1);
+            z-index: calc(#{$vertical-menu-z-index} - 10);
         }
 
         .logo {
@@ -510,11 +321,7 @@
             // Sidebar Menu
             .navbar-nav {
 
-                .badge {
-                    display: none !important;
-                }
-
-                .menu-title {
+                > .menu-title {
                     text-align: center;
                     font-size: 1rem;
 
@@ -529,6 +336,9 @@
                 }
 
                 .nav-link {
+                    .hstack {
+                        display: none;
+                    }
                     span {
                         display: none;
                     }
@@ -552,12 +362,12 @@
                     height: auto !important;
                 }
 
-                .nav-item {
+                > .nav-item {
                     position: relative;
 
                     &:hover {
 
-                        > a.menu-link {
+                        & > a.menu-link {
                             position: relative;
                             width: calc(200px + #{$vertical-menu-width-sm});
                             color: $white;
@@ -576,7 +386,7 @@
                             }
                         }
 
-                        > .menu-dropdown {
+                        & > .menu-dropdown {
                             display: block;
                             left: $vertical-menu-width-sm;
                             position: absolute;
@@ -588,8 +398,11 @@
                             box-shadow: $vertical-menu-dropdown-box-shadow;
                         }
                     }
-                }
 
+                    &:not(:hover) > .nav-link {
+                        justify-content: center;
+                    }
+                }
                 .nav-sm {
                     padding: 0;
 
@@ -618,12 +431,6 @@
                         border-radius: 3px !important;
                     }
                 }
-            }
-        }
-
-        &[data-layout-style=detached] {
-            .navbar-brand-box {
-                top: auto;
             }
         }
     }
@@ -677,10 +484,6 @@
                             display: none;
                         }
                     }
-                }
-
-                .badge {
-                    display: none !important;
                 }
 
                 .nav-sm {
@@ -834,7 +637,6 @@
 
 .logo-light {
     display: none;
-    opacity: 0;
 }
 
 .vertical-overlay {

@@ -20,7 +20,7 @@
 
 [data-layout="vertical"] {
 
-    &:is([data-sidebar-size="sm"], [data-sidebar-size="sm-hover"]) {
+    &[data-sidebar-size="sm"] {
         .footer {
             left: $vertical-menu-width-sm;
 

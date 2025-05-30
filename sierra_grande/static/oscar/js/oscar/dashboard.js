@@ -105,48 +105,15 @@ var oscar = ((o) => {
         init: function (options) {
             // Run initialisation that should take place on every page of the dashboard.
             const defaults = {
-                dateFormat: 'P',
-                timeFormat: 'p',
-                datetimeFormat: 'Pp',
-                stepMinute: 15,
-                quillConfig: {
-                    theme: 'snow'
-                },
-                icons: {
-                    time: 'far fa-clock',
-                    date: 'far fa-calendar',
-                    up: 'fas fa-arrow-up',
-                    down: 'fas fa-arrow-down',
-                    previous: 'fas fa-chevron-left',
-                    next: 'fas fa-chevron-right',
-                    today: 'fas fa-calendar-check',
-                    clear: 'fas fa-trash',
-                    close: 'fas fa-times'
-                }
+
             };
 
             o.dashboard.options = Object.assign({}, defaults, options);
 
             o.dashboard.initWidgets(window.document);
             o.dashboard.initForms();
+            o.dashboard.initTemplate();
 
-            // Category select expand/contract
-            document.querySelectorAll(".category-select ul").forEach(ul => {
-                const link = ul.previousElementSibling;
-                if (link && link.tagName === 'A') {
-                    link.addEventListener('click', function (e) {
-                        e.preventDefault();
-                        const isExpanded = this.classList.contains('ico_expand');
-                        if (isExpanded) {
-                            this.classList.remove('ico_expand');
-                            this.classList.add('ico_contract');
-                        } else {
-                            this.classList.remove('ico_contract');
-                            this.classList.add('ico_expand');
-                        }
-                    });
-                }
-            });
 
             // Adds error icon if there are errors in the product update form
             document.querySelectorAll('[data-behaviour="tab-nav-errors"] .tab-pane').forEach(pane => {
@@ -167,7 +134,6 @@ var oscar = ((o) => {
             // Hidde welcome alert when login
             setTimeout(() => {
                 const alertContainer = document.getElementById('messages');
-                // document.getElementById('messages').style.display = 'none';
                 if (alertContainer) {
                     const alertsDom = document.querySelectorAll('.alert.alert-dismissible');
                     alertsDom.forEach((alertDom, index) => {
@@ -192,101 +158,10 @@ var oscar = ((o) => {
                 Inputmask().mask(input);
             });
         },
-        initDatePickers: function (el) {
-            // TODO: FINISH THIS AND REMOVE COMMENTS
 
-            const theme = localStorage.getItem('theme') || 'auto';
-
-            // Date picker inputs
-            const dateInputs = el.querySelectorAll('[data-oscarWidget="date"]:not(.no-widget-init)');
-            dateInputs.forEach(input => {
-                const initialOptions = {
-                    display: {
-                        icons: o.dashboard.options.icons,
-                        components: {
-                            clock: false,
-                            hours: false,
-                            minutes: false,
-                            seconds: false,
-                        },
-                        theme
-                    },
-                    localization: {
-                        format: input.dataset.dateformat?.trim() || o.dashboard.options.dateFormat,
-                        locale: options.languageCode,
-                    },
-                };
-                new tempusDominus.TempusDominus(input, initialOptions);
-                // pick.subscribe(tempusDominus.Namespace.events.show, (e) => {
-                //     const theme = localStorage.getItem('theme') || 'auto';
-                //     const today = new tempusDominus.DateTime();
-                //     pick.updateOptions({
-                //         restrictions: {
-                //             maxDate: today,
-                //         }
-                //     });
-                // });
-            });
-
-            // Datetime picker inputs
-            const datetimeInputs = el.querySelectorAll('[data-oscarWidget="datetime"]:not(.no-widget-init)');
-            datetimeInputs.forEach(input => {
-                const initialOptions = {
-                    display: {
-                        icons: o.dashboard.options.icons,
-                        theme
-                    },
-                    stepping: o.dashboard.options.stepMinute,
-                    localization: {
-                        format: input.dataset.dateformat?.trim() || o.dashboard.options.datetimeFormat,
-                    }
-                };
-                const pick = new tempusDominus.TempusDominus(input, initialOptions);
-                pick.subscribe(tempusDominus.Namespace.events.show, () => {
-                    const theme = localStorage.getItem('theme') || 'auto';
-                    // pick.updateOptions({
-                    //     ...initialOptions,
-                    //     display: {
-                    //         ...initialOptions.display,  // Mantén las opciones de display previas
-                    //         theme // Solo actualiza el tema
-                    //     }
-                    // });
-                });
-            });
-
-            // Time picker inputs
-            const timeInputs = el.querySelectorAll('[data-oscarWidget="time"]:not(.no-widget-init)');
-            timeInputs.forEach(input => {
-                const initialOptions = {
-                    display: {
-                        icons: o.dashboard.options.icons,
-                        components: {
-                            decades: false,
-                            year: false,
-                            month: false,
-                            date: false,
-                            seconds: false
-                        },
-                        viewmode: 'clock',
-                        theme
-                    },
-                    stepping: o.dashboard.options.stepMinute,
-                    localization: {
-                        format: input.dataset.dateformat?.trim() || o.dashboard.options.timeFormat,
-                    }
-                };
-                const pick = new tempusDominus.TempusDominus(input, initialOptions);
-                // pick.subscribe(tempusDominus.Namespace.events.show, () => {
-                //     const theme = localStorage.getItem('theme') || 'auto';
-                //     pick.updateOptions({
-                //         debug: true
-                //     });
-                // });
-            });
-        },
         // TODO: TEST THIS OF TINYMCE
         filebrowser_callback: function (field_name, url, type, win) {
-            var filebrowserUrl = '/filebrowser/browse/?pop=2&type=' + type;
+            let filebrowserUrl = '/filebrowser/browse/?pop=2&type=' + type;
             tinymce.activeEditor.windowManager.openUrl({
                 title: 'File Browser',
                 url: filebrowserUrl,
@@ -383,12 +258,7 @@ var oscar = ((o) => {
                 });
             });
         },
-        initTooltips: () => {
-            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-            const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
-        },
         initDeleteModal: (deleteAction, replacePattern) => {
-            o.dashboard.initTooltips();
             const modal = document.querySelector(".deleteModal");
             const form = document.querySelector('.deleteModal__form');
             if (modal && form && deleteAction?.trim()) {
@@ -406,26 +276,652 @@ var oscar = ((o) => {
                 });
             }
         },
+        initTemplate: () => {
+            let horizontalMenuSplit = 5; // after this number all horizontal menus will be moved in More menu options
+
+            function pluginData () {
+                /**
+                 * Common plugins
+                 */
+                /**
+                 * Toast UI Notification
+                 */
+                let toastExamples = document.querySelectorAll("[data-toast]");
+                Array.from(toastExamples).forEach(function (element) {
+                    element.addEventListener("click", function () {
+                        let toastData = {};
+                        let isToastVal = element.attributes;
+                        if (isToastVal["data-toast-text"]) {
+                            toastData.text = isToastVal["data-toast-text"].value.toString();
+                        }
+                        if (isToastVal["data-toast-gravity"]) {
+                            toastData.gravity = isToastVal["data-toast-gravity"].value.toString();
+                        }
+                        if (isToastVal["data-toast-position"]) {
+                            toastData.position = isToastVal["data-toast-position"].value.toString();
+                        }
+                        if (isToastVal["data-toast-className"]) {
+                            toastData.className = isToastVal["data-toast-className"].value.toString();
+                        }
+                        if (isToastVal["data-toast-duration"]) {
+                            toastData.duration = isToastVal["data-toast-duration"].value.toString();
+                        }
+                        if (isToastVal["data-toast-close"]) {
+                            toastData.close = isToastVal["data-toast-close"].value.toString();
+                        }
+                        if (isToastVal["data-toast-style"]) {
+                            toastData.style = isToastVal["data-toast-style"].value.toString();
+                        }
+                        if (isToastVal["data-toast-offset"]) {
+                            toastData.offset = isToastVal["data-toast-offset"];
+                        }
+                        Toastify({
+                            newWindow: true,
+                            text: toastData.text,
+                            gravity: toastData.gravity,
+                            position: toastData.position,
+                            className: "bg-" + toastData.className,
+                            stopOnFocus: true,
+                            offset: {
+                                x: toastData.offset ? 50 : 0, // horizontal axis - can be a number or a string indicating unity. eg: '2em'
+                                y: toastData.offset ? 10 : 0, // vertical axis - can be a number or a string indicating unity. eg: '2em'
+                            },
+                            duration: toastData.duration,
+                            close: toastData.close == "close" ? true : false,
+                            style: toastData.style == "style" ? {
+                                background: "linear-gradient(to right, #0AB39C, #405189)"
+                            } : "",
+                        }).showToast();
+                    });
+                });
+
+                /**
+                 * Choices Select plugin
+                 */
+                let choicesExamples = document.querySelectorAll("[data-choices]");
+                Array.from(choicesExamples).forEach(function (item) {
+                    let choiceData = {};
+                    let isChoicesVal = item.attributes;
+                    if (isChoicesVal["data-choices-groups"]) {
+                        choiceData.placeholderValue = "This is a placeholder set in the config";
+                    }
+                    if (isChoicesVal["data-choices-search-false"]) {
+                        choiceData.searchEnabled = false;
+                    }
+                    if (isChoicesVal["data-choices-search-true"]) {
+                        choiceData.searchEnabled = true;
+                    }
+                    if (isChoicesVal["data-choices-removeItem"]) {
+                        choiceData.removeItemButton = true;
+                    }
+                    if (isChoicesVal["data-choices-sorting-false"]) {
+                        choiceData.shouldSort = false;
+                    }
+                    if (isChoicesVal["data-choices-sorting-true"]) {
+                        choiceData.shouldSort = true;
+                    }
+                    if (isChoicesVal["data-choices-multiple-remove"]) {
+                        choiceData.removeItemButton = true;
+                    }
+                    if (isChoicesVal["data-choices-limit"]) {
+                        choiceData.maxItemCount = isChoicesVal["data-choices-limit"].value.toString();
+                    }
+                    if (isChoicesVal["data-choices-limit"]) {
+                        choiceData.maxItemCount = isChoicesVal["data-choices-limit"].value.toString();
+                    }
+                    if (isChoicesVal["data-choices-editItem-true"]) {
+                        choiceData.maxItemCount = true;
+                    }
+                    if (isChoicesVal["data-choices-editItem-false"]) {
+                        choiceData.maxItemCount = false;
+                    }
+                    if (isChoicesVal["data-choices-text-unique-true"]) {
+                        choiceData.duplicateItemsAllowed = false;
+                    }
+                    if (isChoicesVal["data-choices-text-disabled-true"]) {
+                        choiceData.addItems = false;
+                    }
+                    isChoicesVal["data-choices-text-disabled-true"] ? new Choices(item, choiceData).disable() : new Choices(item, choiceData);
+                });
+
+                /**
+                 * flatpickr
+                 */
+                let flatpickrExamples = document.querySelectorAll("[data-provider]");
+                Array.from(flatpickrExamples).forEach(function (item) {
+                    if (item.getAttribute("data-provider") == "flatpickr") {
+                        let dateData = {};
+                        let isFlatpickerVal = item.attributes;
+                        if (isFlatpickerVal["data-date-format"])
+                            dateData.dateFormat = isFlatpickerVal["data-date-format"].value.toString();
+                        if (isFlatpickerVal["data-enable-time"]) {
+                            (dateData.enableTime = true),
+                                (dateData.dateFormat = isFlatpickerVal["data-date-format"].value.toString() + " H:i");
+                        }
+                        if (isFlatpickerVal["data-altFormat"]) {
+                            (dateData.altInput = true),
+                                (dateData.altFormat = isFlatpickerVal["data-altFormat"].value.toString());
+                        }
+                        if (isFlatpickerVal["data-minDate"]) {
+                            dateData.minDate = isFlatpickerVal["data-minDate"].value.toString();
+                            dateData.dateFormat = isFlatpickerVal["data-date-format"].value.toString();
+                        }
+                        if (isFlatpickerVal["data-maxDate"]) {
+                            dateData.maxDate = isFlatpickerVal["data-maxDate"].value.toString();
+                            dateData.dateFormat = isFlatpickerVal["data-date-format"].value.toString();
+                        }
+                        if (isFlatpickerVal["data-deafult-date"]) {
+                            dateData.defaultDate = isFlatpickerVal["data-deafult-date"].value.toString();
+                            dateData.dateFormat = isFlatpickerVal["data-date-format"].value.toString();
+                        }
+                        if (isFlatpickerVal["data-multiple-date"]) {
+                            dateData.mode = "multiple";
+                            dateData.dateFormat = isFlatpickerVal["data-date-format"].value.toString();
+                        }
+                        if (isFlatpickerVal["data-range-date"]) {
+                            dateData.mode = "range";
+                            dateData.dateFormat = isFlatpickerVal["data-date-format"].value.toString();
+                        }
+                        if (isFlatpickerVal["data-inline-date"]) {
+                            (dateData.inline = true),
+                                (dateData.defaultDate = isFlatpickerVal["data-deafult-date"].value.toString());
+                            dateData.dateFormat = isFlatpickerVal["data-date-format"].value.toString();
+                        }
+                        if (isFlatpickerVal["data-disable-date"]) {
+                            let dates = [];
+                            dates.push(isFlatpickerVal["data-disable-date"].value);
+                            dateData.disable = dates.toString().split(",");
+                        }
+                        if (isFlatpickerVal["data-week-number"]) {
+                            let dates = [];
+                            dates.push(isFlatpickerVal["data-week-number"].value);
+                            dateData.weekNumbers = true;
+                        }
+                        // TODO: 
+                        // flatpickr(item, dateData);
+                    } else if (item.getAttribute("data-provider") == "timepickr") {
+                        let timeData = {};
+                        let isTimepickerVal = item.attributes;
+                        if (isTimepickerVal["data-time-basic"]) {
+                            (timeData.enableTime = true),
+                                (timeData.noCalendar = true),
+                                (timeData.dateFormat = "H:i");
+                        }
+                        if (isTimepickerVal["data-time-hrs"]) {
+                            (timeData.enableTime = true),
+                                (timeData.noCalendar = true),
+                                (timeData.dateFormat = "H:i"),
+                                (timeData.time_24hr = true);
+                        }
+                        if (isTimepickerVal["data-min-time"]) {
+                            (timeData.enableTime = true),
+                                (timeData.noCalendar = true),
+                                (timeData.dateFormat = "H:i"),
+                                (timeData.minTime = isTimepickerVal["data-min-time"].value.toString());
+                        }
+                        if (isTimepickerVal["data-max-time"]) {
+                            (timeData.enableTime = true),
+                                (timeData.noCalendar = true),
+                                (timeData.dateFormat = "H:i"),
+                                (timeData.minTime = isTimepickerVal["data-max-time"].value.toString());
+                        }
+                        if (isTimepickerVal["data-default-time"]) {
+                            (timeData.enableTime = true),
+                                (timeData.noCalendar = true),
+                                (timeData.dateFormat = "H:i"),
+                                (timeData.defaultDate = isTimepickerVal["data-default-time"].value.toString());
+                        }
+                        if (isTimepickerVal["data-time-inline"]) {
+                            (timeData.enableTime = true),
+                                (timeData.noCalendar = true),
+                                (timeData.defaultDate = isTimepickerVal["data-time-inline"].value.toString());
+                            timeData.inline = true;
+                        }
+                        // TODO: 
+                        // flatpickr(item, timeData);
+                    }
+                });
+
+                // Dropdown
+                Array.from(document.querySelectorAll('.dropdown-menu a[data-bs-toggle="tab"]')).forEach(function (element) {
+                    element.addEventListener("click", function (e) {
+                        e.stopPropagation();
+                        bootstrap.Tab.getInstance(e.target).show();
+                    });
+                });
+            }
+
+            // TODO: Research how do a search bar
+            //  Search menu dropdown on Topbar
+            function isCustomDropdown () {
+                //Search bar
+                let searchOptions = document.getElementById("search-close-options");
+                let dropdown = document.getElementById("search-dropdown");
+                let searchInput = document.getElementById("search-options");
+                if (searchInput) {
+                    searchInput.addEventListener("focus", function () {
+                        let inputLength = searchInput.value.length;
+                        if (inputLength > 0) {
+                            dropdown.classList.add("show");
+                            searchOptions.classList.remove("d-none");
+                        } else {
+                            dropdown.classList.remove("show");
+                            searchOptions.classList.add("d-none");
+                        }
+                    });
+
+                    searchInput.addEventListener("keyup", function (event) {
+                        let inputLength = searchInput.value.length;
+                        if (inputLength > 0) {
+                            dropdown.classList.add("show");
+                            searchOptions.classList.remove("d-none");
+
+                            let inputVal = searchInput.value.toLowerCase();
+                            let notifyItem = document.getElementsByClassName("notify-item");
+
+                            Array.from(notifyItem).forEach(function (element) {
+                                let notifiTxt = '';
+                                if (element.querySelector("h6")) {
+                                    let spantext = element.getElementsByTagName("span")[0].innerText.toLowerCase();
+                                    let name = element.querySelector("h6").innerText.toLowerCase();
+                                    if (name.includes(inputVal)) {
+                                        notifiTxt = name;
+                                    } else {
+                                        notifiTxt = spantext;
+                                    }
+                                } else if (element.getElementsByTagName("span")) {
+                                    notifiTxt = element.getElementsByTagName("span")[0].innerText.toLowerCase();
+                                }
+
+                                if (notifiTxt) {
+                                    if (notifiTxt.includes(inputVal)) {
+                                        element.classList.add("d-block");
+                                        element.classList.remove("d-none");
+                                    } else {
+                                        element.classList.remove("d-block");
+                                        element.classList.add("d-none");
+                                    }
+                                }
+
+                                Array.from(document.getElementsByClassName("notification-group-list")).forEach(function (element) {
+                                    if (element.querySelectorAll(".notify-item.d-block").length == 0) {
+                                        element.querySelector(".notification-title").style.display = 'none';
+                                    } else {
+                                        element.querySelector(".notification-title").style.display = 'block';
+                                    }
+                                });
+                            });
+                        } else {
+                            dropdown.classList.remove("show");
+                            searchOptions.classList.add("d-none");
+                        }
+                    });
+
+                    searchOptions.addEventListener("click", function () {
+                        searchInput.value = "";
+                        dropdown.classList.remove("show");
+                        searchOptions.classList.add("d-none");
+                    });
+
+                    document.body.addEventListener("click", function (e) {
+                        if (e.target.getAttribute("id") !== "search-options") {
+                            dropdown.classList.remove("show");
+                            searchOptions.classList.add("d-none");
+                        }
+                    });
+                }
+            }
+
+
+            function initLeftMenuCollapse () {
+                /**
+                 * Vertical layout menu scroll add
+                 */
+                if (document.documentElement.getAttribute("data-layout") == "vertical") {
+                    document.getElementById("scrollbar").setAttribute("data-simplebar", "");
+                    document.getElementById("navbar-nav").setAttribute("data-simplebar", "");
+                    document.getElementById("scrollbar").classList.add("h-100");
+                }
+
+                /**
+                 * Horizontal layout menu
+                 */
+                if (document.documentElement.getAttribute("data-layout") == "horizontal") {
+                    updateHorizontalMenus();
+                }
+            }
+
+            function isLoadBodyElement () {
+                let verticalOverlay = document.getElementsByClassName("vertical-overlay");
+                if (verticalOverlay) {
+                    Array.from(verticalOverlay).forEach(function (element) {
+                        element.addEventListener("click", function () {
+                            document.body.classList.remove("vertical-sidebar-enable");
+                            document.documentElement.setAttribute("data-sidebar-size", sessionStorage.getItem("data-sidebar-size"));
+                        });
+                    });
+                }
+            }
+
+            function windowResizeHover () {
+                let windowSize = document.documentElement.clientWidth;
+                if (windowSize < 1025 && windowSize > 767) {
+                    if (sessionStorage.getItem("data-layout") == "vertical") {
+                        document.documentElement.setAttribute("data-sidebar-size", "sm");
+                    }
+                    if (document.querySelector(".hamburger-icon")) {
+                        document.querySelector(".hamburger-icon").classList.add("open");
+                    }
+                } else if (windowSize >= 1025) {
+                    if (sessionStorage.getItem("data-layout") == "vertical") {
+                        document.documentElement.setAttribute(
+                            "data-sidebar-size",
+                            sessionStorage.getItem("data-sidebar-size")
+                        );
+                    }
+                    if (document.querySelector(".hamburger-icon")) {
+                        document.querySelector(".hamburger-icon").classList.remove("open");
+                    }
+                } else if (windowSize <= 767) {
+                    document.body.classList.remove("vertical-sidebar-enable");
+                    if (sessionStorage.getItem("data-layout") != "horizontal") {
+                        document.documentElement.setAttribute("data-sidebar-size", "lg");
+                    }
+                    if (document.querySelector(".hamburger-icon")) {
+                        document.querySelector(".hamburger-icon").classList.add("open");
+                    }
+                }
+            }
+
+
+
+            function toggleHamburgerMenu () {
+                let windowSize = document.documentElement.clientWidth;
+
+                if (windowSize > 767)
+                    document.querySelector(".hamburger-icon").classList.toggle("open");
+
+                //For collapse horizontal menu
+                if (document.documentElement.getAttribute("data-layout") === "horizontal") {
+                    document.body.classList.contains("menu") ? document.body.classList.remove("menu") : document.body.classList.add("menu");
+                }
+
+                //For collapse vertical menu
+                if (document.documentElement.getAttribute("data-layout") === "vertical") {
+                    if (windowSize < 1025 && windowSize > 767) {
+                        document.body.classList.remove("vertical-sidebar-enable");
+                        document.documentElement.getAttribute("data-sidebar-size") == "sm" ?
+                            document.documentElement.setAttribute("data-sidebar-size", "") :
+                            document.documentElement.setAttribute("data-sidebar-size", "sm");
+                    } else if (windowSize > 1025) {
+                        document.body.classList.remove("vertical-sidebar-enable");
+                        document.documentElement.getAttribute("data-sidebar-size") == "lg" ?
+                            document.documentElement.setAttribute("data-sidebar-size", "sm") :
+                            document.documentElement.setAttribute("data-sidebar-size", "lg");
+                    } else if (windowSize <= 767) {
+                        document.body.classList.add("vertical-sidebar-enable");
+                        document.documentElement.setAttribute("data-sidebar-size", "lg");
+                    }
+                }
+            }
+
+            function windowLoadContent () {
+                window.addEventListener("resize", windowResizeHover);
+                windowResizeHover();
+
+                window.addEventListener("load", function () {
+                    initActiveMenu();
+                    isLoadBodyElement();
+                });
+                if (document.getElementById("topnav-hamburger-icon")) {
+                    document.getElementById("topnav-hamburger-icon").addEventListener("click", toggleHamburgerMenu);
+                }
+            }
+
+            // two-column sidebar active js
+            function initActiveMenu () {
+                // debugger;
+                let currentPath = location.pathname;
+                // currentPath = currentPath.substring(currentPath.lastIndexOf("/") + 1);
+                if (currentPath) {
+                    // navbar-nav
+                    let a = document.getElementById("navbar-nav").querySelector('[href="' + currentPath + '"]');
+                    if (a) {
+                        a.classList.add("active");
+                        let parentCollapseDiv = a.closest(".collapse.menu-dropdown");
+                        if (parentCollapseDiv) {
+                            parentCollapseDiv.classList.add("show");
+                            parentCollapseDiv.parentElement.children[0].classList.add("active");
+                            parentCollapseDiv.parentElement.children[0].setAttribute("aria-expanded", "true");
+                            if (parentCollapseDiv.parentElement.closest(".collapse.menu-dropdown")) {
+                                parentCollapseDiv.parentElement.closest(".collapse").classList.add("show");
+                                if (parentCollapseDiv.parentElement.closest(".collapse").previousElementSibling)
+                                    parentCollapseDiv.parentElement.closest(".collapse").previousElementSibling.classList.add("active");
+
+                                if (parentCollapseDiv.parentElement.parentElement.parentElement.parentElement.closest(".collapse.menu-dropdown")) {
+                                    parentCollapseDiv.parentElement.parentElement.parentElement.parentElement.closest(".collapse").classList.add("show");
+                                    if (parentCollapseDiv.parentElement.parentElement.parentElement.parentElement.closest(".collapse").previousElementSibling) {
+
+                                        parentCollapseDiv.parentElement.parentElement.parentElement.parentElement.closest(".collapse").previousElementSibling.classList.add("active");
+                                        if ((document.documentElement.getAttribute("data-layout") == "horizontal") && parentCollapseDiv.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.closest(".collapse")) {
+                                            parentCollapseDiv.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.closest(".collapse").previousElementSibling.classList.add("active");
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            function elementInViewport (el) {
+                if (el) {
+                    let top = el.offsetTop;
+                    let left = el.offsetLeft;
+                    let width = el.offsetWidth;
+                    let height = el.offsetHeight;
+
+                    if (el.offsetParent) {
+                        while (el.offsetParent) {
+                            el = el.offsetParent;
+                            top += el.offsetTop;
+                            left += el.offsetLeft;
+                        }
+                    }
+                    return (
+                        top >= window.pageYOffset &&
+                        left >= window.pageXOffset &&
+                        top + height <= window.pageYOffset + window.innerHeight &&
+                        left + width <= window.pageXOffset + window.innerWidth
+                    );
+                }
+            }
+
+            function initComponents () {
+                // tooltip
+                let tooltipTriggerList = [].slice.call(
+                    document.querySelectorAll('[data-bs-toggle="tooltip"]')
+                );
+                tooltipTriggerList.map(function (tooltipTriggerEl) {
+                    return new bootstrap.Tooltip(tooltipTriggerEl);
+                });
+
+                // popover
+                let popoverTriggerList = [].slice.call(
+                    document.querySelectorAll('[data-bs-toggle="popover"]')
+                );
+                popoverTriggerList.map(function (popoverTriggerEl) {
+                    return new bootstrap.Popover(popoverTriggerEl);
+                });
+            }
+
+            // Counter Number
+            function counter () {
+                let counter = document.querySelectorAll(".counter-value");
+                let speed = 250; // The lower the slower
+                counter &&
+                    Array.from(counter).forEach(function (counter_value) {
+                        function updateCount () {
+                            let target = +counter_value.getAttribute("data-target");
+                            let count = +counter_value.innerText;
+                            let inc = target / speed;
+                            if (inc < 1) {
+                                inc = 1;
+                            }
+                            // Check if target is reached
+                            if (count < target) {
+                                // Add inc to count and output in counter_value
+                                counter_value.innerText = (count + inc).toFixed(0);
+                                // Call function every ms
+                                setTimeout(updateCount, 1);
+                            } else {
+                                counter_value.innerText = numberWithCommas(target);
+                            }
+                            numberWithCommas(counter_value.innerText);
+                        }
+                        updateCount();
+                    });
+
+                function numberWithCommas (x) {
+                    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                }
+            }
+
+            function updateHorizontalMenus () {
+                document.getElementById("scrollbar").classList.remove("h-100");
+
+                let splitMenu = horizontalMenuSplit;
+                let extraMenuName = "More";
+                let menuData = document.querySelectorAll("ul.navbar-nav > li.nav-item");
+                let newMenus = "";
+                let splitItem = "";
+
+                Array.from(menuData).forEach(function (item, index) {
+                    if (index + 1 === splitMenu) {
+                        splitItem = item;
+                    }
+                    if (index + 1 > splitMenu) {
+                        newMenus += item.outerHTML;
+                        item.remove();
+                    }
+
+                    if (index + 1 === menuData.length) {
+                        if (splitItem.insertAdjacentHTML) {
+                            splitItem.insertAdjacentHTML(
+                                "afterend",
+                                '<li class="nav-item">\
+						<a class="nav-link" href="#sidebarMore" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarMore">\
+							<i class="ri-briefcase-2-line"></i> <span data-key="t-more">' + extraMenuName + '</span>\
+						</a>\
+						<div class="collapse menu-dropdown" id="sidebarMore"><ul class="nav nav-sm flex-column">' + newMenus + "</ul></div>\
+					</li>");
+                        }
+                    }
+                });
+            }
+
+            function initFullScreen () {
+                let fullscreenBtn = document.querySelector('[data-toggle="fullscreen"]');
+                fullscreenBtn &&
+                    fullscreenBtn.addEventListener("click", function (e) {
+                        e.preventDefault();
+                        document.body.classList.toggle("fullscreen-enable");
+                        if (!document.fullscreenElement &&
+                            /* alternative standard method */
+                            !document.mozFullScreenElement &&
+                            !document.webkitFullscreenElement
+                        ) {
+                            // current working methods
+                            if (document.documentElement.requestFullscreen) {
+                                document.documentElement.requestFullscreen();
+                            } else if (document.documentElement.mozRequestFullScreen) {
+                                document.documentElement.mozRequestFullScreen();
+                            } else if (document.documentElement.webkitRequestFullscreen) {
+                                document.documentElement.webkitRequestFullscreen(
+                                    Element.ALLOW_KEYBOARD_INPUT
+                                );
+                            }
+                        } else {
+                            if (document.cancelFullScreen) {
+                                document.cancelFullScreen();
+                            } else if (document.mozCancelFullScreen) {
+                                document.mozCancelFullScreen();
+                            } else if (document.webkitCancelFullScreen) {
+                                document.webkitCancelFullScreen();
+                            }
+                        }
+                    });
+
+                document.addEventListener("fullscreenchange", exitHandler);
+                document.addEventListener("webkitfullscreenchange", exitHandler);
+                document.addEventListener("mozfullscreenchange", exitHandler);
+
+                function exitHandler () {
+                    if (!document.webkitIsFullScreen && !document.mozFullScreen && !document.msFullscreenElement) {
+                        document.body.classList.remove("fullscreen-enable");
+                    }
+                }
+            }
+
+            const initScrollToTop = () => {
+                //
+                /********************* scroll top js ************************/
+                //
+                let mybutton = document.getElementById("back-to-topback-to-top");
+
+                if (mybutton) {
+                    // When the user scrolls down 20px from the top of the document, show the button
+                    window.onscroll = function () {
+                        scrollFunction();
+                    };
+
+                    function scrollFunction () {
+                        if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                            mybutton.style.display = "block";
+                        } else {
+                            mybutton.style.display = "none";
+                        }
+                    }
+
+                    mybutton.addEventListener('click', () => {
+                        document.body.scrollTop = 0;
+                        document.documentElement.scrollTop = 0;
+                    });
+                }
+            };
+
+            function init () {
+                isCustomDropdown();
+                initFullScreen();
+                windowLoadContent();
+                counter();
+                initLeftMenuCollapse();
+                initComponents();
+                pluginData();
+                initScrollToTop();
+            }
+            init();
+        },
         index: {
             init: () => {
                 // get colors array from the string
                 function getChartColorsArray (chartId) {
                     if (document.getElementById(chartId) !== null) {
-                        var colors = document.getElementById(chartId).getAttribute("data-colors");
+                        let colors = document.getElementById(chartId).getAttribute("data-colors");
                         if (colors) {
                             colors = JSON.parse(colors);
                             return colors.map(function (value) {
-                                var newValue = value.replace(" ", "");
+                                let newValue = value.replace(" ", "");
                                 if (newValue.indexOf(",") === -1) {
-                                    var color = getComputedStyle(document.documentElement).getPropertyValue(
+                                    let color = getComputedStyle(document.documentElement).getPropertyValue(
                                         newValue
                                     );
                                     if (color) return color;
                                     else return newValue;
                                 } else {
-                                    var val = value.split(",");
+                                    let val = value.split(",");
                                     if (val.length == 2) {
-                                        var rgbaColor = getComputedStyle(
+                                        let rgbaColor = getComputedStyle(
                                             document.documentElement
                                         ).getPropertyValue(val[0]);
                                         rgbaColor = "rgba(" + rgbaColor + "," + val[1] + ")";
@@ -441,9 +937,9 @@ var oscar = ((o) => {
                     }
                 }
 
-                var linechartcustomerColors = getChartColorsArray("customer_impression_charts");
+                let linechartcustomerColors = getChartColorsArray("customer_impression_charts");
                 if (linechartcustomerColors) {
-                    var options = {
+                    let options = {
                         series: [{
                             name: "Orders",
                             type: "area",
@@ -578,7 +1074,7 @@ var oscar = ((o) => {
                             ],
                         },
                     };
-                    var chart = new ApexCharts(
+                    let chart = new ApexCharts(
                         document.querySelector("#customer_impression_charts"),
                         options
                     );
@@ -586,9 +1082,9 @@ var oscar = ((o) => {
                 }
 
                 // Simple Donut Charts
-                var chartDonutBasicColors = getChartColorsArray("#store-visits-source");
+                let chartDonutBasicColors = getChartColorsArray("#store-visits-source");
                 if (chartDonutBasicColors) {
-                    var options = {
+                    let options = {
                         series: [44, 55, 41, 17, 15],
                         labels: ["Direct", "Social", "Email", "Other", "Referrals"],
                         chart: {
@@ -609,14 +1105,14 @@ var oscar = ((o) => {
                         colors: chartDonutBasicColors,
                     };
 
-                    var chart = new ApexCharts(
+                    let chart = new ApexCharts(
                         document.querySelector("#store-visits-source"),
                         options
                     );
                     chart.render();
                 }
 
-                var swiper = new Swiper(".selling-product", {
+                let swiper = new Swiper(".selling-product", {
                     slidesPerView: "auto",
                     spaceBetween: 15,
                     pagination: {
@@ -630,12 +1126,12 @@ var oscar = ((o) => {
                 });
 
                 function currentTime () {
-                    var ampm = new Date().getHours() >= 12 ? "pm" : "am";
-                    var hour =
+                    let ampm = new Date().getHours() >= 12 ? "pm" : "am";
+                    let hour =
                         new Date().getHours() > 12 ?
                             new Date().getHours() % 12 :
                             new Date().getHours();
-                    var minute =
+                    let minute =
                         new Date().getMinutes() < 10 ?
                             "0" + new Date().getMinutes() :
                             new Date().getMinutes();
@@ -1187,7 +1683,6 @@ var oscar = ((o) => {
             }
         },
         initWidgets: function (el) {
-            o.dashboard.initDatePickers(el);
             o.dashboard.initMasks(el);
             o.dashboard.initProductImages(el);
         },

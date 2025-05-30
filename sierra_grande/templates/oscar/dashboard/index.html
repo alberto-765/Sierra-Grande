@@ -1465,13 +1465,11 @@
 {% endblock dashboard_content %}
 {% block extrascripts %}
   {{ block.super }}
-  <script src="{% static "js/dashboard/inputmask.min.js" %}" defer></script>
   <script src="{% static "libs/apexcharts/apexcharts.min.js" %}" defer></script>
   <script src="{% static "libs/jsvectormap/jsvectormap.min.js" %}" defer></script>
   <script src="{% static "libs/jsvectormap/maps/world-merc.js" %}" defer></script>
   <script src="{% static "libs/simplebar/simplebar.min.js" %}" defer></script>
   <script src="{% static "libs/swiper/swiper-bundle.min.js" %}" defer></script>
-  <script src="{% static "js/app.js" %}" defer></script>
 {% endblock extrascripts %}
 {% block onbodyload %}
   {{ block.super }}

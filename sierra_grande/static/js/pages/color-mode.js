@@ -54,7 +54,6 @@
             return;
         }
 
-        const themeSwitcherText = document.querySelector('#bd-theme-text');
         const activeThemeIcon = document.querySelector('.theme-icon-active');
         const btnToActive = document.querySelector(`[data-bs-theme-value="${ theme }"]`);
         const iconActiveBtn = btnToActive.querySelector('.btn__icon').dataset.icon;
@@ -71,8 +70,6 @@
         btnToActive.setAttribute('aria-pressed', 'true');
         activeThemeIcon.classList = `bi ${ iconActiveBtn } theme-icon-active align-middle fs-20`;
         btnToActive.querySelector('.btn__check')?.classList.remove('d-none');
-        const themeSwitcherLabel = `${ themeSwitcherText.textContent } (${ theme })`;
-        themeSwitcher.setAttribute('aria-label', themeSwitcherLabel);
 
         if (focus) {
             themeSwitcher.focus();

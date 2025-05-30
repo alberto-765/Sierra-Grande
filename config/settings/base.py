@@ -432,12 +432,13 @@ HAYSTACK_CONNECTIONS = {
 OSCAR_DASHBOARD_NAVIGATION = [
     {
         "label": _("Dashboard"),
-        "icon": "fluent:list-16-regular",
+        "icon": "bi-speedometer2",
         "url_name": "dashboard:index",
     },
     {
         "label": _("Catalogue"),
-        "icon": "fa-solid:sitemap",
+        "icon": "bi-box-seam",
+        "id_href": "sidebarCatalogue",
         "children": [
             {
                 "label": _("Products"),
@@ -446,14 +447,6 @@ OSCAR_DASHBOARD_NAVIGATION = [
             {
                 "label": _("Product Types"),
                 "url_name": "dashboard:catalogue-class-list",
-            },
-            {
-                "label": _("Categories"),
-                "url_name": "dashboard:catalogue-category-list",
-            },
-            {
-                "label": _("Ranges"),
-                "url_name": "dashboard:range-list",
             },
             {
                 "label": _("Low stock alerts"),
@@ -470,85 +463,114 @@ OSCAR_DASHBOARD_NAVIGATION = [
         ],
     },
     {
-        "label": _("Fulfilment"),
-        "icon": "fa-solid:shopping-cart",
+        "label": _("Orders"),
+        "icon": "bi-tag",
+        "id_href": "sidebarOrders",
         "children": [
             {
-                "label": _("Orders"),
+                "label": _("Orders List"),
                 "url_name": "dashboard:order-list",
             },
             {
-                "label": _("Statistics"),
-                "url_name": "dashboard:order-stats",
+                "label": _("Shipments (TODO)"),
+                "url_name": "dashboard:order-list",
             },
-            {
-                "label": _("Partners"),
-                "url_name": "dashboard:partner-list",
-            },
-            # The shipping method dashboard is disabled by default as it might
-            # be confusing. Weight-based shipping methods aren't hooked into
-            # the shipping repository by default (as it would make
-            # customising the repository slightly more difficult).
-            # {
-            #     'label': _('Shipping charges'),
-            #     'url_name': 'dashboard:shipping-method-list',
-            # },
         ],
     },
     {
-        "label": _("Customers"),
-        "icon": "fa-solid:users",
-        "children": [
-            {
-                "label": _("Customers"),
-                "url_name": "dashboard:users-index",
-            },
-            {
-                "label": _("Stock alert requests"),
-                "url_name": "dashboard:user-alert-list",
-            },
-        ],
+        "label": _("Invoices (TODO)"),
+        "icon": "bi-archive",
+        "url_name": "dashboard:index",
     },
     {
         "label": _("Offers"),
-        "icon": "fa-solid:bullhorn",
+        "icon": "bi-tag",
+        "id_href": "sidebarOffers",
         "children": [
             {
-                "label": _("Offers"),
+                "label": _("Offers List"),
                 "url_name": "dashboard:offer-list",
             },
             {
-                "label": _("Vouchers"),
+                "label": _("Coupons"),
                 "url_name": "dashboard:voucher-list",
             },
             {
-                "label": _("Voucher Sets"),
+                "label": _("Coupons Sets"),
                 "url_name": "dashboard:voucher-set-list",
+            },
+            {
+                "label": _("Ranges"),
+                "url_name": "dashboard:range-list",
             },
         ],
     },
     {
-        "label": _("Content"),
-        "icon": "fa-solid:folder",
+        "label": _("Users"),
+        "icon": "bi-person-bounding-box",
+        "id_href": "sidebarUsers",
+        "children": [
+            {
+                "label": _("Users List"),
+                "url_name": "dashboard:users-index",
+            },
+            {
+                "label": _("Stock Alert Requests"),
+                "url_name": "dashboard:user-alert-list",
+            },
+            {
+                "label": _("Reviews & Ratings"),
+                "url_name": "dashboard:reviews-list",
+            },
+        ],
+    },
+    {
+        "label": _("Shop Content"),
+        "icon": "bi-folder-fill",
+        "id_href": "sidebarShopContent",
         "children": [
             {
                 "label": _("Pages"),
                 "url_name": "dashboard:page-list",
             },
             {
-                "label": _("Email templates"),
+                "label": _("Email Templates"),
                 "url_name": "dashboard:comms-list",
             },
             {
-                "label": _("Reviews"),
-                "url_name": "dashboard:reviews-list",
+                "label": _("Store Navigation Menu"),
+                "url_name": "dashboard:catalogue-category-list",
             },
         ],
     },
     {
+        "label": _("Partners"),
+        "url_name": "dashboard:partner-list",
+        "icon": "bi-shop-window",
+    },
+    {
         "label": _("Reports"),
-        "icon": "mdi:report-areaspline",
+        "icon": "bi-file-earmark-richtext",
         "url_name": "dashboard:reports-index",
+    },
+    {
+        "label": _("Extra"),
+        "icon": "",
+        "id_href": "sidebarExtra",
+        "children": [
+            {
+                "label": _("Statistics"),
+                "url_name": "dashboard:order-stats",
+            },
+            # The shipping method dashboard is disabled by default as it might
+            # be confusing. Weight-based shipping methods aren't hooked into
+            # the shipping repository by default (as it would make
+            # customising the repository slightly more difficult).
+            {
+                "label": _("Shipping charges"),
+                "url_name": "dashboard:shipping-method-list",
+            },
+        ],
     },
 ]
 OSCAR_SHOP_NAME = "Sierra Grande"

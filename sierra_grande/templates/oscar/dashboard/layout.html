@@ -9,47 +9,56 @@
   {% translate "Dashboard" %} | {{ block.super }}
 {% endblock title %}
 {% block layout %}
-  {% block top_tagbar %}
-    {% include "oscar/dashboard/partials/top_tagbar.html" %}
-  {% endblock top_tagbar %}
-  {% block sidebar %}
-    {% include "oscar/dashboard/partials/sidebar.html" %}
-  {% endblock sidebar %}
-  <!-- Vertical Overlay-->
-  <div class="vertical-overlay"></div>
-  <div class="vstack">
+  <div class="layout-wrapper">
+    {% block top_tagbar %}
+      {% include "oscar/dashboard/partials/top_tagbar.html" %}
+    {% endblock top_tagbar %}
+
     {% block topbar %}
       {% include "oscar/dashboard/partials/topbar.html" %}
     {% endblock topbar %}
+
+    {% block sidebar %}
+      {% include "oscar/dashboard/partials/sidebar.html" %}
+    {% endblock sidebar %}
+
+    <!-- Vertical Overlay-->
+    <div class="vertical-overlay"></div>
+
     {% block main %}
-      <div class="container-fluid">
-        {% block breadcrumbs %}
-          <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item active" aria-current="page">
-                <a href="{% url "dashboard:index" %}">{% translate "Dashboard" %}</a>
-              </li>
-            </ol>
-          </nav>
-        {% endblock breadcrumbs %}
-        <div class="vstack row-gap-4">
-          {% include "oscar/dashboard/partials/alert_messages.html" %}
-          {% block main_header %}
-            <h2 class="mb-0">
-              {% block main_header_content %}
-              {% endblock main_header_content %}
-            </h2>
-          {% endblock main_header %}
-          {% block content %}
-            {% block dashboard_content %}
-            {% endblock dashboard_content %}
-          {% endblock content %}
+      <div class="main-content">
+        <div class="page-content">
+          <div class="container-fluid">
+            {% include "oscar/dashboard/partials/alert_messages.html" %}
+            <div class="row">
+              <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                  {% block main_header %}
+                    <h4 class="mb-sm-0">
+                      {% block main_header_content %}
+                      {% endblock main_header_content %}
+                    </h4>
+                  {% endblock main_header %}
+                  {% block breadcrumbs %}
+                    <nav aria-label="breadcrumb">
+                      <ol class="breadcrumb">
+                        <li class="breadcrumb-item active" aria-current="page">
+                          <a href="{% url "dashboard:index" %}">{% translate "Dashboard" %}</a>
+                        </li>
+                      </ol>
+                    </nav>
+                  {% endblock breadcrumbs %}
+                </div>
+              </div>
+            </div>
+            {% block content %}
+              {% block dashboard_content %}
+              {% endblock dashboard_content %}
+            {% endblock content %}
+          </div>
         </div>
       </div>
     {% endblock main %}
-    {% block footer %}
-      {% include "oscar/dashboard/partials/footer.html" %}
-    {% endblock footer %}
   </div>
 {% endblock layout %}
 {% block extrascripts %}

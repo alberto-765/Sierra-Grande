@@ -24,14 +24,14 @@ $black: #000;
 // fusv-disable
 // scss-docs-start gray-colors-map
 $grays: ("100": $gray-100,
-        "200": $gray-200,
-        "300": $gray-300,
-        "400": $gray-400,
-        "500": $gray-500,
-        "600": $gray-600,
-        "700": $gray-700,
-        "800": $gray-800,
-        "900": $gray-900);
+                "200": $gray-200,
+                "300": $gray-300,
+                "400": $gray-400,
+                "500": $gray-500,
+                "600": $gray-600,
+                "700": $gray-700,
+                "800": $gray-800,
+                "900": $gray-900);
 // scss-docs-end gray-colors-map
 // fusv-enable
 
@@ -50,19 +50,19 @@ $cyan: #1ea6d3;
 
 // scss-docs-start colors-map
 $colors: ("blue": $blue,
-        "indigo": $indigo,
-        "purple": $purple,
-        "pink": $pink,
-        "red": $red,
-        "orange": $orange,
-        "yellow": $yellow,
-        "green": $green,
-        "teal": $teal,
-        "cyan": $cyan,
-        "black": $black,
-        "white": $white,
-        "gray": $gray-600,
-        "gray-dark": $gray-800);
+                "indigo": $indigo,
+                "purple": $purple,
+                "pink": $pink,
+                "red": $red,
+                "orange": $orange,
+                "yellow": $yellow,
+                "green": $green,
+                "teal": $teal,
+                "cyan": $cyan,
+                "black": $black,
+                "white": $white,
+                "gray": $gray-600,
+                "gray-dark": $gray-800);
 // scss-docs-end colors-map
 
 // The contrast ratio to reach against white, to determine if color changes from "light" to "dark". Acceptable values for WCAG 2.0 are 3, 4.5 and 7.
@@ -175,104 +175,104 @@ $cyan-800: shade-color($cyan, 60%);
 $cyan-900: shade-color($cyan, 80%);
 
 $blues: ("blue-100": $blue-100,
-        "blue-200": $blue-200,
-        "blue-300": $blue-300,
-        "blue-400": $blue-400,
-        "blue-500": $blue-500,
-        "blue-600": $blue-600,
-        "blue-700": $blue-700,
-        "blue-800": $blue-800,
-        "blue-900": $blue-900);
+                "blue-200": $blue-200,
+                "blue-300": $blue-300,
+                "blue-400": $blue-400,
+                "blue-500": $blue-500,
+                "blue-600": $blue-600,
+                "blue-700": $blue-700,
+                "blue-800": $blue-800,
+                "blue-900": $blue-900);
 
 $indigos: ("indigo-100": $indigo-100,
-        "indigo-200": $indigo-200,
-        "indigo-300": $indigo-300,
-        "indigo-400": $indigo-400,
-        "indigo-500": $indigo-500,
-        "indigo-600": $indigo-600,
-        "indigo-700": $indigo-700,
-        "indigo-800": $indigo-800,
-        "indigo-900": $indigo-900);
+                "indigo-200": $indigo-200,
+                "indigo-300": $indigo-300,
+                "indigo-400": $indigo-400,
+                "indigo-500": $indigo-500,
+                "indigo-600": $indigo-600,
+                "indigo-700": $indigo-700,
+                "indigo-800": $indigo-800,
+                "indigo-900": $indigo-900);
 
 $purples: ("purple-100": $purple-100,
-        "purple-200": $purple-200,
-        "purple-300": $purple-300,
-        "purple-400": $purple-400,
-        "purple-500": $purple-500,
-        "purple-600": $purple-600,
-        "purple-700": $purple-700,
-        "purple-800": $purple-800,
-        "purple-900": $purple-900);
+                "purple-200": $purple-200,
+                "purple-300": $purple-300,
+                "purple-400": $purple-400,
+                "purple-500": $purple-500,
+                "purple-600": $purple-600,
+                "purple-700": $purple-700,
+                "purple-800": $purple-800,
+                "purple-900": $purple-900);
 
 $pinks: ("pink-100": $pink-100,
-        "pink-200": $pink-200,
-        "pink-300": $pink-300,
-        "pink-400": $pink-400,
-        "pink-500": $pink-500,
-        "pink-600": $pink-600,
-        "pink-700": $pink-700,
-        "pink-800": $pink-800,
-        "pink-900": $pink-900);
+                "pink-200": $pink-200,
+                "pink-300": $pink-300,
+                "pink-400": $pink-400,
+                "pink-500": $pink-500,
+                "pink-600": $pink-600,
+                "pink-700": $pink-700,
+                "pink-800": $pink-800,
+                "pink-900": $pink-900);
 
 $reds: ("red-100": $red-100,
-        "red-200": $red-200,
-        "red-300": $red-300,
-        "red-400": $red-400,
-        "red-500": $red-500,
-        "red-600": $red-600,
-        "red-700": $red-700,
-        "red-800": $red-800,
-        "red-900": $red-900);
+                "red-200": $red-200,
+                "red-300": $red-300,
+                "red-400": $red-400,
+                "red-500": $red-500,
+                "red-600": $red-600,
+                "red-700": $red-700,
+                "red-800": $red-800,
+                "red-900": $red-900);
 
 $oranges: ("orange-100": $orange-100,
-        "orange-200": $orange-200,
-        "orange-300": $orange-300,
-        "orange-400": $orange-400,
-        "orange-500": $orange-500,
-        "orange-600": $orange-600,
-        "orange-700": $orange-700,
-        "orange-800": $orange-800,
-        "orange-900": $orange-900);
+                "orange-200": $orange-200,
+                "orange-300": $orange-300,
+                "orange-400": $orange-400,
+                "orange-500": $orange-500,
+                "orange-600": $orange-600,
+                "orange-700": $orange-700,
+                "orange-800": $orange-800,
+                "orange-900": $orange-900);
 
 $yellows: ("yellow-100": $yellow-100,
-        "yellow-200": $yellow-200,
-        "yellow-300": $yellow-300,
-        "yellow-400": $yellow-400,
-        "yellow-500": $yellow-500,
-        "yellow-600": $yellow-600,
-        "yellow-700": $yellow-700,
-        "yellow-800": $yellow-800,
-        "yellow-900": $yellow-900);
+                "yellow-200": $yellow-200,
+                "yellow-300": $yellow-300,
+                "yellow-400": $yellow-400,
+                "yellow-500": $yellow-500,
+                "yellow-600": $yellow-600,
+                "yellow-700": $yellow-700,
+                "yellow-800": $yellow-800,
+                "yellow-900": $yellow-900);
 
 $greens: ("green-100": $green-100,
-        "green-200": $green-200,
-        "green-300": $green-300,
-        "green-400": $green-400,
-        "green-500": $green-500,
-        "green-600": $green-600,
-        "green-700": $green-700,
-        "green-800": $green-800,
-        "green-900": $green-900);
+                "green-200": $green-200,
+                "green-300": $green-300,
+                "green-400": $green-400,
+                "green-500": $green-500,
+                "green-600": $green-600,
+                "green-700": $green-700,
+                "green-800": $green-800,
+                "green-900": $green-900);
 
 $teals: ("teal-100": $teal-100,
-        "teal-200": $teal-200,
-        "teal-300": $teal-300,
-        "teal-400": $teal-400,
-        "teal-500": $teal-500,
-        "teal-600": $teal-600,
-        "teal-700": $teal-700,
-        "teal-800": $teal-800,
-        "teal-900": $teal-900);
+                "teal-200": $teal-200,
+                "teal-300": $teal-300,
+                "teal-400": $teal-400,
+                "teal-500": $teal-500,
+                "teal-600": $teal-600,
+                "teal-700": $teal-700,
+                "teal-800": $teal-800,
+                "teal-900": $teal-900);
 
 $cyans: ("cyan-100": $cyan-100,
-        "cyan-200": $cyan-200,
-        "cyan-300": $cyan-300,
-        "cyan-400": $cyan-400,
-        "cyan-500": $cyan-500,
-        "cyan-600": $cyan-600,
-        "cyan-700": $cyan-700,
-        "cyan-800": $cyan-800,
-        "cyan-900": $cyan-900);
+                "cyan-200": $cyan-200,
+                "cyan-300": $cyan-300,
+                "cyan-400": $cyan-400,
+                "cyan-500": $cyan-500,
+                "cyan-600": $cyan-600,
+                "cyan-700": $cyan-700,
+                "cyan-800": $cyan-800,
+                "cyan-900": $cyan-900);
 // fusv-enable
 
 // scss-docs-start theme-color-variables
@@ -298,7 +298,9 @@ $font-family-secondary: 'Lobster Two', cursive;
 $vertical-menu-width: 250px;
 $vertical-menu-width-md: 180px;
 $vertical-menu-width-sm: 70px;
-
+// $vertical-menu-width: @extend .col-3;
+// $vertical-menu-width-md: @extend .col-2;
+// $vertical-menu-width-sm: @extend .col-1;
 // vertical Menu
 $vertical-menu-bg: var(--#{$prefix}vertical-menu-bg);
 $vertical-menu-box-shadow: 0 2px 4px rgba(15, 34, 58, 0.12);
@@ -373,13 +375,13 @@ $auth-bg-cover: linear-gradient(to left, $primary, darken($primary, 10%));
 
 // scss-docs-start theme-colors-map
 $theme-colors: ("primary": $primary,
-        "secondary": $secondary,
-        "success": $success,
-        "info": $info,
-        "warning": $warning,
-        "danger": $danger,
-        "light": $light,
-        "dark": $dark);
+                "secondary": $secondary,
+                "success": $success,
+                "info": $info,
+                "warning": $warning,
+                "danger": $danger,
+                "light": $light,
+                "dark": $dark);
 // scss-docs-end theme-colors-map
 
 // scss-docs-start theme-text-variables
@@ -417,11 +419,11 @@ $dark-border-subtle: $gray-500;
 
 // Characters which are escaped by the escape-svg function
 $escaped-characters: (("<", "%3c"),
-        (">", "%3e"),
-        ("#", "%23"),
-        ("(", "%28"),
-        (")", "%29"),
-    );
+                (">", "%3e"),
+                ("#", "%23"),
+                ("(", "%28"),
+                (")", "%29"),
+        );
 
 // Options
 //
@@ -465,12 +467,12 @@ $gradient: linear-gradient(180deg, rgba($white, .15), rgba($white, 0));
 // scss-docs-start spacer-variables-maps
 $spacer: 1rem;
 $spacers: (0: 0,
-        1: $spacer * .25,
-        2: $spacer * .5,
-        3: $spacer,
-        4: $spacer * 1.5,
-        5: $spacer * 3,
-    );
+                1: $spacer * .25,
+                2: $spacer * .5,
+                3: $spacer,
+                4: $spacer * 1.5,
+                5: $spacer * 3,
+        );
 
 $negative-spacers: if($enable-negative-margins, negativify-map($spacers), null);
 // scss-docs-end spacer-variables-maps
@@ -481,8 +483,8 @@ $negative-spacers: if($enable-negative-margins, negativify-map($spacers), null);
 
 // scss-docs-start position-map
 $position-values: (0: 0,
-        50: 50%,
-        100: 100%);
+                50: 50%,
+                100: 100%);
 // scss-docs-end position-map
 
 // Body
@@ -539,11 +541,11 @@ $paragraph-margin-bottom: 1rem;
 
 // scss-docs-start grid-breakpoints
 $grid-breakpoints: (xs: 0,
-        sm: 576px,
-        md: 768px,
-        lg: 992px,
-        xl: 1200px,
-        xxl: 1400px);
+                sm: 576px,
+                md: 768px,
+                lg: 992px,
+                xl: 1200px,
+                xxl: 1400px);
 // scss-docs-end grid-breakpoints
 
 @include _assert-ascending($grid-breakpoints, "$grid-breakpoints");
@@ -556,10 +558,10 @@ $grid-breakpoints: (xs: 0,
 
 // scss-docs-start container-max-widths
 $container-max-widths: (sm: 540px,
-        md: 720px,
-        lg: 960px,
-        xl: 1140px,
-        xxl: 1320px);
+                md: 720px,
+                lg: 960px,
+                xl: 1140px,
+                xxl: 1320px);
 // scss-docs-end container-max-widths
 
 @include _assert-ascending($container-max-widths, "$container-max-widths");
@@ -585,10 +587,10 @@ $container-padding-x: $grid-gutter-width * 1;
 // scss-docs-start border-variables
 $border-width: 1px;
 $border-widths: (1: 1px,
-        2: 2px,
-        3: 3px,
-        4: 4px,
-        5: 5px);
+                2: 2px,
+                3: 3px,
+                4: 4px,
+                5: 5px);
 
 $border-style: solid;
 $border-color-translucent: $gray-300;
@@ -640,9 +642,9 @@ $transition-collapse-width: width .35s ease;
 // stylelint-disable function-disallowed-list
 // scss-docs-start aspect-ratios
 $aspect-ratios: ("1x1": 100%,
-        "4x3": calc(3 / 4 * 100%),
-        "16x9": calc(9 / 16 * 100%),
-        "21x9": calc(9 / 21 * 100%));
+                "4x3": calc(3 / 4 * 100%),
+                "16x9": calc(9 / 16 * 100%),
+                "21x9": calc(9 / 21 * 100%));
 // scss-docs-end aspect-ratios
 // stylelint-enable function-disallowed-list
 
@@ -689,11 +691,11 @@ $h6-font-size: $font-size-base;
 
 // scss-docs-start font-sizes
 $font-sizes: (1: $h1-font-size,
-        2: $h2-font-size,
-        3: $h3-font-size,
-        4: $h4-font-size,
-        5: $h5-font-size,
-        6: $h6-font-size);
+                2: $h2-font-size,
+                3: $h3-font-size,
+                4: $h4-font-size,
+                5: $h5-font-size,
+                6: $h6-font-size);
 // scss-docs-end font-sizes
 
 // scss-docs-start headings-variables
@@ -707,11 +709,11 @@ $headings-color: $gray-800;
 
 // scss-docs-start display-headings
 $display-font-sizes: (1: 5rem,
-        2: 4.5rem,
-        3: 4rem,
-        4: 3.5rem,
-        5: 3rem,
-        6: 2.5rem);
+                2: 4.5rem,
+                3: 4rem,
+                4: 3.5rem,
+                5: 3rem,
+                6: 2.5rem);
 
 $display-font-family: null;
 $display-font-style: null;
@@ -806,14 +808,14 @@ $table-bg-scale: -80%;
 
 // scss-docs-start table-loop
 $table-variants: ("primary": shift-color($primary, $table-bg-scale),
-        "secondary": shift-color($secondary, $table-bg-scale),
-        "success": shift-color($success, $table-bg-scale),
-        "info": shift-color($info, $table-bg-scale),
-        "warning": shift-color($warning, $table-bg-scale),
-        "danger": shift-color($danger, $table-bg-scale),
-        "light": $gray-100,
-        "dark": $dark,
-    );
+                "secondary": shift-color($secondary, $table-bg-scale),
+                "success": shift-color($success, $table-bg-scale),
+                "info": shift-color($info, $table-bg-scale),
+                "warning": shift-color($warning, $table-bg-scale),
+                "danger": shift-color($danger, $table-bg-scale),
+                "light": $gray-100,
+                "dark": $dark,
+        );
 // scss-docs-end table-loop
 
 
@@ -1139,19 +1141,19 @@ $form-invalid-border-color: $form-feedback-invalid-color;
 
 // scss-docs-start form-validation-states
 $form-validation-states: ("valid": ("color": var(--#{$prefix}success-text-emphasis),
-            "icon": $form-feedback-icon-valid,
-            "tooltip-color": #fff,
-            "tooltip-bg-color": var(--#{$prefix}success),
-            "focus-box-shadow": 0 0 $input-btn-focus-blur $input-focus-width rgba(var(--#{$prefix}success-rgb), $input-btn-focus-color-opacity),
-            "border-color": var(--#{$prefix}success),
-        ),
-        "invalid": ("color": var(--#{$prefix}danger-text),
-            "icon": $form-feedback-icon-invalid,
-            "tooltip-color": #fff,
-            "tooltip-bg-color": var(--#{$prefix}danger),
-            "focus-box-shadow": 0 0 $input-btn-focus-blur $input-focus-width rgba(var(--#{$prefix}danger-rgb), $input-btn-focus-color-opacity),
-            "border-color": var(--#{$prefix}danger),
-        ));
+                        "icon": $form-feedback-icon-valid,
+                        "tooltip-color": #fff,
+                        "tooltip-bg-color": var(--#{$prefix}success),
+                        "focus-box-shadow": 0 0 $input-btn-focus-blur $input-focus-width rgba(var(--#{$prefix}success-rgb), $input-btn-focus-color-opacity),
+                        "border-color": var(--#{$prefix}success),
+                ),
+                "invalid": ("color": var(--#{$prefix}danger-text),
+                        "icon": $form-feedback-icon-invalid,
+                        "tooltip-color": #fff,
+                        "tooltip-bg-color": var(--#{$prefix}danger),
+                        "focus-box-shadow": 0 0 $input-btn-focus-blur $input-focus-width rgba(var(--#{$prefix}danger-rgb), $input-btn-focus-color-opacity),
+                        "border-color": var(--#{$prefix}danger),
+                ));
 // scss-docs-end form-validation-states
 
 // Z-index master list
@@ -1174,10 +1176,10 @@ $zindex-toast: 1090;
 
 // scss-docs-start zindex-levels-map
 $zindex-levels: (n1: -1,
-        0: 0,
-        1: 1,
-        2: 2,
-        3: 3);
+                0: 0,
+                1: 1,
+                2: 2,
+                3: 3);
 // scss-docs-end zindex-levels-map
 
 // Navs

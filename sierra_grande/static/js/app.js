@@ -647,10 +647,6 @@
 		window.addEventListener("resize", windowResizeHover);
 		windowResizeHover();
 
-		document.addEventListener("scroll", function () {
-			windowScroll();
-		});
-
 		window.addEventListener("load", function () {
 			initActiveMenu();
 			isLoadBodyElement();
@@ -660,15 +656,6 @@
 			document.getElementById("topnav-hamburger-icon").addEventListener("click", toggleHamburgerMenu);
 		}
 	}
-
-	// page topbar class added
-	function windowScroll () {
-		var pageTopbar = document.getElementById("page-topbar");
-		if (pageTopbar) {
-			document.body.scrollTop >= 50 || document.documentElement.scrollTop >= 50 ? pageTopbar.classList.add("topbar-shadow") : pageTopbar.classList.remove("topbar-shadow");
-		}
-	}
-
 
 	// two-column sidebar active js
 	function initActiveMenu () {

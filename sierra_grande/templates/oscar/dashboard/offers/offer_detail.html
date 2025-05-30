@@ -41,7 +41,7 @@
            href="{% url "dashboard:offer-delete" pk=offer.pk %}">{% translate "Delete offer" %}</a>
       {% endif %}
     </form>
-    <h1>{{ offer.name }}</h1>
+    <h4 class="mb-sm-0">{{ offer.name }}</h4>
   </div>
 {% endblock main_header %}
 {% block dashboard_content %}

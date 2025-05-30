@@ -4,6 +4,9 @@
 
 [data-layout="horizontal"] {
     @media (min-width: 1024.1px) {
+        .main-content {
+            margin-left: 0;
+        }
 
         .top-tagbar {
             max-width: 100% !important;

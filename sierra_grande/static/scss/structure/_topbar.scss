@@ -354,7 +354,7 @@
 
 [data-layout="vertical"] {
 
-    &[data-sidebar-size="sm-hover"] {
+    &:is([data-sidebar-size="sm"], [data-sidebar-size="sm-hover"]) {
         #page-topbar {
             @media (min-width: 768px) {
                 left: $vertical-menu-width-sm;

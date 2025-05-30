@@ -57,7 +57,7 @@
         const themeSwitcherText = document.querySelector('#bd-theme-text');
         const activeThemeIcon = document.querySelector('.theme-icon-active');
         const btnToActive = document.querySelector(`[data-bs-theme-value="${ theme }"]`);
-        const iconActiveBtn = btnToActive.querySelector('.btn__icon').getAttribute('icon');
+        const iconActiveBtn = btnToActive.querySelector('.btn__icon').dataset.icon;
 
         document.querySelectorAll('[data-bs-theme-value]').forEach(element => {
             element.classList.remove('active');
@@ -69,7 +69,7 @@
 
         btnToActive.classList.add('active');
         btnToActive.setAttribute('aria-pressed', 'true');
-        activeThemeIcon.setAttribute('icon', iconActiveBtn);
+        activeThemeIcon.classList = `bi ${ iconActiveBtn } theme-icon-active align-middle fs-20`;
         btnToActive.querySelector('.btn__check')?.classList.remove('d-none');
         const themeSwitcherLabel = `${ themeSwitcherText.textContent } (${ theme })`;
         themeSwitcher.setAttribute('aria-label', themeSwitcherLabel);

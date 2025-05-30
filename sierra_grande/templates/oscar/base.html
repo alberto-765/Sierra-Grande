@@ -4,7 +4,8 @@
 
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE|default:"es" }}"
-      class="{% block html_class %}no-js{% endblock html_class %}">
+      class="{% block html_class %}{% endblock html_class %}" 
+      data-sidebar-size="lg" data-preloader="disable" data-layout="vertical" >
   <head>
     <title>
       {% block title %}
@@ -24,6 +25,11 @@
     {% block favicon %}
       <link rel="shortcut icon" href="{% static "oscar/favicon.ico" %}" />
     {% endblock favicon %}
+
+    {% compress js %}
+      <script src="{% static "js/pages/color-mode.js" %}" async></script>
+    {% endcompress %}
+
     {% compress css %}
       {# Block where global CSS will go. #}
       {% block styles %}
@@ -44,7 +50,7 @@
     {% endblock tracking %}
   </head>
   <body id="{% block body_id %}default{% endblock body_id %}"
-        class="{% block body_class %}row{% endblock body_class %}">
+        class="{% block body_class %}{% endblock body_class %}">
     {# Main content goes in this 'layout' block #}
     {% block layout %}
     {% endblock layout %}
@@ -63,7 +69,6 @@
         {#  Bootstrap JS #}
         <script src="{% static "libs/bootstrap/js/popper.min.js" %}" defer></script>
         <script src="{% static "libs/bootstrap/js/bootstrap.min.js" %}" defer></script>
-        <script src="{% static "js/pages/color-mode.js" %}" defer></script>
       {% endblock scripts %}
       {# Additional JS scripts #}
       {% block extrascripts %}

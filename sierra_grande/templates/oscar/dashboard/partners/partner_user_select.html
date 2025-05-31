@@ -35,9 +35,9 @@
         <iconify-icon icon="fa-solid:users" width="1rem" height="1rem" aria-hidden="true" noobserver=""></iconify-icon>
         {% translate "Users" %}
       </div>
-      <div class="card-body {% if users %}p-0{% endif %}">
+      <div class="card-body">
         {% if users %}
-          <div class="table-container table-responsive-md">
+          <div class="table-card table-responsive-md">
             {% with partner_users=partner.users.all %}
               <table class="table table-bordered table-hover align-middle">
                 {% block users_header %}
@@ -67,7 +67,7 @@
                                   method="post">
                               {% csrf_token %}
                               <button type="submit"
-                                      class="btn btn-primary"
+                                      class="btn btn-darken-primary"
                                       data-loading-text="{% translate "Linking..." %}">
                                 {% translate "Link user" %}
                               </button>

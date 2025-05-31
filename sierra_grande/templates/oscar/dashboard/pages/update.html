@@ -44,7 +44,7 @@
         {% csrf_token %}
         {{ form|crispy }}
         <div class="hstack column-gap-3">
-          <button class="btn btn-primary"
+          <button class="btn btn-darken-primary"
                   type="submit"
                   data-loading-text="{% translate "Saving..." %}">{% translate "Save" %}</button>
           <a class="btn btn-secondary" href="{% url 'dashboard:page-list' %}">{% translate "Cancel" %}</a>

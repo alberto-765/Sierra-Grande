@@ -3,7 +3,6 @@ import re
 from django.forms import Widget, SelectMultiple
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-from django.utils.html import format_html
 
 SMALL_LIST_THRESHOLD = 4
 
@@ -111,7 +110,7 @@ class RelatedFieldWidgetWrapper(Widget):
     def _disable_in_empty_choices(self, model: str, attrs: dict):
         if not self.choices.queryset.exists():
             attrs["disabled"] = "disabled"
-            self.choices = [("", _("Create the first {{model}}"))]
+            self.choices = [("", _('Create the first "{model}"').format(model=model))]
         else:
             count = self.choices.queryset.count()
             if count < SMALL_LIST_THRESHOLD:

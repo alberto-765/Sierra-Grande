@@ -23,7 +23,7 @@
   <div class="hstack justify-content-between col-12">
     <h4 class="mb-sm-0">{% translate "Pages" %}</h2>
     <a href="{% url "dashboard:page-create" %}"
-       class="btn btn-primary icon-link">
+       class="btn btn-darken-primary icon-link">
       <iconify-icon icon="mdi:plus-circle" width="1rem" height="1rem" aria-hidden="true"></iconify-icon> {% translate "Create new page" %}
     </a>
   </div>
@@ -41,7 +41,7 @@
             {% include "oscar/dashboard/partials/form_fields_inline.html" with form=form wrapper_class="mb-0" %}
             <div class="col-auto">
               <button type="submit"
-                      class="btn btn-primary icon-link"
+                      class="btn btn-darken-primary icon-link"
                       data-loading-text="{% translate "Searching..." %}">{% translate "Search" %}</button>
             </div>
             <div class="col-auto">
@@ -58,9 +58,9 @@
         <iconify-icon icon="mdi:file" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
         {{ queryset_description }}
       </span>
-      <div class="card-body {% if flatpage_list %}p-0{% endif %}">
+      <div class="card-body">
         {% if flatpage_list %}
-          <form method="post" class="table-container table-responsive-md">
+          <form method="post" class="table-card table-responsive-md">
             {% csrf_token %}
             <table class="align-middle table table-striped table-bordered table-hover">
               <thead>

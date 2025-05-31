@@ -22,7 +22,7 @@ a {
 
 .btn.show,
 .btn:first-child:active,
-:not(.btn-check)+.btn:active {
+:not(.btn-check) + .btn:active {
     border-color: transparent;
 }
 
@@ -72,6 +72,9 @@ $value in $theme-colors {
         --#{$prefix}btn-active-color: var(--#{$prefix}btn-hover-color);
         --#{$prefix}btn-active-bg: #{shade-color($value, 20%)};
         --#{$prefix}btn-active-border-color: transparent;
+        --#{$prefix}btn-disabled-color: #{$white};
+        --#{$prefix}btn-disabled-bg: var(--#{$prefix}btn-bg);
+        --#{$prefix}btn-disabled-border-color: var(--#{$prefix}btn-border-color);
     }
 
     .btn-darken-#{$color} {
@@ -85,6 +88,9 @@ $value in $theme-colors {
         --#{$prefix}btn-active-color: var(--#{$prefix}btn-hover-color);
         --#{$prefix}btn-active-bg: #{darken($value, 15%)};
         --#{$prefix}btn-active-border-color: transparent;
+        --#{$prefix}btn-disabled-color: #{$white};
+        --#{$prefix}btn-disabled-bg: var(--#{$prefix}btn-bg);
+        --#{$prefix}btn-disabled-border-color: var(--#{$prefix}btn-border-color);
     }
 }
 
@@ -104,6 +110,9 @@ $value in $theme-colors {
         --#{$prefix}btn-active-color: #{$value};
         --#{$prefix}btn-active-bg: #{rgba($value, .1)};
         --#{$prefix}btn-active-border-color: transparent;
+        --#{$prefix}btn-disabled-color: #{$white};
+        --#{$prefix}btn-disabled-bg: var(--#{$prefix}btn-bg);
+        --#{$prefix}btn-disabled-border-color: var(--#{$prefix}btn-border-color);
     }
 }
 
@@ -163,7 +172,7 @@ $value in $theme-colors {
         transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
     }
 
-    >span {
+    > span {
         display: block;
         transition: transform 0.3s, opacity 0.3s;
         transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
@@ -175,7 +184,7 @@ $value in $theme-colors {
             transform: translate3d(0, 0, 0);
         }
 
-        >span {
+        > span {
             opacity: 0;
             transform: translate3d(0, -25%, 0);
         }
@@ -218,8 +227,8 @@ $value in $theme-colors {
         border: none;
     }
 
-    .btn-check:active+.btn-light,
-    .btn-check:checked+.btn-light,
+    .btn-check:active + .btn-light,
+    .btn-check:checked + .btn-light,
     .btn-light.active,
     .btn-light.dropdown-toggle.show,
     .btn-light:active {
@@ -231,59 +240,59 @@ $value in $theme-colors {
 // theme dark
 [data-bs-theme="dark"] {
 
-    .btn-check:focus+.btn-light,
-    .btn-check:focus+.btn-outline-light,
-    .btn-check:focus+.btn-soft-light,
+    .btn-check:focus + .btn-light,
+    .btn-check:focus + .btn-outline-light,
+    .btn-check:focus + .btn-soft-light,
     .btn-soft-light:focus {
         color: var(--#{$prefix}dark);
         background-color: rgba(var(--#{$prefix}light-rgb), 0.75);
         border-color: rgba(var(--#{$prefix}light-rgb), 0.75);
     }
 
-    .btn-check:active+.btn-light,
-    .btn-check:active+.btn-outline-light,
-    .btn-check:active+.btn-soft-light,
-    .btn-check:checked+.btn-light,
-    .btn-check:checked+.btn-outline-light,
-    .btn-check:checked+.btn-soft-light,
+    .btn-check:active + .btn-light,
+    .btn-check:active + .btn-outline-light,
+    .btn-check:active + .btn-soft-light,
+    .btn-check:checked + .btn-light,
+    .btn-check:checked + .btn-outline-light,
+    .btn-check:checked + .btn-soft-light,
     .btn-light.active,
     .btn-light:active,
     .btn-outline-light.active,
     .btn-outline-light:active,
     .btn-soft-light.active,
     .btn-soft-light:active,
-    .show>.btn-light.dropdown-toggle,
-    .show>.btn-outline-light.dropdown-toggle,
-    .show>.btn-soft-light.dropdown-toggle {
+    .show > .btn-light.dropdown-toggle,
+    .show > .btn-outline-light.dropdown-toggle,
+    .show > .btn-soft-light.dropdown-toggle {
         color: var(--#{$prefix}light);
         // background-color: rgba(var(--#{$prefix}light-rgb), 0.75);
         // border-color: rgba(var(--#{$prefix}light-rgb), 0.75);
     }
 
-    .btn-check:focus+.btn-dark,
-    .btn-check:focus+.btn-outline-dark,
-    .btn-check:focus+.btn-soft-dark,
+    .btn-check:focus + .btn-dark,
+    .btn-check:focus + .btn-outline-dark,
+    .btn-check:focus + .btn-soft-dark,
     .btn-soft-dark:focus {
         color: var(--#{$prefix}light);
         background-color: rgba(var(--#{$prefix}dark-rgb), 0.75);
         border-color: rgba(var(--#{$prefix}dark-rgb), 0.75);
     }
 
-    .btn-check:active+.btn-dark,
-    .btn-check:active+.btn-outline-dark,
-    .btn-check:active+.btn-soft-dark,
-    .btn-check:checked+.btn-dark,
-    .btn-check:checked+.btn-outline-dark,
-    .btn-check:checked+.btn-soft-dark,
+    .btn-check:active + .btn-dark,
+    .btn-check:active + .btn-outline-dark,
+    .btn-check:active + .btn-soft-dark,
+    .btn-check:checked + .btn-dark,
+    .btn-check:checked + .btn-outline-dark,
+    .btn-check:checked + .btn-soft-dark,
     .btn-dark.active,
     .btn-dark:active,
     .btn-outline-dark.active,
     .btn-outline-dark:active,
     .btn-soft-dark.active,
     .btn-soft-dark:active,
-    .show>.btn-dark.dropdown-toggle,
-    .show>.btn-outline-dark.dropdown-toggle,
-    .show>.btn-soft-dark.dropdown-toggle {
+    .show > .btn-dark.dropdown-toggle,
+    .show > .btn-outline-dark.dropdown-toggle,
+    .show > .btn-soft-dark.dropdown-toggle {
         color: var(--#{$prefix}body-color);
         background-color: rgba(var(--#{$prefix}dark-rgb), 0.75);
         border-color: rgba(var(--#{$prefix}dark-rgb), 0.75);
@@ -334,7 +343,7 @@ $value in $theme-colors {
         }
     }
     // Animation
-    .btn-dark.btn-animation{
+    .btn-dark.btn-animation {
         color: var(--#{$prefix}body-color);
         background-color: rgba(var(--#{$prefix}dark-rgb), 0.1);
         border-color: rgba(var(--#{$prefix}dark-rgb), 0.1);
@@ -388,9 +397,9 @@ $value in $theme-colors {
             border-bottom: 2px solid darken($value, 8%);
         }
     }
-    .link-effect{
+    .link-effect {
         &.link-#{$color} {
-            &::before { 
+            &::before {
                 background-color: $value;
             }
         }

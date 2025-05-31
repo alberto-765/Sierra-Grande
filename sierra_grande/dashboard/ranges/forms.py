@@ -40,7 +40,7 @@ class RangeForm(forms.ModelForm):
                         "submit",
                         _("Save"),
                         data_loading_text=_("Saving..."),
-                        css_class="w-100",
+                        css_class="w-100 btn-darken-primary",
                     ),
                     css_class="col-sm-auto",
                 ),
@@ -49,7 +49,7 @@ class RangeForm(forms.ModelForm):
                         "action",
                         _("Save and edit products"),
                         data_loading_text=_("Saving..."),
-                        css_class="w-100",
+                        css_class="w-100 btn-darken-primary",
                     ),
                     css_class="col-sm-auto",
                 ),
@@ -109,6 +109,7 @@ class RangeProductForm(forms.Form):
                 "submit",
                 _("Add"),
                 data_loading_text=_("Running..."),
+                css_class="btn-darken-primary",
             ),
         )
 

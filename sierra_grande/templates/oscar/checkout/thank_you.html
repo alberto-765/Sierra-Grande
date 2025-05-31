@@ -165,7 +165,7 @@
       </div>
       <p>
         {% translate "You can track the status of your order" %}
-        <a class="btn btn-primary"
+        <a class="btn btn-darken-primary"
            href="{% url "customer:anon-order" order_number=order.number hash=order.verification_hash %}">{% translate "View order status" %}</a>.
       </p>
     {% endif %}
@@ -177,12 +177,12 @@
           <p>
             <a onclick="window.print()"
                href="#"
-               class="btn btn-primary w-100 btn-lg">{% translate "Print this page" %}</a>
+               class="btn btn-darken-primary w-100 btn-lg">{% translate "Print this page" %}</a>
           </p>
         </div>
         <div class="col-sm-4 offset-sm-4">
           <p>
-            <a href="{{ homepage_url }}" class="btn btn-primary w-100 btn-lg">{% translate "Continue shopping" %}</a>
+            <a href="{{ homepage_url }}" class="btn btn-darken-primary w-100 btn-lg">{% translate "Continue shopping" %}</a>
           </p>
         </div>
       </div>

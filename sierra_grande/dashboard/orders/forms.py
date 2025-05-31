@@ -100,7 +100,7 @@ class OrderStatsForm(forms.Form):
                     Submit(
                         "submit",
                         _("Filter result"),
-                        css_class="btn btn-primary w-100",
+                        css_class="btn btn-darken-primary w-100",
                         data={"loading-text": _("Filtering...")},
                     ),
                     css_class="col-sm-auto",
@@ -200,6 +200,7 @@ class OrderSearchForm(forms.Form):
                         "submit",
                         _("Search"),
                         data_loading_text=_("Searching..."),
+                        css_class="btn-darken-primary",
                     ),
                     css_class="col-auto",
                 ),
@@ -208,7 +209,7 @@ class OrderSearchForm(forms.Form):
                         '<a class="link-offset-3-hover link-underline '
                         'link-underline-opacity-0 link-underline-opacity-75-hover" '
                         'data-bs-toggle="modal" data-bs-target="#SearchModal" '
-                        'href="#">{ _("Advanced Search") }</a>',
+                        f'href="#">{ _("Advanced Search") }</a>',
                     ),
                     css_class="col-auto",
                 ),

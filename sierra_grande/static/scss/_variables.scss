@@ -36,16 +36,16 @@ $grays: ("100": $gray-100,
 // fusv-enable
 
 // scss-docs-start color-variables
-$blue: #4b93ff;
-$indigo: #405189;
-$purple: #7c6bff;
-$pink: #f7649f;
+$blue: #153da1;
+$indigo: #4c63d2;
+$purple: #7c3aed;
+$pink: #ec4899;
 $red: #ef476f;
-$orange: #f1963b;
-$yellow: #f1be46;
-$green: #06d6a0;
-$teal: #4ab0c1;
-$cyan: #1ea6d3;
+$orange: #ea580c;
+$yellow: #f59e0b;
+$green: #059669;
+$teal: #0d9488;
+$cyan: #0891b2;
 // scss-docs-end color-variables
 
 // scss-docs-start colors-map
@@ -277,7 +277,7 @@ $cyans: ("cyan-100": $cyan-100,
 
 // scss-docs-start theme-color-variables
 $primary: $blue;
-$secondary: $purple;
+$secondary: $gray-600;
 $success: $green;
 $info: $cyan;
 $warning: $yellow;
@@ -429,7 +429,7 @@ $escaped-characters: (("<", "%3c"),
 //
 // Quickly modify global styling by enabling or disabling optional features.
 
-$enable-caret: false;
+$enable-caret: true;
 $enable-rounded: true;
 $enable-shadows: false;
 $enable-gradients: false;
@@ -1653,8 +1653,6 @@ $breadcrumb-margin-bottom: 1rem;
 $breadcrumb-bg: null;
 $breadcrumb-divider-color: var(--#{$prefix}tertiary-color);
 $breadcrumb-active-color: var(--#{$prefix}secondary-color);
-$breadcrumb-divider: quote("\F0142");
-$breadcrumb-divider-flipped: $breadcrumb-divider;
 $breadcrumb-border-radius: null;
 // scss-docs-end breadcrumb-variables
 

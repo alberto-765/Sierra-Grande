@@ -68,8 +68,8 @@
 
         btnToActive.classList.add('active');
         btnToActive.setAttribute('aria-pressed', 'true');
-        activeThemeIcon.classList = `bi ${ iconActiveBtn } theme-icon-active align-middle fs-20`;
         btnToActive.querySelector('.btn__check')?.classList.remove('d-none');
+        activeThemeIcon.setAttribute('icon', iconActiveBtn);
 
         if (focus) {
             themeSwitcher.focus();

@@ -395,6 +395,7 @@ class OfferSearchForm(forms.Form):
                         "submit",
                         _("Search"),
                         data_loading_text=_("Searching..."),
+                        css_class="btn-darken-primary",
                     ),
                     css_class="col-auto",
                 ),

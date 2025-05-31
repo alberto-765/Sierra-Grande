@@ -362,7 +362,7 @@ function refreshCallbacks () {
                     <img src="../static/img/ecommerce/offer-banner.jpg" alt="" class="img-thumbnail">
                 </div>
                 <div class="mt-3">
-                    <div class="table-responsive">
+                    <div class="table-responsive-md">
                         <table class="table table-borderless">
                             <tr>
                                 <td><span class="text-muted">Use Code</span></td>

@@ -40,7 +40,7 @@
                 {% endif %}
               >
                 {% if item.icon %}
-                  <i class="bi {{item.icon}}" aria-hidden="true"></i>
+                  <iconify-icon icon="{{ item.icon }}" aria-hidden="true" width="1rem" height="1rem"></iconify-icon>
                 {% endif %}
                 <span>{{ item.label }}</span>
               </a>
@@ -51,7 +51,7 @@
                       <li class="nav-item">
                         <a class="nav-link" href="{{ subitem.url }}">
                           {% if subitem.icon %}
-                            <i class="bi {{ subitem.icon }}" aria-hidden="true"></i>
+                            <iconify-icon icon="{{ subitem.icon }}" aria-hidden="true" width="1rem" height="1rem"></iconify-icon>
                           {% endif %}
                           {{ subitem.label }}
                         </a>

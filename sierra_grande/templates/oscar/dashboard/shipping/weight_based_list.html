@@ -21,7 +21,7 @@
     <h4 class="mb-sm-0">{% translate "Shipping methods" %}</h4>
     <a id="create_new_shipping_method"
        href="{% url "dashboard:shipping-method-create" %}"
-       class="btn btn-primary icon-link"><iconify-icon icon="mdi:plus-circle" width="1rem" height="1rem" aria-hidden="true"></iconify-icon> {% translate "Create new shipping charge" %}</a>
+       class="btn btn-darken-primary icon-link"><iconify-icon icon="mdi:plus-circle" width="1rem" height="1rem" aria-hidden="true"></iconify-icon> {% translate "Create new shipping charge" %}</a>
   </div>
 {% endblock main_header %}
 {% block dashboard_content %}
@@ -48,7 +48,7 @@
               <a href="{% url "dashboard:shipping-method-detail" pk=method.pk %}"
                  class="btn btn-secondary">{% translate "View" %}</a>
               <a href="{% url "dashboard:shipping-method-edit" pk=method.pk %}"
-                 class="btn btn-primary">{% translate "Edit" %}</a>
+                 class="btn btn-darken-primary">{% translate "Edit" %}</a>
               <a href="{% url "dashboard:shipping-method-delete" pk=method.pk %}"
                  class="btn btn-danger">{% translate "Delete" %}</a>
             </td>

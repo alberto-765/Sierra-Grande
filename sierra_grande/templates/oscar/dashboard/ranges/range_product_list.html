@@ -86,7 +86,7 @@
                     {% translate "Upload history" %}
                   </div>
                   <div class="card-body p-0">
-                    <div class="table-container table-responsive-md">
+                    <div class="table-card table-responsive-md">
                       <table class="table table-bordered table-hover ">
                         <thead>
                           <tr>
@@ -131,9 +131,9 @@
                   </div>
                 {% endif %}
               </div>
-              <div class="card-body {% if products %}p-0{% endif %}">
+              <div class="card-body">
                 {% if products %}
-                  <form method="post" class="table-container table-responsive-md">
+                  <form method="post" class="table-card table-responsive-md">
                     {% csrf_token %}
                     <table class="table table-bordered table-hover">
                       <thead>
@@ -276,7 +276,7 @@
 </div>
 <div class="form-actions-fixed align-items-center bg-dark column-gap-4 fixed-bottom hstack justify-content-end p-3">
   <a href="{% url 'dashboard:range-update' pk=range.id %}"
-     class="btn btn-primary icon-link">
+     class="btn btn-darken-primary icon-link">
     {% translate "Return to edit range" %}
     <iconify-icon icon="tabler:arrow-back" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
   </a>

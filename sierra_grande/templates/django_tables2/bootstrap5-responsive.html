@@ -1,7 +1,7 @@
 {% extends "django_tables2/bootstrap5.html" %}
 
 {% block table-wrapper %}
-  <div class="{% spaceless %}{% block table-wrapper-container-class %} table-container table-responsive-md {% endblock table-wrapper-container-class %}"
+  <div class="{% spaceless %}{% block table-wrapper-container-class %} table-card table-responsive-md {% endblock table-wrapper-container-class %}"
        {% endspaceless %}>
     {% block table %}
       {{ block.super }}

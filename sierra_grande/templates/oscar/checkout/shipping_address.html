@@ -50,7 +50,7 @@
                         </button>
                       {% else %}
                         <button type="submit"
-                                class="btn btn-primary btn-large ship-address"
+                                class="btn btn-darken-primary btn-large ship-address"
                                 data-loading-text="{% translate "Saving..." %}">
                           {% translate "Ship to this address" %}
                         </button>
@@ -88,7 +88,7 @@
           <div class=" row">
             <div class="offset-sm-4 col-sm-8">
               <button type="submit"
-                      class="btn btn-lg btn-primary"
+                      class="btn btn-lg btn-darken-primary"
                       data-loading-text="{% translate "Continuing..." %}">{% translate "Continue" %}</button>
               {% translate "or" %} <a href="{% url "basket:summary" %}">{% translate "return to basket" %}</a>
             </div>

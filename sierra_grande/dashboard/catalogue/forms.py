@@ -1,5 +1,5 @@
 # ruff: noqa: SLF001
-from crispy_bootstrap5.bootstrap5 import FloatingField
+from crispy_bootstrap5.bootstrap5 import FloatingField, Field
 from crispy_bootstrap5.bootstrap5 import Switch
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import HTML
@@ -492,7 +492,7 @@ class ProductClassForm(forms.ModelForm):
             "name",
             Switch("requires_shipping"),
             Switch("track_stock"),
-            "options",
+            Field("options", wrapper_class=" "),
         )
 
     class Meta:

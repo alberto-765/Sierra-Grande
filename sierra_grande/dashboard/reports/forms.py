@@ -71,7 +71,7 @@ class ReportForm(forms.Form):
                     Submit(
                         "submit",
                         gettext("Generate report"),
-                        css_class="btn btn-primary w-100",
+                        css_class="btn btn-darken-primary w-100",
                         data={"loading-text": gettext("Generating...")},
                     ),
                     css_class="col-sm-auto align-self-baseline",

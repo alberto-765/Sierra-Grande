@@ -135,10 +135,10 @@
   </table>
   <div class="form-actions">
     {% if not voucher.voucher_set %}
-      <a class="btn btn-primary"
+      <a class="btn btn-darken-primary"
          href="{% url 'dashboard:voucher-update' pk=voucher.id %}">{% translate "Edit" %}</a> {% translate "or" %}
     {% else %}
-      <a class="btn btn-primary"
+      <a class="btn btn-darken-primary"
          href="{% url 'dashboard:voucher-set-update' pk=voucher.voucher_set.pk %}">{% translate "Edit set" %}</a> {% translate "or" %}
     {% endif %}
     <a class="btn btn-danger"

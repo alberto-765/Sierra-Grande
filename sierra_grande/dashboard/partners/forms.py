@@ -87,6 +87,7 @@ class NewUserForm(EmailUserCreationForm):
                     "submit",
                     _("Save"),
                     data_loading_text=_("Saving..."),
+                    css_class="btn-darken-primary",
                 ),
                 HTML(
                     '<a class="btn btn-secondary"'
@@ -224,7 +225,7 @@ class UserEmailForm(forms.Form):
                         "submit",
                         _("Search"),
                         data_loading_text=_("Searching..."),
-                        css_class="w-100",
+                        css_class="btn-darken-primary w-100",
                     ),
                     css_class="col-sm-auto",
                 ),

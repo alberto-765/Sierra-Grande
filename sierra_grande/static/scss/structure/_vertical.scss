@@ -22,6 +22,12 @@
 
 .page-content {
     padding: calc(#{$header-height} + #{$top-tagbar-height} + #{$grid-gutter-width}) calc(#{$grid-gutter-width} * 0.5) $footer-height calc(#{$grid-gutter-width} * 0.5);
+
+    > .container-fluid {
+        display: flex;
+        flex-direction: column;
+        row-gap: 20px;
+    }
 }
 .navbar-menu {
     width: $vertical-menu-width;
@@ -31,7 +37,6 @@
     bottom: 0;
     position: fixed;
     top: $top-tagbar-height;
-    padding: 0 0 calc(#{$header-height} + 25px) 0;
     transition: all .1s ease;
 
     .navbar-nav {
@@ -70,14 +75,21 @@
             &[data-bs-toggle=collapse] {
                 &:after {
                     display: block;
-                    content: "\F0142";
-                    font-family: 'Material Design Icons';
+                    width: 1.05rem;
+                    height: 1.05rem;
+                    --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M8.59 16.58L13.17 12L8.59 7.41L10 6l6 6l-6 6z'/%3E%3C/svg%3E");
+                    background-color: $vertical-menu-title-color;
+                    -webkit-mask-image: var(--svg);
+                    mask-image: var(--svg);
+                    -webkit-mask-repeat: no-repeat;
+                    mask-repeat: no-repeat;
+                    -webkit-mask-size: 100% 100%;
+                    mask-size: 100% 100%;
                     margin-left: auto;
                     transition: transform .2s;
-                    font-size: 1.05rem;
                     position: absolute;
                     right: 18px;
-                    color: $vertical-menu-title-color;
+                    content: "";
                 }
 
                 &[aria-expanded=true] {
@@ -98,7 +110,7 @@
             &.collapsed {
                 &.active {
                     &::after {
-                        transform: rotate(90deg);
+                        // transform: rotate(90deg);
                     }
                 }
             }

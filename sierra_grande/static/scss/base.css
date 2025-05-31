@@ -35,7 +35,7 @@ body > header {
 
 
 /* Override margin-button for django-tables2 */
-.card-body .table-container table {
+.card-body .table-card table {
     margin-bottom: 0 !important;
 
     & > thead > tr:first-of-type, &:not(:has(thead)) > tbody > tr:first-of-type {

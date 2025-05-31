@@ -105,7 +105,6 @@ THIRD_PARTY_APPS = [
     "oscar.apps.checkout.apps.CheckoutConfig",
     "oscar.apps.address.apps.AddressConfig",
     "oscar.apps.shipping.apps.ShippingConfig",
-    "oscar.apps.catalogue.apps.CatalogueConfig",
     "oscar.apps.catalogue.reviews.apps.CatalogueReviewsConfig",
     "oscar.apps.communication.apps.CommunicationConfig",
     "oscar.apps.basket.apps.BasketConfig",
@@ -128,6 +127,7 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "sierra_grande.users",
+    "sierra_grande.catalogue.apps.CatalogueConfig",
     "sierra_grande.partner.apps.PartnerConfig",
     "sierra_grande.voucher.apps.VoucherConfig",
     "sierra_grande.dashboard.apps.DashboardConfig",
@@ -432,12 +432,12 @@ HAYSTACK_CONNECTIONS = {
 OSCAR_DASHBOARD_NAVIGATION = [
     {
         "label": _("Dashboard"),
-        "icon": "bi-speedometer2",
+        "icon": "bi:speedometer2",
         "url_name": "dashboard:index",
     },
     {
         "label": _("Catalogue"),
-        "icon": "bi-box-seam",
+        "icon": "bi:box-seam",
         "id_href": "sidebarCatalogue",
         "children": [
             {
@@ -464,7 +464,7 @@ OSCAR_DASHBOARD_NAVIGATION = [
     },
     {
         "label": _("Orders"),
-        "icon": "bi-tag",
+        "icon": "bi:cart4",
         "id_href": "sidebarOrders",
         "children": [
             {
@@ -475,16 +475,24 @@ OSCAR_DASHBOARD_NAVIGATION = [
                 "label": _("Shipments (TODO)"),
                 "url_name": "dashboard:order-list",
             },
+            # The shipping method dashboard is disabled by default as it might
+            # be confusing. Weight-based shipping methods aren't hooked into
+            # the shipping repository by default (as it would make
+            # customising the repository slightly more difficult).
+            {
+                "label": _("Shipping charges"),
+                "url_name": "dashboard:shipping-method-list",
+            },
         ],
     },
     {
         "label": _("Invoices (TODO)"),
-        "icon": "bi-archive",
+        "icon": "bi:archive",
         "url_name": "dashboard:index",
     },
     {
         "label": _("Offers"),
-        "icon": "bi-tag",
+        "icon": "bi:tag",
         "id_href": "sidebarOffers",
         "children": [
             {
@@ -507,7 +515,7 @@ OSCAR_DASHBOARD_NAVIGATION = [
     },
     {
         "label": _("Users"),
-        "icon": "bi-person-bounding-box",
+        "icon": "bi:person-bounding-box",
         "id_href": "sidebarUsers",
         "children": [
             {
@@ -526,7 +534,7 @@ OSCAR_DASHBOARD_NAVIGATION = [
     },
     {
         "label": _("Shop Content"),
-        "icon": "bi-folder-fill",
+        "icon": "bi:folder-fill",
         "id_href": "sidebarShopContent",
         "children": [
             {
@@ -546,11 +554,11 @@ OSCAR_DASHBOARD_NAVIGATION = [
     {
         "label": _("Partners"),
         "url_name": "dashboard:partner-list",
-        "icon": "bi-shop-window",
+        "icon": "bi:shop-window",
     },
     {
         "label": _("Reports"),
-        "icon": "bi-file-earmark-richtext",
+        "icon": "bi:file-earmark-richtext",
         "url_name": "dashboard:reports-index",
     },
     {
@@ -561,14 +569,6 @@ OSCAR_DASHBOARD_NAVIGATION = [
             {
                 "label": _("Statistics"),
                 "url_name": "dashboard:order-stats",
-            },
-            # The shipping method dashboard is disabled by default as it might
-            # be confusing. Weight-based shipping methods aren't hooked into
-            # the shipping repository by default (as it would make
-            # customising the repository slightly more difficult).
-            {
-                "label": _("Shipping charges"),
-                "url_name": "dashboard:shipping-method-list",
             },
         ],
     },

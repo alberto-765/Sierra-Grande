@@ -245,7 +245,7 @@
                     <table class="table table-striped table-bordered align-middle">
                       <caption>
                         {% translate "Variants" %}
-                        <button class="btn btn-primary icon-link"
+                        <button class="btn btn-darken-primary icon-link"
                                 {% if not product.can_be_parent %}disabled{% endif %}
                                 name="action"
                                 type="submit"
@@ -276,7 +276,7 @@
                             </td>
                             <td>
                               <a href="{% url "dashboard:catalogue-product" pk=child.id %}"
-                                 class="btn btn-primary">{% translate "Edit" %}</a>
+                                 class="btn btn-darken-primary">{% translate "Edit" %}</a>
                               <a href="{% url "dashboard:catalogue-product-delete" pk=child.id %}"
                                  class="btn btn-danger">{% translate "Delete" %}</a>
                             </td>
@@ -338,7 +338,7 @@
     {% block fixed_actions_group %}
       <div class="form-actions-fixed align-items-center bg-dark column-gap-4 fixed-bottom hstack justify-content-end p-3">
         {% if parent %}
-          <a class="btn btn-secondary"
+          <a class="btn btn-danger"
              href="{% url "dashboard:catalogue-product-list" %}">{% translate "Cancel" %}</a>
           <button class="btn btn-outline-light"
                   name="action"
@@ -353,7 +353,7 @@
                 type="submit"
                 value="continue"
                 data-loading-text="{% translate "Saving..." %}">{% translate "Save and continue editing" %}</button>
-        <button class="btn btn-primary"
+        <button class="btn btn-darken-primary"
                 name="action"
                 type="submit"
                 value="save"

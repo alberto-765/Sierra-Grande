@@ -113,6 +113,7 @@ var oscar = ((o) => {
             o.dashboard.initWidgets(window.document);
             o.dashboard.initForms();
             o.dashboard.initTemplate();
+            o.dashboard.initClock();
 
 
             // Adds error icon if there are errors in the product update form
@@ -680,7 +681,6 @@ var oscar = ((o) => {
 
             // two-column sidebar active js
             function initActiveMenu () {
-                // debugger;
                 let currentPath = location.pathname;
                 // currentPath = currentPath.substring(currentPath.lastIndexOf("/") + 1);
                 if (currentPath) {
@@ -901,6 +901,33 @@ var oscar = ((o) => {
                 initScrollToTop();
             }
             init();
+        },
+        initClock: () => {
+            const updateDateTime = () => {
+                const now = new Date();
+
+                // Options for date and hour
+                const clockOptions = {
+                    weekday: 'short',
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: false,
+                };
+
+                // Format according to user location
+                const formatted = now.toLocaleDateString(o.dashboard.options["languageCode"], clockOptions);
+
+                document.getElementById('current-time').textContent = formatted;
+            };
+
+            // Update immidiately
+            updateDateTime();
+
+            // Update each minute
+            setInterval(updateDateTime, 60000);
         },
         index: {
             init: () => {
@@ -1524,14 +1551,15 @@ var oscar = ((o) => {
             toggleOptionGroup: function (typeSelect) {
                 const optionGroupSelect = document.getElementById(typeSelect.id.replace('type', 'option_group'));
                 const value = typeSelect.value;
-
-                optionGroupSelect.closest('.related-widget-wrapper').parentElement.parentElement.classList.toggle('d-none');
                 const showOptionGroup = value === 'option' || value === 'multi_option';
+                const optionGroupWrapper = optionGroupSelect.closest('.related-widget-wrapper').parentElement.parentElement;
 
                 if (showOptionGroup) {
                     optionGroupSelect.required = true;
+                    optionGroupWrapper.classList.remove('d-none');
                 } else {
                     optionGroupSelect.required = false;
+                    optionGroupWrapper.classList.add('d-none');
                 }
             }
         },

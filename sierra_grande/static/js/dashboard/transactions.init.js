@@ -268,7 +268,7 @@ function refreshCallbacks () {
                     var payCardimg = isPaymethod.body.querySelector(".paycard-image").src;
                     var payCard = isPaymethod.body.querySelector(".paycard").innerHTML;
                     if (selectedid == itemId) {
-                        var codeBlock = `<div class="table-responsive table-card">
+                        var codeBlock = `<div class="table-responsive-md table-card">
                         <table class="table table-borderless align-middle">
                             <tr>
                                 <td style="width: 150px;">

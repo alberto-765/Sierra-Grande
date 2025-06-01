@@ -1,5 +1,6 @@
 {% load i18n %}
 {% load static %}
+
 <header id="page-topbar">
   <div class="layout-width">
     <div class="navbar-header">
@@ -32,8 +33,12 @@
             <span></span>
           </span>
         </button>
-        <button type="button" class="btn btn-sm px-3 fs-15 user-name-text header-item d-none d-md-block" data-bs-toggle="modal" data-bs-target="#searchModal">
-          <span class="bi bi-search me-2"></span> Search for Toner...
+        <button type="button"
+                class="btn btn-sm px-3 icon-link user-name-text header-item d-none d-md-block"
+                data-bs-toggle="modal"
+                data-bs-target="#searchModal">
+          <iconify-icon icon="bi:search" class="fs-16"></iconify-icon>
+          Search for Toner...
         </button>
       </div>
       <div class="d-flex align-items-center">
@@ -43,38 +48,53 @@
                   id="page-header-search-dropdown"
                   data-bs-toggle="modal"
                   data-bs-target="#searchModal">
-            <i class="bi bi-search fs-16"></i>
+            <iconify-icon icon="bi:search" class="fs-16"></iconify-icon>
           </button>
         </div>
         <div class="ms-1 header-item d-none d-sm-flex">
           <button type="button"
                   class="btn btn-icon btn-topbar btn-ghost-dark rounded-circle"
                   data-toggle="fullscreen">
-            <i class='bi bi-arrows-fullscreen fs-16'></i>
+            <iconify-icon icon="bi:arrows-fullscreen" class="fs-16"></iconify-icon>
           </button>
         </div>
         <div class="dropdown topbar-head-dropdown ms-2 header-item dropdown-hover-end">
-          <button class="btn btn-icon btn-topbar btn-ghost-dark rounded-circle" id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" aria-label="{% translate "Change site theme to light, dark or auto" %}">
-              <iconify-icon icon="" width="1rem" height="1rem" inline class="theme-icon-active"></iconify-icon>
+          <button class="btn btn-icon btn-topbar btn-ghost-dark rounded-circle"
+                  id="bd-theme"
+                  type="button"
+                  aria-expanded="false"
+                  data-bs-toggle="dropdown"
+                  aria-label="{% translate "Change site theme to light, dark or auto" %}">
+            <iconify-icon icon="" width="1rem" height="1rem" class="theme-icon-active"></iconify-icon>
           </button>
-          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-theme-text">
-            <button type="button" class="dropdown-item d-flex align-items-center column-gap-3" data-bs-theme-value="light" aria-pressed="false">
+          <div class="dropdown-menu dropdown-menu-end"
+               aria-labelledby="bd-theme-text">
+            <button type="button"
+                    class="dropdown-item d-flex align-items-center column-gap-3"
+                    data-bs-theme-value="light"
+                    aria-pressed="false">
               <iconify-icon icon="line-md:moon-filled-to-sunny-filled-transition" width="1rem" height="1rem" aria-hidden="true" class="btn__icon"></iconify-icon>
               {% translate "Light" %}
               <iconify-icon icon="system-uicons:check" width="1rem" height="1rem" class="ms-auto d-none btn__check" aria-hidden="true"></iconify-icon>
             </button>
-            <button type="button"  class="dropdown-item d-flex align-items-center column-gap-3"   data-bs-theme-value="dark" aria-pressed="false">
+            <button type="button"
+                    class="dropdown-item d-flex align-items-center column-gap-3"
+                    data-bs-theme-value="dark"
+                    aria-pressed="false">
               <iconify-icon icon="line-md:moon-filled" width="1rem" height="1rem" aria-hidden="true" class="btn__icon"></iconify-icon>
               {% translate "Dark" %}
               <iconify-icon icon="system-uicons:check" width="1rem" height="1rem" class="ms-auto d-none btn__check" aria-hidden="true"></iconify-icon>
             </button>
-            <button type="button" class="dropdown-item d-flex align-items-center column-gap-3" data-bs-theme-value="auto" aria-pressed="true">
+            <button type="button"
+                    class="dropdown-item d-flex align-items-center column-gap-3"
+                    data-bs-theme-value="auto"
+                    aria-pressed="true">
               <iconify-icon icon="line-md:light-dark" width="1rem" height="1rem" aria-hidden="true" class="btn__icon"></iconify-icon>
               {% translate "Auto" %}
               <iconify-icon icon="system-uicons:check" width="1rem" height="1rem" class="ms-auto d-none btn__check" aria-hidden="true"></iconify-icon>
             </button>
           </div>
-        </div> 
+        </div>
         <div class="dropdown ms-sm-3 header-item topbar-user topbar-head-dropdown dropdown-hover-end">
           <button type="button"
                   class="btn"
@@ -84,8 +104,8 @@
                   aria-expanded="false">
             <span class="d-flex align-items-center">
               <img class="rounded-circle header-profile-user"
-                  src="{% static "img/users/avatar-1.jpg" %}"
-                  alt="Header Avatar" />
+                   src="{% static "img/users/avatar-1.jpg" %}"
+                   alt="Header Avatar" />
               <span class="text-start ms-xl-2">
                 <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">Raquel Murillo</span>
                 <span class="d-none d-xl-block ms-1 fs-13 user-name-sub-text">Founder</span>
@@ -96,15 +116,15 @@
             <!-- item-->
             <h6 class="dropdown-header">Welcome Raquel!</h6>
             <a class="dropdown-item" href="account.html">
-              <i class="bi bi-person-circle text-muted fs-15 align-middle me-1"></i> 
-              <span class="align-middle"> {% translate "Account" %}</span>
+              <i class="bi bi-person-circle text-muted fs-15 align-middle me-1"></i>
+              <span class="align-middle">{% translate "Account" %}</span>
             </a>
             <a class="dropdown-item" href="account.html">
-              <i class="bi-bag-fill text-muted fs-15 align-middle me-1"></i> 
-              <span class="align-middle"> {% translate "Go to site" %}</span>
+              <i class="bi-bag-fill text-muted fs-15 align-middle me-1"></i>
+              <span class="align-middle">{% translate "Go to site" %}</span>
             </a>
             <a class="dropdown-item" href="auth-logout-basic.html">
-              <i class="bi bi-box-arrow-right text-muted fs-15 align-middle me-1"></i> 
+              <i class="bi bi-box-arrow-right text-muted fs-15 align-middle me-1"></i>
               <span class="align-middle" data-key="t-logout">{% translate "Logout" %}</span>
             </a>
           </div>

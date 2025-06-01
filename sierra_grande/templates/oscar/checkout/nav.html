@@ -6,7 +6,7 @@
       <li class="nav-item step1 {% if step == 1 %}active{% else %}{% if step == 2 %}previous{% else %}{% if step > 1 %}visited{% else %}disabled{% endif %}{% endif %}{% endif %} ">
         {% if step == 2 or step == 3 or step == 4 %}
           <a href="{% url 'checkout:shipping-address' %}" class="nav-link">
-            <i class="fas fa-chevron-right"></i>
+            <iconify-icon icon="fa:chevron-righ" aria-hidden="true" width="1rem" height="1rem"></iconify-icon>
             <span>{% translate "1. Shipping address" %}</span>
           </a>
         {% else %}
@@ -16,7 +16,7 @@
       <li class="nav-item step2 {% if step == 2 %}active{% else %}{% if step == 3 %}previous{% else %}{% if step > 2 %}visited{% else %}disabled{% endif %}{% endif %}{% endif %} ">
         {% if step == 3 or step == 4 %}
           <a href="{% url 'checkout:shipping-method' %}" class="nav-link">
-            <i class="fas fa-chevron-right"></i>
+            <iconify-icon icon="fa:chevron-right" aria-hidden="true" width="1rem" height="1rem"></iconify-icon>
             <span>{% translate "2. Shipping method" %}</span>
           </a>
         {% else %}
@@ -26,7 +26,7 @@
       <li class="nav-item step3 {% if step == 3 %}active{% else %}{% if step == 4 %}previous{% else %}{% if step > 3 %}visited{% else %}disabled{% endif %}{% endif %}{% endif %} ">
         {% if step == 4 %}
           <a href="{% url 'checkout:payment-details' %}" class="nav-link">
-            <i class="fas fa-chevron-right"></i>
+            <iconify-icon icon="fa:chevron-right" aria-hidden="true" width="1rem" height="1rem"></iconify-icon>
             <span>{% translate "3. Payment" %}</span>
           </a>
         {% else %}

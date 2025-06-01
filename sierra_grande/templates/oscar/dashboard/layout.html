@@ -12,18 +12,14 @@
     {% block top_tagbar %}
       {% include "oscar/dashboard/partials/top_tagbar.html" %}
     {% endblock top_tagbar %}
-
     {% block topbar %}
       {% include "oscar/dashboard/partials/topbar.html" %}
     {% endblock topbar %}
-
     {% block sidebar %}
       {% include "oscar/dashboard/partials/sidebar.html" %}
     {% endblock sidebar %}
-
     <!-- Vertical Overlay-->
     <div class="vertical-overlay"></div>
-
     {% block main %}
       <div class="main-content">
         <div class="page-content">
@@ -56,6 +52,7 @@
             {% endblock content %}
           </div>
         </div>
+        {% include "oscar/dashboard/partials/footer.html" %}
       </div>
     {% endblock main %}
   </div>

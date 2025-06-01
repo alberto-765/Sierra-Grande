@@ -31,7 +31,8 @@
         {% if backbutton %}
           <li class="ms-auto">
             <a href="{{ backbutton.url }}">
-              <i class="fas fa-arrow-left"></i> {{ backbutton.title }}
+              <iconify-icon icon="fa:arrow-left" aria-hidden="true" width="1rem" height="1rem"></iconify-icon>
+              {{ backbutton.title }}
             </a>
           </li>
         {% endif %}
@@ -39,7 +40,8 @@
     </ol>
   </nav>
 {% endblock breadcrumbs %}
-{% block main_header %}{% endblock main_header %}
+{% block main_header %}
+{% endblock main_header %}
 {% block content %}
   <article class="product_page"><!-- Start of product page -->
     <div class="row">
@@ -55,7 +57,10 @@
           {% if user.is_staff %}
             <a class="float-end d-none d-md-block"
                href="{% url "dashboard:catalogue-product" pk=product.id %}">
-              <small><i class="fas fa-pencil-alt"></i> {% translate "Edit this product" %}</small>
+              <small>
+                <iconify-icon icon="fa:pencil-alt" aria-hidden="true" width="1rem" height="1rem"></iconify-icon>
+                {% translate "Edit this product" %}
+              </small>
             </a>
           {% endif %}
           <h1>{{ product.get_title }}</h1>

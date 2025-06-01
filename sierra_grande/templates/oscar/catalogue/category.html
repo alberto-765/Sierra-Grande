@@ -18,7 +18,11 @@
     {% if user.is_staff %}
       <a class="float-end d-none d-md-block"
          href="{% url "dashboard:catalogue-category-update" pk=category.id %}">
-        <small><i class="fas fa-pencil-alt"></i> {% translate "Edit this category" %}</small></a>
+        <small>
+          <iconify-icon icon="fa:pencil-alt" aria-hidden="true" width="1rem" height="1rem"></iconify-icon>
+          {% translate "Edit this category" %}
+        </small>
+      </a>
     {% endif %}
   </div>
 {% endblock main_header %}

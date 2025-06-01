@@ -53,10 +53,9 @@
         if (!themeSwitcher) {
             return;
         }
-
         const activeThemeIcon = document.querySelector('.theme-icon-active');
         const btnToActive = document.querySelector(`[data-bs-theme-value="${ theme }"]`);
-        const iconActiveBtn = btnToActive.querySelector('.btn__icon').dataset.icon;
+        const iconActiveBtn = btnToActive.querySelector('.btn__icon').icon;
 
         document.querySelectorAll('[data-bs-theme-value]').forEach(element => {
             element.classList.remove('active');

@@ -76,10 +76,10 @@
 
 //alert additional example
 
-.alert-additional { 
+.alert-additional {
     padding: 0;
 
-    .alert-body{
+    .alert-body {
         padding: $alert-padding-y $alert-padding-x;
     }
     .alert-content {
@@ -111,7 +111,7 @@
         &.alert-#{$color} {
             --#{$prefix}alert-bg: #{$value};
             --#{$prefix}alert-color: #{set-color-from-background($value)};
-            --#{$prefix}alert-border-color:  #{$value};
+            --#{$prefix}alert-border-color: #{$value};
         }
     }
 
@@ -160,15 +160,6 @@
         }
     }
 
-    // .alert{
-    //     &.alert-#{$color} {
-    //         .btn-close::after{
-    //             color: $value;
-    //         }
-    //     }
-        
-    // }
-
     //alert additional example
     .alert-additional {
         &.alert-#{$color} {
@@ -177,30 +168,23 @@
                 color: set-color-from-background($value);
             }
         }
-    }   
+    }
 }
 .alert-dismissible {
     .btn-close {
-        background: transparent !important;
-        &::after {
-            background: transparent !important;
-            content: "\F0156" !important;
-            font-size: 18px;
-            line-height:15px;
-            font-family: "Material Design Icons" !important;
-        }
+        background: transparent var(--#{$prefix}btn-close-bg) center / calc(#{$btn-close-width}/1.6) auto no-repeat; // include transparent for button elements
     }
 }
 
-.alert-outline.alert-dark{
+.alert-outline.alert-dark {
     color: var(--#{$prefix}secondary-color);
 }
 
-.alert-border-left.alert-dark{
+.alert-border-left.alert-dark {
     border-color: var(--#{$prefix}dark);
 }
 
-.alert-border-left.alert-light{
+.alert-border-left.alert-light {
     border-color: var(--#{$prefix}light);
 }
 
@@ -212,10 +196,10 @@
     border-top-color: var(--#{$prefix}dark);
 }
 
-.alert-modern{
+.alert-modern {
     overflow: hidden;
     position: relative;
-    .icons  {
+    .icons {
         position: absolute;
         top: -20px;
         opacity: 0.08;

@@ -95,7 +95,7 @@
               {% include "oscar/dashboard/partials/form_field.html" with field=form.preview_order_number %}
             {% endif %}
             <button type="submit"
-                    class="btn btn-darken-primary"
+                    class="btn btn-primary"
                     name="show_preview"
                     data-loading-text="{% translate "Submitting..." %}">{% translate "View preview" %}</button>
             <p>{% translate "or send a preview to:" %}</p>
@@ -128,7 +128,7 @@
         </div>
         <div class="form-actions">
           <button type="submit"
-                  class="btn btn-darken-primary"
+                  class="btn btn-primary"
                   data-loading-text="{% translate "Saving..." %}">{% translate "Save" %}</button>
           {% translate "or" %} <a href="{% url "dashboard:comms-list" %}">{% translate "cancel" %}</a>.
         </div>

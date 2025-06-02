@@ -119,7 +119,7 @@ $value in $theme-colors {
 //button with icon
 .btn-label {
     position: relative;
-    padding-left: 48px;
+    padding-left: 51px;
 
     .label-icon {
         position: absolute;
@@ -142,7 +142,7 @@ $value in $theme-colors {
 
     &.right {
         padding-left: $btn-padding-x;
-        padding-right: 44px;
+        padding-right: 51px;
 
         .label-icon {
             right: -$border-width;

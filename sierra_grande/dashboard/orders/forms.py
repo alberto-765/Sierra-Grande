@@ -100,7 +100,7 @@ class OrderStatsForm(forms.Form):
                     Submit(
                         "submit",
                         _("Filter result"),
-                        css_class="btn btn-darken-primary w-100",
+                        css_class="btn btn-primary w-100",
                         data={"loading-text": _("Filtering...")},
                     ),
                     css_class="col-sm-auto",

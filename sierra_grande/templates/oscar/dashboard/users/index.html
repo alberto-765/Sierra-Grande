@@ -34,7 +34,7 @@
         {% include "oscar/dashboard/partials/form_fields_inline.html" with form=form wrapper_class="mb-0" %}
         <button type="submit"
                 name="search"
-                class="btn btn-darken-primary"
+                class="btn btn-primary"
                 data-loading-text="{% translate "Searching..." %}">{% translate "Search" %}</button>
         <a href="{% url "dashboard:users-index" %}" class="btn btn-secondary">{% translate "Reset" %}</a>
       </form>

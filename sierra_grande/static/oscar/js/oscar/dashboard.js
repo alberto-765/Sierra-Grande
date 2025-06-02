@@ -115,7 +115,7 @@ var oscar = ((o) => {
             o.dashboard.initTemplate();
             o.dashboard.initClock();
 
-
+            // TODO
             // Adds error icon if there are errors in the product update form
             document.querySelectorAll('[data-behaviour="tab-nav-errors"] .tab-pane').forEach(pane => {
                 const errors = pane.querySelectorAll('[class*="error"]:not(:empty)');
@@ -133,23 +133,24 @@ var oscar = ((o) => {
             o.dashboard.filereader.init();
 
             // Hidde welcome alert when login
-            setTimeout(() => {
-                const alertContainer = document.getElementById('messages');
-                if (alertContainer) {
-                    const alertsDom = document.querySelectorAll('.alert.alert-dismissible');
-                    alertsDom.forEach((alertDom, index) => {
-                        const alert = bootstrap.Alert.getOrCreateInstance(alertDom);
-                        alert.close();
+            const alertContainer = document.getElementById('messages');
+            if (alertContainer) {
+                const alertsDom = document.querySelectorAll('.alert.alert-dismissible');
+                let countAlerts = alertsDom.length;
+                alertsDom.forEach((alertDom) => {
+                    const alert = bootstrap.Alert.getOrCreateInstance(alertDom);
 
-                        // Listen for the closed event
-                        if (index == 0) {
-                            alertDom.addEventListener('closed.bs.alert', () => {
-                                alertContainer.style.display = 'none';
-                            }, { once: true });
-                        }
-                    });
-                }
-            }, 60 * 1000);
+                    // Listen for the closed event
+                    alertDom.addEventListener('closed.bs.alert', () => {
+                        countAlerts--;
+                        if (countAlerts === 0) alertContainer.style.display = 'none';
+                    }, { once: true });
+
+                    setTimeout(() => {
+                        alert.close();
+                    }, 60 * 1000);
+                });
+            }
         },
 
         initMasks: function (el) {
@@ -179,24 +180,42 @@ var oscar = ((o) => {
         initForms: function () {
 
             // Handle button loading states
-            document.querySelectorAll('[data-loading-text]').forEach((input) => {
-                input.addEventListener('click', function (e) {
-                    const btn = e.target;
-                    const form = btn.closest('form');
+            document.querySelectorAll('form:has([data-loading-text])').forEach((form) => {
+                form.addEventListener('submit', function () {
+                    const btn = form.querySelector('[data-loading-text]');
 
-                    if (!form || form.checkValidity()) {
-                        // Use requestAnimationFrame to delay disabling until after form submission begins
-                        requestAnimationFrame(function () {
-                            const loadingText = btn.getAttribute('data-loading-text');
-                            if (btn.tagName === 'INPUT') {
-                                btn.value = loadingText;
-                            } else {
-                                btn.textContent = loadingText;
+                    // Use requestAnimationFrame to delay disabling until after form submission begins
+                    requestAnimationFrame(function () {
+                        const loadingText = btn.dataset.loadingText;
+                        if (btn.tagName === 'INPUT') {
+                            btn.value = loadingText;
+                        } else {
+                            btn.classList.remove('btn-label', 'right', 'left');
+                            btn.classList.add('icon-link');
+                            btn.innerHTML = `
+                                    <div class="spinner-border spinner-border-sm" role="status">
+                                        <span class="visually-hidden">${ loadingText }</span>
+                                    </div>
+                                    ${ loadingText }`;
+                        }
+                        btn.classList.add('disabled');
+                        btn.disabled = true;
+                    });
+                });
+
+                form.querySelectorAll('.tab-pane input').forEach(input => {
+                    input.addEventListener('invalid', () => {
+                        const tabPane = input.closest('.tab-pane');
+                        if (tabPane) {
+                            if (tabPane.id) {
+                                // We need a vanilla JS replacement for Bootstrap's tab 'show' method
+                                const tabLink = form.querySelector(`.nav-link:is([data-bs-target="#${ tabPane.id }"], [href="#${ tabPane.id }")]`);
+                                if (tabLink) {
+                                    tabLink.click();
+                                }
                             }
-                            btn.classList.add('disabled');
-                            btn.setAttribute('disabled', 'disabled');
-                        });
-                    }
+                        }
+                    });
                 });
             });
 
@@ -204,23 +223,6 @@ var oscar = ((o) => {
             document.querySelectorAll('.nav-tabs a').forEach(tab => {
                 tab.addEventListener('shown.bs.tab', function (e) {
                     window.location.hash = e.target.hash;
-                });
-            });
-
-            // Display tabs that have invalid input fields
-            document.querySelectorAll('input').forEach(input => {
-                input.addEventListener('invalid', function () {
-                    const tabPane = this.closest('.tab-pane');
-                    if (tabPane) {
-                        const id = tabPane.getAttribute('id');
-                        if (id) {
-                            // We need a vanilla JS replacement for Bootstrap's tab 'show' method
-                            const tabLink = document.querySelector('.bs-docs-sidenav a[href="#' + id + '"]');
-                            if (tabLink) {
-                                tabLink.click();
-                            }
-                        }
-                    }
                 });
             });
         },
@@ -260,7 +262,7 @@ var oscar = ((o) => {
             });
         },
         initDeleteModal: (deleteAction, replacePattern) => {
-            const modal = document.querySelector(".deleteModal");
+            const modal = document.querySelector("#deleteModal");
             const form = document.querySelector('.deleteModal__form');
             if (modal && form && deleteAction?.trim()) {
                 modal.addEventListener("show.bs.modal", (event) => {

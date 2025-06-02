@@ -48,7 +48,7 @@ class ProductTable(DashboardTable):
         orderable=False,
     )
 
-    icon = "streamline:pork-meat-solid"
+    icon = "bi:box-seam"
 
     class Meta(DashboardTable.Meta):
         model = Product

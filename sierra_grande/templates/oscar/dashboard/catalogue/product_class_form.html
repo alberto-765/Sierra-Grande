@@ -1,6 +1,7 @@
 {% extends "oscar/dashboard/layout.html" %}
 
 {% load i18n %}
+{% load static %}
 {% load crispy_forms_tags %}
 
 {% block title %}
@@ -26,198 +27,95 @@
   {{ title }}
 {% endblock main_header_content %}
 {% block dashboard_content %}
-  <form class="card wysiwyg" method="post" data-behaviour="tab-nav-errors">
-    {% csrf_token %}
+  <form class="form-steps card" method="post">
     <div class="card-header">
-      <ul class="nav nav-tabs card-header-tabs" id="productsTab" role="tablist">
-        <li class="nav-item" role="presentation">
-          <a class="nav-link active"
-             href="#product-detail"
-             id="product-detail"
-             data-bs-toggle="tab"
-             data-bs-target="#product-detail-pane"
-             role="tab"
-             aria-controls="product-detail-pane"
-             aria-selected="true">{% translate "Product Class details" %}</a>
-        </li>
-        <li class="nav-item" role="presentation">
-          <a class="nav-link"
-             href="#product-attributes"
-             id="product-attributes"
-             data-bs-toggle="tab"
-             data-bs-target="#product-attributes-pane"
-             role="tab"
-             aria-controls="product-attributes-pane"
-             aria-selected="false">{% translate "Product attributes" %}</a>
-        </li>
-      </ul>
+      <h4 class="card-title mb-0">
+        {% translate "Create the new product type" %}
+      </h4>
     </div>
-    <div class="tab-content card-body">
-      <div class="tab-pane fade show active"
-           id="product-detail-pane"
-           role="tabpanel"
-           aria-labelledby="product-detail"
-           tabindex="0">
-        <div class="card-text">{% crispy form %}</div>
+    <div class="card-body">
+      <div class="step-arrow-nav mb-4">
+        <ul class="nav nav-pills custom-nav nav-justified" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="product-detail-tab" data-bs-toggle="pill" data-bs-target="#product-detail" type="button" role="tab" aria-controls="product-detail" aria-selected="false" data-position="0" tabindex="-1">
+                {% translate "Product Attributes" %}
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link " id="product-attributes-tab" data-bs-toggle="pill" data-bs-target="#product-attributes" type="button" role="tab" aria-controls="product-attributes" aria-selected="true" data-position="1">
+                {% translate "Product Type Details" %}
+              </button>
+            </li>
+        </ul>
       </div>
-      <div class="tab-pane fade card-text"
-           id="product-attributes-pane"
-           role="tabpanel"
-           aria-labelledby="product-attributes"
-           tabindex="0">
-        <div class="table-responsive-md table-card">
-          <table class="table table-hover table-nowrap align-middle mb-0">
-            {{ attributes_formset.non_form_errors }}
-            <thead >
-              <tr>
-                <td class="w-25">{% translate "Name" %}</td>
-                <td class="w-25">{% translate "Code" %}</td>
-                <td>{% translate "Type" %}</td>
-                <td>{% translate "Required" %}</td>
-                <td>{% translate "Delete" %}</td>
-              </tr>
-            </thead>
-            <tbody>
-              {% for attribute_form in attributes_formset %}
+      <div class="tab-content">
+        <div class="tab-pane fade show active" id="product-detail" role="tabpanel" aria-labelledby="product-detail-tab">
+          {% crispy form %}
+          <div class="d-flex align-items-start gap-3 mt-4">
+              <button type="button" class="btn btn-success btn-label right ms-auto nexttab nexttab" data-nexttab="product-attributes-tab">
+                <div class="label-icon align-middle fs-16" >
+                  <iconify-icon icon="ri:arrow-right-line" aria-hidden="true"></iconify-icon>
+                </div>
+                {% translate "Go to next step" %}
+              </button>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="product-attributes" role="tabpanel" aria-labelledby="product-attributes-tab">
+          <div class="table-responsive-md">
+            <table class="table table-bordered table-hover table-nowrap align-middle mb-0">
+              {{ attributes_formset.non_form_errors }}
+              <thead >
                 <tr>
-                  {% for hidden_field in attribute_form.hidden_fields %}{{ hidden_field }}{% endfor %}
-                  <td>{% include "oscar/dashboard/partials/form_field.html" with field=attribute_form.name nolabel=True %}</td>
-                  <td>{% include "oscar/dashboard/partials/form_field.html" with field=attribute_form.code nolabel=True %}</td>
-                  <td>
-                    <div class="vstack row-gap-3">
-                      {% include "oscar/dashboard/partials/form_field.html" with field=attribute_form.type nolabel=True %}
-                      {% include "oscar/dashboard/partials/form_field.html" with field=attribute_form.option_group nolabel=True %}
-                    </div>
-                  </td>
-                  <td>
-                    {% include "oscar/dashboard/partials/form_field.html" with field=attribute_form.required nolabel=True %}
-                    {{ attribute_form.non_field_errors }}
-                  </td>
-                  <td>{% include "oscar/dashboard/partials/form_field.html" with field=attribute_form.DELETE nolabel=True %}</td>
+                  <td class="w-25">{% translate "Name" %}</td>
+                  <td class="w-25">{% translate "Code" %}</td>
+                  <td>{% translate "Type" %}</td>
+                  <td>{% translate "Required" %}</td>
+                  <td>{% translate "Delete" %}</td>
                 </tr>
-              {% endfor %}
-              {{ attributes_formset.management_form }}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {% for attribute_form in attributes_formset %}
+                  <tr>
+                    {% for hidden_field in attribute_form.hidden_fields %}{{ hidden_field }}{% endfor %}
+                    <td>{% include "oscar/dashboard/partials/form_field.html" with field=attribute_form.name nolabel=True %}</td>
+                    <td>{% include "oscar/dashboard/partials/form_field.html" with field=attribute_form.code nolabel=True %}</td>
+                    <td>
+                      <div class="vstack row-gap-3">
+                        {% include "oscar/dashboard/partials/form_field.html" with field=attribute_form.type nolabel=True %}
+                        {% include "oscar/dashboard/partials/form_field.html" with field=attribute_form.option_group nolabel=True %}
+                      </div>
+                    </td>
+                    <td>
+                      {% include "oscar/dashboard/partials/form_field.html" with field=attribute_form.required nolabel=True %}
+                      {{ attribute_form.non_field_errors }}
+                    </td>
+                    <td>{% include "oscar/dashboard/partials/form_field.html" with field=attribute_form.DELETE nolabel=True %}</td>
+                  </tr>
+                {% endfor %}
+                {{ attributes_formset.management_form }}
+              </tbody>
+            </table>
+          </div>
+          <div class="d-flex align-items-start gap-3 mt-4">
+            <button type="button" class="btn btn-light btn-label previestab" data-previous="product-detail-tab">
+              <iconify-icon icon="ri:arrow-left-line" class="label-icon align-middle fs-16" aria-hidden="true"></iconify-icon>
+                {% translate "Back to General" %}
+            </button>
+            <button type="submit" class="btn btn-success btn-label right ms-auto" data-loading-text="{% translate "Submitting..."%}">
+              <iconify-icon icon="ri:arrow-right-line" class="label-icon align-middle fs-16" aria-hidden="true"></iconify-icon>
+              {% translate "Submit" %}
+            </button>
+          </div>
         </div>
       </div>
+      {% csrf_token %}    
     </div>
-    {% block fixed_actions_group %}
-      <div class="align-items-center bg-dark column-gap-4 fixed-bottom hstack justify-content-end p-4">
-        <a href="#"
-           onclick="window.history.go(-1);return false"
-           class="btn btn-danger">{% translate "Cancel" %}</a>
-        <button class="btn btn-darken-primary"
-                type="submit"
-                data-loading-text="{% translate "Saving..." %}">{% translate "Save" %}</button>
-      </div>
-    {% endblock fixed_actions_group %}
   </form>
-
-  <div class="card-body form-steps">
-                                    <form action="#">
-                                        <div class="text-center pt-3 pb-4 mb-1">
-                                            <h5>Signup Your Account</h5>
-                                        </div>
-                                        <div id="custom-progress-bar" class="progress-nav mb-4">
-                                            <div class="progress" style="height: 1px;">
-                                                <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-
-                                            <ul class="nav nav-pills progress-bar-tab custom-nav" role="tablist">
-                                                <li class="nav-item" role="presentation">
-                                                    <button class="nav-link rounded-pill active" data-progressbar="custom-progress-bar" id="pills-gen-info-tab" data-bs-toggle="pill" data-bs-target="#pills-gen-info" type="button" role="tab" aria-controls="pills-gen-info" aria-selected="true">1</button>
-                                                </li>
-                                                <li class="nav-item" role="presentation">
-                                                    <button class="nav-link rounded-pill" data-progressbar="custom-progress-bar" id="pills-info-desc-tab" data-bs-toggle="pill" data-bs-target="#pills-info-desc" type="button" role="tab" aria-controls="pills-info-desc" aria-selected="false">2</button>
-                                                </li>
-                                                <li class="nav-item" role="presentation">
-                                                    <button class="nav-link rounded-pill" data-progressbar="custom-progress-bar" id="pills-success-tab" data-bs-toggle="pill" data-bs-target="#pills-success" type="button" role="tab" aria-controls="pills-success" aria-selected="false">3</button>
-                                                </li>
-                                            </ul>
-                                        </div>
-
-                                        <div class="tab-content">
-                                            <div class="tab-pane fade show active" id="pills-gen-info" role="tabpanel" aria-labelledby="pills-gen-info-tab">
-                                                <div>
-                                                    <div class="mb-4">
-                                                        <div>
-                                                            <h5 class="mb-1">General Information</h5>
-                                                            <p class="text-muted">Fill all Information as below</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-lg-6">
-                                                            <div class="mb-3">
-                                                                <label class="form-label" for="gen-info-email-input">Email</label>
-                                                                <input type="text" class="form-control" id="gen-info-email-input" placeholder="Enter Email">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-6">
-                                                            <div class="mb-3">
-                                                                <label class="form-label" for="gen-info-username-input">User Name</label>
-                                                                <input type="text" class="form-control" id="gen-info-username-input" placeholder="Enter User Name">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label class="form-label" for="gen-info-password-input">Password</label>
-                                                        <input type="password" class="form-control" id="gen-info-password-input" placeholder="Enter Password">
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex align-items-start gap-3 mt-4">
-                                                    <button type="button" class="btn btn-success btn-label right ms-auto nexttab nexttab" data-nexttab="pills-info-desc-tab"><i class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>Go to more info</button>
-                                                </div>
-                                            </div>
-                                            <!-- end tab pane -->
-
-                                            <div class="tab-pane fade" id="pills-info-desc" role="tabpanel" aria-labelledby="pills-info-desc-tab">
-                                                <div>
-                                                    <div class="text-center">
-                                                        <div class="profile-user position-relative d-inline-block mx-auto mb-2">
-                                                            <img src="../assets/images/users/user-dummy-img.jpg" class="rounded-circle avatar-lg img-thumbnail user-profile-image" alt="user-profile-image">
-                                                            <div class="avatar-xs p-0 rounded-circle profile-photo-edit">
-                                                                <input id="profile-img-file-input" type="file" class="profile-img-file-input" accept="image/png, image/jpeg">
-                                                                <label for="profile-img-file-input" class="profile-photo-edit avatar-xs">
-                                                                    <span class="avatar-title rounded-circle bg-light text-body">
-                                                                        <i class="ri-camera-fill"></i>
-                                                                    </span>
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                        <h5 class="fs-14">Add Image</h5>
-
-                                                    </div>
-                                                    <div>
-                                                        <label class="form-label" for="gen-info-description-input">Description</label>
-                                                        <textarea class="form-control" placeholder="Enter Description" id="gen-info-description-input" rows="2"></textarea>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex align-items-start gap-3 mt-4">
-                                                    <button type="button" class="btn btn-link text-decoration-none btn-label previestab" data-previous="pills-gen-info-tab"><i class="ri-arrow-left-line label-icon align-middle fs-16 me-2"></i> Back to General</button>
-                                                    <button type="button" class="btn btn-success btn-label right ms-auto nexttab nexttab" data-nexttab="pills-success-tab"><i class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>Submit</button>
-                                                </div>
-                                            </div>
-                                            <!-- end tab pane -->
-
-                                            <div class="tab-pane fade" id="pills-success" role="tabpanel" aria-labelledby="pills-success-tab">
-                                                <div>
-                                                    <div class="text-center">
-
-                                                        <div class="mb-4">
-                                                            <lord-icon src="https://cdn.lordicon.com/lupuorrc.json" trigger="loop" colors="primary:#0ab39c,secondary:#405189" style="width:120px;height:120px"></lord-icon>
-                                                        </div>
-                                                        <h5>Well Done !</h5>
-                                                        <p class="text-muted">You have Successfully Signed Up</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- end tab pane -->
-                                        </div>
-                                        <!-- end tab content -->
-                                    </form>
-                                </div>
 {% endblock dashboard_content %}
+{% block extrascripts %}
+  {{ block.super }}
+  <script src="{% static "js/pages/form-wizard.init.js" %}" defer></script>
+{% endblock extrascripts %}
 {% block onbodyload %}
   {{ block.super }}
   oscar.dashboard.product_attributes.init();

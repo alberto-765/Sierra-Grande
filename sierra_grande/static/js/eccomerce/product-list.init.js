@@ -237,7 +237,7 @@ function loadProductList (datas, page) {
                                     </div>\
                                 </div>\
                                 <div class="mt-3 hstack gap-2 justify-content-end">\
-                                    <a href="shop-cart.html" class="btn btn-darken-primary"> <i class="ri-shopping-cart-2-fill align-bottom me-1"></i> Add To Cart</a>\
+                                    <a href="shop-cart.html" class="btn btn-primary"> <i class="ri-shopping-cart-2-fill align-bottom me-1"></i> Add To Cart</a>\
                                     <a href="#!" class="btn btn-soft-secondary"> <i class="ri-eye-fill align-bottom"></i></a>\
                                 </div>\
                             </div>\

@@ -445,7 +445,7 @@ OSCAR_DASHBOARD_NAVIGATION = [
                 "url_name": "dashboard:catalogue-product-list",
             },
             {
-                "label": _("Product Types"),
+                "label": _("Product types"),
                 "url_name": "dashboard:catalogue-class-list",
             },
             {
@@ -457,7 +457,7 @@ OSCAR_DASHBOARD_NAVIGATION = [
                 "url_name": "dashboard:catalogue-option-list",
             },
             {
-                "label": _("Attribute Option Groups"),
+                "label": _("Attribute option groups"),
                 "url_name": "dashboard:catalogue-attribute-option-group-list",
             },
         ],
@@ -468,7 +468,7 @@ OSCAR_DASHBOARD_NAVIGATION = [
         "id_href": "sidebarOrders",
         "children": [
             {
-                "label": _("Orders List"),
+                "label": _("Orders list"),
                 "url_name": "dashboard:order-list",
             },
             {
@@ -496,7 +496,7 @@ OSCAR_DASHBOARD_NAVIGATION = [
         "id_href": "sidebarOffers",
         "children": [
             {
-                "label": _("Offers List"),
+                "label": _("Offers list"),
                 "url_name": "dashboard:offer-list",
             },
             {
@@ -504,7 +504,7 @@ OSCAR_DASHBOARD_NAVIGATION = [
                 "url_name": "dashboard:voucher-list",
             },
             {
-                "label": _("Coupons Sets"),
+                "label": _("Coupons sets"),
                 "url_name": "dashboard:voucher-set-list",
             },
             {
@@ -519,11 +519,11 @@ OSCAR_DASHBOARD_NAVIGATION = [
         "id_href": "sidebarUsers",
         "children": [
             {
-                "label": _("Users List"),
+                "label": _("Users list"),
                 "url_name": "dashboard:users-index",
             },
             {
-                "label": _("Stock Alert Requests"),
+                "label": _("Stock alert requests"),
                 "url_name": "dashboard:user-alert-list",
             },
             {
@@ -533,7 +533,7 @@ OSCAR_DASHBOARD_NAVIGATION = [
         ],
     },
     {
-        "label": _("Shop Content"),
+        "label": _("Shop content"),
         "icon": "bi:folder-fill",
         "id_href": "sidebarShopContent",
         "children": [
@@ -542,11 +542,11 @@ OSCAR_DASHBOARD_NAVIGATION = [
                 "url_name": "dashboard:page-list",
             },
             {
-                "label": _("Email Templates"),
+                "label": _("Email templates"),
                 "url_name": "dashboard:comms-list",
             },
             {
-                "label": _("Store Navigation Menu"),
+                "label": _("Categories"),
                 "url_name": "dashboard:catalogue-category-list",
             },
         ],
@@ -581,17 +581,19 @@ TINYMCE_JS_URL = str(Path(STATIC_URL) / "libs/tinymce/tinymce.min.js")
 TINYMCE_DEFAULT_CONFIG = {
     "license_key": "gpl",
     "api_key": env.str("TINYMCE_LICENSE_KEY", default=""),
-    "height": 600,
+    "height": 800,
     "width": "100%",
     "plugins": (
-        "importword exportword exportpdf preview powerpaste casechange importcss searchreplace autolink autosave save advcode "
+        "importword exportword exportpdf preview powerpaste casechange importcss searchreplace autolink autosave advcode "
         "visualblocks visualchars fullscreen image link media table charmap pagebreak nonbreaking anchor tableofcontents "
         "insertdatetime advlist lists checklist wordcount a11ychecker editimage help  permanentpen charmap "
         "tinycomments mentions quickbars linkchecker emoticons advtable footnotes typography markdown accordion"
     ),
-    "mobile": {
-        "plugins": "preview powerpaste casechange importcss searchreplace autolink autosave save advcode visualblocks visualchars fullscreen image link media table charmap pagebreak nonbreaking anchor tableofcontents insertdatetime advlist lists checklist wordcount a11ychecker help  charmap mentions quickbars linkchecker emoticons advtable footnotes typography accordion",
-    },
+    # "mobile": {
+    #     "toolbar_mode": "sliding",
+    #     "plugins": "preview powerpaste casechange importcss searchreplace autolink autosave advcode visualblocks visualchars fullscreen image link media table charmap pagebreak nonbreaking anchor tableofcontents insertdatetime advlist lists checklist wordcount a11ychecker help  charmap mentions quickbars linkchecker emoticons advtable footnotes typography accordion",
+    #     "toolbar": "undo redo | importword exportword exportpdf print | blocks | fontsizeinput | bold italic strikethrough forecolor backcolor | align lineheight outdent indent | numlist bullist checklist | link image media | table accordion | charmap emoticons | code fullscreen preview | pagebreak anchor footnotes mergetags | addtemplate inserttemplate | addcomment showcomments | casechange | spellcheckdialog a11ycheck",
+    # },
     "menu": {
         "tc": {
             "title": "Comments",
@@ -599,7 +601,7 @@ TINYMCE_DEFAULT_CONFIG = {
         },
     },
     "menubar": "file edit view insert format tools table tc help",
-    "toolbar": "undo redo | importword exportword exportpdf | aidialog aishortcuts | blocks fontsizeinput strikethrough forecolor backcolor | bold italic |  align lineheight outdent indent | numlist bullist checklist | link image media | table accordion | charmap emoticons | code fullscreen preview | save print | pagebreak anchor footnotes mergetags | addtemplate inserttemplate | addcomment showcomments | casechange | spellcheckdialog a11ycheck",
+    "toolbar": "undo redo | importword exportword exportpdf print | blocks | fontsizeinput | bold italic strikethrough forecolor backcolor | align lineheight outdent indent | numlist bullist checklist | link image media | table accordion | charmap emoticons | code fullscreen preview | pagebreak anchor footnotes mergetags | addtemplate inserttemplate | addcomment showcomments | casechange | spellcheckdialog a11ycheck",
     "image_advtab": True,
     "media_alt_source": True,
     "media_poster": True,
@@ -612,7 +614,7 @@ TINYMCE_DEFAULT_CONFIG = {
     "extended_valid_elements": "iframe[src|width|height|frameborder|allowfullscreen],video[*],source[*]",
     "paste_data_images": True,
     "image_caption": True,  # Allow image captions
-    "toolbar_mode": "wrap",  # Wrap toolbar for all buttons
+    "toolbar_mode": "sliding",
     "branding": False,
     "promotion": False,  # ⬅️ For TinyMCE 6+
     "skin": "oxide",

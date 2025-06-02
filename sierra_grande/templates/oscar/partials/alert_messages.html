@@ -7,15 +7,12 @@ Use message tags to control these alerts.  Available tags include:
 - noicon: don't show an icon
 - error/success/info - these change the connotation of the alert
 {% endcomment %}
-<div id="messages">
-  {% if messages %}
+{% if messages %}
+  <div id="messages" class="col-12">
     {% for message in messages %}
-      <div class="alert alert-dismissible {% for tag in message.tags|split %}alert-{% if tag == 'error' %}danger{% else %}{{ tag }}{% endif %} {% endfor %} fade show">
-        <button type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"></button>
-        <div class="icon-link">
+      <div class="messages__alert alert {% for tag in message.tags|split %}alert-{% if tag == 'error' %}danger{% else %}{{ tag }}{% endif %} {% endfor %}alert-dismissible d-flex align-items-center mb-0 fade show"
+           role="alert">
+        <div class="icon-link align-items-center">
           {% if 'noicon' not in message.tags %}
             {# Include an icon by default #}
             {% if 'success' in message.tags %}
@@ -35,7 +32,11 @@ Use message tags to control these alerts.  Available tags include:
             {{ message }}
           {% endif %}
         </div>
+        <button type="button"
+                class="btn-close"
+                data-bs-dismiss="alert"
+                aria-label="Close"></button>
       </div>
     {% endfor %}
-  {% endif %}
-</div>
+  </div>
+{% endif %}

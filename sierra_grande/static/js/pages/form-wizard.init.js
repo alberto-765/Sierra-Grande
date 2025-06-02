@@ -1,72 +1,62 @@
 
 
-// user profile img file upload
-if (document.querySelector("#profile-img-file-input"))
-    document.querySelector("#profile-img-file-input").addEventListener("change", function () {
-        var preview = document.querySelector(".user-profile-image");
-        var file = document.querySelector(".profile-img-file-input").files[0];
-        var reader = new FileReader();
+(() => {
+    const formSteps = document.querySelectorAll(".form-steps");
+    if (formSteps)
+        formSteps.forEach(function (form) {
+            const nextTab = form.querySelectorAll(".nexttab");
+            let tabButtons = form.querySelectorAll('button[data-bs-toggle="pill"]');
 
-        reader.addEventListener("load", function () {
-            preview.src = reader.result;
-        }, false);
-
-        if (file)
-            reader.readAsDataURL(file);
-    });
-
-if (document.querySelectorAll(".form-steps"))
-    Array.from(document.querySelectorAll(".form-steps")).forEach(function (form) {
-
-        // next tab
-        if (form.querySelectorAll(".nexttab"))
-            Array.from(form.querySelectorAll(".nexttab")).forEach(function (nextButton) {
-                var tabEl = form.querySelectorAll('button[data-bs-toggle="pill"]');
-                Array.from(tabEl).forEach(function (item) {
-                    item.addEventListener('show.bs.tab', function (event) {
-                        event.target.classList.add('done');
+            // next tab
+            if (nextTab)
+                nextTab.forEach(function (nextButton) {
+                    tabButtons.forEach(function (item) {
+                        item.addEventListener('show.bs.tab', function (event) {
+                            event.target.classList.add('done');
+                        });
+                    });
+                    nextButton.addEventListener("click", function () {
+                        let nextTab = nextButton.dataset.nexttab;
+                        document.getElementById(nextTab).click();
                     });
                 });
-                nextButton.addEventListener("click", function () {
-                    var nextTab = nextButton.getAttribute('data-nexttab');
-                    document.getElementById(nextTab).click();
+
+            //Pervies tab
+            if (form.querySelectorAll(".previestab"))
+                Array.from(form.querySelectorAll(".previestab")).forEach(function (prevButton) {
+
+                    prevButton.addEventListener("click", function () {
+                        let prevTab = prevButton.dataset.previous;
+                        let totalDone = prevButton.closest("form").querySelectorAll(".custom-nav .done").length;
+                        for (let i = totalDone - 1; i < totalDone; i++) {
+                            (prevButton.closest("form").querySelectorAll(".custom-nav .done")[i]) ? prevButton.closest("form").querySelectorAll(".custom-nav .done")[i].classList.remove('done') : '';
+                        }
+                        document.getElementById(prevTab).click();
+                    });
                 });
-            });
 
-        //Pervies tab
-        if (form.querySelectorAll(".previestab"))
-            Array.from(form.querySelectorAll(".previestab")).forEach(function (prevButton) {
-
-                prevButton.addEventListener("click", function () {
-                    var prevTab = prevButton.getAttribute('data-previous');
-                    var totalDone = prevButton.closest("form").querySelectorAll(".custom-nav .done").length;
-                    for (var i = totalDone - 1; i < totalDone; i++) {
-                        (prevButton.closest("form").querySelectorAll(".custom-nav .done")[i]) ? prevButton.closest("form").querySelectorAll(".custom-nav .done")[i].classList.remove('done') : '';
-                    }
-                    document.getElementById(prevTab).click();
-                });
-            });
-
-        // Step number click
-        var tabButtons = form.querySelectorAll('button[data-bs-toggle="pill"]');
-        if (tabButtons)
-            Array.from(tabButtons).forEach(function (button, i) {
-                button.setAttribute("data-position", i);
+            // Step number click
+            tabButtons.forEach((button, i) => {
+                button.dataset.position = i;
                 button.addEventListener("click", function () {
-                    var getProgressBar = button.getAttribute("data-progressbar");
+                    let getProgressBar = button.dataset.progressbar;
                     if (getProgressBar) {
-                        var totalLength = document.getElementById("custom-progress-bar").querySelectorAll("li").length - 1;
-                        var current = i;
-                        var percent = (current / totalLength) * 100;
+                        let totalLength = document.getElementById("custom-progress-bar").querySelectorAll("li").length - 1;
+                        let current = i;
+                        let percent = (current / totalLength) * 100;
                         document.getElementById("custom-progress-bar").querySelector('.progress-bar').style.width = percent + "%";
                     }
-                    (form.querySelectorAll(".custom-nav .done").length > 0) ?
-                        Array.from(form.querySelectorAll(".custom-nav .done")).forEach(function (doneTab) {
+
+                    const numbersDone = form.querySelectorAll(".custom-nav .done");
+                    if (numbersDone) {
+                        numbersDone.forEach((doneTab) => {
                             doneTab.classList.remove('done');
-                        }) : '';
-                    for (var j = 0; j <= i; j++) {
+                        });
+                    }
+                    for (let j = 0; j <= i; j++) {
                         tabButtons[j].classList.contains('active') ? tabButtons[j].classList.remove('done') : tabButtons[j].classList.add('done');
                     }
                 });
             });
-    });
+        });
+})();

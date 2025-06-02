@@ -329,7 +329,7 @@ class ProductCreateUpdateView(PartnerProductFilterMixin, generic.UpdateView):
                 "parent_product": self.parent.title,
             }
         if self.object.title or not self.parent:
-            return self.object.title
+            return _('Editing product "%(product)s"') % {"product": self.object.title}
         return _("Editing variant of %(parent_product)s") % {
             "parent_product": self.parent.title,
         }
@@ -716,7 +716,7 @@ class ProductLookupView(ObjectLookupView):
         return qs.filter(Q(title__icontains=term) | Q(parent__title__icontains=term))
 
 
-class ProductClassCreateUpdateView(SuccessMessageMixin, generic.UpdateView):
+class ProductClassCreateUpdateView(generic.UpdateView):
     template_name = "oscar/dashboard/catalogue/product_class_form.html"
     model = ProductClass
     form_class = ProductClassForm
@@ -782,7 +782,7 @@ class ProductClassCreateUpdateView(SuccessMessageMixin, generic.UpdateView):
         return ctx
 
 
-class ProductClassCreateView(ProductClassCreateUpdateView):
+class ProductClassCreateView(SuccessMessageMixin, ProductClassCreateUpdateView):
     creating = True
     success_message = _("Product type created successfully")
 
@@ -793,12 +793,12 @@ class ProductClassCreateView(ProductClassCreateUpdateView):
         return _("Add a new product type")
 
 
-class ProductClassUpdateView(ProductClassCreateUpdateView):
+class ProductClassUpdateView(SuccessMessageMixin, ProductClassCreateUpdateView):
     creating = False
     success_message = _("Product type updated successfully")
 
     def get_title(self):
-        return _("Update product type '%s'") % self.object.name
+        return _('Update product type "%s"') % self.object.name
 
     def get_object(self, queryset=None):
         return get_object_or_404(ProductClass, pk=self.kwargs["pk"])

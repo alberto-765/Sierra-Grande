@@ -357,7 +357,7 @@
                 </div>
               </div>
               <div class="flex-nowrap">
-                <button type="submit" class="btn btn-darken-primary">{% translate "Go!" %}</button>
+                <button type="submit" class="btn btn-primary">{% translate "Go!" %}</button>
               </div>
             </div>
           {% endblock line_actions %}
@@ -374,7 +374,7 @@
                 {% include "oscar/dashboard/partials/form_fields.html" with form=order_status_form %}
                 <input type="hidden" value="change_order_status" name="order_action" />
                 <div class="flex-nowrap">
-                  <button type="submit" class="btn btn-darken-primary">{% translate "Change status" %}</button>
+                  <button type="submit" class="btn btn-primary">{% translate "Change status" %}</button>
                 </div>
               {% else %}
                 {% translate "This order can't have its status changed." %}
@@ -739,7 +739,7 @@
           <div class="form-actions">
             <input type="submit"
                    value="{% translate "Save note" %}"
-                   class="btn btn-darken-primary" />
+                   class="btn btn-primary" />
             {% translate "Notes are only editable for 5 minutes after being saved." %}
           </div>
         </form>

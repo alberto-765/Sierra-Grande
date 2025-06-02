@@ -20,7 +20,7 @@
   <div class="hstack justify-content-between align-items-center">
     <h4 class="mb-sm-0">{% translate "Partners" %}</h4>
     <a href="{% url "dashboard:partner-create" %}"
-       class="btn btn-darken-primary icon-link"><iconify-icon icon="mdi:plus-circle" width="1rem" height="1rem" aria-hidden="true"></iconify-icon> {% translate "Create new partner" %}</a>
+       class="btn btn-primary icon-link"><iconify-icon icon="mdi:plus-circle" width="1rem" height="1rem" aria-hidden="true"></iconify-icon> {% translate "Create new partner" %}</a>
   </div>
 {% endblock main_header %}
 {% block dashboard_content %}
@@ -34,7 +34,7 @@
         <div class="row align-items-center">
           {% include "oscar/dashboard/partials/form_fields_inline.html" with form=form wrapper_class="mb-0" %}
           <button type="submit"
-                  class="btn btn-darken-primary icon-link col-md-auto"
+                  class="btn btn-primary icon-link col-md-auto"
                   data-loading-text="{% translate "Searching..." %}">{% translate "Search" %}</button>
           {% if is_filtered %}
             <a class="btn btn-secondary col-md-auto"

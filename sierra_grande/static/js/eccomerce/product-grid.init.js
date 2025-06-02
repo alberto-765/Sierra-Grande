@@ -233,7 +233,7 @@ function loadProductList (datas, page) {
                                         '+ afterDiscountElem + '\
                                     </div>\
                                     <div class="tn mt-3">\
-                                        <a href="#!" class="btn btn-darken-primary btn-hover w-100 add-btn"><i class="mdi mdi-cart me-1"></i> Add To Cart</a>\
+                                        <a href="#!" class="btn btn-primary btn-hover w-100 add-btn"><i class="mdi mdi-cart me-1"></i> Add To Cart</a>\
                                     </div>\
                                 </div>\
                             </div>\
@@ -319,7 +319,7 @@ function loadProductList (datas, page) {
                                 </div>\
                             </div>\
                             <div class="product-btn px-3">\
-                                <a href="#!" class="btn btn-darken-primary btn-sm w-75 add-btn"><i class="mdi mdi-cart me-1"></i> Add to Cart</a>\
+                                <a href="#!" class="btn btn-primary btn-sm w-75 add-btn"><i class="mdi mdi-cart me-1"></i> Add to Cart</a>\
                             </div>\
                         </div>\
                         <div class="card-body">\

@@ -18,25 +18,27 @@
 {% block dashboard_content %}
   <div class="text-end">
     <a href="{% url "dashboard:catalogue-class-create" %}"
-        class="btn btn-darken-primary icon-link">
+        class="btn btn-primary icon-link">
         <iconify-icon icon="mdi:plus-circle" width="1rem" height="1rem" aria-hidden="true"></iconify-icon> {% translate "Create new product type" %}
     </a>
   </div>
   <div class="card">
-    <div class="card-header icon-link">
-      <iconify-icon icon="fa-solid:sitemap" aria-hidden="true" width="1rem" height="1rem"></iconify-icon>
-      {% translate "Product Types" %}
+    <div class="card-header">
+      <h4 class="card-title icon-link mb-0">
+        <iconify-icon icon="streamline-flex:production-belt-time" aria-hidden="true" width="1rem" height="1rem"></iconify-icon>
+        {% translate "Product Types" %}
+      </h4>
     </div>
     <div class="card-body">
       {% if classes %}
         <div class="table-card">
-          <table class="table table-bordered table-hover">
+          <table class="table table-hover mt-1 mb-0 align-middle">
             <thead>
               <tr>
-                <th>{% translate "Name" %}</th>
-                <th>{% translate "Requires shipping" %}</th>
-                <th>{% translate "Track stock?" %}</th>
-                <th>&nbsp;</th>
+                <th scope="col" class="col-2">{% translate "Name" %}</th>
+                <th scope="col" class="col-4">{% translate "Requires shipping" %}</th>
+                <th scope="col" class="col-3">{% translate "Track stock" %}</th>
+                <th scope="col" class="col-3">&nbsp;</th>
               </tr>
             </thead>
             <tbody>
@@ -48,32 +50,13 @@
                   <td>{{ class.requires_shipping|yesno:_("Yes,No") }}</td>
                   <td>{{ class.track_stock|yesno:_("Yes,No") }}</td>
                   <td>
-                    <div class="dropdown">
-                      <button class="btn btn-secondary dropdown-toggle"
-                              type="button"
-                              id="dropdownMenuButton"
-                              data-bs-toggle="dropdown"
-                              aria-haspopup="true"
-                              aria-expanded="false">{% translate "Actions" %}</button>
-                      <ul class="dropdown-menu dropdown-menu-end"
-                          aria-labelledby="dropdownMenuButton">
-                        <li>
-                          <a class="dropdown-item"
-                             href="{% url "dashboard:catalogue-class-update" pk=class.id %}">
-                            {% translate "Edit product type" %}
-                          </a>
-                        </li>
-                        <li {% if class.products_count %} data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title=" {% blocktranslate count amount=class.products_count %} {{amount}} products are {{ remove_tooltip }} {% plural %} {{amount}} product is {{ remove_tooltip }} {% endblocktranslate %} " {% endif %}>
-                          {% comment %} Toggle modal for delete the item {% endcomment %}
-                          <button type="button"
-                                  class="dropdown-item dropdown__deleteButton"
-                                  data-bs-pk="{{ class.id }}"
-                                  data-bs-name="{{ class.name }}"
-                                  data-bs-toggle="modal"
-                                  data-bs-target=".deleteModal"
-                                  {% if class.products_count %}disabled{% endif %}>{% translate "Delete" %}</button>
-                        </li>
-                      </ul>
+                    <div class="hstack column-gap-2 justify-content-start">
+                      <a class="badge bg-info-subtle text-info fs-6 icon-link" href="{% url "dashboard:catalogue-class-update" pk=class.id %}">
+                        {% translate "Edit" %}
+                      </a>
+                      <a class="badge bg-danger-subtle text-danger fs-6 icon-link" data-bs-pk="{{ class.id }}" data-bs-name="{{ class.name }}" data-bs-toggle="modal" href="#deleteModal" {% if class.products_count %}disabled{% endif %}>
+                        {% translate "Delete" %}
+                      </a>
                     </div>
                   </td>
                 </tr>

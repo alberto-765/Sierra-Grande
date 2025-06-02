@@ -74,7 +74,7 @@ class NewUserForm(EmailUserCreationForm):
         super().__init__(host=None, *args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_method = "post"
-        self.helper.form_class = "card card-body wysiwyg"
+        self.helper.form_class = "card card-body "
         self.helper.layout = Layout(
             FloatingField("first_name"),
             FloatingField("last_name"),
@@ -225,7 +225,7 @@ class UserEmailForm(forms.Form):
                         "submit",
                         _("Search"),
                         data_loading_text=_("Searching..."),
-                        css_class="btn-darken-primary w-100",
+                        css_class="btn-primary w-100",
                     ),
                     css_class="col-sm-auto",
                 ),

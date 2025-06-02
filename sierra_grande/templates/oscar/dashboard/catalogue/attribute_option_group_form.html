@@ -34,7 +34,7 @@
   {{ title }}
 {% endblock main_header_content %}
 {% block dashboard_content %}
-  <form class="card wysiwyg" method="post" data-behaviour="tab-nav-errors">
+  <form class="card " method="post" data-behaviour="tab-nav-errors">
     {% csrf_token %}
     <div class="card-header">
       <ul class="nav nav-tabs card-header-tabs" id="productsTab" role="tablist">
@@ -113,7 +113,7 @@
            {% if not is_popup %}onclick="window.history.go(-1);return false"{% else %}onclick="window.close();return false;"{% endif %}>
           {% translate "Cancel" %}
         </a>
-        <button class="btn btn-darken-primary"
+        <button class="btn btn-primary"
                 type="submit"
                 data-loading-text="{% translate "Saving..." %}">{% translate "Save" %}</button>
       </div>

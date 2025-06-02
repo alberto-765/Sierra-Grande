@@ -268,6 +268,7 @@ class ProductForm(SEOFormMixin, forms.ModelForm):
         else:
             # Only set product class for non-child products
             self.instance.product_class = product_class
+            self.fields["title"].required = True
         self.add_attribute_fields(product_class, self.instance.is_parent)
 
         if "slug" in self.fields:
@@ -385,7 +386,13 @@ class ProductCategoryForm(forms.ModelForm):
         self.helper.form_tag = False
         self.helper.disable_csrf = True
         self.helper.layout = Layout(
-            FloatingField("category"),
+            Row(
+                Column(
+                    FloatingField("category"),
+                    css_class="col col-sm-7 col-md-5 col-xl-4 col-xxl-3",
+                ),
+                Column(Switch("DELETE"), css_class="col d-flex align-items-center"),
+            )
         )
 
     class Meta:

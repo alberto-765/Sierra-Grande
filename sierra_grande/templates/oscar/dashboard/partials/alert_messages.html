@@ -8,11 +8,11 @@ Use message tags to control these alerts.  Available tags include:
 - error/success/info - these change the connotation of the alert
 {% endcomment %}
 {% if messages %}
-  <div id="messages" class="col-12">
+  <div id="messages">
     {% for message in messages %}
-      <div class="messages__alert alert {% for tag in message.tags|split %}alert-{% if tag == 'error' %}danger{% else %}{{ tag }}{% endif %} {% endfor %}alert-dismissible fade show"
+      <div class="messages__alert alert {% for tag in message.tags|split %}alert-{% if tag == 'error' %}danger{% else %}{{ tag }}{% endif %} {% endfor %}alert-dismissible d-flex align-items-center mb-0 fade show"
            role="alert">
-        <div class="icon-link">
+        <div class="icon-link align-items-center">
           {% if 'noicon' not in message.tags %}
             {# Include an icon by default #}
             {% if 'success' in message.tags %}
@@ -34,7 +34,7 @@ Use message tags to control these alerts.  Available tags include:
         </div>
         <button type="button"
                 class="btn-close"
-                data-bs-dismiss="modal"
+                data-bs-dismiss="alert"
                 aria-label="Close"></button>
       </div>
     {% endfor %}

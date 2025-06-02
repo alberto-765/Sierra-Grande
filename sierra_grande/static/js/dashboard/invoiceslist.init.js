@@ -1842,7 +1842,7 @@ function deleteMultiple () {
             text: "You won't be able to revert this!",
             icon: "warning",
             showCancelButton: true,
-            confirmButtonClass: 'btn btn-darken-primary w-xs me-2 mt-2',
+            confirmButtonClass: 'btn btn-primary w-xs me-2 mt-2',
             cancelButtonClass: 'btn btn-danger w-xs mt-2',
             confirmButtonText: "Yes, delete it!",
             buttonsStyling: false,

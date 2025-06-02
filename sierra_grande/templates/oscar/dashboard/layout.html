@@ -21,7 +21,7 @@
     <!-- Vertical Overlay-->
     <div class="vertical-overlay"></div>
     {% block main %}
-      <div class="main-content">
+      <main class="main-content">
         <div class="page-content">
           <div class="container-fluid">
             {% include "oscar/dashboard/partials/alert_messages.html" %}
@@ -53,7 +53,7 @@
           </div>
         </div>
         {% include "oscar/dashboard/partials/footer.html" %}
-      </div>
+      </main>
     {% endblock main %}
   </div>
 {% endblock layout %}

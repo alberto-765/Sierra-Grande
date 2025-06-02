@@ -63,7 +63,7 @@ class ProductReviewSearchForm(forms.Form):
                     Submit(
                         "submit",
                         _("Search"),
-                        css_class="btn btn-darken-primary",
+                        css_class="btn btn-primary",
                         data={"loading-text": _("Searching...")},
                     ),
                 ),

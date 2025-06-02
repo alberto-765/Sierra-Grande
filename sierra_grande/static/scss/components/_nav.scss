@@ -4,8 +4,8 @@
 
 .nav-tabs,
 .nav-pills {
-    >li {
-        >a {
+    > li {
+        > a {
             color: var(--#{$prefix}tertiary-color);
             font-weight: $font-weight-medium;
         }
@@ -13,7 +13,7 @@
 }
 
 .nav-pills {
-    >a {
+    > a {
         color: var(--#{$prefix}tertiary-color);
         font-weight: $font-weight-medium;
     }
@@ -22,7 +22,7 @@
 .nav-pills {
 
     .nav-link.active,
-    .show>.nav-link {
+    .show > .nav-link {
         box-shadow: $element-shadow;
     }
 }
@@ -87,7 +87,7 @@
 //Navtab custom
 .navtab-bg {
     li {
-        >a {
+        > a {
             background-color: $gray-300;
             margin: 0 5px;
         }
@@ -324,7 +324,7 @@ $value in $theme-colors {
         &.nav-tabs {
             .nav-link {
                 &.active {
-                    color: $value;      
+                    color: $value;
                     background-color: var(--#{$prefix}card-bg-custom);
                 }
             }
@@ -459,10 +459,13 @@ $value in $theme-colors {
         gap: 16px;
 
         .nav-link {
-            text-align: left;
             background-color: rgba(var(--#{$prefix}secondary-bg-rgb), 0.4);
             border: 1px solid var(--#{$prefix}border-color);
             color: var(--#{$prefix}tertiary-color);
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            column-gap: 0.4rem;
 
             .step-title {
                 font-weight: $font-weight-semibold;
@@ -470,9 +473,21 @@ $value in $theme-colors {
 
             .step-icon {
                 color: $danger;
-                vertical-align: middle;
-                font-weight: $font-weight-medium;
-                float: left;
+
+                &::before {
+                    display: block;
+                    width: 1rem;
+                    height: 1rem;
+                    --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10s-4.477 10-10 10m0-11.414L9.172 7.757L7.757 9.172L10.586 12l-2.829 2.828l1.415 1.415L12 13.414l2.828 2.829l1.415-1.415L13.414 12l2.829-2.828l-1.415-1.415z'/%3E%3C/svg%3E");
+                    background-color: currentColor;
+                    -webkit-mask-image: var(--svg);
+                    mask-image: var(--svg);
+                    -webkit-mask-repeat: no-repeat;
+                    mask-repeat: no-repeat;
+                    -webkit-mask-size: 100% 100%;
+                    mask-size: 100% 100%;
+                    content: "";
+                }
             }
 
             &.active,
@@ -480,8 +495,8 @@ $value in $theme-colors {
                 .step-icon {
                     color: $success;
 
-                    &:before {
-                        content: "\eb80";
+                    &::before {
+                        --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2S2 6.477 2 12s4.477 10 10 10m5.457-12.543L11 15.914l-4.207-4.207l1.414-1.414L11 13.086l5.043-5.043z'/%3E%3C/svg%3E");
                     }
                 }
             }

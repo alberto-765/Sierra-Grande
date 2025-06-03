@@ -43,7 +43,7 @@ class ProductTable(DashboardTable):
         orderable=False,
     )
     actions = TemplateColumn(
-        verbose_name=_("Actions"),
+        verbose_name="",
         template_name="oscar/dashboard/catalogue/product_row_actions.html",
         orderable=False,
     )
@@ -66,6 +66,7 @@ class ProductTable(DashboardTable):
             "actions",
         )
         order_by = "-date_updated"
+        template_name = "oscar/dashboard/catalogue/table.html"
 
 
 class CategoryTable(DashboardTable):
@@ -131,13 +132,24 @@ class OptionTable(DashboardTable):
         order_by="name",
     )
     actions = TemplateColumn(
-        verbose_name=_("Actions"),
+        verbose_name="",
         template_name="oscar/dashboard/catalogue/option_row_actions.html",
         orderable=False,
     )
+    required = TemplateColumn(
+        verbose_name=_("Is this option required?"),
+        template_code="""
+        {% if record.required %}
+        <span class="badge rounded-pill bg-success-subtle text-success ">Required</span>
+        {% else %}
+        <span class="badge rounded-pill bg-info-subtle text-info">Optional</span>
+        {% endif %}
+        """,
+        orderable=True,
+    )
 
-    icon = ""
-    caption = ngettext_lazy("%s Option", "%s Options")
+    icon = "bytesize:options"
+    caption = _("Options")
 
     class Meta(DashboardTable.Meta):
         model = Option

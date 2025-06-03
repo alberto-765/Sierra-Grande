@@ -5,15 +5,11 @@ set -o pipefail
 set -o nounset
 
 python manage.py migrate
+pip install django-tables2==2.7.5 --no-deps
+python manage.py oscar_populate_countries --no-shipping || true
+python manage.py rebuild_index --noinput # django-haystack
 
-# This script checks if the container is started for the first time.
-CONTAINER_FIRST_STARTUP="CONTAINER_FIRST_STARTUP"
-if [ ! -e /$CONTAINER_FIRST_STARTUP ]; then
-    echo "Executing commands first time the container is started"
-    touch /$CONTAINER_FIRST_STARTUP
-    pip install django-tables2==2.7.5 --no-deps
-    python manage.py oscar_populate_countries --no-shipping || true
-    python manage.py rebuild_index --noinput
-fi
+# Async configuration
+# exec /usr/local/bin/gunicorn config.asgi --bind 0.0.0.0:5000 --chdir=/app -k uvicorn_worker.UvicornWorker
 
-exec /usr/local/bin/gunicorn config.asgi --bind 0.0.0.0:5000 --chdir=/app -k uvicorn_worker.UvicornWorker
+# exec /usr/local/bin/gunicorn config.wsgi --bind 0.0.0.0:5000 --chdir=/app

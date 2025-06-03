@@ -1,19 +1,20 @@
 {% load django_tables2 %}
 {% load i18n %}
 
-<div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle"
-          type="button"
-          id="dropdownMenuButton"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false">{% translate "Actions" %}</button>
-  <div class="dropdown-menu dropdown-menu-end"
-       aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item"
-       href="{% url 'dashboard:catalogue-product' pk=record.id %}{% querystring %}">{% translate "Edit" %}</a>
-    <a class="dropdown-item" href="{{ record.get_absolute_url }}">{% translate "View on site" %}</a>
-    <a class="dropdown-item"
-       href="{% url 'dashboard:catalogue-product-delete' pk=record.id %}">{% translate "Delete" %}</a>
-  </div>
+<div class="row g-2">
+   <div class="col-auto">
+      <a class="badge bg-primary-subtle text-primary fs-13 icon-link" href="{{ record.get_absolute_url }}">
+         {% translate "View on site" %}
+      </a>
+   </div>
+   <div class="col-auto">
+      <a class="badge bg-info-subtle text-info fs-13 icon-link" href="{% url 'dashboard:catalogue-product' pk=record.id %}{% querystring %}">
+         {% translate "Edit" %}
+      </a>
+   </div>
+   <div class="col-auto">
+      <a class="badge bg-danger-subtle text-danger fs-13 icon-link" data-bs-pk="{{ record.id }}" data-bs-name="{{ record.title }}" data-bs-toggle="modal" href="#deleteModal">
+         {% translate "Delete" %}
+      </a>
+   </div>
 </div>

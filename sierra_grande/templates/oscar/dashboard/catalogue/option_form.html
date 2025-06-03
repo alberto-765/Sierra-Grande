@@ -39,9 +39,11 @@
         data-behaviour="tab-nav-errors">
     {% csrf_token %}
     <div class="card">
-      <div class="card-header icon-link">
-        <iconify-icon icon="bx:detail" width="1rem" height="1rem" aria-hidden="false"></iconify-icon>
-        {% translate "Option details" %}
+      <div class="card-header">
+        <h4 class="card-title icon-link mb-0">
+          <iconify-icon icon="bx:detail" width="1rem" height="1rem" aria-hidden="false"></iconify-icon>
+          {% translate "Option details" %}
+        </h4>
       </div>
       <div class="card-body">
         {% if is_popup %}<input type="hidden" name="{{ is_popup_var }}" value="{{ is_popup }}" />{% endif %}

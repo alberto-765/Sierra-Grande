@@ -16,14 +16,15 @@
     </ol>
   </nav>
 {% endblock breadcrumbs %}
-{% block main_header %}
-  <div class="hstack justify-content-between align-items-center">
-    <h4 class="mb-sm-0">{% translate "Option" %}</h4>
+{% block main_header_content %} 
+  {% translate "Option" %}
+{% endblock main_header_content %}
+{% block dashboard_content %}
+ <div class="text-end">
     <a href="{% url "dashboard:catalogue-option-create" %}"
        class="btn btn-primary icon-link"><iconify-icon icon="mdi:plus-circle" width="1rem" height="1rem" aria-hidden="true"></iconify-icon> {% translate "Create new Option" %}</a>
   </div>
-{% endblock main_header %}
-{% block dashboard_content %}
+
   {% block product_list %}
     {% if has_options %}
       <form action="." method="post">
@@ -31,6 +32,7 @@
           {% csrf_token %}
           {% render_table options %}
         </div>
+        {% include "oscar/partials/delete_modal.html" with body_title="Remove Option" body_text="Are you sure to remove the option:" %}
       </form>
     {% else %}
       <div class="card">
@@ -40,3 +42,9 @@
     {% endif %}
   {% endblock product_list %}
 {% endblock dashboard_content %}
+
+{% block onbodyload %}
+  {{ block.super }}
+  oscar.dashboard.initDeleteModal('{% url "dashboard:catalogue-option-delete" pk=9999 %}', '9999')
+{% endblock onbodyload %}
+

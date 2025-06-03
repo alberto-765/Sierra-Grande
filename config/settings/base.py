@@ -574,6 +574,7 @@ OSCAR_DASHBOARD_NAVIGATION = [
     },
 ]
 OSCAR_SHOP_NAME = "Sierra Grande"
+OSCAR_DASHBOARD_ITEMS_PER_PAGE = 10
 
 # TinyMCE
 # ------------------------------------------------------------------------------

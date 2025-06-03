@@ -3,6 +3,6 @@ main:has(.form-actions-fixed) {
     margin-bottom: 5rem;
 }
 
-.tab-pane--category .row:last-of-type .mb-3 {
+.tab-pane--details .mb-3:last-of-type, .tab-pane--categories .row:last-of-type .mb-3 {
     margin-bottom: 0 !important;
 }

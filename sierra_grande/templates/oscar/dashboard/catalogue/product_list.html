@@ -72,38 +72,21 @@
   {% endblock search_products %}
   {% if has_products %}
     {% block product_list %}
-      <form method="post">
+      <form method="post" class="card">
         {% csrf_token %}
         {% render_table products %}
+
+        {% include "oscar/partials/delete_modal.html" with body_title="Remove Product" body_text="Are you sure to remove the product:" %}
       </form>
-      <div class="modal fade"
-           id="product-image-modal"
-           tabindex="-1"
-           role="dialog">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title"></h4>
-              <button type="button"
-                      class="btn-close"
-                      data-bs-dismiss="modal"
-                      aria-label="Close"></button>
-            </div>
-            <div class="modal-body text-center">
-              <img class="img-fluid mx-auto" alt="" height="" width="" />
-            </div>
-          </div>
-        </div>
-      </div>
     {% endblock product_list %}
   {% else %}
     <div class="card">
-      <span class="card-header icon-link fw-normal">
+      <div class="card-header icon-link fw-normal">
         {% if products.icon %}
           <iconify-icon icon="{{ products.icon }}" width="1rem" height="1rem" aria-hidden="true" noobserver></iconify-icon>
         {% endif %}
         {{ products.get_caption_display }}
-      </span>
+      </div>
       <div class="card-body">{% translate "No products found." %}</div>
     </div>
   {% endif %}
@@ -111,4 +94,5 @@
 {% block onbodyload %}
   {{ block.super }}
   oscar.dashboard.product_lists.init();
+  oscar.dashboard.initDeleteModal('{% url "dashboard:catalogue-product-delete" pk=9999 %}', '9999')
 {% endblock onbodyload %}

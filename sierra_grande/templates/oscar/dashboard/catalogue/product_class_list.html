@@ -22,54 +22,57 @@
         <iconify-icon icon="mdi:plus-circle" width="1rem" height="1rem" aria-hidden="true"></iconify-icon> {% translate "Create new product type" %}
     </a>
   </div>
-  <div class="card">
-    <div class="card-header">
-      <h4 class="card-title icon-link mb-0">
-        <iconify-icon icon="streamline-flex:production-belt-time" aria-hidden="true" width="1rem" height="1rem"></iconify-icon>
-        {% translate "Product Types" %}
-      </h4>
-    </div>
-    <div class="card-body">
-      {% if classes %}
-        <div class="table-card">
-          <table class="table table-hover mt-1 mb-0 align-middle">
-            <thead>
-              <tr>
-                <th scope="col" class="col-2">{% translate "Name" %}</th>
-                <th scope="col" class="col-4">{% translate "Requires shipping" %}</th>
-                <th scope="col" class="col-3">{% translate "Track stock" %}</th>
-                <th scope="col" class="col-3">&nbsp;</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for class in classes %}
+  {% block product_list %}
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title icon-link mb-0">
+          <iconify-icon icon="streamline-flex:production-belt-time" aria-hidden="true" width="1rem" height="1rem"></iconify-icon>
+          {% translate "Product Types" %}
+        </h4>
+      </div>
+      <div class="card-body">
+        {% if classes %}
+          <div class="table-card">
+            <table class="table table-hover mt-1 mb-0 align-middle">
+              <thead>
                 <tr>
-                  <td>
-                    <a href="{% url "dashboard:catalogue-class-update" class.id %}">{{ class.name }}</a>
-                  </td>
-                  <td>{{ class.requires_shipping|yesno:_("Yes,No") }}</td>
-                  <td>{{ class.track_stock|yesno:_("Yes,No") }}</td>
-                  <td>
-                    <div class="hstack column-gap-2 justify-content-start">
-                      <a class="badge bg-info-subtle text-info fs-6 icon-link" href="{% url "dashboard:catalogue-class-update" pk=class.id %}">
-                        {% translate "Edit" %}
-                      </a>
-                      <a class="badge bg-danger-subtle text-danger fs-6 icon-link" data-bs-pk="{{ class.id }}" data-bs-name="{{ class.name }}" data-bs-toggle="modal" href="#deleteModal" {% if class.products_count %}disabled{% endif %}>
-                        {% translate "Delete" %}
-                      </a>
-                    </div>
-                  </td>
+                  <th scope="col" class="col-2">{% translate "Name" %}</th>
+                  <th scope="col" class="col-4">{% translate "Requires shipping" %}</th>
+                  <th scope="col" class="col-3">{% translate "Track stock" %}</th>
+                  <th scope="col" class="col-3">&nbsp;</th>
                 </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
-      {% else %}
-        <div>{% translate "There are no product types." %}</div>
-      {% endif %}
+              </thead>
+              <tbody>
+                {% for class in classes %}
+                  <tr>
+                    <td>
+                      <a href="{% url "dashboard:catalogue-class-update" class.id %}">{{ class.name }}</a>
+                    </td>
+                    <td>{{ class.requires_shipping|yesno:_("Yes,No") }}</td>
+                    <td>{{ class.track_stock|yesno:_("Yes,No") }}</td>
+                    <td>
+                      <div class="hstack column-gap-2 justify-content-start">
+                        <a class="badge bg-info-subtle text-info fs-6 icon-link" href="{% url "dashboard:catalogue-class-update" pk=class.id %}">
+                          {% translate "Edit" %}
+                        </a>
+                        <a class="badge bg-danger-subtle text-danger fs-6 icon-link" data-bs-pk="{{ class.id }}" data-bs-name="{{ class.name }}" data-bs-toggle="modal" href="#deleteModal" {% if class.products_count %}disabled{% endif %}>
+                          {% translate "Delete" %}
+                        </a>
+                      </div>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        {% else %}
+          <div>{% translate "There are no product types." %}</div>
+        {% endif %}
+      </div>
     </div>
-  </div>
-  {% include "oscar/partials/delete_modal.html" with body_title="Remove Product Type" body_text="Are you sure to remove the product type" %}
+  {% endblock product_list %}
+
+  {% include "oscar/partials/delete_modal.html" with body_title="Remove Product Type" body_text="Are you sure to remove the product type:" %}
 {% endblock dashboard_content %}
 {% block onbodyload %}
   {{ block.super }}

@@ -629,14 +629,14 @@ var oscar = ((o) => {
                     document.body.classList.remove("vertical-sidebar-enable");
                     if (sessionStorage.getItem("data-layout") != "horizontal") {
                         document.documentElement.setAttribute("data-sidebar-size", "lg");
+                        document.querySelector(".app-menu.navbar-menu").classList.add("h-100");
+
                     }
                     if (document.querySelector(".hamburger-icon")) {
                         document.querySelector(".hamburger-icon").classList.add("open");
                     }
                 }
             }
-
-
 
             function toggleHamburgerMenu () {
                 let windowSize = document.documentElement.clientWidth;
@@ -683,59 +683,46 @@ var oscar = ((o) => {
 
             // two-column sidebar active js
             function initActiveMenu () {
-                let currentPath = location.pathname;
-                // currentPath = currentPath.substring(currentPath.lastIndexOf("/") + 1);
-                if (currentPath) {
-                    // navbar-nav
-                    let a = document.getElementById("navbar-nav").querySelector('[href="' + currentPath + '"]');
-                    if (a) {
-                        a.classList.add("active");
-                        let parentCollapseDiv = a.closest(".collapse.menu-dropdown");
-                        if (parentCollapseDiv) {
-                            parentCollapseDiv.classList.add("show");
-                            parentCollapseDiv.parentElement.children[0].classList.add("active");
-                            parentCollapseDiv.parentElement.children[0].setAttribute("aria-expanded", "true");
-                            if (parentCollapseDiv.parentElement.closest(".collapse.menu-dropdown")) {
-                                parentCollapseDiv.parentElement.closest(".collapse").classList.add("show");
-                                if (parentCollapseDiv.parentElement.closest(".collapse").previousElementSibling)
-                                    parentCollapseDiv.parentElement.closest(".collapse").previousElementSibling.classList.add("active");
+                const currentPath = location.pathname;
+                const sidebarLinks = document.getElementById("navbar-nav").querySelectorAll("a.nav-link");
 
-                                if (parentCollapseDiv.parentElement.parentElement.parentElement.parentElement.closest(".collapse.menu-dropdown")) {
-                                    parentCollapseDiv.parentElement.parentElement.parentElement.parentElement.closest(".collapse").classList.add("show");
-                                    if (parentCollapseDiv.parentElement.parentElement.parentElement.parentElement.closest(".collapse").previousElementSibling) {
+                let matchedLink = null;
+                let maxMatchLength = 0; // To get closest url
 
-                                        parentCollapseDiv.parentElement.parentElement.parentElement.parentElement.closest(".collapse").previousElementSibling.classList.add("active");
-                                        if ((document.documentElement.getAttribute("data-layout") == "horizontal") && parentCollapseDiv.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.closest(".collapse")) {
-                                            parentCollapseDiv.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.closest(".collapse").previousElementSibling.classList.add("active");
-                                        }
+                sidebarLinks.forEach(link => {
+                    const href = link.getAttribute('href');
+
+                    if (href && currentPath.includes(href) && href.length > maxMatchLength) {
+                        matchedLink = link;
+                        maxMatchLength = href.length;
+                    }
+                });
+
+                if (matchedLink) {
+                    matchedLink.classList.add("active");
+
+                    const parentCollapseDiv = matchedLink.closest(".collapse.menu-dropdown");
+                    if (parentCollapseDiv) {
+                        parentCollapseDiv.classList.add("show");
+                        parentCollapseDiv.parentElement.children[0].classList.add("active");
+                        parentCollapseDiv.parentElement.children[0].setAttribute("aria-expanded", "true");
+                        if (parentCollapseDiv.parentElement.closest(".collapse.menu-dropdown")) {
+                            parentCollapseDiv.parentElement.closest(".collapse").classList.add("show");
+                            if (parentCollapseDiv.parentElement.closest(".collapse").previousElementSibling)
+                                parentCollapseDiv.parentElement.closest(".collapse").previousElementSibling.classList.add("active");
+
+                            if (parentCollapseDiv.parentElement.parentElement.parentElement.parentElement.closest(".collapse.menu-dropdown")) {
+                                parentCollapseDiv.parentElement.parentElement.parentElement.parentElement.closest(".collapse").classList.add("show");
+                                if (parentCollapseDiv.parentElement.parentElement.parentElement.parentElement.closest(".collapse").previousElementSibling) {
+
+                                    parentCollapseDiv.parentElement.parentElement.parentElement.parentElement.closest(".collapse").previousElementSibling.classList.add("active");
+                                    if ((document.documentElement.dataset.layout == "horizontal") && parentCollapseDiv.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.closest(".collapse")) {
+                                        parentCollapseDiv.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.closest(".collapse").previousElementSibling.classList.add("active");
                                     }
                                 }
                             }
                         }
                     }
-                }
-            }
-
-            function elementInViewport (el) {
-                if (el) {
-                    let top = el.offsetTop;
-                    let left = el.offsetLeft;
-                    let width = el.offsetWidth;
-                    let height = el.offsetHeight;
-
-                    if (el.offsetParent) {
-                        while (el.offsetParent) {
-                            el = el.offsetParent;
-                            top += el.offsetTop;
-                            left += el.offsetLeft;
-                        }
-                    }
-                    return (
-                        top >= window.pageYOffset &&
-                        left >= window.pageXOffset &&
-                        top + height <= window.pageYOffset + window.innerHeight &&
-                        left + width <= window.pageXOffset + window.innerWidth
-                    );
                 }
             }
 

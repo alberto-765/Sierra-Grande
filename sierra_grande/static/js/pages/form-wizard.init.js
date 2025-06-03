@@ -5,7 +5,7 @@
     if (formSteps)
         formSteps.forEach(function (form) {
             const nextTab = form.querySelectorAll(".nexttab");
-            let tabButtons = form.querySelectorAll('button[data-bs-toggle="pill"]');
+            let tabButtons = form.querySelectorAll(':is(button[data-bs-toggle="pill"], a[data-bs-toggle="pill"])');
 
             // next tab
             if (nextTab)

@@ -470,6 +470,21 @@ class ProductImageForm(forms.ModelForm):
 
 
 class ProductRecommendationForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.layout = Layout(
+            Row(
+                ("primary"),
+                Column("recommendation"),
+                Column("ranking"),
+                Column(
+                    Switch("DELETE"), css_class="col-auto d-flex align-items-center"
+                ),
+            ),
+        )
+
     class Meta:
         model = ProductRecommendation
         fields = ["primary", "recommendation", "ranking"]
@@ -583,12 +598,20 @@ class OptionForm(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.form_tag = False
         self.helper.layout = Layout(
-            FloatingField("name"),
-            FloatingField("type"),
-            Switch("required"),
-            FloatingField("order"),
-            FloatingField("help_text"),
-            FloatingField("option_group"),
+            Row(
+                Column(FloatingField("name"), css_class="col-md-6"),
+                Column(FloatingField("type"), css_class="col-md-6"),
+                Column(Switch("required"), css_class="col-md-6 align-content-center"),
+                Column(FloatingField("order"), css_class="col-md-6"),
+                Column(
+                    FloatingField("help_text", wrapper_class="mb-3 mb-md-0"),
+                    css_class="col-md-6",
+                ),
+                Column(
+                    FloatingField("option_group", wrapper_class=" "),
+                    css_class="col-md-6",
+                ),
+            )
         )
 
     class Meta:

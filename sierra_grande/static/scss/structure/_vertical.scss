@@ -36,8 +36,12 @@
     border-right: 1px solid $vertical-menu-border;
     bottom: 0;
     position: fixed;
-    top: $top-tagbar-height;
     transition: all .1s ease;
+
+
+    @media (min-width: 767.98px) {
+        top: $top-tagbar-height;
+    }
 
     .navbar-nav {
         .nav-link {
@@ -666,6 +670,11 @@
 .vertical-sidebar-enable {
     .vertical-overlay {
         display: block;
+    }
+
+    .app-menu {
+        margin-left: 0 !important;
+        z-index: 1004;
     }
 }
 

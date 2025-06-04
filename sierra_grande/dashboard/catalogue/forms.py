@@ -11,12 +11,11 @@ from django import forms
 from django.core import exceptions
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import pgettext
-from oscar.core.loading import get_class
 from oscar.core.loading import get_classes
 from oscar.core.loading import get_model
 from oscar.core.utils import slugify
-from oscar.forms.widgets import DateTimePickerInput
-from oscar.forms.widgets import ImageInput
+from oscar.forms.widgets import DateTimePickerInput, ImageInput
+
 from tinymce.widgets import TinyMCE
 from treebeard.forms import movenodeform_factory
 
@@ -31,7 +30,6 @@ ProductRecommendation = get_model("catalogue", "ProductRecommendation")
 AttributeOptionGroup = get_model("catalogue", "AttributeOptionGroup")
 AttributeOption = get_model("catalogue", "AttributeOption")
 Option = get_model("catalogue", "Option")
-ProductSelect = get_class("dashboard.catalogue.widgets", "ProductSelect")
 (RelatedFieldWidgetWrapper, RelatedMultipleFieldWidgetWrapper) = get_classes(
     "dashboard.widgets",
     ("RelatedFieldWidgetWrapper", "RelatedMultipleFieldWidgetWrapper"),
@@ -103,6 +101,14 @@ class ProductClassSelectForm(forms.Form):
         label=_("Create a new product of type"),
         empty_label=_("-- Choose type --"),
         queryset=ProductClass.objects.all(),
+        widget=forms.Select(
+            attrs={
+                "data-choices": "",
+                "data-choices-search-true": "",
+                "data-choices-removeItem": "",
+                "data-choices-sorting-true": "",
+            },
+        ),
     )
 
     def __init__(self, *args, **kwargs):
@@ -113,6 +119,12 @@ class ProductClassSelectForm(forms.Form):
         qs = self.fields["product_class"].queryset
         if not kwargs.get("initial") and len(qs) == 1:
             self.fields["product_class"].initial = qs[0]
+
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.layout = Layout(
+            Column(Field("product_class", wrapper_class=" "), css_class="col-sm-auto")
+        )
 
 
 class ProductSearchForm(forms.Form):
@@ -132,6 +144,8 @@ class StockRecordForm(forms.ModelForm):
         # anyway in case one wishes to customise the partner queryset
         self.user = user
         super().__init__(*args, **kwargs)
+
+        self.fields["partner"].empty_label = None
 
         # Restrict accessible partners for non-staff users
         if not self.user.is_staff:
@@ -157,6 +171,16 @@ class StockRecordForm(forms.ModelForm):
             "num_in_stock",
             "low_stock_threshold",
         ]
+        widgets = {
+            "partner": forms.Select(
+                attrs={
+                    "data-choices": "",
+                    "data-choices-search-true": "",
+                    "data-choices-removeItem": "",
+                    "data-choices-sorting-true": "",
+                },
+            ),
+        }
 
 
 def _attr_text_field(attribute):
@@ -388,80 +412,44 @@ class ProductCategoryForm(forms.ModelForm):
         self.helper.layout = Layout(
             Row(
                 Column(
-                    FloatingField("category"),
+                    ("category"),
                     css_class="col col-sm-7 col-md-5 col-xl-4 col-xxl-3",
                 ),
                 Column(Switch("DELETE"), css_class="col d-flex align-items-center"),
+                css_class="align-items-center",
             )
         )
 
     class Meta:
         model = ProductCategory
         fields = ("category",)
+        widgets = {
+            "category": forms.Select(
+                attrs={
+                    "data-choices": "",
+                    "data-choices-search-true": "",
+                    "data-choices-removeItem": "",
+                    "data-choices-sorting-true": "",
+                },
+            ),
+        }
 
 
 class ProductImageForm(forms.ModelForm):
     def __init__(self, *args, data=None, **kwargs):
         self.prefix = kwargs.get("prefix")
-        instance = kwargs.get("instance")
-        if not instance:
+        self.instance = kwargs.get("instance")
+        if not self.instance:
             initial = {"display_order": self.get_display_order()}
             initial.update(kwargs.get("initial", {}))
             kwargs["initial"] = initial
         super().__init__(data, *args, **kwargs)
 
-        re_order = Div(
-            HTML(
-                f"""<a href="#" class="btn btn-outline-info btn-handle btn-reorder
-                text-center">
-                <iconify-icon icon="fa-solid:arrows-alt" width="1rem" height="1rem"
-                aria-hidden="true"></iconify-icon>
-                {pgettext("Change the sequence order", "Re-order")} </a>""",
-            ),
-            css_class="text-center",
-        )
-        if not self.instance.id:
-            re_order = Div(
-                Div(
-                    HTML(
-                        f"""<a href="#" class="btn btn-outline-info btn-handle
-                        btn-reorder disabled aria-disabled="true">
-                        <iconify-icon icon="fa-solid:arrows-alt" width="1rem"
-                        height="1rem" aria-hidden="true"></iconify-icon>
-                        {pgettext("Change the sequence order", "Re-order")} </a>""",
-                    ),
-                    data_bs_toggle="tooltip",
-                    data_bs_title=_("Upload an image to reorder"),
-                    css_class="reorder__wrapper d-inline-block",
-                ),
-                css_class="text-center",
-            )
-
-        self.helper = FormHelper()
-        self.helper.form_tag = False
-        self.helper.disable_csrf = True
-        self.helper.layout = Layout(
-            Column(
-                ("product"),
-                Div(
-                    ("original"),
-                    re_order,
-                    css_class="mb-3",
-                ),
-                FloatingField("caption"),
-                Switch("DELETE"),
-                ("display_order"),
-            ),
-        )
-
     class Meta:
         model = ProductImage
         fields = ["product", "original", "caption", "display_order"]
-        # use ImageInput widget to create HTML displaying the
-        # actual uploaded image and providing the upload dialog
-        # when clicking on the actual image.
         widgets = {
-            "original": ImageInput(),
+            "original": ImageInput(attrs={"class": "form-control d-none"}),
             "display_order": forms.HiddenInput(),
         }
 
@@ -472,8 +460,12 @@ class ProductImageForm(forms.ModelForm):
 class ProductRecommendationForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+        self.fields["recommendation"].empty_label = None
+
         self.helper = FormHelper()
         self.helper.form_tag = False
+        self.helper.form_show_errors = False
         self.helper.layout = Layout(
             Row(
                 ("primary"),
@@ -489,7 +481,14 @@ class ProductRecommendationForm(forms.ModelForm):
         model = ProductRecommendation
         fields = ["primary", "recommendation", "ranking"]
         widgets = {
-            "recommendation": ProductSelect,
+            "recommendation": forms.Select(
+                attrs={
+                    "data-choices": "",
+                    "data-choices-search-true": "",
+                    "data-choices-removeItem": "",
+                    "data-choices-sorting-true": "",
+                },
+            ),
         }
 
 

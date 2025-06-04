@@ -33,7 +33,7 @@
         {% translate "Create the new product type" %}
       </h4>
     </div>
-    <div class="card-body">
+    <div class="card-body" data-behaviour="tab-nav-errors">
       <div class="step-arrow-nav mb-4">
         <ul class="nav nav-pills custom-nav nav-justified" role="tablist">
             <li class="nav-item" role="presentation">
@@ -66,8 +66,8 @@
               {{ attributes_formset.non_form_errors }}
               <thead >
                 <tr>
-                  <td class="w-25">{% translate "Name" %}</td>
-                  <td class="w-25">{% translate "Code" %}</td>
+                  <td class="col-3">{% translate "Name" %}</td>
+                  <td class="col-3">{% translate "Code" %}</td>
                   <td>{% translate "Type" %}</td>
                   <td>{% translate "Required" %}</td>
                   <td>{% translate "Delete" %}</td>
@@ -114,7 +114,7 @@
 {% endblock dashboard_content %}
 {% block extrascripts %}
   {{ block.super }}
-  <script src="{% static "js/pages/form-wizard.init.js" %}" defer></script>
+  <script src="{% static "js/components/form-wizard.init.js" %}" defer></script>
 {% endblock extrascripts %}
 {% block onbodyload %}
   {{ block.super }}

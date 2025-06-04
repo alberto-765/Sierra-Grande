@@ -721,7 +721,6 @@ class ProductClassCreateUpdateView(generic.UpdateView):
     model = ProductClass
     form_class = ProductClassForm
     product_attributes_formset = ProductAttributesFormSet
-    success_url = reverse_lazy("dashboard:catalogue-class-list")
 
     def process_all_forms(self, form):
         """
@@ -782,9 +781,8 @@ class ProductClassCreateUpdateView(generic.UpdateView):
         return ctx
 
 
-class ProductClassCreateView(SuccessMessageMixin, ProductClassCreateUpdateView):
+class ProductClassCreateView(ProductClassCreateUpdateView):
     creating = True
-    success_message = _("Product type created successfully")
 
     def get_object(self, queryset=None):
         return None
@@ -792,8 +790,12 @@ class ProductClassCreateView(SuccessMessageMixin, ProductClassCreateUpdateView):
     def get_title(self):
         return _("Add a new product type")
 
+    def get_success_url(self):
+        messages.info(self.request, _("Product type created successfully"))
+        return reverse("dashboard:catalogue-class-list")
 
-class ProductClassUpdateView(SuccessMessageMixin, ProductClassCreateUpdateView):
+
+class ProductClassUpdateView(ProductClassCreateUpdateView):
     creating = False
     success_message = _("Product type updated successfully")
 
@@ -802,6 +804,10 @@ class ProductClassUpdateView(SuccessMessageMixin, ProductClassCreateUpdateView):
 
     def get_object(self, queryset=None):
         return get_object_or_404(ProductClass, pk=self.kwargs["pk"])
+
+    def get_success_url(self):
+        messages.info(self.request, _("Product type updated successfully"))
+        return reverse("dashboard:catalogue-class-list")
 
 
 class ProductClassListView(generic.ListView):

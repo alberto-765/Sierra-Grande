@@ -35,7 +35,6 @@
 @import "components/root";
 @import "components/reboot";
 @import "components/alerts";
-@import "components/backgrounds";
 @import "components/badge";
 @import "components/buttons";
 @import "components/breadcrumb";
@@ -59,14 +58,14 @@
 @import "plugins/form-input-spin";
 @import "plugins/gridjs";
 // @import "plugins/listjs";
-@import "plugins/apexcharts";
-@import "plugins/google-map";
-@import "plugins/autocomplete"; // autocomplete.js
-@import "plugins/vector-maps";
+// @import "plugins/apexcharts";
+// @import "plugins/google-map";
+// @import "plugins/autocomplete"; // autocomplete.js
+@import "plugins/choices";
+// @import "plugins/vector-maps";
 @import "plugins/flatpicker";
-@import "plugins/flag-input";
-@import "plugins/tom-select";
-@import "plugins/range-slider"; // Rangeslider.js library
+// @import "plugins/flag-input";
+// @import "plugins/range-slider"; // Rangeslider.js library
 
 // Global styles
 @import "custom";

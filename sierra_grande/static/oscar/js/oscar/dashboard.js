@@ -1,32 +1,34 @@
 var oscar = ((o) => {
     'use strict';
 
+    // Method launched when File input change
     function onFileChange (evt) {
-        if (!window.FileReader) return;
-
         const fileInput = evt.target;
-        const imgId = fileInput.id + "-image";
+
+        // Exit if FileReader or FileInput isn't in the DOM
+        if (!window.FileReader || !fileInput) return;
+
+        const preview = document.querySelector(`#${ fileInput.id }-image img`);
+        const file = fileInput.files[0];
+
         const reader = new FileReader();
+        reader.addEventListener("load", function () {
+            preview.src = reader.result;
+            preview.classList.remove('d-none');
+        }, false);
 
-        reader.onload = function (e) {
-            const imgDiv = document.getElementById(imgId);
-            if (imgDiv) {
-                const img = imgDiv.querySelector('img');
-                if (img) img.src = e.target.result;
-            }
-        };
-
-        if (fileInput.files && fileInput.files[0]) {
+        if (file) {
             reader.readAsDataURL(fileInput.files[0]);
         }
 
+        // Active the reorder button
         const parentTab = fileInput.closest('.tab-pane');
         const imageContainer = fileInput.closest('.sortable-handle');
 
         if (imageContainer) {
             const reorderBtns = imageContainer.querySelectorAll('.btn-reorder');
             reorderBtns.forEach(btn => {
-                btn.removeAttribute('disabled');
+                btn.disabled = false;
                 btn.classList.remove('disabled');
             });
         }
@@ -34,7 +36,7 @@ var oscar = ((o) => {
         const uploadImageContainer = fileInput.closest('.upload-image');
         if (!uploadImageContainer) return;
 
-        const lastImageItem = uploadImageContainer.querySelector('li:last-child');
+        const lastImageItem = uploadImageContainer.querySelector('.sortable-handle:last-child');
         if (!lastImageItem) return;
 
         const totalFormsInput = parentTab.querySelector("input[name$=images-TOTAL_FORMS]");
@@ -45,10 +47,10 @@ var oscar = ((o) => {
         const numExisting = parseInt(totalFormsInput.value, 10);
         const numMax = parseInt(maxFormsInput.value, 10);
 
-        // Do not create extra image form if number of maximum allowed forms has reached.
+        // Add new image field if necessary
         if (numExisting < numMax) {
             const newImg = o.dashboard._extraProductImg.cloneNode(true);
-            const productId = document.getElementById('images-0-product').value;
+            const productId = document.getElementById('id_images-0-product').value;
 
             lastImageItem.insertAdjacentElement('afterend', newImg);
 
@@ -66,10 +68,11 @@ var oscar = ((o) => {
                 });
             });
 
-            const displayOrderInput = newImg.querySelector('#id_images-' + numExisting + '-display_order');
+            // Update cloned item hidden input's values
+            const displayOrderInput = newImg.querySelector(`#id_images-${ numExisting }-display_order`);
             if (displayOrderInput) displayOrderInput.value = numExisting;
 
-            const productInput = newImg.querySelector('#id_images-' + numExisting + '-product');
+            const productInput = newImg.querySelector(`#id_images-${ numExisting }-product`);
             if (productInput) productInput.value = productId;
 
             const newFile = newImg.querySelector('input[type="file"]');
@@ -110,21 +113,24 @@ var oscar = ((o) => {
 
             o.dashboard.options = Object.assign({}, defaults, options);
 
-            o.dashboard.initWidgets(window.document);
+            o.dashboard.initWidgets(o.dashboard.options);
             o.dashboard.initForms();
             o.dashboard.initTemplate();
             o.dashboard.initClock();
 
-            // TODO
             // Adds error icon if there are errors in the product update form
             document.querySelectorAll('[data-behaviour="tab-nav-errors"] .tab-pane').forEach(pane => {
-                const errors = pane.querySelectorAll('[class*="error"]:not(:empty)');
+                const errors = pane.querySelectorAll(':is(.text-danger.error, .alert.alert-danger):not(:empty)');
                 if (errors.length > 0) {
-                    const paneId = pane.getAttribute('id');
-                    const tabLink = document.querySelector('.tab-nav a[href="#' + paneId + '"]');
+                    const paneId = pane.id;
+                    const tabLink = document.querySelector(`.custom-nav :is(a[href="#${ paneId }"], button[data-bs-target="#${ paneId }"])`);
                     if (tabLink) {
-                        const icon = document.createElement('i');
-                        icon.className = 'fas fa-info-circle float-end';
+                        const icon = document.createElement('iconify-icon');
+                        icon.icon = 'material-symbols:error';
+                        icon.ariaHidden = true;
+                        icon.classList.add('text-danger', 'ms-auto');
+                        icon.width = icon.height = '1rem';
+                        icon.inline = true;
                         tabLink.appendChild(icon);
                     }
                 }
@@ -153,9 +159,9 @@ var oscar = ((o) => {
             }
         },
 
-        initMasks: function (el) {
+        initMasks: function () {
             // Using vanilla Inputmask (without jQuery)
-            const inputs = el.querySelectorAll('input, textarea, select, button');
+            const inputs = document.querySelectorAll('input, textarea, select, button');
             inputs.forEach(input => {
                 Inputmask().mask(input);
             });
@@ -201,19 +207,28 @@ var oscar = ((o) => {
                         btn.classList.add('disabled');
                         btn.disabled = true;
                     });
+
                 });
 
                 form.querySelectorAll('.tab-pane input').forEach(input => {
-                    input.addEventListener('invalid', () => {
-                        const tabPane = input.closest('.tab-pane');
-                        if (tabPane) {
-                            if (tabPane.id) {
-                                // We need a vanilla JS replacement for Bootstrap's tab 'show' method
-                                const tabLink = form.querySelector(`.nav-link:is([data-bs-target="#${ tabPane.id }"], [href="#${ tabPane.id }")]`);
-                                if (tabLink) {
-                                    tabLink.click();
+                    input.addEventListener('invalid', (e) => {
+                        const invalidInput = form.querySelector('input:invalid');
+
+                        // Show tab with errors if form is invalid
+                        if (input == invalidInput) {
+                            const tabPane = input.closest('.tab-pane');
+                            if (tabPane) {
+                                if (tabPane.id) {
+                                    // We need a vanilla JS replacement for Bootstrap's tab 'show' method
+                                    const tabLink = form.querySelector(`.nav-link:is([data-bs-target="#${ tabPane.id }"], [href="#${ tabPane.id }"])`);
+                                    if (tabLink) {
+                                        tabLink.click();
+                                    }
                                 }
                             }
+                        } else {
+                            e.preventDefault();
+                            e.stopPropagation();
                         }
                     });
                 });
@@ -230,28 +245,21 @@ var oscar = ((o) => {
             const productImages = document.getElementById('product_images');
             if (!productImages) return;
 
-            const extraImg = productImages.querySelector('.upload-image li:last-child');
+            const extraImg = productImages.querySelector('.upload-image .sortable-handle:last-child');
             if (extraImg) {
                 o.dashboard._extraProductImg = extraImg.cloneNode(true);
             }
 
-            // Disable sorting for disabled items
-            document.querySelectorAll('a:disabled').forEach(disabled => {
-                const handle = disabled.closest('.sortable-handle');
-                if (handle) {
-                    // Mark as not sortable using data attribute
-                    handle.setAttribute('data-sortable-disabled', 'true');
-                }
-            });
 
             // Initialize SortableJS for image reordering
-            const uploadImages = document.querySelectorAll('ol.upload-image');
+            const uploadImages = document.querySelectorAll('.upload-image');
             uploadImages.forEach(list => {
                 new Sortable(list, {
                     animation: 150,
-                    handle: '.btn-handle',
-                    filter: '[data-sortable-disabled="true"]',
-                    onEnd: function () {
+                    handle: '.btn-reorder',
+                    filter: 'disabled',
+                    ghostClass: 'sortable-ghost',
+                    onEnd: () => {
                         // Update display order when items are reordered
                         const sortFields = document.querySelectorAll("input[name$=-display_order]");
                         sortFields.forEach((field, i) => {
@@ -259,6 +267,44 @@ var oscar = ((o) => {
                         });
                     }
                 });
+            });
+        },
+        initSelects: (options) => {
+            const choicesExamples = document.querySelectorAll("[data-choices]");
+            choicesExamples.forEach(function (item) {
+                let choiceData = {
+                    noChoicesText: options.noChoicesText,
+                    // noResultsText: options.noResultsText,
+                    placeholderValue: options.placeholderValue
+                };
+                let isChoicesVal = item.attributes;
+                if (isChoicesVal["data-choices-search-false"]) {
+                    choiceData.searchEnabled = false;
+                } else {
+                    if (isChoicesVal["data-choices-search-true"]) {
+                        choiceData.searchEnabled = true;
+                    }
+                }
+                if (isChoicesVal["data-choices-removeItem"]) {
+                    choiceData.removeItemButton = true;
+                }
+                if (isChoicesVal["data-choices-sorting-false"]) {
+                    choiceData.shouldSort = false;
+                } else {
+                    if (isChoicesVal["data-choices-sorting-true"]) {
+                        choiceData.shouldSort = true;
+                    }
+                }
+                if (isChoicesVal["data-choices-limit"]) {
+                    choiceData.maxItemCount = isChoicesVal["data-choices-limit"].value.toString();
+                }
+                if (isChoicesVal["data-choices-text-unique-true"]) {
+                    choiceData.duplicateItemsAllowed = false;
+                }
+                if (isChoicesVal["data-choices-text-disabled-true"]) {
+                    choiceData.addItems = false;
+                }
+                isChoicesVal["data-choices-text-disabled-true"] ? new Choices(item, choiceData).disable() : new Choices(item, choiceData);
             });
         },
         initDeleteModal: (deleteAction, replacePattern) => {
@@ -286,106 +332,6 @@ var oscar = ((o) => {
                 /**
                  * Common plugins
                  */
-                /**
-                 * Toast UI Notification
-                 */
-                let toastExamples = document.querySelectorAll("[data-toast]");
-                Array.from(toastExamples).forEach(function (element) {
-                    element.addEventListener("click", function () {
-                        let toastData = {};
-                        let isToastVal = element.attributes;
-                        if (isToastVal["data-toast-text"]) {
-                            toastData.text = isToastVal["data-toast-text"].value.toString();
-                        }
-                        if (isToastVal["data-toast-gravity"]) {
-                            toastData.gravity = isToastVal["data-toast-gravity"].value.toString();
-                        }
-                        if (isToastVal["data-toast-position"]) {
-                            toastData.position = isToastVal["data-toast-position"].value.toString();
-                        }
-                        if (isToastVal["data-toast-className"]) {
-                            toastData.className = isToastVal["data-toast-className"].value.toString();
-                        }
-                        if (isToastVal["data-toast-duration"]) {
-                            toastData.duration = isToastVal["data-toast-duration"].value.toString();
-                        }
-                        if (isToastVal["data-toast-close"]) {
-                            toastData.close = isToastVal["data-toast-close"].value.toString();
-                        }
-                        if (isToastVal["data-toast-style"]) {
-                            toastData.style = isToastVal["data-toast-style"].value.toString();
-                        }
-                        if (isToastVal["data-toast-offset"]) {
-                            toastData.offset = isToastVal["data-toast-offset"];
-                        }
-                        Toastify({
-                            newWindow: true,
-                            text: toastData.text,
-                            gravity: toastData.gravity,
-                            position: toastData.position,
-                            className: "bg-" + toastData.className,
-                            stopOnFocus: true,
-                            offset: {
-                                x: toastData.offset ? 50 : 0, // horizontal axis - can be a number or a string indicating unity. eg: '2em'
-                                y: toastData.offset ? 10 : 0, // vertical axis - can be a number or a string indicating unity. eg: '2em'
-                            },
-                            duration: toastData.duration,
-                            close: toastData.close == "close" ? true : false,
-                            style: toastData.style == "style" ? {
-                                background: "linear-gradient(to right, #0AB39C, #405189)"
-                            } : "",
-                        }).showToast();
-                    });
-                });
-
-                /**
-                 * Choices Select plugin
-                 */
-                let choicesExamples = document.querySelectorAll("[data-choices]");
-                Array.from(choicesExamples).forEach(function (item) {
-                    let choiceData = {};
-                    let isChoicesVal = item.attributes;
-                    if (isChoicesVal["data-choices-groups"]) {
-                        choiceData.placeholderValue = "This is a placeholder set in the config";
-                    }
-                    if (isChoicesVal["data-choices-search-false"]) {
-                        choiceData.searchEnabled = false;
-                    }
-                    if (isChoicesVal["data-choices-search-true"]) {
-                        choiceData.searchEnabled = true;
-                    }
-                    if (isChoicesVal["data-choices-removeItem"]) {
-                        choiceData.removeItemButton = true;
-                    }
-                    if (isChoicesVal["data-choices-sorting-false"]) {
-                        choiceData.shouldSort = false;
-                    }
-                    if (isChoicesVal["data-choices-sorting-true"]) {
-                        choiceData.shouldSort = true;
-                    }
-                    if (isChoicesVal["data-choices-multiple-remove"]) {
-                        choiceData.removeItemButton = true;
-                    }
-                    if (isChoicesVal["data-choices-limit"]) {
-                        choiceData.maxItemCount = isChoicesVal["data-choices-limit"].value.toString();
-                    }
-                    if (isChoicesVal["data-choices-limit"]) {
-                        choiceData.maxItemCount = isChoicesVal["data-choices-limit"].value.toString();
-                    }
-                    if (isChoicesVal["data-choices-editItem-true"]) {
-                        choiceData.maxItemCount = true;
-                    }
-                    if (isChoicesVal["data-choices-editItem-false"]) {
-                        choiceData.maxItemCount = false;
-                    }
-                    if (isChoicesVal["data-choices-text-unique-true"]) {
-                        choiceData.duplicateItemsAllowed = false;
-                    }
-                    if (isChoicesVal["data-choices-text-disabled-true"]) {
-                        choiceData.addItems = false;
-                    }
-                    isChoicesVal["data-choices-text-disabled-true"] ? new Choices(item, choiceData).disable() : new Choices(item, choiceData);
-                });
 
                 /**
                  * flatpickr
@@ -484,97 +430,7 @@ var oscar = ((o) => {
                         // flatpickr(item, timeData);
                     }
                 });
-
-                // Dropdown
-                Array.from(document.querySelectorAll('.dropdown-menu a[data-bs-toggle="tab"]')).forEach(function (element) {
-                    element.addEventListener("click", function (e) {
-                        e.stopPropagation();
-                        bootstrap.Tab.getInstance(e.target).show();
-                    });
-                });
             }
-
-            // TODO: Research how do a search bar
-            //  Search menu dropdown on Topbar
-            function isCustomDropdown () {
-                //Search bar
-                let searchOptions = document.getElementById("search-close-options");
-                let dropdown = document.getElementById("search-dropdown");
-                let searchInput = document.getElementById("search-options");
-                if (searchInput) {
-                    searchInput.addEventListener("focus", function () {
-                        let inputLength = searchInput.value.length;
-                        if (inputLength > 0) {
-                            dropdown.classList.add("show");
-                            searchOptions.classList.remove("d-none");
-                        } else {
-                            dropdown.classList.remove("show");
-                            searchOptions.classList.add("d-none");
-                        }
-                    });
-
-                    searchInput.addEventListener("keyup", function (event) {
-                        let inputLength = searchInput.value.length;
-                        if (inputLength > 0) {
-                            dropdown.classList.add("show");
-                            searchOptions.classList.remove("d-none");
-
-                            let inputVal = searchInput.value.toLowerCase();
-                            let notifyItem = document.getElementsByClassName("notify-item");
-
-                            Array.from(notifyItem).forEach(function (element) {
-                                let notifiTxt = '';
-                                if (element.querySelector("h6")) {
-                                    let spantext = element.getElementsByTagName("span")[0].innerText.toLowerCase();
-                                    let name = element.querySelector("h6").innerText.toLowerCase();
-                                    if (name.includes(inputVal)) {
-                                        notifiTxt = name;
-                                    } else {
-                                        notifiTxt = spantext;
-                                    }
-                                } else if (element.getElementsByTagName("span")) {
-                                    notifiTxt = element.getElementsByTagName("span")[0].innerText.toLowerCase();
-                                }
-
-                                if (notifiTxt) {
-                                    if (notifiTxt.includes(inputVal)) {
-                                        element.classList.add("d-block");
-                                        element.classList.remove("d-none");
-                                    } else {
-                                        element.classList.remove("d-block");
-                                        element.classList.add("d-none");
-                                    }
-                                }
-
-                                Array.from(document.getElementsByClassName("notification-group-list")).forEach(function (element) {
-                                    if (element.querySelectorAll(".notify-item.d-block").length == 0) {
-                                        element.querySelector(".notification-title").style.display = 'none';
-                                    } else {
-                                        element.querySelector(".notification-title").style.display = 'block';
-                                    }
-                                });
-                            });
-                        } else {
-                            dropdown.classList.remove("show");
-                            searchOptions.classList.add("d-none");
-                        }
-                    });
-
-                    searchOptions.addEventListener("click", function () {
-                        searchInput.value = "";
-                        dropdown.classList.remove("show");
-                        searchOptions.classList.add("d-none");
-                    });
-
-                    document.body.addEventListener("click", function (e) {
-                        if (e.target.getAttribute("id") !== "search-options") {
-                            dropdown.classList.remove("show");
-                            searchOptions.classList.add("d-none");
-                        }
-                    });
-                }
-            }
-
 
             function initLeftMenuCollapse () {
                 /**
@@ -880,7 +736,6 @@ var oscar = ((o) => {
             };
 
             function init () {
-                isCustomDropdown();
                 initFullScreen();
                 windowLoadContent();
                 counter();
@@ -1699,9 +1554,9 @@ var oscar = ((o) => {
                 });
             }
         },
-        initWidgets: function (el) {
-            o.dashboard.initMasks(el);
-            o.dashboard.initProductImages(el);
+        initWidgets: function (options) {
+            o.dashboard.initMasks();
+            o.dashboard.initSelects(options);
         },
     };
 

@@ -1,27 +1,39 @@
 {% load i18n %}
-{% load crispy_forms_tags %}
 
-<div class="sortable-handle col-md">
-  {% for field in form %}
+{% for field in form %}
     {% if field.is_hidden %}
-      {{ field|as_crispy_field }}
+        {{ field }}
     {% elif "original" in field.id_for_label %}
-      <div>{{ field|as_crispy_field }}</div>
-      {% if not form.instance.id %}
-        <div class="reorder__wrapper d-inline-block"
-             data-bs-toggle="tooltip"
-             data-bs-title="{% translate "Upload an image to reorder" %}">
-        {% endif %}
-        <a href="#"
-           class="btn btn-outline-info btn-handle btn-reorder {% if not form.instance.id %}disabled{% endif %}"
-           {% if not form.instance.id %}aria-disabled="true"{% endif %}>
-          <iconify-icon icon="fa-solid:arrows-alt" width="1ren" height="1rem" aria-hidden="true"></iconify-icon>
-          {% translate "Re-order" context "Change the sequence order" %}
-        </a>
-        {% if not form.instance.id %}</div>{% endif %}
+        <label for="{{ field.auto_id }}" class="form-label {% if field.field.required %} requiredField{% endif %}">
+            {{ field.label|safe }}
+            {% if field.field.required %} 
+                <span class="asteriskField">*</span>
+            {% endif %}
+        </label>
+
+        {{ field }}
+
+        {% for error in field.errors %}
+            <ul class="error-block">
+                <li>{{ error }}</li>
+            </ul>
+        {% endfor %}
+        <div class="text-center">
+            {% if not form.instance.id %}
+                <div class="reorder__wrapper d-inline-block" data-bs-toggle="tooltip" data-bs-title="{% translate "Upload an image to reorder" %}">
+            {% endif %}
+                <button type="button" class="btn btn-outline-info btn-reorder icon-link" {% if not form.instance.id %}disabled aria-disabled="true"{% endif %}>
+                    <iconify-icon icon="fa-solid:arrows-alt" width="1rem" height="1rem" aria-hidden="true"></iconify-icon> 
+                    {% translate "Re-order" context "Change the sequence order" %}
+                </button>
+            {% if not form.instance.id %} </div>  {% endif %}
+        </div>
     {% else %}
-      {{ field|as_crispy_field }}
+        {% if forloop.last %}
+            {% include "oscar/dashboard/partials/form_field.html" with field=field %}
+        {% else %}
+            {% include "oscar/dashboard/partials/form_field.html" with field=field margin="true" %}
+        {% endif %}
     {% endif %}
-  {% endfor %}
-  {% if form.non_field_errors %}<span class="text-danger">{{ form.non_field_errors }}</span>{% endif %}
-</div>
+{% endfor %}
+{{ form.non_field_errors }}

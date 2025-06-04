@@ -1,0 +1,19 @@
+@import "../../libs/bootstrap/scss/functions";
+@import "../variables";
+@import "../variables-dark";
+
+.sortable-ghost {
+    opacity: 0.6;
+    background-color: lighten($info, 45%); // azul claro
+    border: 2px dashed $info;
+    border-radius: $border-radius-lg;
+    box-shadow: 0 4px 12px rgba($info, 0.3);
+    transform: scale(1.02);
+    transition: all 0.2s ease-in-out;
+
+    // Desactiva eventos mientras se arrastra
+    * {
+        pointer-events: none;
+        user-select: none;
+    }
+}

@@ -17,7 +17,6 @@ from oscar.core.loading import get_model
 Product = get_model("catalogue", "Product")
 Range = get_model("offer", "Range")
 RangeProductFileUpload = get_model("offer", "RangeProductFileUpload")
-CustomSelectMultiple = get_class("dashboard.widgets", "CustomSelectMultiple")
 UPC_SET_REGEX = re.compile(r"[^,\s]+")
 
 
@@ -72,8 +71,12 @@ class RangeForm(forms.ModelForm):
             "excluded_categories",
         ]
         widgets = {
-            "included_categories": CustomSelectMultiple(),
-            "excluded_categories": CustomSelectMultiple(),
+            "included_categories": forms.SelectMultiple(
+                attrs={"class": "choices-multiple"}
+            ),
+            "excluded_categories": forms.SelectMultiple(
+                attrs={"class": "choices-multiple"}
+            ),
         }
 
 

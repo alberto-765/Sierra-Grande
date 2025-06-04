@@ -27,7 +27,7 @@
     {% endblock favicon %}
 
     {% compress js %}
-      <script src="{% static "js/pages/color-mode.js" %}" async></script>
+      <script src="{% static "js/components/color-mode.js" %}" async></script>
     {% endcompress %}
 
     {% compress css %}
@@ -79,7 +79,7 @@
             {% block onbodyload %}
             {% endblock onbodyload %}
           });
-</script>
+        </script>
       {# djlint:on #}
     {% endcompress %}
     {# Page meta-data - this is populated by the 'metadata' template context processor #}

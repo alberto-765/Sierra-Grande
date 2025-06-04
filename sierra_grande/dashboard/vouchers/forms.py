@@ -22,7 +22,6 @@ from oscar.forms import widgets
 Voucher = get_model("voucher", "Voucher")
 VoucherSet = get_model("voucher", "VoucherSet")
 ConditionalOffer = get_model("offer", "ConditionalOffer")
-CustomSelectMultiple = get_class("dashboard.widgets", "CustomSelectMultiple")
 
 
 class VoucherForm(forms.ModelForm):
@@ -34,7 +33,7 @@ class VoucherForm(forms.ModelForm):
     offers = forms.ModelMultipleChoiceField(
         label=_("Which offers apply for this voucher?"),
         queryset=ConditionalOffer.objects.filter(offer_type=ConditionalOffer.VOUCHER),
-        widget=CustomSelectMultiple(_("offer")),
+        widget=forms.SelectMultiple(attrs={"class": "choices-multiple"}),
     )
 
     def __init__(self, *args, **kwargs):

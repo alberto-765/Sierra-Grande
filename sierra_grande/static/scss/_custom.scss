@@ -2,3 +2,9 @@
 .tox.tox-tinymce {
     z-index: $zindex-fixed - 150;
 }
+
+
+// Form errors alerts
+.alert > .errorlist {
+    margin-bottom: 0;
+}

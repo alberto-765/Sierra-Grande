@@ -12,6 +12,7 @@
   // scss-docs-end breadcrumb-css-vars
 
   display: flex;
+  justify-content: flex-end;
   flex-wrap: wrap;
   padding: var(--#{$prefix}breadcrumb-padding-y) var(--#{$prefix}breadcrumb-padding-x);
   margin-bottom: var(--#{$prefix}breadcrumb-margin-bottom);
@@ -23,12 +24,13 @@
 }
 
 .breadcrumb-item {
-  // The separator between breadcrumbs (by default, a forward-slash: "/")
-  + .breadcrumb-item {
+
+  &:has(+ .breadcrumb-item) {
+    // The separator between breadcrumbs (by default, a forward-slash: "/")
     display: flex;
     column-gap: var(--#{$prefix}breadcrumb-item-padding-x);
     align-items: center;
-    &::before {
+    &::after {
       width: .9rem;
       height: .9rem;
       background-color: currentColor;

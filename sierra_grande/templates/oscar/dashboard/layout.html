@@ -75,7 +75,10 @@
   window.location.hash = e.target.hash;
   }); {% endcomment %}
   options = {
-  "languageCode": "{{ LANGUAGE_CODE }}"
+    "languageCode": "{{ LANGUAGE_CODE }}",
+    "placeholderValue": "{% translate 'Select an option' %}",
+    "noResultsText": "{% translate 'No results found' %}",
+    "noChoicesText": "{% translate 'No options available' %}",
   };
   oscar.dashboard.init(options);
 {% endblock onbodyload %}

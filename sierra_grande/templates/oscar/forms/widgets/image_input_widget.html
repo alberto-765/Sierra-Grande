@@ -1,0 +1,27 @@
+{% load i18n %}
+{% load image_tags %}
+
+<div id="{{ image_id }}" class="image-input text-center mb-4">
+    <div class="position-relative d-inline-block">
+        <div class="position-absolute start-100 top-100 translate-middle">
+            <label for="{{ widget.attrs.id}}" class="mb-0" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="{% translate "Select Category Image" %}" data-bs-original-title="{% translate "Select Category Image" %}">
+                <span class="avatar-xs d-inline-block">
+                    <span class="avatar-title bg-light border rounded-circle text-muted cursor-pointer">
+                        <iconify-icon icon="ri:image-fill"></iconify-icon>
+                    </span>
+                </span>
+            </label>
+            {% include "django/forms/widgets/input.html" %}
+        </div>
+        <div class="avatar-xl">
+            <div class="avatar-title bg-light rounded-3">
+                {% if image_url %}
+                    {% oscar_thumbnail image_url "120x120" upscale=False as thumb %}
+                    <img class="w-100 h-100 object-fit-cover shadow-lg" src="{{ thumb.url }}" alt="{{ thumb.name }}" />
+                {% else %}
+                    <img class="w-100 h-100 object-fit-cover d-none shadow-lg" alt="{% trans "thumbnail" %}" />
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

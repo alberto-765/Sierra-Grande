@@ -934,6 +934,8 @@ class AbstractProductRecommendation(models.Model):
         "catalogue.Product",
         on_delete=models.CASCADE,
         verbose_name=_("Recommended product"),
+        blank=True,
+        null=True,
     )
     ranking = models.PositiveSmallIntegerField(
         _("Ranking"),
@@ -1637,7 +1639,7 @@ class AbstractProductImage(models.Model):
         unique=True,
     )
     original = models.ImageField(
-        _("Original"), upload_to=get_image_upload_path, max_length=255
+        _("Image"), upload_to=get_image_upload_path, max_length=255
     )
     caption = models.CharField(_("Caption"), max_length=200, blank=True)
 

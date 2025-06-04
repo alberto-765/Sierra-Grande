@@ -1,11 +1,15 @@
 {% extends "oscar/dashboard/layout.html" %}
 
 {% load i18n %}
+{% load static %}
+{% load crispy_forms_tags %}
 {% load render_table from django_tables2 %}
+
 
 {% block body_class %}
   {{ block.super }} catalogue
 {% endblock body_class %}
+
 {% block title %}
   {% translate "Products" %} | {{ block.super }}
 {% endblock title %}
@@ -30,18 +34,14 @@
         {% translate "Create new product" %}
       </span>
       <div class="card-body">
-        <form action="{% url "dashboard:catalogue-product-create" %}"
-              method="get"
-              class="row align-items-center g-3">
-          {% include "oscar/dashboard/partials/form_fields_inline.html" with form=productclass_form wrapper_class="mb-0" %}
-          <div class="col-sm-auto">
-            <button class="btn btn-primary icon-link w-100"
-                    type="submit"
-                    data-loading-text="{% translate "Submitting..." %}">
-              <iconify-icon icon="mdi:plus-circle" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
-              {% translate "New Product" %}
-            </button>
-          </div>
+        <form action="{% url "dashboard:catalogue-product-create" %}" method="get" class="row align-items-end g-4">
+            {% crispy productclass_form %}
+            <div class="col-sm-auto">
+              <button class="btn btn-primary icon-link w-100" type="submit" data-loading-text="{% translate "Submitting..." %}">
+                <iconify-icon icon="mdi:plus-circle" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
+                {% translate "New Product" %}
+              </button>
+            </div>
         </form>
       </div>
     </div>
@@ -91,6 +91,12 @@
     </div>
   {% endif %}
 {% endblock dashboard_content %}
+
+{% block extrascripts %}
+  {{ block.super }}
+  <script src="{% static "libs/choices/choices.min.js" %}" defer></script>
+{% endblock extrascripts %}
+
 {% block onbodyload %}
   {{ block.super }}
   oscar.dashboard.product_lists.init();

@@ -119,31 +119,3 @@ class RelatedFieldWidgetWrapper(Widget):
 
 class RelatedMultipleFieldWidgetWrapper(RelatedFieldWidgetWrapper):
     template_name = "oscar/dashboard/widgets/related_multiple_widget_wrapper.html"
-
-
-class CustomSelectMultiple(SelectMultiple):
-    def __init__(self, model_name="item", attrs=None):
-        self.model_name = model_name
-        super().__init__(attrs)
-
-    def optgroups(self, name, value, attrs=None):
-
-        if self.count == 0:
-            self.choices = [("", _("Create the first %s") % self.model_name)]
-        return super().optgroups(name, value, attrs)
-
-    def get_context(self, name, value, attrs):
-        if attrs is None:
-            attrs = {}
-
-        self.count = self.choices.queryset.count()
-
-        if self.count == 0:
-            attrs["disabled"] = ""
-            attrs["size"] = 1
-        else:
-            if self.count < SMALL_LIST_THRESHOLD:
-                attrs["size"] = str(self.count)
-
-        ctx = super().get_context(name, value, attrs)
-        return ctx

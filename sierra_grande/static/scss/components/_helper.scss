@@ -74,55 +74,30 @@ $border-style-mixing: double, dashed, groove, outset, ridge, dotted, inset;
 }
 
 // Fixed minimum width
-.w-xs {
-    min-width: 80px;
-}
+$widths: (xs: 80px,
+        sm: 95px,
+        md: 110px,
+        lg: 140px,
+        xl: 160px);
 
-.w-sm {
-    min-width: 95px;
-}
-
-.w-md {
-    min-width: 110px;
-}
-
-.w-lg {
-    min-width: 140px;
-}
-
-.w-xl {
-    min-width: 160px;
+@each $width, $value in $widths {
+    .w-#{$width} {
+        min-width: #{$value};
+    }
 }
 
 // Icons Sizes
-.icon-xs {
-    height: 16px;
-    width: 16px;
-}
+$icons: (xs: 16px,
+        sm: 18px,
+        md: 22px,
+        lg: 24px,
+        xl: 28px);
 
-.icon-sm {
-    height: 18px;
-    width: 18px;
-}
-
-.icon-md {
-    height: 22px;
-    width: 22px;
-}
-
-.icon-lg {
-    height: 24px;
-    width: 24px;
-}
-
-.icon-xl {
-    height: 28px;
-    width: 28px;
-}
-
-.icon-xxl {
-    height: 32px;
-    width: 32px;
+@each $width, $value in $icons {
+    .icon-#{$width} {
+        height: #{$value};
+        width: #{$value};
+    }
 }
 
 // Dual Icons
@@ -233,7 +208,7 @@ code {
         animation: fade-up 1.5s infinite linear;
     }
 
-    @media (max-width: 767.98px) { 
+    @media (max-width: 767.98px) {
         bottom: 50px;
     }
 }
@@ -266,14 +241,14 @@ code {
     bottom: 0px;
     left: 0;
 
-    &>svg {
+    & > svg {
         width: 100%;
         height: auto;
     }
 }
 
 .container-custom {
-    @media (min-width: 992px){
+    @media (min-width: 992px) {
         max-width: 90%;
     }
 }

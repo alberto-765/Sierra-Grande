@@ -12,6 +12,7 @@ from oscar.core.loading import get_model
 from oscar.core.utils import slugify
 from oscar.core.validators import URLDoesNotExistValidator
 
+
 FlatPage = get_model("flatpages", "FlatPage")
 Site = get_model("sites", "Site")
 PageSearchForm, PageUpdateForm = get_classes(
@@ -91,13 +92,6 @@ class PageCreateUpdateMixin:
             page.sites.add(Site.objects.get_current())
         self.object = page
         return HttpResponseRedirect(self.get_success_url())
-
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        # Pass user and theme to form
-        kwargs["user_name"] = self.request.user.name or self.request.user.email
-        kwargs["theme"] = self.request.COOKIES.get("theme", "")
-        return kwargs
 
 
 class PageCreateView(PageCreateUpdateMixin, generic.CreateView):

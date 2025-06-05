@@ -3,10 +3,11 @@
 
 <div class="btn-toolbar">
   <div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle"
+    <button class="btn btn-outline-primary btn-sm dropdown-toggle"
             type="button"
             id="dropdownMenuButton"
-            data-toggle="dropdown"
+            data-bs-toggle="dropdown"
+            data-bs-target="#dropdownMenuButton"
             aria-haspopup="true"
             aria-expanded="false">{% translate "Actions" %}</button>
     <div class="dropdown-menu dropdown-menu-end"
@@ -22,8 +23,10 @@
         {% translate "Edit children" %}
       </a>
       <a class="dropdown-item" href="{{ record.get_absolute_url }}">{% translate "View on site" %}</a>
-      <a class="dropdown-item"
+      <a class="dropdown-item"  data-bs-pk="{{ record.id }}" data-bs-name="{{ record.name }}" data-bs-toggle="modal" href="#deleteModal"
          href="{% url 'dashboard:catalogue-category-delete' pk=record.id %}">{% translate "Delete" %}</a>
     </div>
   </div>
 </div>
+
+

@@ -2,9 +2,7 @@
 from crispy_bootstrap5.bootstrap5 import FloatingField, Field
 from crispy_bootstrap5.bootstrap5 import Switch
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import HTML
 from crispy_forms.layout import Column
-from crispy_forms.layout import Div
 from crispy_forms.layout import Layout
 from crispy_forms.layout import Row
 from django import forms
@@ -55,6 +53,7 @@ BaseCategoryForm = movenodeform_factory(
         "description": TinyMCE(
             attrs={"cols": 80, "rows": 30},
         ),
+        "image": ImageInput(attrs={"class": "form-control d-none"}),
     },
 )
 
@@ -66,9 +65,8 @@ class SEOFormMixin:
         return [
             field
             for field in self
-            if not field.is_hidden
-            and "attr" not in field.id_for_label
-            and not self.is_seo_field(field)
+            if field.is_hidden
+            or ("attr" not in field.id_for_label and not self.is_seo_field(field))
         ]
 
     def seo_form_fields(self):
@@ -90,6 +88,26 @@ class CategoryForm(SEOFormMixin, BaseCategoryForm):
             self.fields["slug"].help_text = _(
                 "Leave blank to generate from category name",
             )
+        if "_position" in self.fields:
+            self.fields["_position"].widget.attrs.update(
+                {
+                    "data-choices": "",
+                    "data-choices-search-true": "",
+                    "data-choices-sorting-false": "",
+                    "data-placeholder-false": "",
+                }
+            )
+
+        if "_ref_node_id" in self.fields:
+            self.fields["_ref_node_id"].widget.attrs.update(
+                {
+                    "data-choices": "",
+                    "data-choices-search-true": "",
+                    "data-choices-removeItem": "",
+                    "data-choices-sorting-true": "",
+                    "data-placeholder-false": "",
+                }
+            )
 
 
 class ProductClassSelectForm(forms.Form):
@@ -105,7 +123,6 @@ class ProductClassSelectForm(forms.Form):
             attrs={
                 "data-choices": "",
                 "data-choices-search-true": "",
-                "data-choices-removeItem": "",
                 "data-choices-sorting-true": "",
             },
         ),
@@ -409,6 +426,7 @@ class ProductCategoryForm(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.form_tag = False
         self.helper.disable_csrf = True
+        self.helper.form_show_errors = True
         self.helper.layout = Layout(
             Row(
                 Column(
@@ -574,7 +592,7 @@ class AttributeOptionGroupForm(forms.ModelForm):
         self.helper.layout = Layout(
             Row(
                 Column(
-                    FloatingField("name", wrapper_class=" "),
+                    Field("name", wrapper_class=" "),
                     css_class="col-sm-auto",
                 ),
             ),
@@ -598,16 +616,16 @@ class OptionForm(forms.ModelForm):
         self.helper.form_tag = False
         self.helper.layout = Layout(
             Row(
-                Column(FloatingField("name"), css_class="col-md-6"),
-                Column(FloatingField("type"), css_class="col-md-6"),
+                Column("name", css_class="col-md-6"),
+                Column("type", css_class="col-md-6"),
                 Column(Switch("required"), css_class="col-md-6 align-content-center"),
                 Column(FloatingField("order"), css_class="col-md-6"),
                 Column(
-                    FloatingField("help_text", wrapper_class="mb-3 mb-md-0"),
+                    Field("help_text", wrapper_class="mb-3 mb-md-0"),
                     css_class="col-md-6",
                 ),
                 Column(
-                    FloatingField("option_group", wrapper_class=" "),
+                    Field("option_group", wrapper_class="mb-3 mb-md-0"),
                     css_class="col-md-6",
                 ),
             )
@@ -616,3 +634,21 @@ class OptionForm(forms.ModelForm):
     class Meta:
         model = Option
         fields = ["name", "type", "required", "order", "help_text", "option_group"]
+        widgets = {
+            "type": forms.Select(
+                attrs={
+                    "data-choices": "",
+                    "data-choices-search-true": "",
+                    "data-choices-removeItem": "",
+                    "data-choices-sorting-true": "",
+                },
+            ),
+            "option_group": forms.Select(
+                attrs={
+                    "data-choices": "",
+                    "data-choices-search-true": "",
+                    "data-choices-removeItem": "",
+                    "data-choices-sorting-true": "",
+                },
+            ),
+        }

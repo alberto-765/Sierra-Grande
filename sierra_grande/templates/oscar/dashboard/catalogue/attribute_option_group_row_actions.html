@@ -1,21 +1,13 @@
 {% load django_tables2 %}
 {% load i18n %}
 
-<div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle"
-          type="button"
-          id="dropdownMenuButton"
-          data-bs-toggle="dropdown"
-          aria-expanded="false">{% translate "Actions" %}</button>
-  <div class="dropdown-menu dropdown-menu-end"
-       aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item"
-       href="{% url 'dashboard:catalogue-attribute-option-group-update' pk=record.id %}{% querystring %}">
-      {% translate "Edit Attribute Option Group" %}
-    </a>
-    <a class="dropdown-item"
-       href="{% url 'dashboard:catalogue-attribute-option-group-delete' pk=record.id %}{% querystring %}">
-      {% translate "Delete" %}
-    </a>
-  </div>
+
+<div class="hstack column-gap-2 justify-content-start">
+  <a class="badge bg-info-subtle text-info fs-13 icon-link" href="{% url 'dashboard:catalogue-attribute-option-group-update' pk=record.id %}{% querystring %}">
+    {% translate "Edit" %}
+  </a>
+  <a class="badge bg-danger-subtle text-danger fs-13 icon-link" data-bs-pk="{{ record.id }}" data-bs-name="{{ record.name }}" data-bs-toggle="modal" href="#deleteModal">
+    {% translate "Delete" %}
+  </a>
 </div>
+

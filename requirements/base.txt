@@ -38,3 +38,4 @@ django-phonenumber-field==6.4.0
 purl==1.6
 pycountry==24.6.1
 pysolr==3.10.0
+sorl-thumbnail>=12.10.0,<13.0.0

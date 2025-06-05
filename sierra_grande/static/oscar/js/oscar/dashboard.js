@@ -187,27 +187,29 @@ var oscar = ((o) => {
 
             // Handle button loading states
             document.querySelectorAll('form:has([data-loading-text])').forEach((form) => {
-                form.addEventListener('submit', function () {
-                    const btn = form.querySelector('[data-loading-text]');
+                form.querySelectorAll('[data-loading-text]').forEach(btn => {
+                    btn.addEventListener('click', () => {
 
-                    // Use requestAnimationFrame to delay disabling until after form submission begins
-                    requestAnimationFrame(function () {
-                        const loadingText = btn.dataset.loadingText;
-                        if (btn.tagName === 'INPUT') {
-                            btn.value = loadingText;
-                        } else {
-                            btn.classList.remove('btn-label', 'right', 'left');
-                            btn.classList.add('icon-link');
-                            btn.innerHTML = `
+                        // Use requestAnimationFrame to delay disabling until after form submission begins
+                        if (!form || form.checkValidity()) {
+                            requestAnimationFrame(() => {
+                                const loadingText = btn.dataset.loadingText;
+                                if (btn.tagName === 'INPUT') {
+                                    btn.value = loadingText;
+                                } else {
+                                    btn.classList.remove('btn-label', 'right', 'left');
+                                    btn.classList.add('icon-link');
+                                    btn.innerHTML = `
                                     <div class="spinner-border spinner-border-sm" role="status">
                                         <span class="visually-hidden">${ loadingText }</span>
                                     </div>
                                     ${ loadingText }`;
+                                }
+                                btn.classList.add('disabled');
+                                btn.disabled = true;
+                            });
                         }
-                        btn.classList.add('disabled');
-                        btn.disabled = true;
                     });
-
                 });
 
                 form.querySelectorAll('.tab-pane input').forEach(input => {
@@ -272,18 +274,21 @@ var oscar = ((o) => {
         initSelects: (options) => {
             const choicesExamples = document.querySelectorAll("[data-choices]");
             choicesExamples.forEach(function (item) {
-                let choiceData = {
+                const choiceData = {
                     noChoicesText: options.noChoicesText,
-                    // noResultsText: options.noResultsText,
-                    placeholderValue: options.placeholderValue
+                    noResultsText: options.noResultsText,
+                    placeholderValue: options.placeholderValue,
                 };
-                let isChoicesVal = item.attributes;
+                const isChoicesVal = item.attributes;
                 if (isChoicesVal["data-choices-search-false"]) {
                     choiceData.searchEnabled = false;
                 } else {
                     if (isChoicesVal["data-choices-search-true"]) {
                         choiceData.searchEnabled = true;
                     }
+                }
+                if (isChoicesVal["data-placeholder-false"]) {
+                    choiceData.placeholder = false;
                 }
                 if (isChoicesVal["data-choices-removeItem"]) {
                     choiceData.removeItemButton = true;

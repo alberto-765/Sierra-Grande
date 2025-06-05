@@ -6,6 +6,12 @@ from oscar.core.loading import get_model
 from oscar.core.validators import URLDoesNotExistValidator
 
 from tinymce.widgets import TinyMCE
+from crispy_bootstrap5.bootstrap5 import FloatingField, Field
+from crispy_bootstrap5.bootstrap5 import Switch
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Column
+from crispy_forms.layout import Layout
+from crispy_forms.layout import Row
 
 FlatPage = get_model("flatpages", "FlatPage")
 
@@ -40,15 +46,10 @@ class PageUpdateForm(forms.ModelForm):
     )
 
     def __init__(self, *args, **kwargs):
-        user_name = kwargs.pop("user_name", None)
-        theme = kwargs.pop("theme", None)
         super().__init__(*args, **kwargs)
-        if user_name:
-            self.fields["content"].widget.mce_attrs["tinycomments_author"] = user_name
-
-        if theme == "dark":
-            self.fields["content"].widget.mce_attrs["skin"] = "oxide-dark"
-            self.fields["content"].widget.mce_attrs["content_css"] = "dark"
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.layout = Layout("title", "url", "content")
 
     def clean_url(self):
         """
@@ -68,8 +69,4 @@ class PageUpdateForm(forms.ModelForm):
     class Meta:
         model = FlatPage
         fields = ("title", "url", "content")
-        widgets = {
-            "content": TinyMCE(
-                attrs={"cols": 80, "rows": 30},
-            )
-        }
+        widgets = {"content": TinyMCE()}

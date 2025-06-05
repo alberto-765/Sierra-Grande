@@ -89,7 +89,7 @@ class CategoryTable(DashboardTable):
         orderable=False,
     )
 
-    icon = ""
+    icon = "iconamoon:category-fill"
     caption = ngettext_lazy("%s Category", "%s Categories")
 
     class Meta(DashboardTable.Meta):

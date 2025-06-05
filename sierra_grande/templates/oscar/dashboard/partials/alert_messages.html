@@ -12,18 +12,18 @@ Use message tags to control these alerts.  Available tags include:
     {% for message in messages %}
       <div class="messages__alert alert {% for tag in message.tags|split %}alert-{% if tag == 'error' %}danger{% else %}{{ tag }}{% endif %} {% endfor %}alert-dismissible d-flex align-items-center mb-0 fade show"
            role="alert">
-        <div class="icon-link align-items-center">
-          {% if 'noicon' not in message.tags %}
-            {# Include an icon by default #}
-            {% if 'success' in message.tags %}
-              <iconify-icon icon="lets-icons:check-fill" width="1.2rem" height="1.2rem"></iconify-icon>
-            {% elif 'info' in message.tags %}
-              <iconify-icon icon="ic:round-info" width="1.2rem" height="1.2rem"></iconify-icon>
-            {% elif 'warning' in message.tags %}
-              <iconify-icon icon="heroicons-solid:exclamation" width="1.2rem" height="1.2rem"></iconify-icon>
-            {% elif 'danger' in message.tags or 'error' in message.tags %}
-              <iconify-icon icon="material-symbols:error" width="1.2rem" height="1.2rem"></iconify-icon>
-            {% endif %}
+           {% if 'noicon' not in message.tags %}
+            <div class="icon-link align-items-center">
+              {# Include an icon by default #}
+              {% if 'success' in message.tags %}
+                <iconify-icon icon="lets-icons:check-fill" width="1.2rem" height="1.2rem"></iconify-icon>
+              {% elif 'info' in message.tags %}
+                <iconify-icon icon="ic:round-info" width="1.2rem" height="1.2rem"></iconify-icon>
+              {% elif 'warning' in message.tags %}
+                <iconify-icon icon="heroicons-solid:exclamation" width="1.2rem" height="1.2rem"></iconify-icon>
+              {% elif 'danger' in message.tags or 'error' in message.tags %}
+                <iconify-icon icon="material-symbols:error" width="1.2rem" height="1.2rem"></iconify-icon>
+              {% endif %}
           {% endif %}
           {# Allow HTML to be embedded in messages #}
           {% if 'safe' in message.tags %}
@@ -31,7 +31,10 @@ Use message tags to control these alerts.  Available tags include:
           {% else %}
             {{ message }}
           {% endif %}
-        </div>
+          
+          {% if 'noicon' not in message.tags %}
+            </div>
+          {% endif %}
         <button type="button"
                 class="btn-close"
                 data-bs-dismiss="alert"

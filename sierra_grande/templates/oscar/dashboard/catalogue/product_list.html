@@ -75,9 +75,9 @@
       <form method="post" class="card">
         {% csrf_token %}
         {% render_table products %}
-
-        {% include "oscar/partials/delete_modal.html" with body_title="Remove Product" body_text="Are you sure to remove the product:" %}
       </form>
+
+      {% include "oscar/partials/delete_modal.html" with body_title="Remove Product" body_text="Are you sure to remove the product:" %}
     {% endblock product_list %}
   {% else %}
     <div class="card">
@@ -100,5 +100,7 @@
 {% block onbodyload %}
   {{ block.super }}
   oscar.dashboard.product_lists.init();
-  oscar.dashboard.initDeleteModal('{% url "dashboard:catalogue-product-delete" pk=9999 %}', '9999')
+  {% if has_products %}
+    oscar.dashboard.initDeleteModal('{% url "dashboard:catalogue-product-delete" pk=9999 %}', '9999')
+  {% endif %}
 {% endblock onbodyload %}

@@ -1,7 +1,6 @@
 {% extends "oscar/dashboard/layout.html" %}
 
-{% load dashboard_tags %}
-{% load i18n %}
+{% load dashboard_tags i18n %}
 
 {% block body_class %}
   {{ block.super }} pages
@@ -19,16 +18,17 @@
     </ol>
   </nav>
 {% endblock breadcrumbs %}
-{% block main_header %}
-  <div class="hstack justify-content-between col-12">
-    <h4 class="mb-sm-0">{% translate "Pages" %}</h2>
+{% block main_header_content %}
+  {% translate "Pages" %}
+{% endblock main_header_content %}
+{% block dashboard_content %}
+  <div class="text-end">
     <a href="{% url "dashboard:page-create" %}"
        class="btn btn-primary icon-link">
-      <iconify-icon icon="mdi:plus-circle" width="1rem" height="1rem" aria-hidden="true"></iconify-icon> {% translate "Create new page" %}
+      <iconify-icon icon="mdi:plus-circle" width="1rem" height="1rem" aria-hidden="true"></iconify-icon> 
+      {% translate "Create new page" %}
     </a>
   </div>
-{% endblock main_header %}
-{% block dashboard_content %}
   <div class="vstack gap-4">
     <div class="card">
       <span class="icon-link card-header fw-normal">
@@ -46,7 +46,7 @@
             </div>
             <div class="col-auto">
               <a href="{% url 'dashboard:page-list' %}"
-                 class="btn btn-secondary"
+                 class="btn btn-outline-secondary"
                  data-loading-text="{% translate "Reseting..." %}">{% translate "Reset" %}</a>
             </div>
           </div>
@@ -62,7 +62,7 @@
         {% if flatpage_list %}
           <form method="post" class="table-card table-responsive-md">
             {% csrf_token %}
-            <table class="align-middle table table-striped table-bordered table-hover">
+            <table class="table table-hover align-middle mb-0">
               <thead>
                 <tr>
                   <th>{% translate "Title" context "Page title" %}</th>
@@ -81,24 +81,21 @@
                          href="{{ page.get_absolute_url }}">{{ page.url }}</a>
                     </td>
                     <td>
-                      <div class="btn-toolbar">
-                        <div class="dropdown">
-                          <button class="btn btn-secondary dropdown-toggle"
-                                  type="button"
-                                  id="dropdownMenuButton"
-                                  data-bs-toggle="dropdown"
-                                  aria-haspopup="true"
-                                  aria-expanded="false">{% translate "Actions" %}</button>
-                          <div class="dropdown-menu dropdown-menu-end"
-                               aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="{{ page.get_absolute_url }}">{% translate "View" %}</a>
-                            <a class="dropdown-item"
-                               id="edit_page_{{ page.id }}"
-                               href="{% url "dashboard:page-update" pk=page.id %}">{% translate "Edit" %}</a>
-                            <a class="dropdown-item"
-                               id="delete_page_{{ page.id }}"
-                               href="{% url "dashboard:page-delete" pk=page.id %}">{% translate "Delete" %}</a>
-                          </div>
+                      <div class="row g-2">
+                        <div class="col-auto">
+                            <a class="badge bg-primary-subtle text-primary fs-13 icon-link" href="{{ page.get_absolute_url }}">
+                              {% translate "View on site" %}
+                            </a>
+                        </div>
+                        <div class="col-auto">
+                            <a class="badge bg-info-subtle text-info fs-13 icon-link" href="{% url "dashboard:page-update" pk=page.id %}">
+                              {% translate "Edit" %}
+                            </a>
+                        </div>
+                        <div class="col-auto">
+                            <a class="badge bg-danger-subtle text-danger fs-13 icon-link" data-bs-pk="{{ page.id }}" data-bs-name="{{ page.title }}" data-bs-toggle="modal" href="#deleteModal">
+                              {% translate "Delete" %}
+                            </a>
                         </div>
                       </div>
                     </td>
@@ -108,6 +105,7 @@
             </table>
             {% include "oscar/dashboard/partials/pagination.html" %}
           </form>
+          {% include "oscar/partials/delete_modal.html" with body_title="Remove Page" body_text="Are you sure to remove the page:" %}
         {% else %}
           <div>{% translate "No pages found." %}</div>
         {% endif %}
@@ -115,3 +113,11 @@
     </div>
   </div>
 {% endblock dashboard_content %}
+
+
+{% block onbodyload %}
+  {{ block.super }}
+  {% if flatpage_list %}
+    oscar.dashboard.initDeleteModal('{% url "dashboard:page-delete" pk=9999 %}', '9999')
+  {% endif %}
+{% endblock onbodyload %}

@@ -1,7 +1,13 @@
 {% extends "oscar/dashboard/layout.html" %}
 
-{% load category_tags %}
-{% load i18n %}
+{% load category_tags i18n static %}
+
+
+{% block extrastyles %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/x-scss" href="{% static "scss/dashboard/product.scss" %}" />
+{% endblock extrastyles %}
+
 
 {% block extrahead %}
   {{ block.super }}
@@ -32,73 +38,76 @@
 {% block dashboard_content %}
   <form action="{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}"
         method="post"
-        class="card "
+        class="card form-steps "
         enctype="multipart/form-data"
         data-behaviour="tab-nav-errors"
         autocomplete="off">
     {% csrf_token %}
     <div class="card-header">
-      <ul class="nav nav-tabs card-header-tabs"
-          id="categoriesTab"
-          role="tablist">
-        <li class="nav-item" role="presentation">
-          <a class="nav-link active"
-             href="#category-detail"
-             id="category-detail"
-             data-bs-toggle="tab"
-             data-bs-target="#category-detail-pane"
-             role="tab"
-             aria-controls="category-detail-pane"
-             aria-selected="true">{% translate "Category details" %}</a>
-        </li>
-        <li class="nav-item" role="presentation">
-          <a class="nav-link"
-             href="#category-seo"
-             id="category-seo"
-             data-bs-toggle="tab"
-             data-bs-target="#category-seo-pane"
-             role="tab"
-             aria-controls="category-seo-pane"
-             aria-selected="false">{% translate "Search engine optimisation" %}</a>
-        </li>
-      </ul>
+      <h4 class="card-title mb-0 icon-link">
+        <iconify-icon icon="gridicons:create" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
+        {% translate "Create the category" %}
+      </h4>
     </div>
-    <div class="tab-content card-body">
-      {% block tab_content %}
-        {% block category_details %}
-          <div class="tab-pane fade show active" id="category-detail-pane">
-            <div class="card-text">
-              {% block category_details_content %}
-                <span class="text-danger">{{ form.non_field_errors }}</span>
-                {% for field in form.hidden_fields %}{{ field }}{% endfor %}
-                {% for field in form.primary_form_fields %}
-                  {% if "attr" not in field.id_for_label %}
-                    {% include "oscar/dashboard/partials/form_field.html" with field=field %}
-                  {% endif %}
-                {% endfor %}
-              {% endblock category_details_content %}
+    <div class="card-body" data-behaviour="tab-nav-errors">
+      <div class="step-arrow-nav mb-4">
+        <ul class="nav nav-pills custom-nav nav-justified" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="category-detail" data-bs-toggle="pill" data-bs-target="#category-detail-pane" type="button" role="tab" aria-controls="category-detail-pane" aria-selected="false" data-position="0" tabindex="-1">
+                {% translate "Product Attributes" %}
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link " id="category-seo" data-bs-toggle="pill" data-bs-target="#category-seo-pane" type="button" role="tab" aria-controls="category-seo-pane" aria-selected="true" data-position="1">
+                {% translate "Product Type Details" %}
+              </button>
+            </li>
+        </ul>
+      </div>
+      <div class="tab-content">
+        {% block tab_content %}
+          {% block category_details %}
+            <div class="tab-pane fade show active" id="category-detail-pane">
+              <div class="card-text">
+                {% block category_details_content %}
+                  <span class="text-danger error">{{ form.non_field_errors }}</span>
+                  {% for field in form.primary_form_fields %}
+                    {% if forloop.last %}
+                      {% include "oscar/dashboard/partials/form_field.html" with field=field %}
+                    {% else %}
+                      {% include "oscar/dashboard/partials/form_field.html" with field=field margin="true" %}
+                    {% endif %}
+                  {% endfor %}
+                {% endblock category_details_content %}
+              </div>
             </div>
-          </div>
-        {% endblock category_details %}
-        {% block seo %}
-          <div class="tab-pane fade" id="category-seo-pane">
-            <div class="card-text">
-              {% block seo_content %}
-                {% for field in form.seo_form_fields %}
-                  {% if "attr" not in field.id_for_label %}
-                    {% include "oscar/dashboard/partials/form_field.html" with field=field %}
-                  {% endif %}
-                {% endfor %}
-              {% endblock seo_content %}
+          {% endblock category_details %}
+          {% block seo %}
+            <div class="tab-pane fade" id="category-seo-pane">
+              <div class="card-text">
+                {% block seo_content %}
+                  {% for field in form.seo_form_fields %}
+                    {% if forloop.last %}
+                      {% include "oscar/dashboard/partials/form_field.html" with field=field %}
+                    {% else %}
+                      {% include "oscar/dashboard/partials/form_field.html" with field=field margin="true" %}
+                    {% endif %}
+                  {% endfor %}
+                {% endblock seo_content %}
+              </div>
             </div>
-          </div>
-        {% endblock seo %}
-      {% endblock tab_content %}
+          {% endblock seo %}
+        {% endblock tab_content %}
+      </div>
     </div>
+
     {% block fixed_actions_group %}
       <div class="form-actions-fixed align-items-center bg-dark column-gap-4 fixed-bottom hstack justify-content-end p-3">
-        <a href="{% url "dashboard:catalogue-category-list" %}">{% translate "Cancel" %}</a>
-        <button class="btn btn-danger"
+        {% if category %}
+          <a class="btn btn-success me-auto" href="{{ category.get_absolute_url }}">{% translate "View on site" %}</a>
+        {% endif %}
+        <a class="btn btn-danger" role="button" href="{% url "dashboard:catalogue-category-list" %}">{% translate "Cancel" %}</a>
+        <button class="btn btn-outline-light"
                 name="action"
                 type="submit"
                 value="continue"
@@ -108,10 +117,19 @@
                 type="submit"
                 value="save"
                 data-loading-text="{% translate "Saving..." %}">{% translate "Save" %}</button>
-        {% if category %}
-          <a class="btn btn-success" href="{{ category.get_absolute_url }}">{% translate "View on site" %}</a>
-        {% endif %}
       </div>
     {% endblock fixed_actions_group %}
   </form>
 {% endblock dashboard_content %}
+
+{% block extrascripts %}
+  {{ block.super }}
+  <script src="{% static "js/components/form-wizard.init.js" %}" defer></script>
+  <script src="{% static "libs/choices/choices.min.js" %}" defer></script>
+{% endblock extrascripts %}
+
+
+{% block onbodyload %}
+  {{ block.super }}
+  oscar.dashboard.initProductImages();
+{% endblock onbodyload %}

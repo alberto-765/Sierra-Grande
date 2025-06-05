@@ -24,9 +24,11 @@
 {% block dashboard_content %}
   <div class="card">
     <div class="card-header hstack align-items-center justify-content-between">
-      <span class="fw-normal">
-        <iconify-icon icon="fa-solid:sitemap" aria-hidden="true" width="1rem" height="1rem"></iconify-icon>
+      <h4 class="card-title icon-link mb-0">
+        <iconify-icon icon="fluent-color:alert-32" aria-hidden="true" width="1rem" height="1rem"></iconify-icon>
         {{ description }}
+      </h4>
+      <span class="fw-normal">
       </span>
       {% if show_filter %}
         <div class="dropdown">

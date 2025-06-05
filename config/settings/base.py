@@ -122,6 +122,7 @@ THIRD_PARTY_APPS = [
     "treebeard",
     "django_tables2",
     "django_flatpickr",
+    "sorl.thumbnail",
 ]
 
 LOCAL_APPS = [
@@ -537,16 +538,16 @@ OSCAR_DASHBOARD_NAVIGATION = [
         "id_href": "sidebarShopContent",
         "children": [
             {
+                "label": _("Categories"),
+                "url_name": "dashboard:catalogue-category-list",
+            },
+            {
                 "label": _("Pages"),
                 "url_name": "dashboard:page-list",
             },
             {
                 "label": _("Email templates"),
                 "url_name": "dashboard:comms-list",
-            },
-            {
-                "label": _("Categories"),
-                "url_name": "dashboard:catalogue-category-list",
             },
         ],
     },

@@ -29,7 +29,8 @@
 {% block dashboard_content %}
   <form class="form-steps card" method="post">
     <div class="card-header">
-      <h4 class="card-title mb-0">
+      <h4 class="card-title mb-0 icon-link">
+        <iconify-icon icon="gridicons:create" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
         {% translate "Create the new product type" %}
       </h4>
     </div>
@@ -62,8 +63,13 @@
         </div>
         <div class="tab-pane fade" id="product-attributes" role="tabpanel" aria-labelledby="product-attributes-tab">
           <div class="table-responsive-md">
+            {{ attributes_formset.management_form }}
+            {% if attribute_option_formset.non_form_errors %}
+              <div class="alert alert-danger">
+                {{ attributes_formset.non_form_errors }}
+              </div>
+            {% endif %}
             <table class="table table-bordered table-hover table-nowrap align-middle mb-0">
-              {{ attributes_formset.non_form_errors }}
               <thead >
                 <tr>
                   <td class="col-3">{% translate "Name" %}</td>

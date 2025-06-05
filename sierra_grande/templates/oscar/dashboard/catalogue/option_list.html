@@ -20,9 +20,9 @@
   {% translate "Option" %}
 {% endblock main_header_content %}
 {% block dashboard_content %}
- <div class="text-end">
+  <div class="text-end">
     <a href="{% url "dashboard:catalogue-option-create" %}"
-       class="btn btn-primary icon-link"><iconify-icon icon="mdi:plus-circle" width="1rem" height="1rem" aria-hidden="true"></iconify-icon> {% translate "Create new Option" %}</a>
+      class="btn btn-primary icon-link"><iconify-icon icon="mdi:plus-circle" width="1rem" height="1rem" aria-hidden="true"></iconify-icon> {% translate "Create new Option" %}</a>
   </div>
 
   {% block product_list %}
@@ -32,8 +32,14 @@
           {% csrf_token %}
           {% render_table options %}
         </div>
-        {% include "oscar/partials/delete_modal.html" with body_title="Remove Option" body_text="Are you sure to remove the option:" %}
       </form>
+      
+      {% include "oscar/partials/delete_modal.html" with body_title="Remove Option" body_text="Are you sure to remove the option:" %}
+      
+      {% block onbodyload %}
+        {{ block.super }}
+        oscar.dashboard.initDeleteModal('{% url "dashboard:catalogue-option-delete" pk=9999 %}', '9999')
+      {% endblock onbodyload %}
     {% else %}
       <div class="card">
         <div class="card-header fw-normal">{% translate "Options" %}</div>
@@ -43,8 +49,4 @@
   {% endblock product_list %}
 {% endblock dashboard_content %}
 
-{% block onbodyload %}
-  {{ block.super }}
-  oscar.dashboard.initDeleteModal('{% url "dashboard:catalogue-option-delete" pk=9999 %}', '9999')
-{% endblock onbodyload %}
 

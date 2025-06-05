@@ -945,6 +945,8 @@ class AbstractProductRecommendation(models.Model):
             "Determines order of the products. A product with a higher"
             " value will appear before one with a lower ranking."
         ),
+        blank=True,
+        null=True,
     )
 
     class Meta:

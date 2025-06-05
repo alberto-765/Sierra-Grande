@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load django_tables2 %}
 
 <div class="hstack column-gap-2 justify-content-start">
   <a class="badge bg-info-subtle text-info fs-13 icon-link" href="{% url 'dashboard:catalogue-option-update' pk=record.id %}{% querystring %}">

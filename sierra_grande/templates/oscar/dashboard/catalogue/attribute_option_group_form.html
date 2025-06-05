@@ -1,7 +1,11 @@
 {% extends "oscar/dashboard/layout.html" %}
 
-{% load i18n %}
-{% load crispy_forms_tags %}
+{% load i18n static crispy_forms_tags%}
+
+{% block extrastyles %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/x-scss" href="{% static "scss/dashboard/product.scss" %}" />
+{% endblock extrastyles %}
 
 {% block title %}
   {{ title }} | {% translate "Create Attribute Option Group" %} | {{ block.super }}
@@ -34,77 +38,78 @@
   {{ title }}
 {% endblock main_header_content %}
 {% block dashboard_content %}
-  <form class="card " method="post" data-behaviour="tab-nav-errors">
+  <form class="card form-steps" method="post" data-behaviour="tab-nav-errors">
     {% csrf_token %}
     <div class="card-header">
-      <ul class="nav nav-tabs card-header-tabs" id="productsTab" role="tablist">
-        <li class="nav-item" role="presentation">
-          <a class="nav-link active"
-             href="#attribute-option-group-detail"
-             id="attribute-option-group-detail"
-             data-bs-toggle="tab"
-             data-bs-target="#attribute-option-group-detail-pane"
-             role="tab"
-             aria-controls="attribute-option-group-detail-pane"
-             aria-selected="true">{% translate "Attribute Option Group Details" %}</a>
-        </li>
-        <li class="nav-item" role="presentation">
-          <a class="nav-link"
-             href="#attribute-options"
-             id="attribute-options"
-             data-bs-toggle="tab"
-             data-bs-target="#attribute-options-pane"
-             role="tab"
-             aria-controls="attribute-options-pane"
-             aria-selected="false">{% translate "Attribute Options" %}</a>
-        </li>
-      </ul>
+      <h4 class="card-title mb-0 icon-link">
+        <iconify-icon icon="gridicons:create" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
+        {% translate "Create the new attribute option group" %}
+      </h4>
     </div>
-    <div class="tab-content card-body">
-      {% block tab_content %}
-        {% if is_popup %}<input type="hidden" name="{{ is_popup_var }}" value="{{ is_popup }}" />{% endif %}
-        {% if to_field %}<input type="hidden" name="{{ to_field_var }}" value="{{ to_field }}" />{% endif %}
-        {% block attribute_option_group_details %}
-          <div class="tab-pane fade show active"
-               id="attribute-option-group-detail-pane"
-               role="tabpanel"
-               aria-labelledby="attribute-option-group-detail"
-               tabindex="0">
-            <div class="card-text">{% crispy form %}</div>
-          </div>
-        {% endblock attribute_option_group_details %}
-        {% block attribute_options %}
-          <div class="tab-pane fade card-text"
-               id="attribute-options-pane"
-               role="tabpanel"
-               aria-labelledby="attribute-options"
-               tabindex="0">
-            <table class="table table-bordered align-middle table-hover mb-0">
-              {{ attribute_option_formset.management_form }}
-              {{ attribute_option_formset.non_form_errors }}
-              <thead class="table-light">
-                <tr>
-                  <td class="w-50">{% translate "Option" %}</td>
-                  <td class="w-50">{% translate "Select for delete" %}</td>
-                </tr>
-              </thead>
-              <tbody>
-                {% for attribute_option_form in attribute_option_formset %}
-                  <tr>
-                    {% for hidden_field in attribute_option_form.hidden_fields %}{{ hidden_field }}{% endfor %}
-                    <td>
-                        {% include "oscar/dashboard/partials/form_field.html" with field=attribute_option_form.option nolabel=True margin=False %}
-                    </td>
-                    <td>
-                      {% include "oscar/dashboard/partials/form_field.html" with field=attribute_option_form.DELETE nolabel=True margin=False %}
-                    </td>
-                  </tr>
-                {% endfor %}
-              </tbody>
-            </table>
-          </div>
-        {% endblock attribute_options %}
-      {% endblock tab_content %}
+    <div class="card-body">
+      <div class="step-arrow-nav mb-4">
+        <ul class="nav nav-pills custom-nav nav-justified" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="attribute-option-group-detail" data-bs-toggle="pill" data-bs-target="#attribute-option-group-detail-pane" type="button" role="tab" aria-controls="attribute-option-group-detail-pane" aria-selected="false" data-position="0" tabindex="-1">
+                {% translate "Product Attributes" %}
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link " id="attribute-options" data-bs-toggle="pill" data-bs-target="#attribute-options-pane" type="button" role="tab" aria-controls="attribute-options-pane" aria-selected="true" data-position="1">
+                {% translate "Attribute Options" %}
+              </button>
+            </li>
+        </ul>
+      </div>
+      <div class="tab-content">
+        {% block tab_content %}
+          {% if is_popup %}<input type="hidden" name="{{ is_popup_var }}" value="{{ is_popup }}" />{% endif %}
+          {% if to_field %}<input type="hidden" name="{{ to_field_var }}" value="{{ to_field }}" />{% endif %}
+          {% block attribute_option_group_details %}
+            <div class="tab-pane fade show active"
+                id="attribute-option-group-detail-pane"
+                role="tabpanel"
+                aria-labelledby="attribute-option-group-detail"
+                tabindex="0">
+              <div class="card-text">{% crispy form %}</div>
+            </div>
+          {% endblock attribute_option_group_details %}
+          {% block attribute_options %}
+            <div class="tab-pane fade card-text" id="attribute-options-pane" role="tabpanel" aria-labelledby="attribute-options" tabindex="0">
+              <div class="table-responsive-md">
+                {{ attribute_option_formset.management_form }}
+                {% if attribute_option_formset.non_form_errors %}
+                  <div class="alert alert-danger">
+                    {{ attribute_option_formset.non_form_errors }}
+                  </div>
+                {% endif %}
+                <table class="table table-bordered align-middle table-hover mb-0">
+                  <thead >
+                    <tr>
+                      <td class="w-50">{% translate "Option" %}</td>
+                      <td class="w-50">{% translate "Select for delete" %}</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for attribute_option_form in attribute_option_formset %}
+                      <tr>
+                        {% for hidden_field in attribute_option_form.hidden_fields %}{{ hidden_field }}{% endfor %}
+                        <td>
+                            {% include "oscar/dashboard/partials/form_field.html" with field=attribute_option_form.option nolabel=True  %}
+                        </td>
+                        <td>
+                          {% include "oscar/dashboard/partials/form_field.html" with field=attribute_option_form.DELETE nolabel=True margin=False %}
+                        </td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          {% endblock attribute_options %}
+        {% endblock tab_content %}
+      </div>
+
     </div>
     {% block fixed_actions_group %}
       <div class="form-actions-fixed align-items-center bg-dark column-gap-4 fixed-bottom hstack justify-content-end p-3">
@@ -120,6 +125,10 @@
     {% endblock fixed_actions_group %}
   </form>
 {% endblock dashboard_content %}
+{% block extrascripts %}
+  {{ block.super }}
+  <script src="{% static "js/components/form-wizard.init.js" %}" defer></script>
+{% endblock extrascripts %}
 {% block onbodyload %}
   {{ block.super }}
   oscar.dashboard.product_attributes.init();

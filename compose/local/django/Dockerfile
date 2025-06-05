@@ -12,6 +12,9 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
   # psycopg dependencies
   libpq-dev
 
+# ✅ Upgrade pip
+RUN python -m pip install --upgrade pip
+
 # Requirements are installed here to ensure they will be cached.
 COPY ./requirements .
 
@@ -53,6 +56,9 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
   # cleaning up unused files
   && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
   && rm -rf /var/lib/apt/lists/*
+
+# ✅ Upgrade pip before installing wheels
+RUN python -m pip install --upgrade pip
 
 # All absolute dir copies ignore workdir instruction. All relative dir copies are wrt to the workdir instruction
 # copy python dependency wheels from python-build-stage

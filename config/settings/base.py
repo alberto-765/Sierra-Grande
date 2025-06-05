@@ -103,7 +103,6 @@ THIRD_PARTY_APPS = [
     "oscar.config.Shop",
     "oscar.apps.analytics.apps.AnalyticsConfig",
     "oscar.apps.checkout.apps.CheckoutConfig",
-    "oscar.apps.address.apps.AddressConfig",
     "oscar.apps.shipping.apps.ShippingConfig",
     "oscar.apps.catalogue.reviews.apps.CatalogueReviewsConfig",
     "oscar.apps.communication.apps.CommunicationConfig",
@@ -127,6 +126,7 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "sierra_grande.users",
+    "sierra_grande.address.apps.AddressConfig",
     "sierra_grande.catalogue.apps.CatalogueConfig",
     "sierra_grande.partner.apps.PartnerConfig",
     "sierra_grande.voucher.apps.VoucherConfig",
@@ -475,6 +475,10 @@ OSCAR_DASHBOARD_NAVIGATION = [
                 "label": _("Shipments (TODO)"),
                 "url_name": "dashboard:order-list",
             },
+            {
+                "label": _("Statistics"),
+                "url_name": "dashboard:order-stats",
+            },
             # The shipping method dashboard is disabled by default as it might
             # be confusing. Weight-based shipping methods aren't hooked into
             # the shipping repository by default (as it would make
@@ -552,25 +556,14 @@ OSCAR_DASHBOARD_NAVIGATION = [
         ],
     },
     {
-        "label": _("Partners"),
-        "url_name": "dashboard:partner-list",
-        "icon": "bi:shop-window",
-    },
-    {
         "label": _("Reports"),
         "icon": "bi:file-earmark-richtext",
         "url_name": "dashboard:reports-index",
     },
     {
-        "label": _("Extra"),
-        "icon": "",
-        "id_href": "sidebarExtra",
-        "children": [
-            {
-                "label": _("Statistics"),
-                "url_name": "dashboard:order-stats",
-            },
-        ],
+        "label": _("Partners"),
+        "url_name": "dashboard:partner-list",
+        "icon": "bi:shop-window",
     },
 ]
 OSCAR_SHOP_NAME = "Sierra Grande"

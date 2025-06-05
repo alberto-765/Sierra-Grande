@@ -544,6 +544,7 @@ var oscar = ((o) => {
 
             // two-column sidebar active js
             function initActiveMenu () {
+                debugger;
                 const currentPath = location.pathname;
                 const sidebarLinks = document.getElementById("navbar-nav").querySelectorAll("a.nav-link");
 

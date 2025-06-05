@@ -8,7 +8,6 @@ from crispy_forms.layout import Row
 from django import forms
 from django.core import exceptions
 from django.utils.translation import gettext_lazy as _
-from django.utils.translation import pgettext
 from oscar.core.loading import get_classes
 from oscar.core.loading import get_model
 from oscar.core.utils import slugify

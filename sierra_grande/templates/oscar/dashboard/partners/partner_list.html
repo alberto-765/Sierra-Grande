@@ -16,14 +16,14 @@
     </ol>
   </nav>
 {% endblock breadcrumbs %}
-{% block main_header %}
-  <div class="hstack justify-content-between align-items-center">
-    <h4 class="mb-sm-0">{% translate "Partners" %}</h4>
-    <a href="{% url "dashboard:partner-create" %}"
+{% block main_header_content %}
+  {% translate "Partners" %}
+{% endblock main_header_content %}
+{% block dashboard_content %}
+<div class="text-end">
+      <a href="{% url "dashboard:partner-create" %}"
        class="btn btn-primary icon-link"><iconify-icon icon="mdi:plus-circle" width="1rem" height="1rem" aria-hidden="true"></iconify-icon> {% translate "Create new partner" %}</a>
   </div>
-{% endblock main_header %}
-{% block dashboard_content %}
   <div class="card">
     <div class="card-header icon-link fw-normal">
       <iconify-icon icon="stash:search-light" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
@@ -46,7 +46,7 @@
   </div>
   <div class="card">
     <div class="card-header icon-link fw-normal">
-      <iconify-icon icon="fluent-emoji-high-contrast:briefcase" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
+      <iconify-icon icon="bi:shop-window" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
       <span>{{ queryset_description }}</span>
     </div>
     <div class="card-body">
@@ -54,7 +54,7 @@
         <form method="post">
           {% csrf_token %}
           <div class="table-card table-responsive-md">
-            <table class="table table-bordered table-hover align-middle">
+            <table class="table table-hover align-middle mb-0">
               <thead>
                 <tr>
                   <th>{% anchor "name" _("Name") %}</th>
@@ -101,7 +101,7 @@
                     <td>
                       <div class="btn-toolbar">
                         <div class="dropdown">
-                          <button class="btn btn-secondary dropdown-toggle"
+                          <button class="btn btn-outline-primary btn-sm dropdown-toggle"
                                   type="button"
                                   id="dropdownMenuButton"
                                   data-bs-toggle="dropdown"

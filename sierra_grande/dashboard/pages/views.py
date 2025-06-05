@@ -55,7 +55,7 @@ class PageListView(ListView):
         if data["title"]:
             queryset = queryset.filter(title__icontains=data["title"])
             self.desc_ctx["title_filter"] = (
-                _(" with title containing '%s'") % data["title"]
+                _(' with title containing "%s"') % data["title"]
             )
 
         return queryset

@@ -1,7 +1,6 @@
 {% extends "oscar/dashboard/layout.html" %}
 
-{% load i18n %}
-{% load crispy_forms_tags %}
+{% load i18n static %}
 
 {% block body_class %}
   {{ block.super }} create-page partners
@@ -25,16 +24,16 @@
 {% block main_header %}
 {% endblock main_header %}
 {% block dashboard_content %}
-  <div class="card">
-    <div class="card-header icon-link">
-      <iconify-icon icon="bxs:detail" width="1rem" height="1rem" aria-hidden="true" noobserver=""></iconify-icon>
-      {% blocktranslate %} Details of {{partner_name}} partner {% endblocktranslate %}
+  <div class="card card-body">
+    <div>
+      <h5>{% blocktranslate %} Details of "{{partner_name}}" partner {% endblocktranslate %}</h5>
+      <p class="text-muted">{% translate 'Fill all fields with *' %}</p>
     </div>
-    {% include "oscar/dashboard/partials/form.html" with form=form class="card-body" %}
+    {% include "oscar/dashboard/partials/form.html" with form=form %}
   </div>
   <div class="card">
     <div class="card-header icon-link">
-      <iconify-icon icon="fa-solid:users" width="1rem" height="1rem" aria-hidden="true" noobserver=""></iconify-icon>
+      <iconify-icon icon="bi:person-bounding-box" width="1rem" height="1rem" aria-hidden="true" noobserver=""></iconify-icon>
       {% translate "Users" %}
     </div>
     <div class="card-body">
@@ -85,3 +84,8 @@
     </div>
   </div>
 {% endblock dashboard_content %}
+
+{% block extrascripts %}
+  {{ block.super }}
+  <script src="{% static "libs/choices/choices.min.js" %}" defer></script>
+{% endblock extrascripts %}

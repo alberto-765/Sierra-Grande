@@ -18,6 +18,8 @@ from oscar.core.compat import existing_user_fields
 from oscar.core.compat import get_user_model
 from oscar.core.loading import get_class
 from oscar.core.loading import get_model
+from oscar.forms.widgets import ImageInput
+
 
 User = get_user_model()
 Partner = get_model("partner", "Partner")
@@ -242,19 +244,6 @@ class PartnerAddressForm(forms.ModelForm):
         label=pgettext_lazy("Partner's name", "Name"),
     )
 
-    class Meta:
-        fields = (
-            "name",
-            "line1",
-            "line2",
-            "line3",
-            "line4",
-            "state",
-            "postcode",
-            "country",
-        )
-        model = PartnerAddress
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
@@ -267,5 +256,28 @@ class PartnerAddressForm(forms.ModelForm):
             FloatingField("line4"),
             FloatingField("state"),
             FloatingField("postcode"),
-            FloatingField("country"),
+            Field("country", wrapper_class=" "),
         )
+
+    class Meta:
+        fields = (
+            "name",
+            "line1",
+            "line2",
+            "line3",
+            "line4",
+            "state",
+            "postcode",
+            "country",
+        )
+        model = PartnerAddress
+        widgets = {
+            "country": forms.Select(
+                attrs={
+                    "data-choices": "",
+                    "data-choices-search-true": "",
+                    "data-choices-removeItem": "",
+                    "data-choices-sorting-true": "",
+                },
+            ),
+        }

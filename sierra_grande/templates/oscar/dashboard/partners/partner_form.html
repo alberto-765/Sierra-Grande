@@ -22,5 +22,11 @@
 {% endblock %}
 {% block main_header_content %}{{ title }}{% endblock %}
 {% block dashboard_content %}
-  <div class="card card-body">{% include "oscar/dashboard/partials/form.html" with form=form %}</div>
+  <div class="card card-body">
+    <div>
+      <h5>{% translate "Partner details" %}</h5>
+      <p class="text-muted">{% translate 'Fill all fields with *' %}</p>
+    </div>
+    {% include "oscar/dashboard/partials/form.html" with form=form %}
+  </div>
 {% endblock dashboard_content %}

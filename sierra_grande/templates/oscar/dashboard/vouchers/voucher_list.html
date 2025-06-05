@@ -25,17 +25,17 @@
     </ol>
   </nav>
 {% endblock breadcrumbs %}
-{% block main_header %}
-  <div class="hstack justify-content-between align-items-center">
-    <h4 class="mb-sm-0">{% translate "Vouchers" %}</h4>
+{% block main_header_content %}
+  {% translate "Vouchers" %}
+{% endblock main_header_content %}
+{% block dashboard_content %}
+  <div class="text-end">
     <a href="{% url "dashboard:voucher-create" %}"
        class="btn btn-primary icon-link">
       <iconify-icon icon="mdi:plus-circle" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
       {% translate "Create new voucher" %}
     </a>
   </div>
-{% endblock main_header %}
-{% block dashboard_content %}
   <div class="vstack gap-4">
     {% block search_form %}
       <div class="card">
@@ -60,7 +60,7 @@
     {% block voucher_table %}
       <div class="card">
         <span class="card-header icon-link fw-normal">
-          <iconify-icon icon="streamline:discount-percent-coupon" width="1rem" height="1rem" aria-hidden="true" inline></iconify-icon>
+          <iconify-icon icon="tabler:briefcase-filled" width="1rem" height="1rem" aria-hidden="true" inline></iconify-icon>
           {% if search_filters %}
             {% translate "Voucher Search Results" %}
           {% else %}

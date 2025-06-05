@@ -35,11 +35,6 @@
       </form>
       
       {% include "oscar/partials/delete_modal.html" with body_title="Remove Option" body_text="Are you sure to remove the option:" %}
-      
-      {% block onbodyload %}
-        {{ block.super }}
-        oscar.dashboard.initDeleteModal('{% url "dashboard:catalogue-option-delete" pk=9999 %}', '9999')
-      {% endblock onbodyload %}
     {% else %}
       <div class="card">
         <div class="card-header fw-normal">{% translate "Options" %}</div>
@@ -48,5 +43,12 @@
     {% endif %}
   {% endblock product_list %}
 {% endblock dashboard_content %}
+
+ {% block onbodyload %}
+  {{ block.super }}
+  {% if has_options %}
+    oscar.dashboard.initDeleteModal('{% url "dashboard:catalogue-option-delete" pk=9999 %}', '9999')
+  {% endif %}
+{% endblock onbodyload %}
 
 

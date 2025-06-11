@@ -1,12 +1,6 @@
 {% extends "oscar/dashboard/offers/step_form.html" %}
 
-
-{% load i18n %}
-{% load crispy_forms_tags %}
-
-{% block summary %}
-    {% include "oscar/dashboard/offers/summary.html" %}
-{% endblock %}
+{% load i18n crispy_forms_tags %}
 
 {% block progress %}
     {% include "oscar/dashboard/offers/progress.html" with step=3 %}

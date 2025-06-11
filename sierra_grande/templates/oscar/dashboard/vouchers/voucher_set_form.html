@@ -1,15 +1,20 @@
 {% extends "oscar/dashboard/layout.html" %}
 
-{% load currency_filters %}
-{% load i18n %}
-{% load crispy_forms_tags %}
+{% load currency_filters i18n crispy_forms_tags static %}
+
+{% block extrastyles %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/x-scss" href="{% static "scss/dashboard/product.scss" %}" />
+{% endblock extrastyles %}
 
 {% block body_class %}
   {{ block.super }} create-page
 {% endblock body_class %}
+
 {% block title %}
   {{ title }} | {% translate "Voucher sets" %} | {{ block.super }}
 {% endblock title %}
+
 {% block breadcrumbs %}
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
@@ -53,3 +58,9 @@
     </div>
   </div>
 {% endblock dashboard_content %}
+
+
+{% block extrascripts %}
+  {{ block.super }}
+  <script src="{% static "libs/choices/choices.min.js" %}" defer></script>
+{% endblock extrascripts %}

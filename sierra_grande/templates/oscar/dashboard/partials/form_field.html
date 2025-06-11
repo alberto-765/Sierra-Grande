@@ -23,20 +23,32 @@ checkbox and radio inputs differently to other widgets.
         <div class="{% if style|default:"stacked" != 'stacked' %}col-sm-8{% endif %}{% if field.widget_type == 'checkbox' %} form-check form-switch {% else %} {% if field.widget_type == 'radioselect' %} form-check {% endif %} {% endif %}">
           {% block widget %}
             {% if field.widget_type == 'checkbox' %}
-                {% render_field field class+="form-check-input" role="switch" %}
-                <label for="{{ field.auto_id }}" class="form-check-label {% if field.field.required %} requiredField{% endif %}">
-                    {{ field.label }}{% if field.field.required %}<span class="asteriskField">*</span>{% endif %}
-                </label>
+              {% if form_show_errors and field.errors %}
+                {% render_field field class="form-check-input is-invalid" role="switch" %}
+              {% else %}
+                {% render_field field class="form-check-input" role="switch" %}
+              {% endif %}
+              <label for="{{ field.auto_id }}" class="form-check-label {% if field.field.required %} requiredField{% endif %}">
+                  {{ field.label }}{% if field.field.required %}<span class="asteriskField">*</span>{% endif %}
+              </label>
             {% elif field.widget_type == 'radioselect' %}
-              {% render_field field class+="form-check-input" %}
+              {% if form_show_errors and field.errors %}
+                {% render_field field class="form-check-input is-invalid" %}
+              {% else %}
+                {% render_field field class="form-check-input" %}
+              {% endif %}
             {% else %}
-              {% render_field field class+="form-control" %}
+              {% if form_show_errors and field.errors %}
+                  {% render_field field class="form-control is-invalid" %}
+              {% else %}
+                  {% render_field field class="form-control" %}
+              {% endif %}
             {% endif %}
           {% endblock widget %}
           {% block errors %}
             {% if form_show_errors and field.errors %}
               {% for error in field.errors %}
-                  <span id="error_{{ forloop.counter }}_{{ field.auto_id }}" class="invalid-feedback"><strong>{{ error }}</strong></span>
+              <span id="error_{{ forloop.counter }}_{{ field.auto_id }}" class="invalid-feedback"><strong>{{ error }}</strong></span>
               {% endfor %}
             {% endif %}
           {% endblock errors %}

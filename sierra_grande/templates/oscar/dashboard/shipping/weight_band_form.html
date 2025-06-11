@@ -1,0 +1,52 @@
+{% extends "oscar/dashboard/layout.html" %}
+{% load i18n currency_filters crispy_forms_tags static %}
+
+{% block title %}
+    {% translate "Edit weight band" %} |
+    {{ band.method.name }} |
+    {{ block.super }}
+{% endblock title %}
+
+{% block breadcrumbs %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url "dashboard:index" %}">{% translate "Dashboard" %}</a></li>
+            <li class="breadcrumb-item"><a href="{% url "dashboard:shipping-method-list" %}">{% translate "Shipping methods" %}</a></li>
+            <li class="breadcrumb-item">{{ band.method.name }}</li>
+            <li class="breadcrumb-item active" aria-current="page">{% translate "Edit weight band" %}</li>
+        </ol>
+    </nav>
+{% endblock breadcrumbs %}
+
+{% block main_header_content %}
+    {% translate "Edit weight band" %}
+{% endblock main_header_content %}
+
+{% block dashboard_content %}
+    <div class="card card-body bg-light">
+        <form method="post" class="form-stacked">
+            {% csrf_token %}
+
+            {% crispy form %}
+
+            {% block form_actions %}
+                <div class="form-actions-fixed align-items-center bg-dark column-gap-4 fixed-bottom hstack justify-content-end p-3">
+                    <a class="btn btn-danger" href="% url 'dashboard:shipping-method-list' %}">{% translate "Cancel" %}</a>
+                    {% block form_actions_buttons %}
+                        <button class="btn btn-primary" type="submit" data-loading-text="{% translate "Submitting..." %}">
+                            {% block submittext %}
+                                {% translate "Save" %}
+                            {% endblock submittext %}
+                        </button>
+                    {% endblock form_actions_buttons %}
+                </div>
+            {% endblock form_actions %}
+        </form>
+    </div>
+{% endblock dashboard_content %}
+
+{% block extrascripts %}
+  {{ block.super }}
+  <script src="{% static "libs/choices/choices.min.js" %}" defer></script>
+{% endblock extrascripts %}
+

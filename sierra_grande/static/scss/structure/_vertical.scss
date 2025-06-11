@@ -35,6 +35,7 @@
     background: $vertical-menu-bg;
     border-right: 1px solid $vertical-menu-border;
     bottom: 0;
+    padding: 0 0 calc(#{$header-height} + 25px) 0;
     position: fixed;
     transition: all .1s ease;
 

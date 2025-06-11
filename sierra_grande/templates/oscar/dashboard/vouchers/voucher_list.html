@@ -8,7 +8,7 @@
 {% load crispy_forms_tags %}
 
 {% block title %}
-  {% translate "Vouchers" %} | {{ block.super }}
+  {% translate "Coupons" %} | {{ block.super }}
 {% endblock title %}
 {% block breadcrumbs %}
   <nav aria-label="breadcrumb">
@@ -18,15 +18,15 @@
       </li>
       {% if form.is_bound %}
         <li class="breadcrumb-item">
-          <a href="{% url "dashboard:voucher-list" %}">{% translate "Vouchers" %}</a>
+          <a href="{% url "dashboard:voucher-list" %}">{% translate "Coupons" %}</a>
         </li>
       {% endif %}
-      <li class="breadcrumb-item active" aria-current="page">{% translate "Vouchers" %}</li>
+      <li class="breadcrumb-item active" aria-current="page">{% translate "Coupons" %}</li>
     </ol>
   </nav>
 {% endblock breadcrumbs %}
 {% block main_header_content %}
-  {% translate "Vouchers" %}
+  {% translate "Coupons" %}
 {% endblock main_header_content %}
 {% block dashboard_content %}
   <div class="text-end">
@@ -52,7 +52,7 @@
               </div>
             {% endif %}
             {# Search modal, if there are form errors the form is automatically openend #}
-            {% include "oscar/dashboard/partials/advanced_search_modal.html" with form=advanced_form style="horizontal" %}
+            {% include "oscar/dashboard/partials/advanced_search_modal.html" with form=advanced_form %}
           </div>
         </div>
       </div>
@@ -60,14 +60,14 @@
     {% block voucher_table %}
       <div class="card">
         <span class="card-header icon-link fw-normal">
-          <iconify-icon icon="tabler:briefcase-filled" width="1rem" height="1rem" aria-hidden="true" inline></iconify-icon>
+          <iconify-icon icon="tabler:briefcase" width="1rem" height="1rem" aria-hidden="true" inline></iconify-icon>
           {% if search_filters %}
             {% translate "Voucher Search Results" %}
           {% else %}
-            {% translate "All Vouchers" %}
+            {% translate "All Coupons" %}
           {% endif %}
         </span>
-        <div class="card-body {% if vouchers %}p-0{% endif %}">
+        <div class="card-body">
           {% if vouchers %}
             <div class="table-card table-responsive-md">
               <table class="table table-bordered table-hover align-middle">
@@ -159,11 +159,11 @@
                   {% endfor %}
                 </tbody>
               </table>
-            {% else %}
-              <div>{% translate "No vouchers found." %}</div>
-            {% endif %}
+            </div>
             {% include "oscar/dashboard/partials/pagination.html" %}
-          </div>
+          {% else %}
+            <div>{% translate "No coupons found." %}</div>
+          {% endif %}
         </div>
       </div>
     {% endblock voucher_table %}
@@ -171,5 +171,11 @@
 {% endblock dashboard_content %}
 {% block onbodyload %}
   {{ block.super }}
-  {% if advanced_form.errors %}$("#SearchModal").modal("show");{% endif %}
+  {% if advanced_form.errors %} 
+    const myModal = new bootstrap.Modal("#SearchModal", {
+        backdrop: 'static',
+        keyboard: false
+    });
+    myModal.show();
+  {% endif %}
 {% endblock onbodyload %}

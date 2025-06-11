@@ -1,22 +1,25 @@
 {% extends "oscar/dashboard/layout.html" %}
 
-{% load i18n %}
-{% load static %}
-{% load crispy_forms_tags %}
+{% load i18n static crispy_forms_tags %}
 
 {% block extrastyles %}
   {{ block.super }}
+  <link rel="stylesheet" type="text/x-scss" href="{% static "scss/dashboard/product.scss" %}" />
 {% endblock extrastyles %}
+
 {% block extrahead %}
   {{ block.super }}
   {{ form.media }}
 {% endblock extrahead %}
+
 {% block body_class %}
   {{ block.super }} create-page pages
 {% endblock body_class %}
+
 {% block title %}
   {{ title }} | {{ block.super }}
 {% endblock title %}
+
 {% block breadcrumbs %}
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">

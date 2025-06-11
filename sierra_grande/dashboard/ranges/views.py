@@ -2,6 +2,7 @@ from io import TextIOWrapper
 
 from django.conf import settings
 from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
 from django.core import exceptions
 from django.db.models import Count
 from django.shortcuts import HttpResponse, get_object_or_404, redirect
@@ -86,14 +87,12 @@ class RangeUpdateView(UpdateView):
         return ctx
 
 
-class RangeDeleteView(DeleteView):
+class RangeDeleteView(SuccessMessageMixin, DeleteView):
     model = Range
     template_name = "oscar/dashboard/ranges/range_delete.html"
     context_object_name = "range"
-
-    def get_success_url(self):
-        messages.warning(self.request, _("Range deleted"))
-        return reverse("dashboard:range-list")
+    success_message = _("Range deleted successfully")
+    success_url = reverse("dashboard:range-list")
 
 
 class RangeProductListView(BulkEditMixin, ListView):

@@ -15,23 +15,28 @@
     </ol>
   </nav>
 {% endblock breadcrumbs %}
-{% block main_header %}
-  <div class="hstack justify-content-between align-items-center">
-    <h4 class="mb-sm-0">{% translate "Ranges" %}</h4>
-    <a href="{% url "dashboard:range-create" %}"
-       class="btn btn-primary icon-link"><iconify-icon icon="mdi:plus-circle" width="1rem" height="1rem" aria-hidden="true"></iconify-icon> {% translate "Create new range" %}</a>
-  </div>
-{% endblock main_header %}
+
+{% block main_header_content %}
+  {% translate "Ranges" %}
+{% endblock main_header_content %}
+
 {% block dashboard_content %}
+  <div class="text-end">
+    <a href="{% url "dashboard:range-create" %}"
+        class="btn btn-primary icon-link">
+      <iconify-icon icon="mdi:plus-circle" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
+      {% translate "Create new range" %}
+    </a>
+  </div>
   <div class="card">
     <div class="card-header icon-link fw-normal">
-      <iconify-icon icon="fe:elipsis-h" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
+      <iconify-icon icon="uit:layer-group" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
       {% translate "Ranges" %}
     </div>
     <div class="card-body">
       {% if ranges %}
-        <div class="table-card table-responsive-md-md">
-          <table class="align-middle table table-hover table-bordered">
+        <div class="table-card table-responsive-md">
+          <table class="table table-hover mt-1 mb-0 align-middle">
             <thead>
               <tr>
                 <th>{% translate "Name" %}</th>
@@ -63,30 +68,32 @@
                   {% endif %}
                   <td>{{ range.date_created }}</td>
                   <td>
-                    <div class="btn-toolbar">
-                      <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle"
-                                type="button"
-                                id="dropdownMenuButton"
-                                data-bs-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false">{% translate "Actions" %}</button>
-                        <div class="dropdown-menu dropdown-menu-end"
-                             aria-labelledby="dropdownMenuButton">
-                          {% if range.is_editable %}
-                            <a class="dropdown-item"
-                               href="{% url "dashboard:range-update" pk=range.id %}">{% translate "Edit" %}</a>
-                            {% if not range.includes_all_products %}
-                              <a class="dropdown-item"
-                                 href="{% url "dashboard:range-products" pk=range.id %}">{% translate "Edit products" %}</a>
-                            {% endif %}
-                          {% endif %}
-                          {% if range.is_public %}
-                            <a class="dropdown-item" href="{{ range.get_absolute_url }}">{% translate "View on site" %}</a>
-                          {% endif %}
-                          <a class="dropdown-item"
-                             href="{% url "dashboard:range-delete" pk=range.id %}">{% translate "Delete" %}</a>
+                    <div class="row g-2">
+                      {% if range.is_public %}
+                        <div class="col-auto">
+                          <a class="badge bg-success-subtle text-success fs-13" href="{{ record.get_absolute_url }}">
+                            {% translate "View on site" %}
+                          </a>
                         </div>
+                      {% endif %}
+                      {% if range.is_editable %}
+                        <div class="col-auto">
+                            <a class="badge bg-primary-subtle text-primary fs-13" href="{% url "dashboard:range-update" pk=range.id %}">
+                              {% translate "Edit" %}
+                            </a>
+                        </div>
+                        {% if not range.includes_all_products %}
+                          <div class="col-auto">
+                            <a class="badge bg-info-subtle text-info fs-13" href="{% url "dashboard:range-products" pk=range.id %}">
+                              {% translate "Edit products" %}
+                            </a>
+                          </div>
+                        {% endif %}
+                      {% endif %}
+                      <div class="col-auto">
+                          <a class="badge bg-danger-subtle text-danger fs-13" data-bs-pk="{{ range.id }}" data-bs-name="{{ range.name }}" data-bs-toggle="modal" href="#deleteModal">
+                            {% translate "Delete" %}
+                          </a>
                       </div>
                     </div>
                   </td>
@@ -96,9 +103,17 @@
           </table>
         </div>
         {% include "oscar/dashboard/partials/pagination.html" %}
+        {% include "oscar/partials/delete_modal.html" with body_title="Remove Range" body_text="Are you sure to remove the range:" %}
       {% else %}
         <div>{% translate "No ranges found." %}</div>
       {% endif %}
     </div>
   </div>
 {% endblock dashboard_content %}
+
+{% block onbodyload %}
+  {{ block.super }}
+  {% if ranges %}
+    oscar.dashboard.initDeleteModal('{% url "dashboard:range-delete" pk=9999 %}', '9999')
+  {% endif %}
+{% endblock onbodyload %}

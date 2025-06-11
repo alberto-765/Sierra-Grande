@@ -35,6 +35,7 @@
     </ol>
   </nav>
 {% endblock breadcrumbs %}
+
 {% block main_header_content %}
   {% if not offer.pk %}
     {% translate "Create new offer" %}
@@ -42,48 +43,53 @@
     {{ offer.name }}
   {% endif %}
 {% endblock main_header_content %}
+
 {% block dashboard_content %}
-  <div class="row">
-    <div class="col-md-3">
+  <div class="row vertical-navs-step">
+    <div class="col-lg-3">
       {% block progress %}
         {% include "oscar/dashboard/offers/progress.html" %}
       {% endblock progress %}
     </div>
-    <div class="{% if session_offer %}col-md-6{% else %}col-md-9{% endif %}">
-      <form method="post" class="card ">
-        <div class="card-header">{{ title }}</div>
-        <div class="card-body">
+    <div class="{% if session_offer %}col-lg-6{% else %}col-lg-9{% endif %}">
+      <form method="post" class="card card-body px-lg-4 ">
+         <div>
+            <h5>{{ title }}</h5>
+            <p class="text-muted">{% translate 'Fill all fields with *' %}</p>
+          </div>
+        <div>
           {% block form_fields %}
             {% crispy form %}
           {% endblock form_fields %}
           {% block form_extradata %}
           {% endblock form_extradata %}
         </div>
+
         {% block form_actions %}
           <div class="form-actions-fixed align-items-center bg-dark column-gap-4 fixed-bottom hstack justify-content-end p-3">
-            <a class="btn btn-secondary" href="{% url "dashboard:offer-list" %}">{% translate "Cancel" %}</a>
+            <a class="btn btn-danger" href="{% url "dashboard:offer-list" %}">{% translate "Cancel" %}</a>
             {% block form_actions_buttons %}
-              <button class="btn btn-primary"
-                      type="submit"
-                      data-loading-text="{% translate "Submitting..." %}">
-                {% block submittext %}
-                  {% translate "Continue" %}
-                {% endblock submittext %}
-              </button>
               {% if offer %}
                 {# When editing offer, show saving button #}
-                <button class="btn btn-secondary"
+                <button class="btn btn-outline-light"
                         name="save"
                         type="submit"
                         data-loading-text="{% translate "Saving..." %}">{% translate "Save changes" %}</button>
               {% endif %}
+              <button class="btn btn-primary" type="submit" data-loading-text="{% translate "Submitting..." %}">
+                {% block submittext %}
+                  {% translate "Continue" %}
+                {% endblock submittext %}
+              </button>
             {% endblock form_actions_buttons %}
           </div>
         {% endblock form_actions %}
+
       </form>
     </div>
+
     {% if session_offer %}
-      <div class="col-md-3 vstack row-gap-3">
+      <div class="col-lg-3 vstack row-gap-3">
         {% block summary %}
           {% include "oscar/dashboard/offers/summary.html" %}
         {% endblock summary %}

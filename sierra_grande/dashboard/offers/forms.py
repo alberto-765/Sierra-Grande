@@ -375,12 +375,13 @@ class OfferSearchForm(forms.Form):
                 hasattr(field, "is_hidden") and field.is_hidden
             ):
                 if field.widget.is_hidden:
-                    # Campos básicos pero ocultos
                     basic_field_layouts.append(Hidden(field_name))
                 else:
-                    # Campos básicos visibles con form-floating
                     basic_field_layouts.append(
-                        Column(FloatingField(field_name, wrapper_class="m-0")),
+                        Column(
+                            FloatingField(field_name, wrapper_class="m-0"),
+                            css_class="col-sm-auto",
+                        ),
                     )
             else:
                 # Campos no básicos como hidden inputs
@@ -395,7 +396,7 @@ class OfferSearchForm(forms.Form):
                         "submit",
                         _("Search"),
                         data_loading_text=_("Searching..."),
-                        css_class="btn-darken-primary",
+                        css_class="btn-primary",
                     ),
                     css_class="col-auto",
                 ),

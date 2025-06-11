@@ -52,7 +52,6 @@ BaseCategoryForm = movenodeform_factory(
         "description": TinyMCE(
             attrs={"cols": 80, "rows": 30},
         ),
-        "image": ImageInput(attrs={"class": "form-control d-none"}),
     },
 )
 
@@ -160,8 +159,6 @@ class StockRecordForm(forms.ModelForm):
         # anyway in case one wishes to customise the partner queryset
         self.user = user
         super().__init__(*args, **kwargs)
-
-        self.fields["partner"].empty_label = None
 
         # Restrict accessible partners for non-staff users
         if not self.user.is_staff:
@@ -428,6 +425,8 @@ class ProductCategoryForm(forms.ModelForm):
         self.helper.form_show_errors = True
         self.helper.layout = Layout(
             Row(
+                "id",
+                "product",
                 Column(
                     ("category"),
                     css_class="col col-sm-7 col-md-5 col-xl-4 col-xxl-3",
@@ -478,16 +477,16 @@ class ProductRecommendationForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.fields["recommendation"].empty_label = None
-
         self.helper = FormHelper()
         self.helper.form_tag = False
+        self.helper.disable_csrf = True
         self.helper.form_show_errors = False
         self.helper.layout = Layout(
             Row(
                 ("primary"),
                 Column("recommendation"),
                 Column("ranking"),
+                Column("id"),
                 Column(
                     Switch("DELETE"), css_class="col-auto d-flex align-items-center"
                 ),
@@ -516,9 +515,6 @@ class ProductClassForm(forms.ModelForm):
 
         # Custom help_text and widget for "options" field
         remote_field = self._meta.model._meta.get_field("options").remote_field
-        self.fields["options"].help_text = _(
-            "Select one or more options by pressing the CTRL key.",
-        )
         self.fields["options"].widget = RelatedMultipleFieldWidgetWrapper(
             self.fields["options"].widget,
             remote_field,
@@ -530,7 +526,7 @@ class ProductClassForm(forms.ModelForm):
             "name",
             Switch("requires_shipping"),
             Switch("track_stock"),
-            Field("options", wrapper_class=" "),
+            "options",
         )
 
     class Meta:
@@ -538,7 +534,11 @@ class ProductClassForm(forms.ModelForm):
         fields = ["name", "requires_shipping", "track_stock", "options"]
         widgets = {
             "options": forms.SelectMultiple(
-                attrs={"class": "form-select"},
+                attrs={
+                    "data-choices": "",
+                    "data-choices-removeItem": "",
+                    "data-choices-sorting-true": "",
+                }
             ),
         }
 

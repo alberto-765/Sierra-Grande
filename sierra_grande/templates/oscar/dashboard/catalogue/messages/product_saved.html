@@ -1,28 +1,28 @@
 {% load i18n %}
 {% load django_tables2 %}
 
-<p>
+<div>
 {% with name=product.title parent_name=product.parent.title %}
     {% if product.is_child %}
 
         {% if creating %}
             {% if product.title %}
                 {% blocktrans %}
-                    Created product variant '{{ name }}'.
+                    Created product variant "{{ name }}".
                 {% endblocktrans %}
             {% else %}
                 {% blocktrans %}
-                    Created variant of '{{ parent_name }}'.
+                    Created variant of "{{ parent_name }}".
                 {% endblocktrans %}
             {% endif %}
         {% else %}
             {% if product.title %}
                 {% blocktrans %}
-                    Updated product variant '{{ name }}'.
+                    Updated product variant "{{ name }}".
                 {% endblocktrans %}
             {% else %}
                 {% blocktrans %}
-                    Updated a variant of '{{ parent_name }}'.
+                    Updated a variant of "{{ parent_name }}".
                 {% endblocktrans %}
             {% endif %}
         {% endif %}
@@ -31,20 +31,20 @@
 
         {% if creating %}
             {% blocktrans %}
-                Created product '{{ name }}'.
+                Created product "{{ name }}".
             {% endblocktrans %}
         {% else %}
             {% blocktrans %}
-                Updated product '{{ name }}'.
+                Updated product "{{ name }}".
             {% endblocktrans %}
         {% endif %}
 
     {% endif %}
 {% endwith %}
 
-</p>
+</div>
 
-<p>
-    <a href="{% url 'dashboard:catalogue-product' pk=product.pk %}{% querystring %}" class="btn btn-success">{% trans "Edit again" %}</a>
-    <a href="{{ product.get_absolute_url }}" class="btn btn-success">{% trans "View it on the site" %}</a>
-</p>
+<div>
+    <a href="{% url 'dashboard:catalogue-product' pk=product.pk %}{% querystring %}" class="btn btn-success btn-sm">{% trans "Edit again" %}</a>
+    <a href="{{ product.get_absolute_url }}" class="btn btn-success btn-sm">{% trans "View it on the site" %}</a>
+</div>

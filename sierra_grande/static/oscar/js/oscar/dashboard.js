@@ -120,7 +120,7 @@ var oscar = ((o) => {
 
             // Adds error icon if there are errors in the product update form
             document.querySelectorAll('[data-behaviour="tab-nav-errors"] .tab-pane').forEach(pane => {
-                const errors = pane.querySelectorAll(':is(.text-danger.error, .alert.alert-danger):not(:empty)');
+                const errors = pane.querySelectorAll(':is(.text-danger.error, .alert.alert-danger, .invalid-feedback):not(:empty)');
                 if (errors.length > 0) {
                     const paneId = pane.id;
                     const tabLink = document.querySelector(`.custom-nav :is(a[href="#${ paneId }"], button[data-bs-target="#${ paneId }"])`);
@@ -184,7 +184,6 @@ var oscar = ((o) => {
             });
         },
         initForms: function () {
-
             // Handle button loading states
             document.querySelectorAll('form:has([data-loading-text])').forEach((form) => {
                 form.querySelectorAll('[data-loading-text]').forEach(btn => {
@@ -544,7 +543,6 @@ var oscar = ((o) => {
 
             // two-column sidebar active js
             function initActiveMenu () {
-                debugger;
                 const currentPath = location.pathname;
                 const sidebarLinks = document.getElementById("navbar-nav").querySelectorAll("a.nav-link");
 

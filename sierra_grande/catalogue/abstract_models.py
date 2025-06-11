@@ -340,7 +340,9 @@ class AbstractProductCategory(models.Model):
         "catalogue.Product", on_delete=models.CASCADE, verbose_name=_("Product")
     )
     category = models.ForeignKey(
-        "catalogue.Category", on_delete=models.CASCADE, verbose_name=_("Category")
+        "catalogue.Category",
+        on_delete=models.CASCADE,
+        verbose_name=_("Category"),
     )
 
     class Meta:
@@ -929,6 +931,8 @@ class AbstractProductRecommendation(models.Model):
         on_delete=models.CASCADE,
         related_name="primary_recommendations",
         verbose_name=_("Primary product"),
+        blank=True,
+        null=True,
     )
     recommendation = models.ForeignKey(
         "catalogue.Product",

@@ -10,7 +10,7 @@ Use message tags to control these alerts.  Available tags include:
 {% if messages %}
   <div id="messages">
     {% for message in messages %}
-      <div class="messages__alert alert {% for tag in message.tags|split %}alert-{% if tag == 'error' %}danger{% else %}{{ tag }}{% endif %} {% endfor %}alert-dismissible d-flex align-items-center mb-0 fade show"
+      <div class="messages__alert alert {% for tag in message.tags|split %}alert-{% if tag == 'error' %}danger{% else %}{{ tag }}{% endif %} {% endfor %}alert-dismissible d-flex flex-column row-gap-2 mb-0 fade show"
            role="alert">
            {% if 'noicon' not in message.tags %}
             <div class="icon-link align-items-center">

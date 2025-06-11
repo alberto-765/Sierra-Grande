@@ -33,50 +33,41 @@ class VoucherForm(forms.ModelForm):
     offers = forms.ModelMultipleChoiceField(
         label=_("Which offers apply for this voucher?"),
         queryset=ConditionalOffer.objects.filter(offer_type=ConditionalOffer.VOUCHER),
-        widget=forms.SelectMultiple(attrs={"class": "choices-multiple"}),
+        widget=forms.SelectMultiple(
+            attrs={
+                "data-choices": "",
+                "data-choices-search-true": "",
+                "data-choices-removeItem": "",
+                "data-choices-sorting-true": "",
+            },
+        ),
     )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
-        self.helper.form_method = "post"
+        self.helper.form_tag = False
         self.helper.layout = Layout(
             Row(
-                Column(FloatingField("name"), css_class="col-lg-4 col-md-6"),
-                Column(FloatingField("code"), css_class="col-lg-4 col-md-6"),
                 Column(
-                    Field(
-                        "start_datetime",
-                        template="oscar/forms/widgets/floating_field_date_picker.html",
-                    ),
+                    "name",
                     css_class="col-lg-4 col-md-6",
                 ),
                 Column(
-                    Field(
-                        "end_datetime",
-                        template="oscar/forms/widgets/floating_field_date_picker.html",
-                    ),
+                    "code",
                     css_class="col-lg-4 col-md-6",
                 ),
-                Column(FloatingField("usage"), css_class="col-lg-4 col-md-6"),
-                Column(FloatingField("offers"), css_class="col-lg-4 col-md-6"),
                 Column(
-                    HTML(
-                        '<a class="btn btn-secondary w-100"'
-                        f'href="{reverse("dashboard:voucher-list")}"'
-                        f'role="button">{gettext("Cancel")}</a>',
-                    ),
-                    css_class="col-6 col-md-auto",
+                    "start_datetime",
+                    css_class="col-lg-4 col-md-6",
                 ),
                 Column(
-                    Submit(
-                        "submit",
-                        _("Save"),
-                        data_loading_text=_("Saving..."),
-                        css_class="w-100 btn-darken-primary",
-                    ),
-                    css_class="col-6 col-md-auto",
+                    "end_datetime",
+                    css_class="col-lg-4 col-md-6",
                 ),
+                Column("usage", css_class="col-lg-4 col-md-6"),
+                Column("offers", css_class="col-lg-4 col-md-6"),
+                css_class="align-items-baseline",
             ),
         )
 
@@ -89,6 +80,15 @@ class VoucherForm(forms.ModelForm):
             "end_datetime",
             "usage",
         ]
+        widgets = {
+            "usage": forms.Select(
+                attrs={
+                    "data-choices": "",
+                    "data-choices-search-true": "",
+                    "data-choices-sorting-true": "",
+                },
+            ),
+        }
 
     def clean_code(self):
         return self.cleaned_data["code"].strip().upper()
@@ -145,7 +145,10 @@ class VoucherSearchForm(forms.Form):
                 else:
                     # Campos básicos visibles con form-floating
                     basic_field_layouts.append(
-                        Column(FloatingField(field_name, wrapper_class="m-0")),
+                        Column(
+                            FloatingField(field_name, wrapper_class="m-0"),
+                            css_class="col-sm-auto",
+                        ),
                     )
             else:
                 # Campos no básicos como hidden inputs
@@ -160,7 +163,7 @@ class VoucherSearchForm(forms.Form):
                         "submit",
                         _("Search"),
                         data_loading_text=_("Searching..."),
-                        css_class="btn-darken-primary",
+                        css_class="btn-primary",
                     ),
                     css_class="col-auto",
                 ),
@@ -190,11 +193,26 @@ class VoucherSetForm(forms.ModelForm):
     usage = forms.ChoiceField(
         choices=(("", "---------"), *Voucher.USAGE_CHOICES),
         label=_("Usage"),
+        widget=forms.Select(
+            attrs={
+                "data-choices": "",
+                "data-choices-search-true": "",
+                "data-choices-sorting-true": "",
+            },
+        ),
     )
 
     offers = forms.ModelMultipleChoiceField(
         label=_("Which offers apply for this voucher set?"),
         queryset=ConditionalOffer.objects.filter(offer_type=ConditionalOffer.VOUCHER),
+        widget=forms.SelectMultiple(
+            attrs={
+                "data-choices": "",
+                "data-choices-search-true": "",
+                "data-choices-removeItem": "",
+                "data-choices-sorting-true": "",
+            },
+        ),
     )
 
     def __init__(self, *args, **kwargs):
@@ -203,33 +221,26 @@ class VoucherSetForm(forms.ModelForm):
         self.helper.form_tag = False
         self.helper.layout = Layout(
             Row(
-                Column(FloatingField("name"), css_class="col-lg-4 col-md-6"),
-                Column(FloatingField("code_length"), css_class="col-lg-4 col-md-6"),
-                Column(FloatingField("description"), css_class="col-lg-4 col-md-6"),
+                Column("name", css_class="col-lg-4 col-md-6"),
+                Column("code_length", css_class="col-lg-4 col-md-6"),
                 Column(
-                    Field(
-                        "start_datetime",
-                        template="oscar/forms/widgets/floating_field_date_picker.html",
-                    ),
+                    "start_datetime",
                     css_class="col-lg-4 col-md-6",
                 ),
                 Column(
-                    Field(
-                        "end_datetime",
-                        template="oscar/forms/widgets/floating_field_date_picker.html",
-                    ),
+                    "end_datetime",
                     css_class="col-lg-4 col-md-6",
                 ),
-                Column(FloatingField("count"), css_class="col-lg-4 col-md-6"),
+                Column("count", css_class="col-lg-4 col-md-6"),
                 Column(
-                    FloatingField("usage", wrapper_class="mb-0"),
+                    Field("usage", wrapper_class="mb-0"),
                     css_class="col-lg-4 col-md-6",
                 ),
                 Column(
-                    FloatingField("offers", wrapper_class="m-0"),
+                    Field("offers", wrapper_class="m-0"),
                     css_class="col-lg-4 col-md-6",
                 ),
-                css_class="align-items-center",
+                Column("description", css_class="col-lg-4 col-md-6"),
             ),
         )
 
@@ -243,6 +254,14 @@ class VoucherSetForm(forms.ModelForm):
             "end_datetime",
             "count",
         ]
+        widgets = {
+            "description": forms.Textarea(
+                attrs={
+                    "rows": 1,
+                    "placeholder": _("Description of this voucher set"),
+                },
+            ),
+        }
 
     def clean_count(self):
         data = self.cleaned_data["count"]

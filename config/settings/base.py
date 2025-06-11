@@ -33,7 +33,8 @@ LANGUAGE_CODE = "es-ES"
 
 LANGUAGES = [
     ("es", _("Spanish")),
-    ("en", _("English")),
+    ("en", _("English US")),
+    ("en-gb", _("English UK")),
     ("fr", _("French")),
     ("pt", _("Portuguese")),
     ("it", _("Italian")),
@@ -51,6 +52,7 @@ SITE_ID = 1
 USE_I18N = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#use-tz
 USE_TZ = True
+USE_L10N = True
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#locale-paths
 LOCALE_PATHS = [str(BASE_DIR / "locale")]
@@ -86,7 +88,7 @@ DJANGO_APPS = [
     "django.contrib.sites",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "django.contrib.humanize",  # Handy template tags
+    "django.contrib.humanize",
     "django.contrib.admin",
     "django.forms",
     "django.contrib.flatpages",
@@ -114,7 +116,6 @@ THIRD_PARTY_APPS = [
     "oscar.apps.search.apps.SearchConfig",
     "oscar.apps.wishlists.apps.WishlistsConfig",
     "oscar.apps.dashboard.communications.apps.CommunicationsDashboardConfig",
-    "oscar.apps.dashboard.shipping.apps.ShippingDashboardConfig",
     # 3rd-party apps that oscar depends on
     "widget_tweaks",
     "haystack",
@@ -131,6 +132,7 @@ LOCAL_APPS = [
     "sierra_grande.partner.apps.PartnerConfig",
     "sierra_grande.voucher.apps.VoucherConfig",
     "sierra_grande.dashboard.apps.DashboardConfig",
+    "sierra_grande.dashboard.shipping.apps.ShippingDashboardConfig",
     "sierra_grande.dashboard.reports.apps.ReportsDashboardConfig",
     "sierra_grande.dashboard.users.apps.UsersDashboardConfig",
     "sierra_grande.dashboard.orders.apps.OrdersDashboardConfig",
@@ -472,10 +474,6 @@ OSCAR_DASHBOARD_NAVIGATION = [
                 "url_name": "dashboard:order-list",
             },
             {
-                "label": _("Shipments (TODO)"),
-                "url_name": "dashboard:order-list",
-            },
-            {
                 "label": _("Statistics"),
                 "url_name": "dashboard:order-stats",
             },
@@ -484,7 +482,7 @@ OSCAR_DASHBOARD_NAVIGATION = [
             # the shipping repository by default (as it would make
             # customising the repository slightly more difficult).
             {
-                "label": _("Shipping charges"),
+                "label": _("Shipping methods"),
                 "url_name": "dashboard:shipping-method-list",
             },
         ],
@@ -508,7 +506,7 @@ OSCAR_DASHBOARD_NAVIGATION = [
                 "url_name": "dashboard:voucher-list",
             },
             {
-                "label": _("Coupons sets"),
+                "label": _("Coupon sets"),
                 "url_name": "dashboard:voucher-set-list",
             },
             {
@@ -568,6 +566,42 @@ OSCAR_DASHBOARD_NAVIGATION = [
 ]
 OSCAR_SHOP_NAME = "Sierra Grande"
 OSCAR_DASHBOARD_ITEMS_PER_PAGE = 10
+OSCAR_DEFAULT_CURRENCY = "EUR"
+OSCAR_CURRENCY_FORMAT = {
+    "EUR": {
+        "format": "#,##0.00 €",  # Symbol after for most EU locales (e.g., es, fr, it, de, fi, et)
+        "currency_digits": True,
+    },
+    "GBP": {
+        "format": "£#,##0.00",  # Symbol before for UK English
+        "currency_digits": True,
+    },
+    "USD": {
+        "format": "$#,##0.00",  # Symbol before for US English
+        "currency_digits": True,
+    },
+    "SEK": {
+        "format": "#,##0.00 kr",  # Symbol after for Swedish
+        "currency_digits": True,
+    },
+    "BRL": {
+        "format": "R$#,##0.00",  # Symbol before for Portuguese (Brazil)
+        "currency_digits": True,
+    },
+    "HRK": {
+        "format": "#,##0.00 kn",  # Symbol after for Croatian
+        "currency_digits": True,
+    },
+    "CZK": {
+        "format": "#,##0.00 Kč",  # Symbol after for Czech
+        "currency_digits": True,
+    },
+    "BGN": {
+        "format": "#,##0.00 лв",  # Symbol after for Bulgarian
+        "currency_digits": True,
+    },
+}
+
 
 # TinyMCE
 # ------------------------------------------------------------------------------

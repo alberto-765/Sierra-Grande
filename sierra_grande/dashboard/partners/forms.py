@@ -18,7 +18,6 @@ from oscar.core.compat import existing_user_fields
 from oscar.core.compat import get_user_model
 from oscar.core.loading import get_class
 from oscar.core.loading import get_model
-from oscar.forms.widgets import ImageInput
 
 
 User = get_user_model()

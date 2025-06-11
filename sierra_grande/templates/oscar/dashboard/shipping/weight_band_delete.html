@@ -1,0 +1,49 @@
+{% extends "oscar/dashboard/layout.html" %}
+{% load i18n %}
+{% load currency_filters %}
+
+{% block title %}
+    {% translate "Delete weight band?" %} |
+    {{ band.method.name }} |
+    {{ block.super }}
+{% endblock title %}
+
+{% block breadcrumbs %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'dashboard:index' %}">{% translate "Dashboard" %}</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'dashboard:shipping-method-list' %}">{% translate "Shipping methods" %}</a></li>
+            <li class="breadcrumb-item">{{ band.method.name }}</li>
+            <li class="breadcrumb-item active" aria-current="page">{% translate "Delete weight band?" %}</li>
+        </ol>
+    </nav>
+{% endblock breadcrumbs %}
+
+{% block main_header_content %}
+    {% translate "Delete weight band?" %}
+{% endblock main_header_content %}
+
+{% block dashboard_content %}
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>{% translate "Weight range (kg)" %}</th>
+                <th>{% translate "Charge" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ band.weight_from|floatformat:3 }} - {{ band.weight_to|floatformat:3 }}</td>
+                <td>{{ band.charge|currency }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <form method="post" class="card card-body bg-light">
+        <p>{% translate "Are you sure you want to delete this weight band method?" %}</p>
+        {% csrf_token %}
+        <div class="form-actions">
+            <button class="btn btn-danger" type="submit" data-loading-text="{% translate 'Deleting...' %}">{% translate "Delete" %}</button> {% translate "or" %}
+            <a href="{% url 'dashboard:shipping-method-detail' pk=band.method.pk %}">{% translate "cancel" %}</a>
+        </div>
+    </form>
+{% endblock dashboard_content %}

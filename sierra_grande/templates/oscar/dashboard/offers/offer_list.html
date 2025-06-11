@@ -7,32 +7,33 @@
 {% load crispy_forms_tags %}
 
 {% block title %}
-  {% trans "Offers" %} | {{ block.super }}
+  {% translate "Offers" %} | {{ block.super }}
 {% endblock title %}
 {% block breadcrumbs %}
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="{% url "dashboard:index" %}">{% trans "Dashboard" %}</a>
+        <a href="{% url "dashboard:index" %}">{% translate "Dashboard" %}</a>
       </li>
-      <li class="breadcrumb-item active" aria-current="page">{% trans "Offers" %}</li>
+      <li class="breadcrumb-item active" aria-current="page">{% translate "Offers" %}</li>
     </ol>
   </nav>
 {% endblock breadcrumbs %}
-{% block main_header %}
-  <div class="hstack justify-content-between align-items-center">
-    <h4 class="mb-sm-0">{% trans "Offers" %}</h2>
-    <a href="{% url "dashboard:offer-metadata" %}"
-       class="btn btn-primary icon-link">
-      <iconify-icon icon="mdi:plus-circle" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
-      {% trans "Create new offer" %}
+{% block main_header_content %}
+  {% translate "Offers" %}
+{% endblock main_header_content %}
+{% block dashboard_content %}
+  <div class="text-end">
+    <a id="create_new_shipping_method" href="{% url "dashboard:offer-metadata" %}" class="btn btn-primary icon-link">
+      <iconify-icon icon="mdi:plus-circle" width="1rem" height="1rem" aria-hidden="true"></iconify-icon> 
+      {% translate "Create new offer" %}
     </a>
   </div>
-{% endblock main_header %}
-{% block dashboard_content %}
+
   <div class="card">
     <span class="card-header icon-link fw-normal">
-      <iconify-icon icon="stash:search-light" width="1rem" height="1rem" aria-hidden="true"></iconify-icon> {% trans "Search" %}
+      <iconify-icon icon="stash:search-light" width="1rem" height="1rem" aria-hidden="true"></iconify-icon> 
+      {% translate "Search" %}
     </span>
     <div class="card-body">
       <div class="vstack gap-3">
@@ -44,7 +45,7 @@
           </div>
         {% endif %}
         {# Search modal, if there are form errors the form is automatically openend #}
-        {% include "oscar/dashboard/partials/advanced_search_modal.html" with form=advanced_form style="horizontal" %}
+        {% include "oscar/dashboard/partials/advanced_search_modal.html" with form=advanced_form extra_css="modal-lg" %}
       </div>
     </div>
   </div>
@@ -68,16 +69,16 @@
                 <th>{% anchor "offer_type" _("Offer type") %}</th>
                 {% if form.is_bound %}
                   {% if form.is_voucher_offer_type or not form.cleaned_data.offer_type %}
-                    <th>{% trans "Num of vouchers" %}</th>
+                    <th>{% translate "Num of vouchers" %}</th>
                   {% endif %}
                 {% endif %}
                 <th>{% anchor "start_datetime" _("Start date") %}</th>
                 <th>{% anchor "end_datetime" _("End date") %}</th>
-                <th>{% trans "Priority" %}</th>
-                <th>{% trans "Incentive" %}</th>
-                <th>{% trans "Condition" %}</th>
-                <th>{% trans "Is available?" %}</th>
-                <th>{% trans "Restrictions" %}</th>
+                <th>{% translate "Priority" %}</th>
+                <th>{% translate "Incentive" %}</th>
+                <th>{% translate "Condition" %}</th>
+                <th>{% translate "Is available?" %}</th>
+                <th>{% translate "Restrictions" %}</th>
                 <th>{% anchor "num_applications" _("Uses") %}</th>
                 <th>{% anchor "total_discount" _("Cost") %}</th>
                 <th></th>
@@ -100,9 +101,9 @@
                   <td>{{ offer.condition.description|safe }}</td>
                   <td>
                     {% if offer.is_available %}
-                      <span class="badge bg-success">{% trans "Yes" %}</span>
+                      <span class="badge bg-success">{% translate "Yes" %}</span>
                     {% else %}
-                      <span class="badge bg-danger">{% trans "No" %}</span>
+                      <span class="badge bg-danger">{% translate "No" %}</span>
                     {% endif %}
                   </td>
                   <td>
@@ -125,17 +126,17 @@
                                 id="dropdownMenuButton"
                                 data-bs-toggle="dropdown"
                                 aria-haspopup="true"
-                                aria-expanded="false">{% trans "Actions" %}</button>
+                                aria-expanded="false">{% translate "Actions" %}</button>
                         <div class="dropdown-menu dropdown-menu-end"
                              aria-labelledby="dropdownMenuButton">
-                          <a class="dropdown-item" href="{% url "offer:detail" slug=offer.slug %}">{% trans "Browse" %}</a>
+                          <a class="dropdown-item" href="{% url "offer:detail" slug=offer.slug %}">{% translate "Browse" %}</a>
                           <a class="dropdown-item"
-                             href="{% url "dashboard:offer-detail" pk=offer.pk %}">{% trans "Stats" %}</a>
+                             href="{% url "dashboard:offer-detail" pk=offer.pk %}">{% translate "Stats" %}</a>
                           <a class="dropdown-item"
-                             href="{% url "dashboard:offer-metadata" pk=offer.pk %}">{% trans "Edit" %}</a>
+                             href="{% url "dashboard:offer-metadata" pk=offer.pk %}">{% translate "Edit" %}</a>
                           {% if not offer.voucher_count %}
                             <a class="dropdown-item"
-                               href="{% url "dashboard:offer-delete" pk=offer.pk %}">{% trans "Delete" %}</a>
+                               href="{% url "dashboard:offer-delete" pk=offer.pk %}">{% translate "Delete" %}</a>
                           {% endif %}
                         </div>
                       </div>
@@ -148,12 +149,16 @@
           {% include "oscar/dashboard/partials/pagination.html" %}
         </form>
       {% else %}
-        <div>{% trans "No offers found." %}</div>
+        <div>{% translate "No offers found." %}</div>
       {% endif %}
     </div>
   </div>
 {% endblock dashboard_content %}
 {% block onbodyload %}
   {{ block.super }}
-  {% if advanced_form.errors %}$("#SearchModal").modal("show");{% endif %}
+  {% if advanced_form.errors %}
+    const myModal = new bootstrap.Modal("#SearchModal", {backdrop: 'static',
+      keyboard: false});
+    myModal.show();
+  {% endif %}
 {% endblock onbodyload %}

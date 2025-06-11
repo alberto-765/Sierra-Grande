@@ -1,14 +1,20 @@
 {% extends "oscar/dashboard/layout.html" %}
 
-{% load i18n %}
-{% load crispy_forms_tags %}
+{% load i18n crispy_forms_tags static %}
+
+{% block extrastyles %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/x-scss" href="{% static "scss/dashboard/product.scss" %}" />
+{% endblock extrastyles %}
 
 {% block body_class %}
   {{ block.super }} create-page
 {% endblock body_class %}
+
 {% block title %}
   {{ title }} | {% translate "Ranges" %} | {{ block.super }}
 {% endblock title %}
+
 {% block breadcrumbs %}
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
@@ -34,5 +40,26 @@
   {% endif %}
 {% endblock main_header_content %}
 {% block dashboard_content %}
-  {% crispy form %}
+  <form method="post" class="card card-body">
+    {% crispy form %}
+
+    {% block fixed_actions_group %}
+    <div class="form-actions-fixed align-items-center bg-dark column-gap-4 fixed-bottom hstack justify-content-end p-3">
+      <a class="btn btn-danger" href="{% url "dashboard:range-list" %}">
+        {% translate "Cancel" %}
+      </a>
+      <button class="btn btn-outline-light" name="action" type="submit" data-loading-text="{% translate "Saving..." %}">
+        {% translate "Save and edit products" %}
+      </button>
+      <button class="btn btn-primary" type="submit" data-loading-text="{% translate "Saving..." %}">
+        {% translate "Save" %}
+      </button>
+    </div>
+  {% endblock fixed_actions_group %}
+  </form>
 {% endblock dashboard_content %}
+
+{% block extrascripts %}
+  {{ block.super }}
+  <script src="{% static "libs/choices/choices.min.js" %}" defer></script>
+{% endblock extrascripts %}

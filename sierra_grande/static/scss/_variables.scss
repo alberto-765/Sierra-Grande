@@ -298,9 +298,7 @@ $font-family-secondary: 'Lobster Two', cursive;
 $vertical-menu-width: 250px;
 $vertical-menu-width-md: 180px;
 $vertical-menu-width-sm: 70px;
-// $vertical-menu-width: @extend .col-3;
-// $vertical-menu-width-md: @extend .col-2;
-// $vertical-menu-width-sm: @extend .col-1;
+
 // vertical Menu
 $vertical-menu-bg: var(--#{$prefix}vertical-menu-bg);
 $vertical-menu-box-shadow: 0 2px 4px rgba(15, 34, 58, 0.12);
@@ -1140,19 +1138,19 @@ $form-invalid-border-color: $form-feedback-invalid-color;
 // scss-docs-end form-validation-colors
 
 // scss-docs-start form-validation-states
-$form-validation-states: ("valid": ("color": var(--#{$prefix}success-text-emphasis),
+$form-validation-states: ("valid": ("color": var(--#{$prefix}form-valid-color),
                         "icon": $form-feedback-icon-valid,
                         "tooltip-color": #fff,
                         "tooltip-bg-color": var(--#{$prefix}success),
                         "focus-box-shadow": 0 0 $input-btn-focus-blur $input-focus-width rgba(var(--#{$prefix}success-rgb), $input-btn-focus-color-opacity),
-                        "border-color": var(--#{$prefix}success),
+                        "border-color": var(--#{$prefix}form-valid-border-color),
                 ),
-                "invalid": ("color": var(--#{$prefix}danger-text),
+                "invalid": ("color": var(--#{$prefix}form-invalid-color),
                         "icon": $form-feedback-icon-invalid,
                         "tooltip-color": #fff,
                         "tooltip-bg-color": var(--#{$prefix}danger),
                         "focus-box-shadow": 0 0 $input-btn-focus-blur $input-focus-width rgba(var(--#{$prefix}danger-rgb), $input-btn-focus-color-opacity),
-                        "border-color": var(--#{$prefix}danger),
+                        "border-color": var(--#{$prefix}form-invalid-border-color),
                 ));
 // scss-docs-end form-validation-states
 

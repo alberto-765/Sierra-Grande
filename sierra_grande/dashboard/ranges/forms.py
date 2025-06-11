@@ -1,18 +1,17 @@
 import re
 
-from crispy_bootstrap5.bootstrap5 import FloatingField
+from crispy_bootstrap5.bootstrap5 import Field
 from crispy_bootstrap5.bootstrap5 import Switch
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Column
 from crispy_forms.layout import Layout
-from crispy_forms.layout import Reset
-from crispy_forms.layout import Row
 from crispy_forms.layout import Submit
 from django import forms
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
-from oscar.core.loading import get_class
 from oscar.core.loading import get_model
+
+from tinymce.widgets import TinyMCE
+
 
 Product = get_model("catalogue", "Product")
 Range = get_model("offer", "Range")
@@ -24,40 +23,14 @@ class RangeForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
-        self.helper.form_method = "post"
-        self.helper.form_class = "card card-body"
+        self.helper.form_tag = False
         self.helper.layout = Layout(
-            FloatingField("name"),
-            FloatingField("description"),
+            "name",
+            "description",
             Switch("is_public"),
             Switch("includes_all_products"),
             "included_categories",
-            "excluded_categories",
-            Row(
-                Column(
-                    Submit(
-                        "submit",
-                        _("Save"),
-                        data_loading_text=_("Saving..."),
-                        css_class="w-100 btn-darken-primary",
-                    ),
-                    css_class="col-sm-auto",
-                ),
-                Column(
-                    Submit(
-                        "action",
-                        _("Save and edit products"),
-                        data_loading_text=_("Saving..."),
-                        css_class="w-100 btn-darken-primary",
-                    ),
-                    css_class="col-sm-auto",
-                ),
-                Column(
-                    Reset("reset", _("Reset"), css_class="btn-secondary w-100"),
-                    css_class="col-sm-auto",
-                ),
-                css_class="g-3",
-            ),
+            Field("excluded_categories", wrapper_class=" "),
         )
 
     class Meta:
@@ -72,10 +45,21 @@ class RangeForm(forms.ModelForm):
         ]
         widgets = {
             "included_categories": forms.SelectMultiple(
-                attrs={"class": "choices-multiple"}
+                attrs={
+                    "data-choices": "",
+                    "data-choices-removeItem": "",
+                    "data-choices-sorting-true": "",
+                }
             ),
             "excluded_categories": forms.SelectMultiple(
-                attrs={"class": "choices-multiple"}
+                attrs={
+                    "data-choices": "",
+                    "data-choices-removeItem": "",
+                    "data-choices-sorting-true": "",
+                }
+            ),
+            "description": TinyMCE(
+                attrs={"rows": 5},
             ),
         }
 

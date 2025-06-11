@@ -27,7 +27,8 @@
 {% block dashboard_content %}
   <div class="card">
     <span class="card-header icon-link fw-normal">
-      <iconify-icon icon="stash:search-light" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>{% translate "Search" %}
+      <iconify-icon icon="stash:search-light" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
+      {% translate "Search" %}
     </span>
     <div class="card-body">
       {% crispy form %}
@@ -44,7 +45,7 @@
   <div class="card">
     <div class="card-header hstack justify-content-between">
       <span class="icon-link">
-        <iconify-icon icon="fa-solid:shopping-cart" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
+        <iconify-icon icon="icon-park-outline:shopping" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
         {% if search_filters %}
           {% translate "Order Search Results" %}
         {% else %}
@@ -156,5 +157,11 @@
 {% block onbodyload %}
   {{ block.super }}
   oscar.dashboard.orders.initTable();
-  {% if form.errors %}$("#SearchModal").modal("show");{% endif %}
+  {% if form.errors %} 
+    const myModal = new bootstrap.Modal("#SearchModal", {
+        backdrop: 'static',
+        keyboard: false
+    });
+    myModal.show();
+  {% endif %}
 {% endblock onbodyload %}

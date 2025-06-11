@@ -38,6 +38,49 @@ class OrderStatsForm(forms.Form):
     _filters = _description = None
     action = reverse_lazy("dashboard:order-stats")
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = "GET"
+        self.helper.form_action = self.action
+        self.helper.layout = Layout(
+            Row(
+                Column(
+                    Field(
+                        "date_from",
+                        template="oscar/forms/widgets/floating_field_date_picker.html",
+                        wrapper_class=" ",
+                    ),
+                    css_class="col-sm-auto",
+                ),
+                Column(
+                    Field(
+                        "date_to",
+                        template="oscar/forms/widgets/floating_field_date_picker.html",
+                        wrapper_class=" ",
+                    ),
+                    css_class="col-sm-auto",
+                ),
+                Column(
+                    Submit(
+                        "submit",
+                        _("Filter result"),
+                        css_class="btn btn-primary w-100",
+                        data={"loading-text": _("Filtering...")},
+                    ),
+                    css_class="col-sm-auto",
+                ),
+                Column(
+                    HTML(
+                        f"""<a href="{self.action}"
+                        'class="btn btn-secondary w-100">{_("Reset")}</a>""",
+                    ),
+                    css_class="col-sm-auto",
+                ),
+                css_class="align-items-center",
+            ),
+        )
+
     def _determine_filter_metadata(self):
         self._filters = {}
         self._description = gettext_lazy("All orders")
@@ -74,47 +117,6 @@ class OrderStatsForm(forms.Form):
         if self._description is None:
             self._determine_filter_metadata()
         return self._description
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.form_method = "GET"
-        self.helper.form_action = self.action
-        self.helper.layout = Layout(
-            Row(
-                Column(
-                    Field(
-                        "date_from",
-                        template="oscar/forms/widgets/floating_field_date_picker.html",
-                        wrapper_class=" ",
-                    ),
-                ),
-                Column(
-                    Field(
-                        "date_to",
-                        template="oscar/forms/widgets/floating_field_date_picker.html",
-                        wrapper_class=" ",
-                    ),
-                ),
-                Column(
-                    Submit(
-                        "submit",
-                        _("Filter result"),
-                        css_class="btn btn-primary w-100",
-                        data={"loading-text": _("Filtering...")},
-                    ),
-                    css_class="col-sm-auto",
-                ),
-                Column(
-                    HTML(
-                        f"""<a href="{self.action}"
-                        'class="btn btn-secondary w-100">{_("Reset")}</a>""",
-                    ),
-                    css_class="col-sm-auto",
-                ),
-                css_class="align-items-center",
-            ),
-        )
 
 
 class OrderSearchForm(forms.Form):
@@ -200,7 +202,7 @@ class OrderSearchForm(forms.Form):
                         "submit",
                         _("Search"),
                         data_loading_text=_("Searching..."),
-                        css_class="btn-darken-primary",
+                        css_class="btn-primary",
                     ),
                     css_class="col-auto",
                 ),

@@ -1,7 +1,9 @@
 {% load i18n %}
 
 <div class="related-widget-wrapper multiple hstack column-gap-3">
-  {{ rendered_widget }}
+  <div class="flex-fill">
+    {{ rendered_widget }}
+  </div>
   {% block links %}
     {% spaceless %}
       <a class="text-success related-widget-wrapper-link add-related"

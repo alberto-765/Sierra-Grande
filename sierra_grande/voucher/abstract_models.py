@@ -28,7 +28,7 @@ class AbstractVoucherSet(models.Model):
     """
 
     name = models.CharField(verbose_name=_("Name"), max_length=100, unique=True)
-    count = models.PositiveIntegerField(verbose_name=_("Number of vouchers"))
+    count = models.PositiveIntegerField(verbose_name=_("Number of coupons"))
     code_length = models.IntegerField(verbose_name=_("Length of Code"), default=12)
     description = models.TextField(verbose_name=_("Description"))
     date_created = models.DateTimeField(auto_now_add=True, db_index=True)
@@ -102,7 +102,7 @@ class AbstractVoucher(models.Model):
         unique=True,
         help_text=_(
             "This will be shown in the checkout"
-            " and basket once the voucher is"
+            " and basket once the coupon is"
             " entered"
         ),
     )
@@ -206,21 +206,19 @@ class AbstractVoucher(models.Model):
         if self.usage == self.SINGLE_USE:
             is_available = not self.applications.exists()
             if not is_available:
-                message = _("This voucher has already been used")
+                message = _("This coupon has already been used")
         elif self.usage == self.MULTI_USE:
             is_available = True
         elif self.usage == self.ONCE_PER_CUSTOMER:
             if not user.is_authenticated:
                 is_available = False
-                message = _("This voucher is only available to signed in users")
+                message = _("This coupon is only available to signed in users")
             else:
                 is_available = not self.applications.filter(
                     voucher=self, user=user
                 ).exists()
                 if not is_available:
-                    message = _(
-                        "You have already used this voucher in a previous order"
-                    )
+                    message = _("You have already used this coupon in a previous order")
         return is_available, message
 
     def is_available_for_basket(self, basket):
@@ -234,9 +232,7 @@ class AbstractVoucher(models.Model):
         if not is_available:
             return False, message
 
-        is_available, message = False, _(
-            "This voucher is not available for this basket"
-        )
+        is_available, message = False, _("This coupon is not available for this basket")
         for offer in self.offers.all():
             if offer.is_condition_satisfied(basket=basket):
                 is_available = True

@@ -5,8 +5,8 @@
 
 {% block report %}
   {% if objects %}
-    <div class="table-card table-responsive-md">
-      <table class="table table-striped table-bordered table-hover">
+    <div class="table-card table-responsive">
+      <table class="table table-hover align-middle mb-0">
         <tr>
           <th>{% translate "Order number" %}</th>
           <th>{% translate "Name" %}</th>
@@ -38,10 +38,8 @@
         {% endfor %}
       </table>
     </div>
+    {% include "oscar/dashboard/partials/pagination.html" %}
   {% else %}
-    {% block dashboard_content_cardClass %}
-    {% endblock dashboard_content_cardClass %}
     <div>{% translate "No results found." %}</div>
   {% endif %}
-  {% include "oscar/dashboard/partials/pagination.html" %}
 {% endblock report %}

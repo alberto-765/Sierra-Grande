@@ -12,6 +12,10 @@
     height: $footer-height;
     background-color: $footer-bg;
     border-top: 1px solid var(--#{$prefix}border-color-translucent);
+
+    @media (max-width: 767.98px) {
+        left: 0;
+    }
 }
 
 [data-layout="vertical"] {
@@ -35,7 +39,6 @@
             }
         }
     }
-
 }
 
 [data-layout="horizontal"] {

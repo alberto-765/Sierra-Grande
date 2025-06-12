@@ -14,10 +14,10 @@
           <tr>
             <td>
               {% if address.is_default_for_shipping %}
-                <span class="badge bg-success">{% translate "Default shipping address" %}</span>
+                <span class="badge bg-success-subtle text-success">{% translate "Default shipping address" %}</span>
               {% endif %}
               {% if address.is_default_for_billing %}
-                <span class="badge bg-info">{% translate "Default billing address" %}</span>
+                <span class="badge bg-info-subtle text-info">{% translate "Default billing address" %}</span>
               {% endif %}
               <address>
                 {% for field in address.active_address_fields %}
@@ -30,7 +30,7 @@
               <div class="btn-group">
                 <a class="btn btn-secondary"
                    href="{% url "customer:address-detail" pk=address.id %}">{% translate "Edit" %}</a>
-                <button class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"></button>
+                <button class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown"></button>
                 <div class="dropdown-menu">
                   <a href="{% url 'customer:address-delete' pk=address.id %}"
                      class="dropdown-item">{% translate "Delete" %}</a>

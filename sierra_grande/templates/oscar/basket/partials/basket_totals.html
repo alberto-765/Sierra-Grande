@@ -29,7 +29,7 @@
             {% for discount in offer_discounts %}
               <tr>
                 <td class="basket-discount">
-                  <span class="badge bg-success">{% translate "Discount" %}</span> {{ discount.name }}
+                  <span class="badge bg-success-subtle text-success">{% translate "Discount" %}</span> {{ discount.name }}
                   {% if discount.description %}
                     <br />
                     <small>{{ discount.description }}</small>
@@ -140,7 +140,7 @@
           {# This section needs adjustment to when taxes are shown separately #}
           <tr>
             <td class="basket-discount">
-              <span class="badge bg-success">{% translate "Discount" %}</span> {{ shipping_method.discount_name }}
+              <span class="badge bg-success-subtle text-success">{% translate "Discount" %}</span> {{ shipping_method.discount_name }}
             </td>
             <td class="text-end">-{{ shipping_discount|currency:basket.currency }}</td>
           </tr>
@@ -218,7 +218,7 @@
           {% for discount in basket.post_order_actions %}
             <tr>
               <td class="total" colspan="2">
-                <span class="badge bg-success">{{ discount.name }}</span>
+                <span class="badge bg-success-subtle text-success">{{ discount.name }}</span>
                 <br />
                 <p>{{ discount.description }}</p>
               </td>

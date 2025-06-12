@@ -41,7 +41,7 @@
         {% if search_filters %}
           <div class="gap-2 hstack">
             <label>Filters:</label>
-            {% for filter in search_filters %}<span class="badge bg-success">{{ filter }}</span>{% endfor %}
+            {% for filter in search_filters %}<span class="badge bg-success-subtle text-success">{{ filter }}</span>{% endfor %}
           </div>
         {% endif %}
         {# Search modal, if there are form errors the form is automatically openend #}
@@ -58,11 +58,11 @@
         {% translate "All Offers" %}
       {% endif %}
     </div>
-    <div class="card-body">
+    <div class="card-body dropdown">
       {% if offers %}
-        <form method="post" class="table-card table-responsive-md">
+        <form method="post" class="table-card table-responsive">
           {% csrf_token %}
-          <table class="table table-bordered table-hover align-middle">
+          <table class="table table-hover mb-0 align-middle">
             <thead>
               <tr>
                 <th>{% anchor "name" _("Offer name") %}</th>
@@ -101,7 +101,7 @@
                   <td>{{ offer.condition.description|safe }}</td>
                   <td>
                     {% if offer.is_available %}
-                      <span class="badge bg-success">{% translate "Yes" %}</span>
+                      <span class="badge bg-success-subtle text-success">{% translate "Yes" %}</span>
                     {% else %}
                       <span class="badge bg-danger">{% translate "No" %}</span>
                     {% endif %}
@@ -119,27 +119,23 @@
                   <td>{{ offer.num_applications }}</td>
                   <td>{{ offer.total_discount|currency }}</td>
                   <td>
-                    <div class="btn-toolbar">
-                      <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle"
-                                type="button"
-                                id="dropdownMenuButton"
-                                data-bs-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false">{% translate "Actions" %}</button>
-                        <div class="dropdown-menu dropdown-menu-end"
-                             aria-labelledby="dropdownMenuButton">
-                          <a class="dropdown-item" href="{% url "offer:detail" slug=offer.slug %}">{% translate "Browse" %}</a>
-                          <a class="dropdown-item"
-                             href="{% url "dashboard:offer-detail" pk=offer.pk %}">{% translate "Stats" %}</a>
-                          <a class="dropdown-item"
-                             href="{% url "dashboard:offer-metadata" pk=offer.pk %}">{% translate "Edit" %}</a>
-                          {% if not offer.voucher_count %}
-                            <a class="dropdown-item"
-                               href="{% url "dashboard:offer-delete" pk=offer.pk %}">{% translate "Delete" %}</a>
-                          {% endif %}
-                        </div>
-                      </div>
+                    <button class="btn btn-outline-primary btn-sm dropdown-toggle"
+                            type="button"
+                            id="dropdownMenuButton"
+                            data-bs-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false">{% translate "Actions" %}</button>
+                    <div class="dropdown-menu dropdown-menu-end"
+                          aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" href="{% url "offer:detail" slug=offer.slug %}">{% translate "Browse" %}</a>
+                      <a class="dropdown-item"
+                          href="{% url "dashboard:offer-detail" pk=offer.pk %}">{% translate "Stats" %}</a>
+                      <a class="dropdown-item"
+                          href="{% url "dashboard:offer-metadata" pk=offer.pk %}">{% translate "Edit" %}</a>
+                      {% if not offer.voucher_count %}
+                        <a class="dropdown-item"
+                            href="{% url "dashboard:offer-delete" pk=offer.pk %}">{% translate "Delete" %}</a>
+                      {% endif %}
                     </div>
                   </td>
                 </tr>

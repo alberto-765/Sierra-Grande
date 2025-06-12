@@ -78,10 +78,10 @@
                   <div class="btn-group">
                     {% if product %}
                       <a class="btn btn-secondary" href="{{ line.product.get_absolute_url }}">{% translate "View product" %}</a>
-                      <button class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"></button>
+                      <button class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown"></button>
                     {% else %}
-                      <a class="btn btn-secondary dropdown-toggle"
-                         data-toggle="dropdown"
+                      <a class="btn btn-outline-primary btn-sm dropdown-toggle"
+                         data-bs-toggle="dropdown"
                          href="#">{% translate "Actions" %}</a>
                     {% endif %}
                     <ul class="dropdown-menu dropdown-menu-end">

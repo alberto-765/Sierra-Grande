@@ -1,0 +1,5 @@
+{% load i18n %}
+
+<a href="{% url 'dashboard:user-detail' pk=record.id %}" class="badge bg-info-subtle text-info fs-13">
+    {% translate "View" %}
+</a>

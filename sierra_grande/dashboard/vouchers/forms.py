@@ -102,16 +102,19 @@ class VoucherSearchForm(forms.Form):
         required=False,
         label=_("Is active?"),
         widget=widgets.NullBooleanSelect,
+        initial=None,
     )
     in_set = forms.NullBooleanField(
         required=False,
         label=_("In voucher set?"),
         widget=widgets.NullBooleanSelect,
+        initial=None,
     )
     has_offers = forms.NullBooleanField(
         required=False,
         label=_("Has offers?"),
         widget=widgets.NullBooleanSelect,
+        initial=None,
     )
 
     basic_fields = [
@@ -147,7 +150,7 @@ class VoucherSearchForm(forms.Form):
                     basic_field_layouts.append(
                         Column(
                             FloatingField(field_name, wrapper_class="m-0"),
-                            css_class="col-sm-auto",
+                            css_class="col-sm-3 col-xl",
                         ),
                     )
             else:
@@ -237,7 +240,7 @@ class VoucherSetForm(forms.ModelForm):
                     css_class="col-lg-4 col-md-6",
                 ),
                 Column(
-                    Field("offers", wrapper_class="m-0"),
+                    "offers",
                     css_class="col-lg-4 col-md-6",
                 ),
                 Column("description", css_class="col-lg-4 col-md-6"),
@@ -257,8 +260,7 @@ class VoucherSetForm(forms.ModelForm):
         widgets = {
             "description": forms.Textarea(
                 attrs={
-                    "rows": 1,
-                    "placeholder": _("Description of this voucher set"),
+                    "rows": 2,
                 },
             ),
         }

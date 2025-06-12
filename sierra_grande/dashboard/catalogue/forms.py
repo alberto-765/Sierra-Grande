@@ -92,7 +92,7 @@ class CategoryForm(SEOFormMixin, BaseCategoryForm):
                     "data-choices": "",
                     "data-choices-search-true": "",
                     "data-choices-sorting-false": "",
-                    "data-placeholder-false": "",
+                    "data-choices-placeholder-false": "",
                 }
             )
 
@@ -103,7 +103,7 @@ class CategoryForm(SEOFormMixin, BaseCategoryForm):
                     "data-choices-search-true": "",
                     "data-choices-removeItem": "",
                     "data-choices-sorting-true": "",
-                    "data-placeholder-false": "",
+                    "data-choices-placeholder-false": "",
                 }
             )
 

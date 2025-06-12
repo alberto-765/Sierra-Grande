@@ -1,10 +1,7 @@
-from crispy_bootstrap5.bootstrap5 import FloatingField
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Column
+from crispy_forms.layout import Column, Row
 from crispy_forms.layout import Field
 from crispy_forms.layout import Layout
-from crispy_forms.layout import Row
-from crispy_forms.layout import Submit
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from oscar.core.loading import get_model
@@ -17,11 +14,55 @@ class DashboardProductReviewForm(forms.ModelForm):
         (ProductReview.APPROVED, _("Approved")),
         (ProductReview.REJECTED, _("Rejected")),
     )
-    status = forms.ChoiceField(choices=choices, label=_("Status"))
+    status = forms.ChoiceField(
+        choices=choices,
+        label=_("Update status of selected reviews:"),
+        widget=forms.Select(
+            attrs={
+                "data-choices": "",
+                "data-choices-search-true": "",
+                "data-choices-sorting-true": "",
+            },
+        ),
+    )
+
+    def __init__(self, *args, update_view=True, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.form_show_errors = True
+        if update_view:
+            self.helper.layout = Layout(
+                Row(
+                    "title",
+                    "body",
+                    Column(Field("score", wrapper_class="mb-3 mb-md-0")),
+                    Column(Field("status", wrapper_class=" ")),
+                )
+            )
+        else:
+            self.helper.layout = Layout(
+                Field("status", wrapper_class="form-label-inline")
+            )
 
     class Meta:
         model = ProductReview
         fields = ("title", "body", "score", "status")
+        widgets = {
+            "score": forms.Select(
+                attrs={
+                    "data-choices": "",
+                    "data-choices-search-true": "",
+                    "data-choices-removeItem": "",
+                    "data-choices-sorting-true": "",
+                },
+            ),
+            "body": forms.Textarea(
+                attrs={
+                    "rows": 6,
+                }
+            ),
+        }
 
 
 class ProductReviewSearchForm(forms.Form):
@@ -31,6 +72,13 @@ class ProductReviewSearchForm(forms.Form):
         required=False,
         choices=STATUS_CHOICES,
         label=_("Status"),
+        widget=forms.Select(
+            attrs={
+                "data-choices": "",
+                "data-choices-search-true": "",
+                "data-choices-sorting-true": "",
+            },
+        ),
     )
     date_from = forms.DateTimeField(required=False, label=_("Date from"))
     date_to = forms.DateTimeField(required=False, label=_("Date to"))
@@ -39,35 +87,25 @@ class ProductReviewSearchForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
-        self.helper.form_method = "GET"
+        self.helper.form_tag = False
+        self.helper.form_show_errors = True
         self.helper.layout = Layout(
-            Row(
-                Column(FloatingField("name", wrapper_class="m-0")),
-                Column(FloatingField("keyword", wrapper_class="m-0")),
-                Column(FloatingField("status", wrapper_class="m-0")),
-                Column(
-                    Field(
-                        "date_from",
-                        template="oscar/forms/widgets/floating_field_date_picker.html",
-                        wrapper_class=" ",
-                    ),
+            Column(Field("name", wrapper_class="m-0"), css_class="col-md-auto"),
+            Column(Field("keyword", wrapper_class="m-0"), css_class="col-md-auto"),
+            Column(Field("status", wrapper_class="m-0"), css_class="col-md-auto"),
+            Column(
+                Field(
+                    "date_from",
+                    wrapper_class=" ",
                 ),
-                Column(
-                    Field(
-                        "date_to",
-                        template="oscar/forms/widgets/floating_field_date_picker.html",
-                        wrapper_class=" ",
-                    ),
+                css_class="col-md-auto",
+            ),
+            Column(
+                Field(
+                    "date_to",
+                    wrapper_class=" ",
                 ),
-                Column(
-                    Submit(
-                        "submit",
-                        _("Search"),
-                        css_class="btn btn-primary",
-                        data={"loading-text": _("Searching...")},
-                    ),
-                ),
-                css_class="align-items-center",
+                css_class="col-md-auto",
             ),
         )
 

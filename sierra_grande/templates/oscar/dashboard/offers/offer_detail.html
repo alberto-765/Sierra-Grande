@@ -21,35 +21,35 @@
     </ol>
   </nav>
 {% endblock breadcrumbs %}
-{% block main_header %}
-  <div>
-    <form id="status_form" class="float-end" method="post">
-      {% csrf_token %}
-      {% if offer.is_suspended %}
-        <button type="submit"
-                class="btn btn-success"
-                name="unsuspend"
-                data-loading-text="{% translate "Reinstating..." %}">{% translate "Reinstate offer" %}</button>
-      {% else %}
-        <button type="submit"
-                class="btn btn-secondary"
-                name="suspend"
-                data-loading-text="{% translate "Suspending..." %}">{% translate "Suspend offer" %}</button>
-      {% endif %}
-      {% if not offer.vouchers.exists %}
-        <a class="btn btn-danger"
-           href="{% url "dashboard:offer-delete" pk=offer.pk %}">{% translate "Delete offer" %}</a>
-      {% endif %}
-    </form>
-    <h4 class="mb-sm-0">{{ offer.name }}</h4>
-  </div>
-{% endblock main_header %}
+
+{% block main_header_content %}
+  {{ offer.name }}
+{% endblock main_header_content %}
+
 {% block dashboard_content %}
+  <form id="status_form" class="text-end" method="post">
+    {% csrf_token %}
+    {% if offer.is_suspended %}
+      <button type="submit" class="btn btn-soft-success" name="unsuspend" data-loading-text="{% translate "Reinstating..." %}">
+        {% translate "Reinstate offer" %}
+      </button>
+    {% else %}
+      <button type="submit" class="btn btn-soft-warning" name="suspend" data-loading-text="{% translate "Suspending..." %}">
+        {% translate "Suspend offer" %}
+      </button>
+    {% endif %}
+    {% if not offer.vouchers.exists %}
+      <a class="btn btn-soft-danger" href="{% url "dashboard:offer-delete" pk=offer.pk %}">
+        {% translate "Delete offer" %}
+      </a>
+    {% endif %}
+  </form>
+
   <table class="table table-bordered align-middle">
     <tr>
       <td>
         {% if offer.is_available %}
-          <span class="badge bg-success">{% translate "Offer currently available" %}</span>
+          <span class="badge bg-success-subtle text-success">{% translate "Offer currently available" %}</span>
         {% else %}
           <span class="badge bg-danger">{% translate "Offer not available due to restrictions!" %}</span>
         {% endif %}
@@ -65,137 +65,169 @@
       </td>
     </tr>
   </table>
-  <div class="table-header">
-    <div class="float-end fw-normal">{% translate "Date created:" %} {{ offer.date_created }}</div>
-    <h2 class="mb-0">{% translate "Offer details" %}</h2>
-  </div>
-  <table class="table table-striped table-bordered align-middle">
-    <tbody>
-      <tr>
-        <th>{% translate "Name" %}</th>
-        <td>{{ offer.name }}</td>
-        <td rowspan="3">
-          <a id="edit_metadata"
-             href="{% url "dashboard:offer-metadata" pk=offer.pk %}"
-             class="btn btn-secondary">{% translate "Edit" %}</a>
-        </td>
-      </tr>
-      <tr>
-        <th>{% translate "Description" %}</th>
-        <td>{{ offer.description|safe|default:"-" }}</td>
-      </tr>
-      <tr>
-        <th>{% translate "Type" %}</th>
-        <td>{{ offer.get_offer_type_display }}</td>
-      </tr>
-      <tr>
-        <th>{% translate "Incentive" %}</th>
-        <td>{{ offer.benefit.description|safe }}</td>
-        <td>
-          <a href="{% url "dashboard:offer-benefit" pk=offer.pk %}"
-             class="btn btn-secondary">{% translate "Edit" %}</a>
-        </td>
-      </tr>
-      <tr>
-        <th>{% translate "Condition" %}</th>
-        <td>{{ offer.condition.description|safe }}</td>
-        <td>
-          <a href="{% url "dashboard:offer-condition" pk=offer.pk %}"
-             class="btn btn-secondary">{% translate "Edit" %}</a>
-        </td>
-      </tr>
-      <tr>
-        <th>{% translate "Restrictions" %}</th>
-        <td>
-          {% for restriction in offer.availability_restrictions %}
-            {% if not restriction.is_satisfied %}
-              <span class="badge bg-danger">{{ restriction.description }}</span>
-              <br />
-            {% else %}
-              {{ restriction.description }}
-              <br />
-            {% endif %}
-          {% endfor %}
-        </td>
-        <td>
-          <a href="{% url "dashboard:offer-restrictions" pk=offer.pk %}"
-             class="btn btn-secondary">{% translate "Edit" %}</a>
-        </td>
-      </tr>
-      {% if offer.is_voucher_offer_type %}
-        <tr>
-          <th>{% translate "Num of vouchers" %}</th>
-          <td>{{ offer.vouchers.count }}</td>
-        </tr>
-      {% endif %}
-    </tbody>
-  </table>
-  {% if offer.is_voucher_offer_type %}
-    <div class="table-header">
-      <h2 class="mb-0">{% translate "Attached vouchers" %}</h2>
+
+
+  <div class="card"> 
+    <div class="card-header hstack justify-content-between">
+       <h4 class="card-title icon-link mb-0">
+          <iconify-icon icon="bx:detail" width="1rem" height="1rem" aria-hidden="false"></iconify-icon>
+          {% translate "Offer details" %}
+        </h4>
+      <div class="fw-normal">{% translate "Date created:" %} {{ offer.date_created }}</div>
     </div>
-    <table class="table table-striped table-bordered table-hover align-middle">
-      {% if offer.vouchers.exists %}
-        <thead>
-          <tr>
-            <th>{% translate "Name" %}</th>
-            <th>{% translate "Code" %}</th>
-            <th>{% translate "Status" %}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for voucher in offer.vouchers.all %}
+    <div class="card-body">
+      <div class="table-card table-responsive">
+        <table class="table table-hover mb-0 align-middle">
+          <tbody>
             <tr>
-              <td>
-                <a href="{% url "dashboard:voucher-stats" voucher.id %}">{{ voucher.name }}</a>
-              </td>
-              <td>
-                <span class="badge bg-secondary">{{ voucher.code }}</span>
-              </td>
-              <td>
-                {% if voucher.is_active %}
-                  <span class="badge bg-success">{% translate "Active" %}</span>
-                {% else %}
-                  <span class="badge bg-secondary">{% translate "Inactive" %}</span>
-                {% endif %}
+              <th>{% translate "Name" %}</th>
+              <td>{{ offer.name }}</td>
+              <td rowspan="3" class="text-center">
+                <a id="edit_metadata" href="{% url "dashboard:offer-metadata" pk=offer.pk %}" class="btn btn-soft-primary">
+                  {% translate "Edit" %}
+                </a>
               </td>
             </tr>
-          {% endfor %}
-        </tbody>
-      {% else %}
-        <tr>
-          <td>{% translate "No vouchers are attached to this offer." %}</td>
-        </tr>
-      {% endif %}
-    </table>
+            <tr>
+              <th>{% translate "Description" %}</th>
+              <td>{{ offer.description|safe|default:"-" }}</td>
+            </tr>
+            <tr>
+              <th>{% translate "Type" %}</th>
+              <td>{{ offer.get_offer_type_display }}</td>
+            </tr>
+            <tr>
+              <th>{% translate "Incentive" %}</th>
+              <td>{{ offer.benefit.description|safe }}</td>
+              <td  class="text-center">
+                <a href="{% url "dashboard:offer-benefit" pk=offer.pk %}"
+                  class="btn btn-soft-primary">{% translate "Edit" %}</a>
+              </td>
+            </tr>
+            <tr>
+              <th>{% translate "Condition" %}</th>
+              <td>{{ offer.condition.description|safe }}</td>
+              <td  class="text-center">
+                <a href="{% url "dashboard:offer-condition" pk=offer.pk %}"
+                  class="btn btn-soft-primary">{% translate "Edit" %}</a>
+              </td>
+            </tr>
+            <tr>
+              <th>{% translate "Restrictions" %}</th>
+              <td>
+                {% for restriction in offer.availability_restrictions %}
+                  {% if not restriction.is_satisfied %}
+                    <span class="badge bg-danger">{{ restriction.description }}</span>
+                    <br />
+                  {% else %}
+                    {{ restriction.description }}
+                    <br />
+                  {% endif %}
+                {% endfor %}
+              </td>
+              <td  class="text-center">
+                <a href="{% url "dashboard:offer-restrictions" pk=offer.pk %}"
+                  class="btn btn-soft-primary">{% translate "Edit" %}</a>
+              </td>
+            </tr>
+            {% if offer.is_voucher_offer_type %}
+              <tr>
+                <th>{% translate "Num of vouchers" %}</th>
+                <td colspan="2">{{ offer.vouchers.count }}</td>
+              </tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  {% if offer.is_voucher_offer_type %}
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title icon-link mb-0">
+          <iconify-icon icon="fluent:attach-32-regular" width="1rem" height="1rem" aria-hidden="false"></iconify-icon>
+          {% translate "Attached coupons" %}
+        </h4>
+      </div>
+      <div class="card-body">
+        <div class="table-card table-responsive">
+          <table class="table table-hover mb-0 align-middle">
+          {% if offer.vouchers.exists %}
+            <thead>
+              <tr>
+                <th>{% translate "Name" %}</th>
+                <th>{% translate "Code" %}</th>
+                <th>{% translate "Status" %}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for voucher in offer.vouchers.all %}
+                <tr>
+                  <td>
+                    <a href="{% url "dashboard:voucher-stats" voucher.id %}">{{ voucher.name }}</a>
+                  </td>
+                  <td>
+                    <span class="badge bg-info-subtle text-info">{{ voucher.code }}</span>
+                  </td>
+                  <td>
+                    {% if voucher.is_active %}
+                      <span class="badge bg-success-subtle text-success">{% translate "Active" %}</span>
+                    {% else %}
+                      <span class="badge bg-info-subtle text-info">{% translate "Inactive" %}</span>
+                    {% endif %}
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          {% else %}
+            <tr>
+              <td>{% translate "No vouchers are attached to this offer." %}</td>
+            </tr>
+          {% endif %}
+          </table>
+        </div>
+      </div>
+    </div>  
   {% endif %}
   {% if order_discounts %}
-    <div class="table-header">
-      <a class="float-end btn" href=".?format=csv">{% translate "Export to CSV" %}</a>
-      <h2 class="mb-0">{% translate "Orders that used this offer" %}</h2>
+    <div class="card">
+      <div class="card-header hstack justify-content-between">
+        <h4 class="card-title icon-link mb-0">
+          <iconify-icon icon="bi:cart4" width="1rem" height="1rem" aria-hidden="false"></iconify-icon>
+          {% translate "Orders that used this offer" %}
+        </h4>
+        <a class="btn btn-primary btn-sm" href=".?format=csv">
+          {% translate "Export to CSV" %}
+        </a>
+      </div>
+      <div class="card-body">
+        <div class="table-card table-responsive">
+          <table class="table table-hover mb-0 align-middle">
+            <thead>
+              <th>{% translate "Order number" %}</th>
+              <th>{% translate "Order date" %}</th>
+              <th>{% translate "Order total" %}</th>
+              <th>{% translate "Cost" %}</th>
+            </thead>
+            <tbody>
+              {% for discount in order_discounts %}
+                {% with order=discount.order %}
+                  <tr>
+                    <td>
+                      <a href="{% url "dashboard:order-detail" number=order.number %}">{{ order.number }}</a>
+                    </td>
+                    <td>{{ order.date_placed }}</td>
+                    <td>{{ order.total_incl_tax|currency }}</td>
+                    <td>{{ discount.amount|currency }}</td>
+                  </tr>
+                {% endwith %}
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
-    <table class="table table-bordered table-striped align-middle">
-      <thead>
-        <th>{% translate "Order number" %}</th>
-        <th>{% translate "Order date" %}</th>
-        <th>{% translate "Order total" %}</th>
-        <th>{% translate "Cost" %}</th>
-      </thead>
-      <tbody>
-        {% for discount in order_discounts %}
-          {% with order=discount.order %}
-            <tr>
-              <td>
-                <a href="{% url "dashboard:order-detail" number=order.number %}">{{ order.number }}</a>
-              </td>
-              <td>{{ order.date_placed }}</td>
-              <td>{{ order.total_incl_tax|currency }}</td>
-              <td>{{ discount.amount|currency }}</td>
-            </tr>
-          {% endwith %}
-        {% endfor %}
-      </tbody>
-    </table>
     {% include "oscar/dashboard/partials/pagination.html" %}
   {% endif %}
 {% endblock dashboard_content %}

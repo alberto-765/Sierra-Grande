@@ -4,7 +4,7 @@ from crispy_bootstrap5.bootstrap5 import Field
 from crispy_bootstrap5.bootstrap5 import Switch
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout
-from crispy_forms.layout import Submit
+from crispy_forms.layout import Submit, Div
 from django import forms
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
@@ -69,7 +69,7 @@ class RangeProductForm(forms.Form):
     query = forms.CharField(
         max_length=1024,
         label=_("Product SKUs or UPCs"),
-        widget=forms.Textarea,
+        widget=forms.Textarea(attrs={"rows": 5}),
         required=False,
         help_text=_("You can paste in a selection of SKUs or UPCs"),
     )
@@ -84,19 +84,21 @@ class RangeProductForm(forms.Form):
     def __init__(self, product_range, *args, **kwargs):
         self.product_range = product_range
         super().__init__(*args, **kwargs)
-
         self.helper = FormHelper()
-        self.helper.form_method = "post"
-        self.helper.form_enctype = "multipart/form-data"
+        self.helper.form_tag = False
+        self.helper.form_show_errors = True
         self.helper.layout = Layout(
             "query",
             "file_upload",
             "upload_type",
-            Submit(
-                "submit",
-                _("Add"),
-                data_loading_text=_("Running..."),
-                css_class="btn-darken-primary",
+            Div(
+                Submit(
+                    "submit",
+                    _("Add"),
+                    data_loading_text=_("Running..."),
+                    css_class="btn-primary",
+                ),
+                css_class="text-end",
             ),
         )
 

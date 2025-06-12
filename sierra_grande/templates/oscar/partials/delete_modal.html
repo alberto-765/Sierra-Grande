@@ -21,7 +21,9 @@
             aria-label="Close"></button>
   </div>
   <div class="modal-body">
-    {% translate body_text %} <strong class="deleteModal__body"></strong>
+    {% blocktranslate %}
+        {{ body_text }} <strong class="deleteModal__body"></strong> ?
+    {% endblocktranslate %}
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% translate "Cancel" %}</button>

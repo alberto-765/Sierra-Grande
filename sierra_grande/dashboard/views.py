@@ -201,7 +201,7 @@ class PopUpWindowMixin:
 
     def add_success_message(self, message):
         if not self.is_popup:
-            messages.info(self.request, message)
+            messages.success(self.request, message)
 
 
 class PopUpWindowCreateUpdateMixin(PopUpWindowMixin):

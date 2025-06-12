@@ -110,7 +110,6 @@ THIRD_PARTY_APPS = [
     "oscar.apps.communication.apps.CommunicationConfig",
     "oscar.apps.basket.apps.BasketConfig",
     "oscar.apps.payment.apps.PaymentConfig",
-    "oscar.apps.offer.apps.OfferConfig",
     "oscar.apps.order.apps.OrderConfig",
     "oscar.apps.customer.apps.CustomerConfig",
     "oscar.apps.search.apps.SearchConfig",
@@ -127,6 +126,7 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "sierra_grande.users",
+    "sierra_grande.offer.apps.OfferConfig",
     "sierra_grande.address.apps.AddressConfig",
     "sierra_grande.catalogue.apps.CatalogueConfig",
     "sierra_grande.partner.apps.PartnerConfig",
@@ -486,11 +486,6 @@ OSCAR_DASHBOARD_NAVIGATION = [
                 "url_name": "dashboard:shipping-method-list",
             },
         ],
-    },
-    {
-        "label": _("Invoices (TODO)"),
-        "icon": "bi:archive",
-        "url_name": "dashboard:index",
     },
     {
         "label": _("Offers"),

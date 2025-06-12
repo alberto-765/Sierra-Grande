@@ -1,19 +1,17 @@
 {% extends "oscar/layout.html" %}
 
-{% load history_tags %}
-{% load currency_filters %}
-{% load reviews_tags %}
-{% load product_tags %}
-{% load display_tags %}
-{% load i18n %}
-{% load purchase_info_tags %}
+{% load history_tags currency_filters reviews_tags product_tags display_tags i18n purchase_info_tags%}
+
+
 
 {% block title %}
   {{ product.get_meta_title }} | {{ block.super }}
 {% endblock title %}
+
 {% block description %}
   {{ product.get_meta_description }}
 {% endblock description %}
+
 {% block breadcrumbs %}
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
@@ -40,8 +38,8 @@
     </ol>
   </nav>
 {% endblock breadcrumbs %}
-{% block main_header %}
-{% endblock main_header %}
+
+
 {% block content %}
   <article class="product_page"><!-- Start of product page -->
     <div class="row">
@@ -99,7 +97,8 @@
       </div>
       <p>{{ product.description|safe }}</p>
     {% endif %}
-  {% endblock product_description}
+  {% endblock product_description %}
+  
   {% block product_info %}
     <div class="sub-header">
       <h2 class="mb-0">{% translate "Product Information" %}</h2>
@@ -143,59 +142,60 @@
         </tr>
       {% endfor %}
       {% iffeature "reviews" %}
-      <tr>
-        <th>{% translate "Number of reviews" %}</th>
-        <td>{{ product.num_approved_reviews }}</td>
-      </tr>
-    {% endiffeature %}
-  </table>
-{% endblock content %}
-{% iffeature "reviews" %}
-{% block product_review %}
-  <section>
-    <div id="reviews" class="sub-header">
-      {% if product.num_approved_reviews > 3 %}
-        <a href="{% url "catalogue:reviews-list" product_slug=product.slug product_pk=product.id %}"
-           class="btn float-end">{% translate "See all reviews" %}</a>
-      {% endif %}
-      <h2 class="mb-0">{% translate "Customer Reviews" %}</h2>
-    </div>
-    {% if product.num_approved_reviews == 0 %}
-      <p>
-        {% if product|is_review_permitted:user %}
-          {% url "catalogue:reviews-add" product_slug=product.slug product_pk=product.id as add_review_url %}
-          {% blocktranslate %}This product does not have any reviews yet -
-                            <a href="{{ add_review_url }}#addreview">be the first to write one</a>.
-                        {% endblocktranslate %}
+        <tr>
+          <th>{% translate "Number of reviews" %}</th>
+          <td>{{ product.num_approved_reviews }}</td>
+        </tr>
+      {% endiffeature %}
+    </table>
+  {% endblock product_info %}
+
+  {% iffeature "reviews" %}
+    {% block product_review %}
+      <section>
+        <div id="reviews" class="sub-header">
+          {% if product.num_approved_reviews > 3 %}
+            <a href="{% url "catalogue:reviews-list" product_slug=product.slug product_pk=product.id %}"
+              class="btn float-end">{% translate "See all reviews" %}</a>
+          {% endif %}
+          <h2 class="mb-0">{% translate "Customer Reviews" %}</h2>
+        </div>
+        {% if product.num_approved_reviews == 0 %}
+          <p>
+            {% if product|is_review_permitted:user %}
+              {% url "catalogue:reviews-add" product_slug=product.slug product_pk=product.id as add_review_url %}
+              {% blocktranslate %}This product does not have any reviews yet -
+                                <a href="{{ add_review_url }}#addreview">be the first to write one</a>.
+                            {% endblocktranslate %}
+            {% else %}
+              {% translate "This product does not have any reviews yet" %}.
+            {% endif %}
+          </p>
         {% else %}
-          {% translate "This product does not have any reviews yet" %}.
+          <ol class="list-unstyled review-list">
+            {% for review in product.reviews.approved.all|slice:":3" %}
+              <li>{% include "oscar/catalogue/partials/review.html" %}</li>
+            {% endfor %}
+          </ol>
         {% endif %}
-      </p>
-    {% else %}
-      <ol class="list-unstyled review-list">
-        {% for review in product.reviews.approved.all|slice:":3" %}
-          <li>{% include "oscar/catalogue/partials/review.html" %}</li>
+      </section>
+    {% endblock product_review %}
+  {% endiffeature %}
+
+  {% with recommended_products=product.sorted_recommended_products|slice:":6" %}
+    {% if recommended_products %}
+      <div class="sub-header">
+        <h2 class="mb-0">{% translate "Recommended items" %}</h2>
+      </div>
+      <ul class="row list-unstyled mx-0">
+        {% for product in recommended_products %}
+          <li class="col-sm-4 col-md-3 col-lg-3">{% render_product product %}</li>
         {% endfor %}
-      </ol>
+      </ul>
     {% endif %}
-  </section>
-{% endblock product_review %}
-{% endiffeature %}
-{% with recommended_products=product.sorted_recommended_products|slice:":6" %}
-  {% if recommended_products %}
-    <div class="sub-header">
-      <h2 class="mb-0">{% translate "Recommended items" %}</h2>
-    </div>
-    <ul class="row list-unstyled mx-0">
-      {% for product in recommended_products %}
-        <li class="col-sm-4 col-md-3 col-lg-3">{% render_product product %}</li>
-      {% endfor %}
-    </ul>
-  {% endif %}
-{% endwith %}
-{% recently_viewed_products current_product=product %}
-</article><!-- End of product page -->
+  {% endwith %}
+
+  {% recently_viewed_products current_product=product %}
+  </article><!-- End of product page -->
 {% endblock content %}
-{% block extrascripts %}
-  {{ block.super }}
-{% endblock extrascripts %}
+

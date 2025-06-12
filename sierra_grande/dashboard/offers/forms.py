@@ -1,4 +1,4 @@
-from crispy_bootstrap5.bootstrap5 import FloatingField
+from crispy_bootstrap5.bootstrap5 import FloatingField, Switch
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import HTML
 from crispy_forms.layout import Column
@@ -36,7 +36,17 @@ def get_offer_type_choices():
 
 
 class MetaDataForm(forms.ModelForm):
-    offer_type = forms.ChoiceField(label=_("Type"), choices=get_offer_type_choices)
+    offer_type = forms.ChoiceField(
+        label=_("Type"),
+        choices=get_offer_type_choices,
+        widget=forms.Select(
+            attrs={
+                "data-choices": "",
+                "data-choices-search-true": "",
+                "data-choices-sorting-true": "",
+            }
+        ),
+    )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -45,7 +55,7 @@ class MetaDataForm(forms.ModelForm):
         self.helper.layout = Layout(
             FloatingField("name"),
             FloatingField("description"),
-            FloatingField("offer_type"),
+            Field("offer_type", wrapper_class=" "),
         )
 
     class Meta:
@@ -96,8 +106,8 @@ class RestrictionsForm(forms.ModelForm):
             FloatingField("max_global_applications"),
             FloatingField("max_discount"),
             FloatingField("priority"),
-            FloatingField("exclusive"),
-            FloatingField("combinations"),
+            Switch("exclusive"),
+            "combinations",
         )
 
     class Meta:
@@ -113,6 +123,17 @@ class RestrictionsForm(forms.ModelForm):
             "exclusive",
             "combinations",
         )
+        widgets = {
+            "combinations": forms.SelectMultiple(
+                attrs={
+                    "data-choices": "",
+                    "data-choices-search-true": "",
+                    "data-choices-removeItem": "",
+                    "data-choices-placeholder-false": "",
+                    "data-choices-sorting-true": "",
+                },
+            ),
+        }
 
     def clean(self):
         cleaned_data = super().clean()
@@ -166,9 +187,9 @@ class ConditionForm(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.form_tag = False
         layout_elements = [
-            FloatingField("range"),
-            FloatingField("type"),
-            FloatingField("value"),
+            "range",
+            "type",
+            Field("value", wrapper_class=" "),
         ]
 
         custom_conditions = Condition.objects.all().exclude(proxy_class=None)
@@ -203,6 +224,22 @@ class ConditionForm(forms.ModelForm):
     class Meta:
         model = Condition
         fields = ["range", "type", "value"]
+        widgets = {
+            "type": forms.Select(
+                attrs={
+                    "data-choices": "",
+                    "data-choices-search-true": "",
+                    "data-choices-sorting-true": "",
+                },
+            ),
+            "range": forms.Select(
+                attrs={
+                    "data-choices": "",
+                    "data-choices-search-true": "",
+                    "data-choices-sorting-true": "",
+                },
+            ),
+        }
 
     def clean(self):
         data = super().clean()
@@ -256,10 +293,10 @@ class BenefitForm(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.form_tag = False
         layout_elements = [
-            FloatingField("range"),
-            FloatingField("type"),
-            FloatingField("value"),
-            FloatingField("max_affected_items"),
+            "range",
+            "type",
+            "value",
+            Field("max_affected_items", wrapper_class=" "),
         ]
 
         custom_benefits = Benefit.objects.all().exclude(proxy_class=None)
@@ -294,6 +331,22 @@ class BenefitForm(forms.ModelForm):
     class Meta:
         model = Benefit
         fields = ["range", "type", "value", "max_affected_items"]
+        widgets = {
+            "type": forms.Select(
+                attrs={
+                    "data-choices": "",
+                    "data-choices-search-true": "",
+                    "data-choices-sorting-true": "",
+                },
+            ),
+            "range": forms.Select(
+                attrs={
+                    "data-choices": "",
+                    "data-choices-search-true": "",
+                    "data-choices-sorting-true": "",
+                },
+            ),
+        }
 
     def clean(self):
         data = super().clean()

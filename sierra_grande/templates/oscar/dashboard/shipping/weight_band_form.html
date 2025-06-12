@@ -24,7 +24,7 @@
 
 {% block dashboard_content %}
     <div class="card card-body bg-light">
-        <form method="post" class="form-stacked">
+        <form method="post">
             {% csrf_token %}
 
             {% crispy form %}

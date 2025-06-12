@@ -8,3 +8,14 @@
 .alert > .errorlist {
     margin-bottom: 0;
 }
+
+// Inline form-label
+.form-label-inline {
+    display: flex;
+    align-items: center;
+    column-gap: .35rem;
+
+    .form-label {
+        margin-bottom: 0;
+    }
+}

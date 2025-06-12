@@ -5,9 +5,11 @@
 {% block body_class %}
   {{ block.super }} catalogue
 {% endblock body_class %}
+
 {% block title %}
   {% translate "Stock alerts" %} | {{ block.super }}
 {% endblock title %}
+
 {% block breadcrumbs %}
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
@@ -18,9 +20,11 @@
     </ol>
   </nav>
 {% endblock breadcrumbs %}
+
 {% block main_header_content %}
   {% translate "Stock alerts" %}
 {% endblock main_header_content %}
+
 {% block dashboard_content %}
   <div class="card">
     <div class="card-header hstack align-items-center justify-content-between">
@@ -30,14 +34,10 @@
       </h4>
       {% if show_filter %}
         <div class="dropdown">
-          <button class="btn btn-primary dropdown-toggle"
-                  type="button"
-                  id="dropdownMenuButton"
-                  data-bs-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false">{% translate "Filter" %}</button>
-          <div class="dropdown-menu dropdown-menu-end"
-               aria-labelledby="dropdownMenuButton">
+          <button class="btn btn-outline-primary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {% translate "Filter" %}
+          </button>
+          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
             {% for item in filter_dropdown %}
               <a class="dropdown-item {{ item.css_class }}" href="{{ item.url }}">{{ item.label }}</a>
             {% endfor %}

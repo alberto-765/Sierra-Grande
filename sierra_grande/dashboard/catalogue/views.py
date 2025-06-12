@@ -791,7 +791,7 @@ class ProductClassCreateView(ProductClassCreateUpdateView):
         return _("Add a new product type")
 
     def get_success_url(self):
-        messages.info(self.request, _("Product type created successfully"))
+        messages.success(self.request, _("Product type created successfully"))
         return reverse("dashboard:catalogue-class-list")
 
 
@@ -806,7 +806,7 @@ class ProductClassUpdateView(ProductClassCreateUpdateView):
         return get_object_or_404(ProductClass, pk=self.kwargs["pk"])
 
     def get_success_url(self):
-        messages.info(self.request, _("Product type updated successfully"))
+        messages.success(self.request, _("Product type updated successfully"))
         return reverse("dashboard:catalogue-class-list")
 
 

@@ -1,14 +1,16 @@
 {% extends "oscar/dashboard/layout.html" %}
 
-{% load currency_filters %}
-{% load i18n %}
+{% load currency_filters i18n %}
+
 
 {% block body_class %}
   {{ block.super }} users
 {% endblock body_class %}
+
 {% block title %}
   {{ customer.email }} | {{ block.super }}
 {% endblock title %}
+
 {% block breadcrumbs %}
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
@@ -22,17 +24,22 @@
     </ol>
   </nav>
 {% endblock breadcrumbs %}
+
 {% block main_header_content %}
   {{ customer.email }}
 {% endblock main_header_content %}
+
 {% block dashboard_content %}
-  <div class="row">
-    {% block user_general_info %}
-      <div class="col-md-12">
-        <div class="table-header">
-          <h2>{% translate "General" %}</h2>
-        </div>
-        <table class="align-middle table table-bordered">
+  <div class="card">
+    <div class="card-header">
+      <h4 class="card-title icon-link mb-0">
+          <iconify-icon icon="bx:detail" width="1rem" height="1rem" aria-hidden="false"></iconify-icon>
+        {% translate "General" %}
+      </h4>
+    </div>
+    <div class="card-body">
+      <div class="table-card table-responsive">
+        <table class="table table-hover mb-0 align-middle">
           <tr>
             <th>{% translate "Name" %}</th>
             <td>{{ customer.get_full_name|default:"-" }}</td>
@@ -94,7 +101,7 @@
                       method="post">
                   {% csrf_token %}
                   <button type="submit"
-                          class="btn btn-primary"
+                          class="btn btn-soft-primary"
                           data-loading-text="{% translate "Sending..." %}">
                     {% translate "Send password reset email" %}
                   </button>
@@ -104,31 +111,38 @@
           {% endif %}
         </table>
       </div>
-    {% endblock user_general_info %}
+    </div>
   </div>
-  <div class="row">
-    {% block user_additional_info %}
-      <div class="tabbable dashboard col-md-12">
-        {% block tab_nav %}
-          <ul class="nav nav-tabs mb-0" role="tablist">
-            <li class="nav-item">
-              <a class="nav-link active" href="#user_orders" data-toggle="tab">{% translate "Orders" %}</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#user_addresses" data-toggle="tab">{% translate "Addresses" %}</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#user_reviews" data-toggle="tab">{% translate "Reviews" %}</a>
-            </li>
-          </ul>
-        {% endblock tab_nav %}
-        <div class="tab-content">
-          {% block user_orders %}
-            <div id="user_orders" class="tab-pane fade show active" role="tabpanel">
-              <table class="align-middle table table-striped table-bordered table-hover">
-                <caption>{% translate "Orders" %}</caption>
+      
+  <div class="card card-body">
+    {% block tab_nav %}
+      <div class="step-arrow-nav mb-4">
+        <ul class="nav nav-pills custom-nav nav-justified" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="user_orders-tab" data-bs-toggle="pill" data-bs-target="#user_orders" type="button" role="tab" aria-controls="user_orders" aria-selected="true" data-position="0" tabindex="-1">
+              {% translate "Orders" %}
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link " id="user_addresses-tab" data-bs-toggle="pill" data-bs-target="#user_addresses" type="button" role="tab" aria-controls="user_addresses" aria-selected="false" data-position="1">
+              {% translate "Addresses" %}
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link " id="user_reviews-tab" data-bs-toggle="pill" data-bs-target="#user_reviews" type="button" role="tab" aria-controls="user_reviews" aria-selected="false" data-position="2">
+              {% translate "Reviews" %}
+            </button>
+          </li>
+        </ul>
+      </div>
+    {% endblock tab_nav %}
+    <div class="tab-content">
+      {% block user_orders %}
+        <div id="user_orders" class="tab-pane fade show active" role="tabpanel" aria-labelledby="user_orders-tab">
+          {% if orders %}
+            <div class="table-card table-responsive">
+              <table class="table table-hover mb-0 align-middle">
                 {% with orders=customer.orders.all %}
-                  {% if orders %}
                     <tr>
                       <th>{% translate "Order Number" %}</th>
                       <th>{% translate "Num items" %}</th>
@@ -148,73 +162,68 @@
                         <td>{{ order.status|default:"-" }}</td>
                         <td>
                           <a href="{% url 'dashboard:order-detail' number=order.number %}"
-                             class="btn btn-info">{% translate "View" %}</a>
+                              class="btn btn-info">{% translate "View" %}</a>
                         </td>
                       </tr>
                     {% endfor %}
-                  {% else %}
-                    <tr>
-                      <td>{% translate "This customer has not placed any orders yet." %}</td>
-                    </tr>
-                  {% endif %}
                 {% endwith %}
-              </table>
+              </table>  
             </div>
-          {% endblock user_orders %}
-          {% block user_addresses %}
-            <div id="user_addresses" class="tab-pane fade" role="tabpanel">
-              <h2>{% translate "Addresses" %}</h2>
-              <div class="row">
-                {% for address in customer.addresses.all %}
-                  <div class="col-md-3">
-                    <div class="card card-body bg-info">
-                      {% for field in address.active_address_fields %}
-                        {{ field }}
-                        <br />
-                      {% endfor %}
-                    </div>
-                  </div>
-                  {% if forloop.counter|divisibleby:4 %}
-                  </div>
-                  <div class="row">
-                  {% endif %}
-                {% empty %}
-                  <p>{% translate "This customer has not saved any addresses." %}</p>
-                {% endfor %}
-              </div>
-            </div>
-          {% endblock user_addresses %}
-          {% block user_reviews %}
-            <div id="user_reviews" class="tab-pane fade" role="tabpanel">
-              <table class="align-middle table table-striped table-bordered table-hover">
-                <caption>{% translate "Reviews" %}</caption>
-                {% if customer.reviews.count %}
-                  <tr>
-                    <th>{% translate "Product ID" %}</th>
-                    <th>{% translate "Score" %}</th>
-                    <th>{% translate "Title" context "Product review title" %}</th>
-                    <th>{% translate "Body" %}</th>
-                    <th>{% translate "Date created" %}</th>
-                  </tr>
-                  {% for review in customer.reviews.all %}
-                    <tr>
-                      <td>{{ review.product_id }}</td>
-                      <td>{{ review.score }}</td>
-                      <td>{{ review.title }}</td>
-                      <td>{{ review.body }}</td>
-                      <td>{{ review.date_created }}</td>
-                    </tr>
-                  {% endfor %}
-                {% else %}
-                  <tr>
-                    <td>{% translate "This customer has not written any reviews yet." %}</td>
-                  </tr>
-                {% endif %}
-              </table>
-            </div>
-          {% endblock user_reviews %}
+          {% else %}
+            <div>{% translate "This customer has not placed any orders yet." %}</div>
+          {% endif %}
         </div>
-      </div>
+      {% endblock user_orders %}
+      {% block user_addresses %}
+        <div id="user_addresses" class="tab-pane fade" role="tabpanel" aria-labelledby="user_addresses-tab">
+          <div class="row">
+            {% for address in customer.addresses.all %}
+              <div class="col-md-3">
+                <div class="card card-body bg-info">
+                  {% for field in address.active_address_fields %}
+                    {{ field }}
+                    <br />
+                  {% endfor %}
+                </div>
+              </div>
+              {% if forloop.counter|divisibleby:4 %}
+              </div>
+              <div class="row">
+              {% endif %}
+            {% empty %}
+              <div>{% translate "This customer has not saved any addresses." %}</div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endblock user_addresses %}
+      {% block user_reviews %}
+        <div id="user_reviews" class="tab-pane fade" role="tabpanel" aria-labelledby="user_reviews-tab">
+          {% if customer.reviews.count %}
+            <div class="table-card table-responsive">
+              <table class="table table-hover mb-0 align-middle">
+                <tr>
+                  <th>{% translate "Product ID" %}</th>
+                  <th>{% translate "Score" %}</th>
+                  <th>{% translate "Title" context "Product review title" %}</th>
+                  <th>{% translate "Body" %}</th>
+                  <th>{% translate "Date created" %}</th>
+                </tr>
+                {% for review in customer.reviews.all %}
+                  <tr>
+                    <td>{{ review.product_id }}</td>
+                    <td>{{ review.score }}</td>
+                    <td>{{ review.title }}</td>
+                    <td>{{ review.body }}</td>
+                    <td>{{ review.date_created }}</td>
+                  </tr>
+                {% endfor %}
+              </table>
+            </div>
+          {% else %}
+            <div>{% translate "This customer has not written any reviews yet." %}</div>
+          {% endif %}
+        </div>
+      {% endblock user_reviews %}
     </div>
-  {% endblock user_additional_info %}
+  </div>
 {% endblock dashboard_content %}

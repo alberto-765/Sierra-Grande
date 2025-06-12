@@ -9,6 +9,7 @@
 {% block title %}
   {% blocktranslate with number=order.number %}Order {{ number }}{% endblocktranslate %} | {{ block.super }}
 {% endblock title %}
+
 {% block breadcrumbs %}
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
@@ -22,40 +23,45 @@
     </ol>
   </nav>
 {% endblock breadcrumbs %}
+
 {% block main_header_content %}
   {% blocktranslate with number=order.number %}Order #{{ number }}{% endblocktranslate %}
 {% endblock main_header_content %}
+
 {% block dashboard_content %}
   {% block customer_information %}
-    <table class="align-middle table table-bordered table-hover">
-      <caption><i class="fas fa-user"></i> {% translate "Customer Information" %}</caption>
-      {% if order.guest_email %}
-        <tr>
-          <th>{% translate "Name" %}</th>
-          <th>{% translate "Email address" %}</th>
-        </tr>
-        <tr>
-          <td>{% translate "Customer checked out as a guest." %}</td>
-          <td>{{ order.email }}</td>
-        </tr>
-      {% elif order.user %}
-        <tr>
-          <th>{% translate "Name" %}</th>
-          <th>{% translate "Email address" %}</th>
-        </tr>
-        <tr>
-          <td>{{ order.user.get_full_name|default:"-" }}</td>
-          <td>{{ order.user.email|default:"-" }}</td>
-        </tr>
-      {% else %}
-        <tr>
-          <td>{% translate "Customer has deleted their account." %}</td>
-        </tr>
-      {% endif %}
-    </table>
+    <div class="table-card table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <caption><i class="fas fa-user"></i> {% translate "Customer Information" %}</caption>
+        {% if order.guest_email %}
+          <tr>
+            <th>{% translate "Name" %}</th>
+            <th>{% translate "Email address" %}</th>
+          </tr>
+          <tr>
+            <td>{% translate "Customer checked out as a guest." %}</td>
+            <td>{{ order.email }}</td>
+          </tr>
+        {% elif order.user %}
+          <tr>
+            <th>{% translate "Name" %}</th>
+            <th>{% translate "Email address" %}</th>
+          </tr>
+          <tr>
+            <td>{{ order.user.get_full_name|default:"-" }}</td>
+            <td>{{ order.user.email|default:"-" }}</td>
+          </tr>
+        {% else %}
+          <tr>
+            <td>{% translate "Customer has deleted their account." %}</td>
+          </tr>
+        {% endif %}
+      </table>
+    </div>
   {% endblock customer_information %}
   {% block order_information %}
-    <table class="align-middle table table-striped table-bordered table-hover">
+      <div class="table-card table-responsive">
+    <table class="table table-hover align-middle mb-0">
       <caption>      <iconify-icon icon="fa-solid:shopping-cart" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
       {% translate "Order information" %}</caption>
       <tr>
@@ -71,6 +77,7 @@
         <td>{{ order.status|default:"N/A" }}</td>
       </tr>
     </table>
+    </div>
   {% endblock order_information %}
   {% block additional_order_information %}
   {% endblock additional_order_information %}
@@ -117,7 +124,8 @@
         <form id="order_lines_form" method="post" class="hstack">
           {% csrf_token %}
           {% block order_lines %}
-            <table class="align-middle table table-striped table-bordered table-hover">
+          <div class="table-card table-responsive">
+            <table class="table table-hover align-middle mb-0">
               <thead>
                 <tr>
                   <th></th>
@@ -195,7 +203,7 @@
                       <tr>
                         <td colspan="8"></td>
                         <td>
-                          <span class="badge bg-success">{% translate "Discount" %}</span>
+                          <span class="badge bg-success-subtle text-success">{% translate "Discount" %}</span>
                           {{ discount.offer_name }}
                         </td>
                         <td class="text-end"></td>
@@ -232,7 +240,7 @@
                     <tr>
                       <td colspan="8"></td>
                       <td>
-                        <span class="badge bg-success">{% translate "Discount" %}</span>
+                        <span class="badge bg-success-subtle text-success">{% translate "Discount" %}</span>
                         {{ discount.offer_name }}
                       </td>
                       <td></td>
@@ -278,6 +286,7 @@
                 </tr>
               </tbody>
             </table>
+          </div>
           {% endblock order_lines %}
           {% comment %}
                         This is the important block within this template: you will almost certainly want to
@@ -387,7 +396,9 @@
             <h3>{% translate "Status Changes" %}</h3>
           </div>
           {% with status_changes=order.status_changes.all %}
-            <table class="align-middle table table-striped table-bordered table-hover">
+              <div class="table-card table-responsive">
+
+            <table class="table table-hover align-middle mb-0">
               {% if status_changes %}
                 <thead>
                   <tr>
@@ -413,6 +424,7 @@
                 </tbody>
               {% endif %}
             </table>
+            </div>
           {% endwith %}
         {% endblock order_status_changes %}
         {% block shipping_events %}
@@ -420,7 +432,9 @@
             <h3>{% translate "Shipping Events" %}</h3>
           </div>
           {% with events=order.shipping_events.all %}
-            <table class="align-middle table table-striped table-bordered table-hover">
+              <div class="table-card table-responsive">
+
+            <table class="table table-hover align-middle mb-0">
               {% if events %}
                 <thead>
                   <tr>
@@ -458,6 +472,7 @@
                 </tbody>
               {% endif %}
             </table>
+            </div>
           {% endwith %}
         {% endblock shipping_events %}
         {% block payment_events %}
@@ -465,7 +480,9 @@
             <h3>{% translate "Payment Events" %}</h3>
           </div>
           {% with events=order.payment_events.all %}
-            <table class="align-middle table table-striped table-bordered table-hover">
+              <div class="table-card table-responsive">
+
+            <table class="table table-hover align-middle mb-0">
               {% if events %}
                 <thead>
                   <tr>
@@ -502,6 +519,7 @@
               </tbody>
             {% endif %}
           </table>
+          </div>
         {% endwith %}
       {% endblock payment_events %}
     </div>
@@ -512,7 +530,9 @@
         <div class="table-header">
           <h3>{% translate "Shipping" %}</h3>
         </div>
-        <table class="align-middle table table-striped table-bordered table-hover">
+            <div class="table-card table-responsive">
+
+        <table class="table table-hover align-middle mb-0">
           <tbody>
             <tr>
               <th>{% translate "Method name" %}</th>
@@ -553,6 +573,7 @@
             </tr>
           </tbody>
         </table>
+        </div>
       {% endblock tab_shipping %}
     </div>
     <div class="tab-pane fade {% if active_tab == "payment" %}show active{% endif %}"
@@ -575,7 +596,9 @@
             <h3>{% translate "Payment sources" %}</h3>
           </div>
           {% if sources %}
-            <table class="align-middle table table-striped table-bordered table-hover">
+              <div class="table-card table-responsive">
+
+            <table class="table table-hover align-middle mb-0">
               <thead>
                 <tr>
                   <th>{% translate "Source" %}</th>
@@ -597,12 +620,16 @@
                 {% endfor %}
               </tbody>
             </table>
+            </div>
           {% else %}
-            <table class="align-middle table table-striped table-bordered table-hover">
+              <div class="table-card table-responsive">
+
+            <table class="table table-hover align-middle mb-0">
               <tr>
                 <td>{% translate "No payment sources found for this order." %}</td>
               </tr>
             </table>
+            </div>
           {% endif %}
         {% endwith %}
         {% block payment_transactions %}
@@ -610,7 +637,9 @@
             <div class="table-header">
               <h3>{% translate "Transactions" %}</h3>
             </div>
-            <table class="align-middle table table-striped table-bordered table-hover">
+                <div class="table-card table-responsive">
+
+            <table class="table table-hover align-middle mb-0">
               <thead>
                 <tr>
                   <th>{% translate "Source" %}</th>
@@ -632,6 +661,7 @@
                 {% endfor %}
               </tbody>
             </table>
+            </div>
           {% endif %}
         {% endblock payment_transactions %}
       {% endblock tab_payment %}
@@ -645,7 +675,9 @@
             <h3>{% translate "Discounts" %}</h3>
           </div>
           {% if discounts %}
-            <table class="align-middle table table-striped table-bordered table-hover">
+              <div class="table-card table-responsive">
+
+            <table class="table table-hover align-middle mb-0">
               <thead>
                 <tr>
                   <th>{% translate "Type" %}</th>
@@ -675,12 +707,16 @@
                 {% endfor %}
               </tbody>
             </table>
+            </div>
           {% else %}
-            <table class="align-middle table table-striped table-bordered table-hover">
+              <div class="table-card table-responsive">
+
+            <table class="table table-hover align-middle mb-0">
               <tr>
                 <td>{% translate "No discounts were applied to this order." %}</td>
               </tr>
             </table>
+            </div>
           {% endif %}
         {% endwith %}
       {% endblock tab_discounts %}
@@ -693,7 +729,9 @@
           <h3>{% translate "Notes" %}</h3>
         </div>
         {% with notes=order.notes.all %}
-          <table class="align-middle table table-striped table-bordered table-hover">
+            <div class="table-card table-responsive">
+
+          <table class="table table-hover align-middle mb-0">
             {% if notes %}
               <tr>
                 <th>{% translate "Date" %}</th>
@@ -728,11 +766,11 @@
               </tr>
             {% endif %}
           </table>
+          </div>
         {% endwith %}
         <form id="order_note_form"
               action=".?note={{ note_id }}"
-              method="post"
-              class="form-stacked">
+              method="post">
           {% csrf_token %}
           <input type="hidden" value="save_note" name="order_action" />
           {% include "oscar/dashboard/partials/form_fields.html" with form=note_form %}

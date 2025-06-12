@@ -7,7 +7,7 @@ from django.core import exceptions
 from django.db.models import Count
 from django.shortcuts import HttpResponse, get_object_or_404, redirect
 from django.template.loader import render_to_string
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView, View
@@ -92,7 +92,7 @@ class RangeDeleteView(SuccessMessageMixin, DeleteView):
     template_name = "oscar/dashboard/ranges/range_delete.html"
     context_object_name = "range"
     success_message = _("Range deleted successfully")
-    success_url = reverse("dashboard:range-list")
+    success_url = reverse_lazy("dashboard:range-list")
 
 
 class RangeProductListView(BulkEditMixin, ListView):
@@ -138,19 +138,20 @@ class RangeProductListView(BulkEditMixin, ListView):
         ctx = super().get_context_data(**kwargs)
         product_range = self.get_product_range()
         ctx["range"] = product_range
+        ctx["products_effectively_excluded"] = (
+            product_range.get_products_effectively_excluded()
+        )
         if "form" not in ctx:
             form = self.form_class(
                 product_range,
                 initial={"upload_type": RangeProductFileUpload.INCLUDED_PRODUCTS_TYPE},
             )
-            form.helper.layout.append(Hidden("action", "add_products"))
             ctx["form"] = form
         if "form_excluded" not in ctx:
             form_excluded = self.form_class(
                 product_range,
                 initial={"upload_type": RangeProductFileUpload.EXCLUDED_PRODUCTS_TYPE},
             )
-            form.helper.layout.append(Hidden("action", "add_excluded_products"))
             ctx["form_excluded"] = form_excluded
         ctx["file_uploads_included"] = product_range.file_uploads.filter(
             upload_type=RangeProductFileUpload.INCLUDED_PRODUCTS_TYPE

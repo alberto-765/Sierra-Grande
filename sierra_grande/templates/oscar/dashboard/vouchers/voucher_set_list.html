@@ -1,12 +1,13 @@
 {% extends "oscar/dashboard/layout.html" %}
 
-{% load currency_filters %}
-{% load sorting_tags %}
-{% load i18n %}
+{% load currency_filters sorting_tags i18n%}
+
+
 
 {% block title %}
   {{ description }} | {{ block.super }}
 {% endblock title %}
+
 {% block breadcrumbs %}
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
@@ -19,7 +20,7 @@
 {% endblock breadcrumbs %}
 
 {% block main_header_content %}
-  {% translate "Voucher sets" %}
+  {% translate "Coupon sets" %}
 {% endblock main_header_content %}
 
 {% block dashboard_content %}
@@ -27,20 +28,20 @@
     <a href="{% url "dashboard:voucher-set-create" %}"
        class="btn btn-primary icon-link">
       <iconify-icon icon="mdi:plus-circle" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
-      {% translate "Create new voucher set" %}
+      {% translate "Create new coupon set" %}
     </a>
   </div>
   <div class="card">
     <span class="card-header icon-link fw-normal">
-      {% if description != "All voucher sets" %}
+      {% if description != "All coupon sets" %}
         <iconify-icon icon="streamline:discount-percent-coupon" width="1rem" height="1rem" aria-hidden="true" inline></iconify-icon>
         {{ description }}
       {% endif %}
     </span>
-    <div class="card-body {% if voucher_sets %}p-0{% endif %}">
+    <div class="card-body dropdown">
       {% if voucher_sets %}
-        <div class="table-card table-responsive-md">
-          <table class="align-middle table table-bordered table-hover">
+        <div class="table-card table-responsive">
+          <table class="table table-hover mb-0 align-middle">
             <thead>
               <tr>
                 <th>{% translate "Name" %}</th>
@@ -62,7 +63,7 @@
                   <td>{{ voucher_set.count }}</td>
                   <td>
                     {% if voucher_set.is_active %}
-                      <span class="badge bg-success">{% translate "Active" %}</span>
+                      <span class="badge bg-success-subtle text-success">{% translate "Active" %}</span>
                     {% else %}
                       <span class="badge bg-warning">{% translate "Inactive" %}</span>
                     {% endif %}
@@ -72,23 +73,21 @@
                   <td>{{ voucher_set.num_orders }}</td>
                   <td>{{ voucher_set.date_created }}</td>
                   <td>
-                    <div class="btn-toolbar">
-                      <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle"
-                                type="button"
-                                id="dropdownMenuButton"
-                                data-bs-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false">{% translate "Actions" %}</button>
-                        <div class="dropdown-menu dropdown-menu-end"
-                             aria-labelledby="dropdownMenuButton">
-                          <a class="dropdown-item"
-                             href="{% url "dashboard:voucher-set-detail" pk=voucher_set.pk %}">{% translate "Detail" %}</a>
-                          <a class="dropdown-item"
-                             href="{% url "dashboard:voucher-set-update" pk=voucher_set.pk %}">{% translate "Edit" %}</a>
-                          <a class="dropdown-item"
-                             href="{% url "dashboard:voucher-set-delete" pk=voucher_set.pk %}">{% translate "Delete" %}</a>
-                        </div>
+                    <div class="row g-2">
+                      <div class="col-auto">
+                          <a class="badge bg-primary-subtle text-primary fs-13 icon-link" href="{% url "dashboard:voucher-set-detail" pk=voucher_set.pk %}">
+                            {% translate "Detail" %}
+                          </a>
+                      </div>
+                      <div class="col-auto">
+                          <a class="badge bg-info-subtle text-info fs-13 icon-link" href="{% url "dashboard:voucher-set-update" pk=voucher_set.pk %}">
+                            {% translate "Edit" %}
+                          </a>
+                      </div>
+                      <div class="col-auto">
+                          <a class="badge bg-danger-subtle text-danger fs-13 icon-link" data-bs-pk="{{ voucher_set.id }}" data-bs-name="{{ voucher_set.name }}" data-bs-toggle="modal" href="#deleteModal">
+                            {% translate "Delete" %}
+                          </a>
                       </div>
                     </div>
                   </td>
@@ -98,9 +97,18 @@
           </table>
         </div>
         {% include "oscar/partials/pagination.html" %}
+        {% include "oscar/partials/delete_modal.html" with body_title="Remove Coupon Set" body_text="Are you sure to remove the coupon set:" %}
       {% else %}
-        <div>{% translate "No voucher sets found." %}</div>
+        <div>{% translate "No coupon sets found." %}</div>
       {% endif %}
     </div>
   </div>
 {% endblock dashboard_content %}
+
+
+{% block onbodyload %}
+  {{ block.super }}
+  {% if voucher_sets %}
+    oscar.dashboard.initDeleteModal('{% url "dashboard:voucher-set-delete" pk=9999 %}', '9999')
+  {% endif %}
+{% endblock onbodyload %}

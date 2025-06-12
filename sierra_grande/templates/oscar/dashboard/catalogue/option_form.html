@@ -38,9 +38,7 @@
   {{ title }}
 {% endblock main_header_content %}
 {% block dashboard_content %}
-  <form class="form-stacked "
-        method="post"
-        data-behaviour="tab-nav-errors">
+  <form method="post" data-behaviour="tab-nav-errors">
     {% csrf_token %}
     <div class="card">
       <div class="card-header">

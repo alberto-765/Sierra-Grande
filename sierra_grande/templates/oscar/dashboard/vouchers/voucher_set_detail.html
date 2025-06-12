@@ -1,12 +1,17 @@
 {% extends "oscar/dashboard/layout.html" %}
 
-{% load currency_filters %}
-{% load sorting_tags %}
-{% load i18n %}
+{% load currency_filters sorting_tags i18n %}
+
+{% block extrastyles %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/x-scss" href="{% static "scss/dashboard/product.scss" %}" />
+{% endblock extrastyles %}
+
 
 {% block title %}
   {{ voucher_set.name }} | {{ block.super }}
 {% endblock title %}
+
 {% block breadcrumbs %}
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
@@ -14,154 +19,203 @@
         <a href="{% url "dashboard:index" %}">{% translate "Dashboard" %}</a>
       </li>
       <li class="breadcrumb-item">
-        <a href="{% url "dashboard:voucher-set-list" %}">{% translate "Voucher sets" %}</a>
+        <a href="{% url "dashboard:voucher-set-list" %}">{% translate "Coupon sets" %}</a>
       </li>
       <li class="breadcrumb-item active" aria-current="page">{{ voucher_set.name }}</li>
     </ol>
   </nav>
 {% endblock breadcrumbs %}
-{% block main_header %}
-  <div class="hstack justify-content-between align-items-center">
-    <h4 class="mb-sm-0">{% translate "Voucher set" %} "{{ voucher_set.name }}"</h4>
+
+{% block main_header_content %}
+  {% translate "Coupon set" %} "{{ voucher_set.name }}"
+{% endblock main_header_content %}
+
+{% block dashboard_content %}
+  <div class="text-end">
     <a href="{% url "dashboard:voucher-set-download" pk=voucher_set.pk %}"
        class="btn btn-primary icon-link">
       <iconify-icon icon="material-symbols:download" width="1rem" height="1rem" aria-hidden="true"></iconify-icon> {% translate "Download CSV" %}
     </a>
   </div>
-{% endblock main_header %}
-{% block dashboard_content %}
-  {% include "oscar/dashboard/vouchers/partials/voucher_set_details_table.html" %}
-  <div class="table-header">
-    <h3 class="icon-link">
-      <iconify-icon icon="mdi:plus-circle" width="1rem" height="1rem" aria-hidden="true"></iconify-icon> {% translate "Search coupons" %}
-    </h3>
-  </div>
-  <div class="card card-body bg-light">
-    <form method="get" class="hstack">
-      {% include "oscar/partials/form_fields_inline.html" with form=form wrapper_class="mb-0" %}
-      <button type="submit" class="btn btn-primary">{% translate "Search" %}</button>
-      <a href="{% url "dashboard:voucher-set-detail" pk=voucher_set.pk %}"
-         class="btn">{% translate "Reset" %}</a>
-    </form>
-    {% if search_filters %}
-      <div class="search-filter-list">
-        <label>Filters:</label>
-        {% for filter in search_filters %}<span class="badge bg-success">{{ filter }}</span>{% endfor %}
+ 
+  <div class="card">
+    <div class="card-header">
+      <h4 class="card-title icon-link mb-0">
+          <iconify-icon icon="bx:detail" width="1rem" height="1rem" aria-hidden="false"></iconify-icon>
+        {% translate "Voucher set details" %}
+      </h4>
+    </div>
+    <div class="card-body">
+      <div class="table-card table-responsive">
+        {% include "oscar/dashboard/vouchers/partials/voucher_set_details_table.html" %}
       </div>
-    {% endif %}
+    </div>
   </div>
-  <table class="table table-striped table-bordered table-hover">
-    <caption class="icon-link">
-      <iconify-icon icon="streamline:discount-percent-coupon" width="1rem" height="1rem" aria-hidden="true" inline></iconify-icon>
+
+  <div class="card">
+    <div class="card-header">
+      <h4 class="card-title icon-link mb-0">
+        <iconify-icon icon="stash:search-light" width="1rem" height="1rem" aria-hidden="false"></iconify-icon>
+        {% translate "Search coupons" %}
+      </h4>
+    </div>
+    <div class="card-body">
+      <form method="get" class="hstack gap-3">
+        {% include "oscar/partials/form_fields_inline.html" with form=form wrapper_class="mb-0" %}
+        <button type="submit" class="btn btn-primary w-100 icon-link justify-content-center" data-loading-text="{% translate "Searching..." %}">
+          <iconify-icon icon="stash:search-light" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
+          {% translate "Search" %}
+        </button>
+        <a href="{% url "dashboard:voucher-set-detail" pk=voucher_set.pk %}" class="btn btn-secondary">
+          {% translate "Reset" %}
+        </a>
+      </form>
       {% if search_filters %}
-        {% translate "Voucher Search Results" %}
-      {% else %}
-        {% translate "All Coupons" %}
+        <div class="search-filter-list">
+          <label>Filters:</label>
+          {% for filter in search_filters %}<span class="badge bg-success-subtle text-success">{{ filter }}</span>{% endfor %}
+        </div>
       {% endif %}
-    </caption>
-    {% if vouchers %}
-      <tr>
-        <th>{% translate "Code" %}</th>
-        <th>{% anchor "num_basket_additions" _("Num baskets") %}</th>
-        <th>{% anchor "num_orders" _("Num orders") %}</th>
-        <th>{% anchor "date_created" _("Date created") %}</th>
-        <th></th>
-      </tr>
-      {% for voucher in vouchers %}
-        <tr>
-          <td>
-            <span class="badge bg-secondary">{{ voucher.code }}</span>
-          </td>
-          <td>{{ voucher.num_basket_additions }}</td>
-          <td>{{ voucher.num_orders }}</td>
-          <td>{{ voucher.date_created }}</td>
-          <td>
-            <div class="btn-toolbar">
-              <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle"
-                        type="button"
-                        id="dropdownMenuButton"
-                        data-bs-toggle="dropdown"
-                        aria-haspopup="true"
-                        aria-expanded="false">{% translate "Actions" %}</button>
-                <div class="dropdown-menu dropdown-menu-end"
-                     aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item"
-                     href="{% url "dashboard:voucher-stats" pk=voucher.id %}">{% translate "Stats" %}</a>
-                  <a class="dropdown-item"
-                     href="{% url "dashboard:voucher-delete" pk=voucher.id %}">{% translate "Delete" %}</a>
-                </div>
-              </div>
-            </div>
-          </td>
-        </tr>
-      {% endfor %}
-    {% else %}
-      <tr>
-        <td>{% translate "No coupons found." %}</td>
-      </tr>
-    {% endif %}
-  </table>
-  {% include "oscar/partials/pagination.html" %}
-  <div class="table-header">
-    <h2 class="mb-0">{% translate "Attached offers" %}</h2>
+    </div>
   </div>
-  <table class="table table-striped table-bordered table-hover">
-    {% if voucher_set.vouchers.first.offers.exists %}
-      <thead>
-        <tr>
-          <th>{% translate "Offer name" %}</th>
-          <th>{% translate "Start date" %}</th>
-          <th>{% translate "End date" %}</th>
-          <th>{% translate "Is available?" %}</th>
-          <th>{% translate "Priority" %}</th>
-          <th>{% translate "Incentive" %}</th>
-          <th>{% translate "Condition" %}</th>
-          <th>{% translate "Restrictions" %}</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for offer in voucher_set.vouchers.first.offers.all %}
-          <tr>
-            <td>
-              <a href="{% url "dashboard:offer-detail" pk=offer.pk %}">{{ offer.name }}</a>
-            </td>
-            <td>{{ offer.start_datetime|default:"-" }}</td>
-            <td>{{ offer.end_datetime|default:"-" }}</td>
-            <td>
-              {% if offer.is_available %}
-                <span class="badge bg-success">{% translate "Yes" %}</span>
-              {% else %}
-                <span class="badge bg-danger">{% translate "No" %}</span>
-              {% endif %}
-            </td>
-            <td>{{ offer.priority }}</td>
-            <td>{{ offer.benefit.description|safe }}</td>
-            <td>{{ offer.condition.description|safe }}</td>
-            <td>
-              {% for restriction in offer.availability_restrictions %}
-                {% if not restriction.is_satisfied %}
-                  <label class="badge bg-danger">{{ restriction.description }}</label>
-                {% else %}
-                  {{ restriction.description }}
-                  <br />
-                {% endif %}
+
+  <div class="card">
+    <div class="card-header">
+      <h4 class="card-title icon-link mb-0">
+        <iconify-icon icon="streamline:discount-percent-coupon" width="1rem" height="1rem" aria-hidden="true"></iconify-icon>
+          {% if search_filters %}
+            {% translate "Coupon Search Results" %}
+          {% else %}
+            {% translate "All Coupons" %}
+          {% endif %}
+      </h4>
+    </div>
+    <div class="card-body">
+      <div class="table-card table-responsive">
+        <table class="table table-hover mb-0 align-middle">
+          {% if vouchers %}
+            <tr>
+              <th>{% translate "Code" %}</th>
+              <th>{% anchor "num_basket_additions" _("Num baskets") %}</th>
+              <th>{% anchor "num_orders" _("Num orders") %}</th>
+              <th>{% anchor "date_created" _("Date created") %}</th>
+              <th></th>
+            </tr>
+            {% for voucher in vouchers %}
+              <tr>
+                <td>
+                  <span class="badge bg-info-subtle text-info">{{ voucher.code }}</span>
+                </td>
+                <td>{{ voucher.num_basket_additions }}</td>
+                <td>{{ voucher.num_orders }}</td>
+                <td>{{ voucher.date_created }}</td>
+                <td>
+                  <div class="btn-toolbar">
+                    <div class="dropdown">
+                      <button class="btn btn-outline-primary btn-sm dropdown-toggle"
+                              type="button"
+                              id="dropdownMenuButton"
+                              data-bs-toggle="dropdown"
+                              aria-haspopup="true"
+                              aria-expanded="false">{% translate "Actions" %}</button>
+                      <div class="dropdown-menu dropdown-menu-end"
+                          aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item"
+                          href="{% url "dashboard:voucher-stats" pk=voucher.id %}">{% translate "Stats" %}</a>
+                        <a class="dropdown-item"
+                          href="{% url "dashboard:voucher-delete" pk=voucher.id %}">{% translate "Delete" %}</a>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            {% endfor %}
+          {% else %}
+            <tr>
+              <td>{% translate "No coupons found." %}</td>
+            </tr>
+          {% endif %}
+        </table>
+        {% include "oscar/partials/pagination.html" %}
+      </div>
+    </div>
+  </div>
+  
+  <div class="card">
+    <div class="card-header">
+       <h4 class="card-title icon-link mb-0">
+        <iconify-icon icon="fluent:attach-32-regular" width="1rem" height="1rem" aria-hidden="false"></iconify-icon>
+        {% translate "Attached offers" %}
+      </h4>
+    </div>
+    <div class="card-body">
+      <div class="table-card table-responsive">
+        <table class="table table-hover mb-0 align-middle">
+          {% if voucher_set.vouchers.first.offers.exists %}
+            <thead>
+              <tr>
+                <th>{% translate "Offer name" %}</th>
+                <th>{% translate "Start date" %}</th>
+                <th>{% translate "End date" %}</th>
+                <th>{% translate "Is available?" %}</th>
+                <th>{% translate "Priority" %}</th>
+                <th>{% translate "Incentive" %}</th>
+                <th>{% translate "Condition" %}</th>
+                <th>{% translate "Restrictions" %}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for offer in voucher_set.vouchers.first.offers.all %}
+                <tr>
+                  <td>
+                    <a href="{% url "dashboard:offer-detail" pk=offer.pk %}">{{ offer.name }}</a>
+                  </td>
+                  <td>{{ offer.start_datetime|default:"-" }}</td>
+                  <td>{{ offer.end_datetime|default:"-" }}</td>
+                  <td>
+                    {% if offer.is_available %}
+                      <span class="badge bg-success-subtle text-success">{% translate "Yes" %}</span>
+                    {% else %}
+                      <span class="badge bg-danger">{% translate "No" %}</span>
+                    {% endif %}
+                  </td>
+                  <td>{{ offer.priority }}</td>
+                  <td>{{ offer.benefit.description|safe }}</td>
+                  <td>{{ offer.condition.description|safe }}</td>
+                  <td>
+                    {% for restriction in offer.availability_restrictions %}
+                      {% if not restriction.is_satisfied %}
+                        <label class="badge bg-danger">{{ restriction.description }}</label>
+                      {% else %}
+                        {{ restriction.description }}
+                        <br />
+                      {% endif %}
+                    {% endfor %}
+                  </td>
+                </tr>
               {% endfor %}
-            </td>
-          </tr>
-        {% endfor %}
-      </tbody>
-    {% else %}
-      <tr>
-        <td>{% translate "No offers are attached to this voucher set." %}</td>
-      </tr>
-    {% endif %}
-  </table>
-  <div class="form-actions">
-    <a class="btn btn-primary"
-       href="{% url "dashboard:voucher-set-update" pk=voucher_set.pk %}">{% translate "Edit" %}</a> {% translate "or" %}
-    <a class="btn btn-danger"
-       href="{% url "dashboard:voucher-set-delete" pk=voucher_set.pk %}">{% translate "Delete" %}</a> {% translate "or" %}
-    <a href="{% url "dashboard:voucher-set-list" %}">{% translate "cancel" %}</a>
+            </tbody>
+          {% else %}
+            <tr>
+              <td>{% translate "No offers are attached to this coupon set." %}</td>
+            </tr>
+          {% endif %}
+        </table>
+      </div>
+    </div>
   </div>
+
+  {% block fixed_actions_group %}
+  <div class="form-actions-fixed align-items-center bg-dark column-gap-4 fixed-bottom hstack justify-content-end p-3">
+    <a href="{% url "dashboard:voucher-set-list" %}" class="btn btn-outline-light">
+      {% translate "Cancel" %}
+    </a>
+    <a class="btn btn-danger" href="{% url "dashboard:voucher-set-delete" pk=voucher_set.pk %}">
+      {% translate "Delete" %}
+    </a>
+    <a class="btn btn-primary" href="{% url "dashboard:voucher-set-update" pk=voucher_set.pk %}">
+      {% translate "Edit" %}
+    </a>
+  </div>
+  {% endblock fixed_actions_group %}
 {% endblock dashboard_content %}

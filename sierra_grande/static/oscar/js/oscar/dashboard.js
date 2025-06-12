@@ -286,7 +286,7 @@ var oscar = ((o) => {
                         choiceData.searchEnabled = true;
                     }
                 }
-                if (isChoicesVal["data-placeholder-false"]) {
+                if (isChoicesVal["data-choices-placeholder-false"]) {
                     choiceData.placeholder = false;
                 }
                 if (isChoicesVal["data-choices-removeItem"]) {
@@ -1467,64 +1467,7 @@ var oscar = ((o) => {
                 });
             }
         },
-        reordering: (function () {
-            // TODO: What is this for?
-
-
-            let options = {
-                handle: '.btn-handle',
-                submit_url: '#'
-            };
-
-            function saveOrder (data) {
-                // Get the csrf token, otherwise django will not accept the POST request.
-                const csrf = o.getCsrfToken();
-
-                fetch(options.submit_url, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                        'X-CSRFToken': csrf
-                    },
-                    body: new URLSearchParams(data)
-                }).then(response => response.json())
-                    .catch(error => console.error('Error saving order:', error));
-            }
-
-            function init (userOptions) {
-                options = { ...options, ...userOptions };
-
-                const wrapper = document.querySelector(options.wrapper);
-                if (!wrapper) return;
-
-                const sortableInstance = new Sortable(wrapper.querySelector('tbody'), {
-                    handle: options.handle,
-                    animation: 150,
-                    onEnd: function () {
-                        // Serialize the data
-                        const data = [];
-                        wrapper.querySelectorAll('tbody tr').forEach(row => {
-                            if (row.id) {
-                                const parts = row.id.split('_');
-                                data.push({ name: parts[0], value: parts[1] });
-                            }
-                        });
-
-                        saveOrder(data);
-                    }
-                });
-
-                return sortableInstance;
-            }
-
-            return {
-                init: init,
-                saveOrder: saveOrder
-            };
-        }()),
         filereader: {
-            // TODO: TEST THIS
-
             init: function () {
                 if (window.FileReader) {
                     document.querySelectorAll('input[type="file"]').forEach(input => {

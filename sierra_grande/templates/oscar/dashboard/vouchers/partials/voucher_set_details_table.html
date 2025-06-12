@@ -1,9 +1,6 @@
 {% load i18n %}
 
-<table class="align-middle table table-striped table-bordered">
-  <caption>
-    <h3>{% translate "Voucher set" %}</h3>
-  </caption>
+<table class="table table-hover mb-0 align-middle">
   <tbody>
     <tr>
       <th>{% translate "Title" %}</th>
@@ -22,7 +19,7 @@
       <td>{{ voucher_set.description }}</td>
     </tr>
     <tr>
-      <th>{% translate "Number of vouchers" %}</th>
+      <th>{% translate "Number of coupons" %}</th>
       <td>{{ voucher_set.count }}</td>
     </tr>
     <tr>
@@ -33,9 +30,9 @@
       <th>{% translate "Status" %}</th>
       <td>
         {% if voucher_set.is_active %}
-          <span class="badge bg-success">{% translate "Active" %}</span>
+          <span class="badge bg-success-subtle text-success">{% translate "Active" %}</span>
         {% else %}
-          <span class="badge bg-secondary">{% translate "Inactive" %}</span>
+          <span class="badge bg-info-subtle text-info">{% translate "Inactive" %}</span>
         {% endif %}
       </td>
     </tr>

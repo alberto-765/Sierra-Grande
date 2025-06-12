@@ -33,12 +33,13 @@
       <form method="get">
         <div class="row align-items-center">
           {% include "oscar/dashboard/partials/form_fields_inline.html" with form=form wrapper_class="mb-0" %}
-          <button type="submit"
-                  class="btn btn-primary icon-link col-md-auto"
-                  data-loading-text="{% translate "Searching..." %}">{% translate "Search" %}</button>
+          <button type="submit" class="btn btn-primary icon-link col-md-auto" data-loading-text="{% translate "Searching..." %}">
+            {% translate "Search" %}
+          </button>
           {% if is_filtered %}
-            <a class="btn btn-secondary col-md-auto"
-               href="{% url "dashboard:partner-list" %}">{% translate "Reset" %}</a>
+            <a class="btn btn-secondary col-md-auto" href="{% url "dashboard:partner-list" %}">
+              {% translate "Reset" %}
+            </a>
           {% endif %}
         </div>
       </form>
@@ -113,8 +114,9 @@
                                href="{% url "dashboard:partner-manage" pk=partner.pk %}">
                               {% translate "Manage partner and users" %}
                             </a>
-                            <a class="dropdown-item"
-                               href="{% url "dashboard:partner-delete" pk=partner.pk %}">{% translate "Delete partner" %}</a>
+                            <a class="dropdown-item" data-bs-pk="{{ partner.pk }}" data-bs-name="{{ partner.name }}" data-bs-toggle="modal" href="#deleteModal">
+                              {% translate "Delete" %}
+                            </a>
                             <a class="dropdown-item"
                                href="{% url "dashboard:partner-user-select" partner_pk=partner.pk %}">
                               {% translate "Link an existing user" %}
@@ -134,9 +136,19 @@
           </div>
           {% include "oscar/dashboard/partials/pagination.html" %}
         </form>
+
+        {% include "oscar/partials/delete_modal.html" with body_title="Remove Partner" body_text="Are you sure to remove the partner:" %}
       {% else %}
         <div>{% translate "No partners found." %}</div>
       {% endif %}
     </div>
   </div>
 {% endblock dashboard_content %}
+
+{% block onbodyload %}
+  {{ block.super }}
+  {% if partners %}
+    oscar.dashboard.initDeleteModal('{% url "dashboard:partner-delete" pk=9999 %}', '9999')
+  {% endif %}
+{% endblock onbodyload %}
+

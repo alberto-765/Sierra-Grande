@@ -1,0 +1,21 @@
+{% extends "oscar/layout.html" %}
+
+{% load i18n %}
+
+{% block layout %}
+  
+  {% comment %} TODO: Change jumbotron  {% endcomment %}
+  <div class="p-5 mb-4 bg-body-tertiary rounded-3">
+    <h1>
+      {% block error_heading %}
+        {% translate "Sorry!" %}
+      {% endblock error_heading %}
+    </h1>
+    {% block error_message %}
+    {% endblock error_message %}
+    <p>
+      <a class="btn btn-primary btn-lg" onclick="javascript:history.go(-1);">{% translate "Return to previous page" %}</a>
+      <a class="btn btn-primary btn-lg" href="{{ homepage_url }}">{% translate "Go to homepage" %}</a>
+    </p>
+  </div>
+{% endblock layout %}

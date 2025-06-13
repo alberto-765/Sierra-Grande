@@ -5,6 +5,8 @@ from crispy_forms.layout import Layout
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from oscar.core.loading import get_model
+from sierra_grande.forms.widgets import CustomDatePickerInput
+from django_flatpickr.settings import FlatpickrOptions
 
 ProductReview = get_model("reviews", "productreview")
 
@@ -80,8 +82,14 @@ class ProductReviewSearchForm(forms.Form):
             },
         ),
     )
-    date_from = forms.DateTimeField(required=False, label=_("Date from"))
-    date_to = forms.DateTimeField(required=False, label=_("Date to"))
+    date_from = forms.DateTimeField(
+        required=False, label=_("Date from"), widget=CustomDatePickerInput()
+    )
+    date_to = forms.DateTimeField(
+        required=False,
+        label=_("Date to"),
+        widget=CustomDatePickerInput(options=FlatpickrOptions(maxDate="today")),
+    )
     name = forms.CharField(required=False, label=_("Customer name"))
 
     def __init__(self, *args, **kwargs):

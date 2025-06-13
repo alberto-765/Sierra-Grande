@@ -10,6 +10,9 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import gettext
 from oscar.core.loading import get_class
+from sierra_grande.forms.widgets import CustomDatePickerInput
+from django_flatpickr.settings import FlatpickrOptions
+
 
 GeneratorRepository = get_class("dashboard.reports.utils", "GeneratorRepository")
 
@@ -29,11 +32,13 @@ class ReportForm(forms.Form):
     date_from = forms.DateField(
         label=_("Date from"),
         required=False,
+        widget=CustomDatePickerInput(),
     )
     date_to = forms.DateField(
         label=_("Date to"),
         help_text=_("The report is inclusive of this date"),
         required=False,
+        widget=CustomDatePickerInput(options=FlatpickrOptions(maxDate="today")),
     )
     download = forms.BooleanField(label=_("Download"), required=False)
 
@@ -50,7 +55,6 @@ class ReportForm(forms.Form):
                 Column(
                     Field(
                         "date_from",
-                        template="oscar/forms/widgets/floating_field_date_picker.html",
                         wrapper_class=" ",
                     ),
                     css_class="col-lg col-md-4",
@@ -58,7 +62,6 @@ class ReportForm(forms.Form):
                 Column(
                     Field(
                         "date_to",
-                        template="oscar/forms/widgets/floating_field_date_picker.html",
                         wrapper_class=" ",
                     ),
                     css_class="col-lg col-md-4",

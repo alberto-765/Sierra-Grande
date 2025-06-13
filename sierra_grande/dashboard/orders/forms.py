@@ -17,6 +17,9 @@ from django.utils.translation import pgettext_lazy
 from oscar.core.loading import get_class
 from oscar.core.loading import get_model
 from oscar.forms.mixins import PhoneNumberMixin
+from sierra_grande.forms.widgets import CustomDatePickerInput
+from django_flatpickr.settings import FlatpickrOptions
+
 
 Order = get_model("order", "Order")
 OrderNote = get_model("order", "OrderNote")
@@ -29,10 +32,12 @@ class OrderStatsForm(forms.Form):
     date_from = forms.DateField(
         required=False,
         label=pgettext_lazy("start date", "Date from"),
+        widget=CustomDatePickerInput(),
     )
     date_to = forms.DateField(
         required=False,
         label=pgettext_lazy("end date", "Date to"),
+        widget=CustomDatePickerInput(options=FlatpickrOptions(maxDate="today")),
     )
 
     _filters = _description = None
@@ -48,7 +53,6 @@ class OrderStatsForm(forms.Form):
                 Column(
                     Field(
                         "date_from",
-                        template="oscar/forms/widgets/floating_field_date_picker.html",
                         wrapper_class=" ",
                     ),
                     css_class="col-sm-auto",
@@ -56,7 +60,6 @@ class OrderStatsForm(forms.Form):
                 Column(
                     Field(
                         "date_to",
-                        template="oscar/forms/widgets/floating_field_date_picker.html",
                         wrapper_class=" ",
                     ),
                     css_class="col-sm-auto",
@@ -73,7 +76,7 @@ class OrderStatsForm(forms.Form):
                 Column(
                     HTML(
                         f"""<a href="{self.action}"
-                        'class="btn btn-secondary w-100">{_("Reset")}</a>""",
+                        class="btn btn-secondary w-100">{_("Reset")}</a>""",
                     ),
                     css_class="col-sm-auto",
                 ),
@@ -139,13 +142,12 @@ class OrderSearchForm(forms.Form):
     )
 
     date_from = forms.DateField(
-        required=False,
-        label=gettext_lazy("Date from"),
+        required=False, label=gettext_lazy("Date from"), widget=CustomDatePickerInput()
     )
     date_to = forms.DateField(
         required=False,
         label=gettext_lazy("Date to"),
-        widget=forms.DateInput(attrs={"type": "date", "class": "form-control"}),
+        widget=CustomDatePickerInput(options=FlatpickrOptions(maxDate="today")),
     )
 
     voucher = forms.CharField(required=False, label=gettext_lazy("Voucher code"))

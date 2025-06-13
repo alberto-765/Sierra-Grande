@@ -1,4 +1,7 @@
 # ruff: noqa: SLF001
+from sierra_grande.forms.widgets import CustomDateTimePickerInput
+
+
 from crispy_bootstrap5.bootstrap5 import FloatingField, Field
 from crispy_bootstrap5.bootstrap5 import Switch
 from crispy_forms.helper import FormHelper
@@ -11,7 +14,7 @@ from django.utils.translation import gettext_lazy as _
 from oscar.core.loading import get_classes
 from oscar.core.loading import get_model
 from oscar.core.utils import slugify
-from oscar.forms.widgets import DateTimePickerInput, ImageInput
+from oscar.forms.widgets import ImageInput
 
 from tinymce.widgets import TinyMCE
 from treebeard.forms import movenodeform_factory
@@ -232,7 +235,7 @@ def _attr_datetime_field(attribute):
     return forms.DateTimeField(
         label=attribute.name,
         required=attribute.required,
-        widget=DateTimePickerInput(),
+        widget=CustomDateTimePickerInput(),
     )
 
 

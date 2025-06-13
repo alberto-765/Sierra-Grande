@@ -19,3 +19,8 @@
         margin-bottom: 0;
     }
 }
+
+// Form datepicker with button
+.input-group .django-flatpickr {
+    flex-grow: 1;
+}

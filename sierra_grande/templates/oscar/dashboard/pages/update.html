@@ -7,10 +7,6 @@
   <link rel="stylesheet" type="text/x-scss" href="{% static "scss/dashboard/product.scss" %}" />
 {% endblock extrastyles %}
 
-{% block extrahead %}
-  {{ block.super }}
-  {{ form.media }}
-{% endblock extrahead %}
 
 {% block body_class %}
   {{ block.super }} create-page pages
@@ -46,7 +42,7 @@
     </div>
     <div class="card-body">
       <form class="" method="post" enctype="multipart/form-data">
-        {% crispy form%}
+        {% crispy form %}
         {% block fixed_actions_group %}
           <div class="form-actions-fixed align-items-center bg-dark column-gap-4 fixed-bottom hstack justify-content-end p-3">
             <a class="btn btn-danger" role="button" href="{% url "dashboard:catalogue-category-list" %}">

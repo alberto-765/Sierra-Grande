@@ -1,3 +1,10 @@
+from django import forms
+from django.conf import settings
+from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
+from oscar.core.loading import get_model
+from oscar.forms import widgets
+
 from crispy_bootstrap5.bootstrap5 import FloatingField, Switch
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import HTML
@@ -8,12 +15,9 @@ from crispy_forms.layout import Layout
 from crispy_forms.layout import Reset
 from crispy_forms.layout import Row
 from crispy_forms.layout import Submit
-from django import forms
-from django.conf import settings
-from django.utils import timezone
-from django.utils.translation import gettext_lazy as _
-from oscar.core.loading import get_model
-from oscar.forms import widgets
+
+from sierra_grande.forms.widgets import CustomDatePickerInput
+
 
 ConditionalOffer = get_model("offer", "ConditionalOffer")
 Condition = get_model("offer", "Condition")
@@ -78,29 +82,22 @@ class MetaDataForm(forms.ModelForm):
 
 class RestrictionsForm(forms.ModelForm):
     start_datetime = forms.DateTimeField(
-        label=_("Start date"),
-        required=False,
+        label=_("Start date"), required=False, widget=CustomDatePickerInput()
     )
     end_datetime = forms.DateTimeField(
         label=_("End date"),
         required=False,
+        widget=CustomDatePickerInput(range_from="start_datetime"),
     )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["start_datetime"].initial = timezone.now()
-
         self.helper = FormHelper()
         self.helper.form_tag = False
         self.helper.layout = Layout(
-            Field(
-                "start_datetime",
-                template="oscar/forms/widgets/floating_field_date_picker.html",
-            ),
-            Field(
-                "end_datetime",
-                template="oscar/forms/widgets/floating_field_date_picker.html",
-            ),
+            "start_datetime",
+            "end_datetime",
             FloatingField("max_basket_applications"),
             FloatingField("max_user_applications"),
             FloatingField("max_global_applications"),

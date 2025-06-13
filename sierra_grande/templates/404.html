@@ -1,15 +1,14 @@
-{% extends "base.html" %}
+{% extends "oscar/error.html" %}
+{% load i18n %}
 
 {% block title %}
-  Page not found
-{% endblock title %}
-{% block content %}
-  <h1>Page not found</h1>
-  <p>
-    {% if exception %}
-      {{ exception }}
-    {% else %}
-      This is not the page you were looking for.
-    {% endif %}
-  </p>
-{% endblock content %}
+{% trans 'Page not found' %} | {{ block.super }}
+{% endblock %}
+
+{% block error_heading %}
+{% trans "Page not found!" %}
+{% endblock %}
+
+{% block error_message %}
+<p>{% trans "We're sorry but the page you are looking for can't be found." %}</p>
+{% endblock %}

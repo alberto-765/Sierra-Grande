@@ -1,16 +1,16 @@
 {% extends "oscar/dashboard/layout.html" %}
 
-{% load currency_filters %}
-{% load i18n %}
-{% load django_tables2 %}
-{% load crispy_forms_tags %}
+{% load currency_filters i18n django_tables2 crispy_forms_tags %}
+
 
 {% block body_class %}
   {{ block.super }} orders
 {% endblock body_class %}
+
 {% block title %}
   {% translate "Order statistics" %} | {{ block.super }}
 {% endblock title %}
+
 {% block breadcrumbs %}
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
@@ -24,9 +24,11 @@
     </ol>
   </nav>
 {% endblock breadcrumbs %}
+
 {% block main_header_content %}
   {{ title }}
 {% endblock main_header_content %}
+
 {% block dashboard_content %}
   <div class="card">
     <div class="card-header icon-link fw-normal">

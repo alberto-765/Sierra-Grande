@@ -27,7 +27,7 @@
 {% endblock main_header_content %}
 
 {% block dashboard_content %}
-  <form id="status_form" class="text-end" method="post">
+  <form class="hstack gap-3 justify-content-end" method="post">
     {% csrf_token %}
     {% if offer.is_suspended %}
       <button type="submit" class="btn btn-soft-success" name="unsuspend" data-loading-text="{% translate "Reinstating..." %}">

@@ -46,6 +46,7 @@
     &:hover {
         transform: translateY(calc(#{-$grid-gutter-width} / 5));
         box-shadow: $box-shadow-lg;
+        cursor: pointer;
     }
 }
 

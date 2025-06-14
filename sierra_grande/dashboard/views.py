@@ -57,57 +57,37 @@ class IndexView(TemplateView):
         """
         return Voucher.objects.filter(end_datetime__gt=now())
 
-    def get_hourly_report(self, orders, hours=24, segments=10):
+    def get_daily_report_last_week(self, orders):
         """
-        Get report of order revenue split up in hourly chunks. A report is
-        generated for the last *hours* (default=24) from the current time.
-        The report provides ``max_revenue`` of the hourly order revenue sum,
-        ``y-range`` as the labelling for the y-axis in a template and
-        ``order_total_hourly``, a list of properties for hourly chunks.
-        *segments* defines the number of labelling segments used for the y-axis
-        when generating the y-axis labels (default=10).
+        Generate a report of order revenue for the last 7 days, split by day.
+        Returns a context dictionary with daily totals for use in a column chart.
         """
-        # Get datetime for 24 hours ago
-        time_now = now().replace(minute=0, second=0)
-        start_time = time_now - timedelta(hours=hours - 1)
+        # Get current time, set to start of day
+        time_now = now().replace(hour=0, minute=0, second=0, microsecond=0)
+        start_date = time_now - timedelta(
+            days=6
+        )  # Start 6 days ago to include 7 days total
 
-        order_total_hourly = []
-        for _ in range(0, hours, 2):
-            end_time = start_time + timedelta(hours=2)
-            hourly_orders = orders.filter(
-                date_placed__gte=start_time,
-                date_placed__lt=end_time,
+        daily_totals = []
+        for i in range(7):
+            current_date = start_date + timedelta(days=i)
+            next_date = current_date + timedelta(days=1)
+            daily_orders = orders.filter(
+                date_placed__gte=current_date,
+                date_placed__lt=next_date,
             )
-            total = hourly_orders.aggregate(Sum("total_incl_tax"))[
+            total = daily_orders.aggregate(Sum("total_incl_tax"))[
                 "total_incl_tax__sum"
             ] or D("0.0")
-            order_total_hourly.append({"end_time": end_time, "total_incl_tax": total})
-            start_time = end_time
-
-        max_value = max([x["total_incl_tax"] for x in order_total_hourly])
-        divisor = 1
-        while divisor < max_value / 50:
-            divisor *= 10
-        max_value = (max_value / divisor).quantize(D("1"), rounding=ROUND_UP)
-        max_value *= divisor
-        if max_value:
-            segment_size = (max_value) / D("100.0")
-            for item in order_total_hourly:
-                item["percentage"] = int(item["total_incl_tax"] / segment_size)
-
-            y_range = []
-            y_axis_steps = max_value / D(str(segments))
-            for idx in reversed(range(segments + 1)):
-                y_range.append(idx * y_axis_steps)
-        else:
-            y_range = []
-            for item in order_total_hourly:
-                item["percentage"] = 0
+            daily_totals.append(
+                {
+                    "date": current_date.strftime("%a %d %b"),  # e.g., "Mon 14 Jun"
+                    "total_incl_tax": float(total),  # Convert to float for JavaScript
+                }
+            )
 
         ctx = {
-            "order_total_hourly": order_total_hourly,
-            "max_revenue": max_value,
-            "y_range": y_range,
+            "daily_totals": daily_totals,
         }
         return ctx
 
@@ -152,7 +132,7 @@ class IndexView(TemplateView):
                 "total_incl_tax__sum"
             ]
             or D("0.00"),
-            "hourly_report_dict": self.get_hourly_report(orders),
+            "daily_report_dict": self.get_daily_report_last_week(orders),
             "total_customers_last_day": customers.filter(
                 date_joined__gt=datetime_24hrs_ago,
             ).count(),

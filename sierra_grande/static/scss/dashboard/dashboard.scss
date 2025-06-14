@@ -1,0 +1,23 @@
+//Core files
+@import "../../libs/bootstrap/scss/functions";
+@import "../variables";
+@import "../variables-dark";
+@import "../../libs/bootstrap/scss/mixins";
+
+
+// Plugins
+@import "../plugins/custom-scrollbar";
+@import "../plugins/swiper";
+@import "../plugins/form-input-spin";
+@import "../plugins/choices";
+@import "../plugins/flatpicker";
+
+/* Add margin and padding to pages with fixed-bottom menú */
+main:has(.form-actions-fixed) {
+    margin-bottom: 5rem;
+}
+
+// Product update page
+.tab-pane--details .mb-3:last-of-type, .tab-pane--categories .row:last-of-type :is(.mb-3, .choices) {
+    margin-bottom: 0 !important;
+}

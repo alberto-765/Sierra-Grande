@@ -49,7 +49,7 @@ class ReportForm(forms.Form):
         self.helper.layout = Layout(
             Row(
                 Column(
-                    FloatingField("report_type", wrapper_class="m-0"),
+                    Field("report_type", wrapper_class="m-0"),
                     css_class="col-lg col-md-4",
                 ),
                 Column(

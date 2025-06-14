@@ -4,6 +4,13 @@
 {% load i18n %}
 {% load static %}
 
+{% block styles %}
+  {{ block.super }}
+  <link rel="stylesheet"
+              type="text/x-scss"
+              href="{% static "scss/dashboard/dashboard.scss" %}" />
+{% endblock styles %}
+
 {% block title %}
   {% translate "Dashboard" %} | {{ block.super }}
 {% endblock title %}
@@ -53,6 +60,7 @@
     {% endblock main %}
   </div>
 {% endblock layout %}
+
 {% block extrascripts %}
   {{ block.super }}
   <script src="{% static "oscar/js/oscar/dashboard.js" %}" defer></script>
@@ -60,18 +68,9 @@
   <script src="{% static 'libs/inputmask/inputmask.min.js' %}" defer></script>
   <script src="{% static "libs/simplebar/simplebar.min.js" %}" defer></script>
 {% endblock extrascripts %}
+
 {% block onbodyload %}
   {{ block.super }}
-  // This code is for show the tab or update url
-  {% comment %} var url = document.location.toString();
-  // Javascript to enable link to tab
-  if (url.match("#")) {
-  $('.bs-docs-sidenav a[href="#' + id + '"]').tab('show');
-  }
-  // Change hash for page-reload
-  $(".nav-list a").on("shown.bs.tab", function (e) {
-  window.location.hash = e.target.hash;
-  }); {% endcomment %}
   options = {
     "languageCode": "{{ LANGUAGE_CODE }}",
     "placeholderValue": "{% translate 'Select an option' %}",

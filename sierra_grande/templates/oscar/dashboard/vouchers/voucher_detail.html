@@ -2,10 +2,6 @@
 
 {% load currency_filters i18n static %}
 
-{% block extrastyles %}
-  {{ block.super }}
-  <link rel="stylesheet" type="text/x-scss" href="{% static "scss/dashboard/product.scss" %}" />
-{% endblock extrastyles %}
 
 {% block title %}
   {{ voucher }} | {% translate "Vouchers" %} | {{ block.super }}

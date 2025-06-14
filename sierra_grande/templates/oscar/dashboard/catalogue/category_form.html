@@ -2,12 +2,6 @@
 
 {% load category_tags i18n static %}
 
-
-{% block extrastyles %}
-  {{ block.super }}
-  <link rel="stylesheet" type="text/x-scss" href="{% static "scss/dashboard/product.scss" %}" />
-{% endblock extrastyles %}
-
 {% block extrahead %}
   {{ block.super }}
   {{ form.media }}

@@ -507,9 +507,9 @@ var oscar = ((o) => {
                 let counter = document.querySelectorAll(".counter-value");
                 let speed = 250; // The lower the slower
                 counter &&
-                    Array.from(counter).forEach(function (counter_value) {
+                    counter.forEach(function (counter_value) {
                         function updateCount () {
-                            let target = +counter_value.getAttribute("data-target");
+                            let target = +counter_value.dataset.target;
                             let count = +counter_value.innerText;
                             let inc = target / speed;
                             if (inc < 1) {
@@ -673,6 +673,79 @@ var oscar = ((o) => {
 
             // Update each minute
             setInterval(updateDateTime, 60000);
+        },
+        index: {
+            init: (dailyTotals, title, dataName) => {
+                debugger;
+                dailyTotals[0].total_incl_tax = 100;
+                dailyTotals[1].total_incl_tax = 100;
+                dailyTotals[2].total_incl_tax = 100;
+                dailyTotals[3].total_incl_tax = 30;
+                dailyTotals[4].total_incl_tax = 40;
+                dailyTotals[5].total_incl_tax = 40;
+                // Extract data from Django context
+                const dates = dailyTotals.map(function (item) {
+                    return item.date;
+                });
+                const totals = dailyTotals.map(function (item) {
+                    return item.total_incl_tax;
+                });
+
+                // ApexCharts configuration
+                const options = {
+                    chart: {
+                        type: 'bar',
+                        height: 350,
+                        // width: 'auto'
+                    },
+                    series: [{
+                        name: dataName,
+                        data: totals
+                    }],
+                    xaxis: {
+                        categories: dates,
+                        tooltip: {
+                            enabled: true,
+                        }
+                    },
+                    title: {
+                        text: title,
+                        align: 'center'
+                    },
+                    colors: ['#4875f0'],  // Teal color from example
+                    grid: {
+                        yaxis: {
+                            lines: { show: true }
+                        },
+                        xaxis: {
+                            lines: { show: false }
+                        }
+                    },
+                    plotOptions: {
+                        bar: {
+                            borderRadius: 4,
+                            dataLabels: {
+                                position: 'top',
+                            },
+                        },
+                    },
+                    dataLabels: {
+                        enabled: true,
+                        formatter: function (val) {
+                            return val + "%";
+                        },
+                        offsetY: -20,
+                        style: {
+                            fontSize: '12px',
+                            colors: ["#adb5bd"]
+                        }
+                    },
+                };
+
+                // Render chart
+                const chart = new ApexCharts(document.querySelector("#chart"), options);
+                chart.render();
+            }
         },
         offers: {
             init: function () {

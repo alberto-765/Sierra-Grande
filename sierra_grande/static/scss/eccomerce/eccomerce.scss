@@ -1,11 +1,15 @@
-// Base styles
-@import "base.scss";
+//Core files
+@import "../../libs/bootstrap/scss/functions";
+@import "../variables";
+@import "../variables-dark";
+@import "../../libs/bootstrap/scss/bootstrap";
+
 
 // Ecommerce scss
-@import "pages/ecommerce";
-@import "pages/extra-pages";
-@import "pages/categrory";
-@import "pages/sellers";
-@import "pages/invoice";
-@import "pages/watch";
-@import "pages/fashion";
+@import "../pages/ecommerce";
+@import "../pages/extra-pages";
+@import "../pages/categrory";
+@import "../pages/sellers";
+@import "../pages/invoice";
+@import "../pages/watch";
+@import "../pages/fashion";

@@ -2,11 +2,6 @@
 
 {% load currency_filters sorting_tags i18n %}
 
-{% block extrastyles %}
-  {{ block.super }}
-  <link rel="stylesheet" type="text/x-scss" href="{% static "scss/dashboard/product.scss" %}" />
-{% endblock extrastyles %}
-
 
 {% block title %}
   {{ voucher_set.name }} | {{ block.super }}

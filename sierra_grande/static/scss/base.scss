@@ -51,21 +51,5 @@
 @import "components/form-control";
 @import "components/list-group";
 
-// Plugins
-@import "plugins/custom-scrollbar";
-@import "plugins/dropzone";
-@import "plugins/swiper";
-@import "plugins/form-input-spin";
-@import "plugins/gridjs";
-// @import "plugins/listjs";
-// @import "plugins/apexcharts";
-// @import "plugins/google-map";
-// @import "plugins/autocomplete"; // autocomplete.js
-@import "plugins/choices";
-// @import "plugins/vector-maps";
-@import "plugins/flatpicker";
-// @import "plugins/flag-input";
-// @import "plugins/range-slider"; // Rangeslider.js library
-
-// Global styles
+// Global custom styles
 @import "custom";

@@ -1,6 +1,36 @@
 var oscar = ((o) => {
     'use strict';
 
+    o.template = {
+        initClock: () => {
+            const updateDateTime = () => {
+                const now = new Date();
+
+                // Options for date and hour
+                const clockOptions = {
+                    weekday: 'short',
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: false,
+                };
+
+                // Format according to user location
+                const formatted = now.toLocaleDateString(o.options["languageCode"], clockOptions);
+
+                document.getElementById('current-time').textContent = formatted;
+            };
+
+            // Update immidiately
+            updateDateTime();
+
+            // Update each minute
+            setInterval(updateDateTime, 60000);
+        }
+    };
+
     // Replicate Django's flash messages so they can be used by AJAX callbacks.
     o.messages = {
         addMessage: function (tag, msg) {
@@ -84,23 +114,54 @@ var oscar = ((o) => {
     o.forms = {
         init: function () {
             // Handle button loading states
-            document.querySelectorAll('[data-loading-text]').addEventListener('click', function (e) {
-                const btn = e.target;
-                const form = btn.closest('form');
+            document.querySelectorAll('form:has([data-loading-text])').forEach((form) => {
+                form.querySelectorAll('[data-loading-text]').forEach(btn => {
+                    btn.addEventListener('click', () => {
 
-                if (!form || form.checkValidity()) {
-                    // Use requestAnimationFrame to delay disabling until after form submission begins
-                    requestAnimationFrame(function () {
-                        const loadingText = btn.getAttribute('data-loading-text');
-                        if (btn.tagName === 'INPUT') {
-                            btn.value = loadingText;
-                        } else {
-                            btn.textContent = loadingText;
+                        // Use requestAnimationFrame to delay disabling until after form submission begins
+                        if (!form || form.checkValidity()) {
+                            requestAnimationFrame(() => {
+                                const loadingText = btn.dataset.loadingText;
+                                if (btn.tagName === 'INPUT') {
+                                    btn.value = loadingText;
+                                } else {
+                                    btn.classList.remove('btn-label', 'right', 'left');
+                                    btn.classList.add('icon-link');
+                                    btn.innerHTML = `
+                                    <div class="spinner-border spinner-border-sm" role="status">
+                                        <span class="visually-hidden">${ loadingText }</span>
+                                    </div>
+                                    ${ loadingText }`;
+                                }
+                                btn.classList.add('disabled');
+                                btn.disabled = true;
+                            });
                         }
-                        btn.classList.add('disabled');
-                        btn.setAttribute('disabled', 'disabled');
                     });
-                }
+                });
+
+                form.querySelectorAll('.tab-pane input').forEach(input => {
+                    input.addEventListener('invalid', (e) => {
+                        const invalidInput = form.querySelector('input:invalid');
+
+                        // Show tab with errors if form is invalid
+                        if (input == invalidInput) {
+                            const tabPane = input.closest('.tab-pane');
+                            if (tabPane) {
+                                if (tabPane.id) {
+                                    // We need a vanilla JS replacement for Bootstrap's tab 'show' method
+                                    const tabLink = form.querySelector(`.nav-link:is([data-bs-target="#${ tabPane.id }"], [href="#${ tabPane.id }"])`);
+                                    if (tabLink) {
+                                        tabLink.click();
+                                    }
+                                }
+                            }
+                        } else {
+                            e.preventDefault();
+                            e.stopPropagation();
+                        }
+                    });
+                });
             });
 
             // Add href to url for tab display
@@ -308,8 +369,17 @@ var oscar = ((o) => {
         }
     };
 
-    o.init = function () {
+
+
+    o.init = function (options) {
+        // Run initialisation that should take place on every page of the dashboard.
+        const defaults = {
+
+        };
+        o.options = Object.assign({}, defaults, options);
+
         o.forms.init();
+        o.template.initClock();
     };
 
     return o;

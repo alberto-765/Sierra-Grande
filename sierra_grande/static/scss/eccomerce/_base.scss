@@ -2,7 +2,13 @@
 // _ecommerce.scss
 //
 
-//ecommerce landing page
+// Variables
+$nav-bar-height: 70px;
+
+main {
+    margin-top: calc(#{$nav-bar-height} + #{$top-tagbar-height});
+}
+
 
 #ecommerceHero {
 
@@ -213,8 +219,8 @@
             position: relative;
         }
 
-        input[type="radio"]:checked+label,
-        input[type="checkbox"]:checked+label {
+        input[type="radio"]:checked + label,
+        input[type="checkbox"]:checked + label {
             &::after {
                 content: "\f33e";
                 font-family: Phosphor;
@@ -246,8 +252,8 @@
             position: relative;
         }
 
-        input[type="radio"]:checked+label,
-        input[type="checkbox"]:checked+label {
+        input[type="radio"]:checked + label,
+        input[type="checkbox"]:checked + label {
             border-color: var(--#{$prefix}border-color);
             background-color: $primary;
             color: $white;

@@ -5,25 +5,7 @@
   <div class="layout-width">
     <div class="navbar-header">
       <div class="d-flex">
-        <!-- LOGO -->
-        <div class="navbar-brand-box horizontal-logo">
-          <a href="index.html" class="logo logo-dark">
-            <span class="logo-sm">
-              <img src={% static "img/logo-sm.png" %} alt="" height="22" />
-            </span>
-            <span class="logo-lg">
-              <img src={% static "img/logo-dark.png" %} alt="" height="25" />
-            </span>
-          </a>
-          <a href="index.html" class="logo logo-light">
-            <span class="logo-sm">
-              <img src={% static "img/logo-sm.png" %} alt="" height="22" />
-            </span>
-            <span class="logo-lg">
-              <img src={% static "img/logo-light.png" %} alt="" height="25" />
-            </span>
-          </a>
-        </div>
+        {% comment %} {% include "oscar/dashboard/partials/brand.html" with horizontal=True %} {% endcomment %}
         <button type="button"
                 class="btn btn-sm px-3 fs-16 header-item vertical-menu-btn topnav-hamburger"
                 id="topnav-hamburger-icon">
@@ -35,16 +17,6 @@
         </button>
       </div>
       <div class="d-flex align-items-center">
-        <div class="d-md-none topbar-head-dropdown header-item">
-          <button type="button"
-                  class="btn btn-icon btn-topbar btn-ghost-dark rounded-circle"
-                  id="page-header-search-dropdown"
-                  data-bs-toggle="modal"
-                  data-bs-target="#
-                  ">
-            <iconify-icon icon="bi:search" class="fs-16"></iconify-icon>
-          </button>
-        </div>
         <div class="ms-1 header-item d-none d-sm-flex">
           <button type="button"
                   class="btn btn-icon btn-topbar btn-ghost-dark rounded-circle"
@@ -52,44 +24,8 @@
             <iconify-icon icon="bi:arrows-fullscreen" class="fs-20"></iconify-icon>
           </button>
         </div>
-        <div class="dropdown topbar-head-dropdown ms-2 header-item dropdown-hover-end">
-          <button class="btn btn-icon btn-topbar btn-ghost-dark rounded-circle"
-                  id="bd-theme"
-                  type="button"
-                  aria-expanded="false"
-                  data-bs-toggle="dropdown"
-                  aria-label="{% translate "Change site theme to light, dark or auto" %}">
-            <iconify-icon icon="" class="theme-icon-active fs-23"></iconify-icon>
-          </button>
-          <div class="dropdown-menu dropdown-menu-end"
-               aria-labelledby="bd-theme-text">
-            <button type="button"
-                    class="dropdown-item d-flex align-items-center column-gap-3"
-                    data-bs-theme-value="light"
-                    aria-pressed="false">
-              <iconify-icon icon="line-md:sunny-outline" width="1rem" height="1rem" aria-hidden="true" class="btn__icon"></iconify-icon>
-              {% translate "Light" %}
-              <iconify-icon icon="system-uicons:check" width="1rem" height="1rem" class="ms-auto d-none btn__check" aria-hidden="true"></iconify-icon>
-            </button>
-            <button type="button"
-                    class="dropdown-item d-flex align-items-center column-gap-3"
-                    data-bs-theme-value="dark"
-                    aria-pressed="false">
-              <iconify-icon icon="line-md:moon-filled" width="1rem" height="1rem" aria-hidden="true" class="btn__icon"></iconify-icon>
-              {% translate "Dark" %}
-              <iconify-icon icon="system-uicons:check" width="1rem" height="1rem" class="ms-auto d-none btn__check" aria-hidden="true"></iconify-icon>
-            </button>
-            <button type="button"
-                    class="dropdown-item d-flex align-items-center column-gap-3"
-                    data-bs-theme-value="auto"
-                    aria-pressed="true">
-              <iconify-icon icon="line-md:light-dark" width="1rem" height="1rem" aria-hidden="true" class="btn__icon"></iconify-icon>
-              {% translate "Auto" %}
-              <iconify-icon icon="system-uicons:check" width="1rem" height="1rem" class="ms-auto d-none btn__check" aria-hidden="true"></iconify-icon>
-            </button>
-          </div>
-        </div>
-        <div class="dropdown ms-sm-3 header-item topbar-user topbar-head-dropdown dropdown-hover-end">
+        {% include "oscar/partials/color_mode.html" %}
+        <div class="dropdown ms-sm-2 header-item topbar-user topbar-head-dropdown dropdown-hover-end">
           <button type="button"
                   class="btn"
                   id="page-header-user-dropdown"

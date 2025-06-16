@@ -9,7 +9,10 @@
   <head>
     <title>
       {% block title %}
-        {{ shop_name }} - {{ shop_tagline }}
+        {{ shop_name }} 
+        {% if shop_tagline %}
+          - {{ shop_tagline }} 
+        {% endif %}
       {% endblock title %}
     </title>
     <meta name="keywords"

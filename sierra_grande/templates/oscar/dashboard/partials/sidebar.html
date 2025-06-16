@@ -6,27 +6,10 @@
   {% dashboard_navigation user as nav_items %}
   <!-- Left Sidebar Start app-menu navbar-menu-->
   <aside class="app-menu navbar-menu">
-    <!-- LOGO -->
-    <div class="navbar-brand-box">
-      <a href={% url "dashboard:index" %} class="logo logo-dark">
-        <span class="logo-sm">
-          <img src={% static "img/logo-sm.png" %} alt="" height="26" />
-        </span>
-        <span class="logo-lg">
-          <img src={% static "img/logo-dark.png" %} alt="" height="26" />
-        </span>
-      </a>
-      <a href={% url "dashboard:index" %} class="logo logo-light">
-        <span class="logo-sm">
-          <img src={% static "img/logo-sm.png" %} alt="" height="24" />
-        </span>
-        <span class="logo-lg">
-          <img src={% static "img/logo-light.png" %} alt="" height="24" />
-        </span>
-      </a>
-    </div>
     <div id="scrollbar" >
       <div class="container-fluid">
+        {% include "oscar/dashboard/partials/brand.html" %}
+
         <ul class="navbar-nav" id="navbar-nav">
           <li class="menu-title">
             <span>{% translate "Menu" %}</span>

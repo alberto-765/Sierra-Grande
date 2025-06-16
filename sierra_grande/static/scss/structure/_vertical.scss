@@ -111,14 +111,6 @@
                     }
                 }
             }
-
-            &.collapsed {
-                &.active {
-                    &::after {
-                        // transform: rotate(90deg);
-                    }
-                }
-            }
         }
 
         .nav-sm {
@@ -163,13 +155,8 @@
 }
 
 .navbar-brand-box {
-    text-align: center;
     padding: 0 1.3rem;
     transition: all .1s ease-out;
-
-    @media (max-width: 767.98px) {
-        display: none;
-    }
 }
 
 .hamburger-icon {
@@ -251,7 +238,7 @@
 }
 
 .logo {
-    line-height: $header-height;
+    height: $header-height;
 
     .logo-sm {
         display: none;
@@ -283,12 +270,6 @@
         }
     }
 
-    .navbar-brand-box {
-        @media (max-width: 767.98px) {
-            display: none;
-        }
-    }
-
     .horizontal-logo {
         display: none;
     }
@@ -308,11 +289,10 @@
         }
 
         .logo {
-            span.logo-lg {
+            h4.logo-lg {
                 display: none;
             }
-
-            span.logo-sm {
+            h4.logo-sm {
                 display: inline-block;
             }
         }

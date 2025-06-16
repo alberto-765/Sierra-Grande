@@ -1,10 +1,52 @@
-{% extends "oscar/layout.html" %}
-{% load static %}
+{% extends "oscar/base.html" %}
+{% load static i18n %}
 
+
+{% block styles %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/x-scss" href="{% static "scss/eccomerce/eccomerce.scss" %}" />
+{% endblock styles %}
+
+
+{% block layout %}
+    {% block top_tagbar %}
+        {% include "oscar/partials/top_tagbar.html" %}
+    {% endblock top_tagbar %}
+    {% block header %}
+        {% include "oscar/partials/header.html" %}
+    {% endblock header %}
+    {% block main %}
+        <main class="container-fluid">
+            {% block content_header %}
+            {% endblock content_header %}
+
+            {% include "oscar/partials/alert_messages.html" %}
+
+            {% block content %}
+            {% endblock content %}
+        </main>
+    {% endblock main %}
+    {% include "oscar/partials/footer.html" %}
+{% endblock layout %}
 
 {% block scripts %}
-    {{ block.super }}
-
-    <!-- Oscar -->
-    <script src="{% static "oscar/js/oscar/ui.js" %}" defer ></script>
+  {{ block.super }}
+  <script src="{% static "oscar/js/oscar/ui.js" %}" defer ></script>
 {% endblock scripts %}
+
+{% block extrascripts %}
+  {{ block.super }}
+  <script src="{% static "libs/simplebar/simplebar.min.js" %}" defer></script>
+{% endblock extrascripts %}
+
+{% block onbodyload %}
+  {{ block.super }}
+  const options = {
+    "languageCode": "{{ LANGUAGE_CODE }}",
+    "placeholderValue": "{% translate "Select an option" %}",
+    "noResultsText": "{% translate "No results found" %}",
+    "noChoicesText": "{% translate "No options available" %}",
+  };
+  oscar.init(options);
+{% endblock onbodyload %}
+

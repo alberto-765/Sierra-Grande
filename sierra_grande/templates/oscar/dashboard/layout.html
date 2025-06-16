@@ -17,7 +17,7 @@
 {% block layout %}
   <div class="layout-wrapper">
     {% block top_tagbar %}
-      {% include "oscar/dashboard/partials/top_tagbar.html" %}
+      {% include "oscar/partials/top_tagbar.html" %}
     {% endblock top_tagbar %}
     {% block topbar %}
       {% include "oscar/dashboard/partials/topbar.html" %}
@@ -61,17 +61,21 @@
   </div>
 {% endblock layout %}
 
-{% block extrascripts %}
+{% block scripts %}
   {{ block.super }}
   <script src="{% static "oscar/js/oscar/dashboard.js" %}" defer></script>
   <script src="{% static "oscar/js/oscar/RelatedObjectLookups.js" %}" defer></script>
+{% endblock scripts %}
+
+{% block extrascripts %}
+  {{ block.super }}
   <script src="{% static 'libs/inputmask/inputmask.min.js' %}" defer></script>
   <script src="{% static "libs/simplebar/simplebar.min.js" %}" defer></script>
 {% endblock extrascripts %}
 
 {% block onbodyload %}
   {{ block.super }}
-  options = {
+  const options = {
     "languageCode": "{{ LANGUAGE_CODE }}",
     "placeholderValue": "{% translate 'Select an option' %}",
     "noResultsText": "{% translate 'No results found' %}",

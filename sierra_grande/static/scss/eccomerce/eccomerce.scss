@@ -2,14 +2,13 @@
 @import "../../libs/bootstrap/scss/functions";
 @import "../variables";
 @import "../variables-dark";
-@import "../../libs/bootstrap/scss/bootstrap";
+// @import "../../libs/bootstrap/scss/bootstrap";
 
+// Base styles
+@import "base";
 
-// Ecommerce scss
-@import "../pages/ecommerce";
-@import "../pages/extra-pages";
-@import "../pages/categrory";
-@import "../pages/sellers";
-@import "../pages/invoice";
-@import "../pages/watch";
-@import "../pages/fashion";
+// Structure
+@import "../structure/landing-menu";
+
+// Plugins
+@import "../plugins/custom-scrollbar";

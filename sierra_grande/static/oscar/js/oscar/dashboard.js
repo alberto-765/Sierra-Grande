@@ -332,8 +332,6 @@ var oscar = ((o) => {
         initTemplate: () => {
             let horizontalMenuSplit = 5; // after this number all horizontal menus will be moved in More menu options
 
-
-
             function initLeftMenuCollapse () {
                 /**
                  * Vertical layout menu scroll add

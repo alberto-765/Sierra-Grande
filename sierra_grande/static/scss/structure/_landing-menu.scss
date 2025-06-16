@@ -3,7 +3,7 @@
 //
 
 .ecommerce-navbar {
-    height: 70px;
+    height: $nav-bar-height;
     transition: all 0.5s ease;
     background-color: var(--#{$prefix}secondary-bg);
     position: fixed;
@@ -11,16 +11,18 @@
     right: 0;
     top: 34px;
     z-index: 1000;
-    padding: 0;
-
+    .navbar {
+        padding: 0;
+    }
     .navbar-nav {
+
         .nav-item {
             .nav-link {
                 color: #637790;
                 font-size: 15px;
                 font-weight: 500;
                 padding: 0px 14px;
-                height: 70px;
+                height: $nav-bar-height;
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -110,7 +112,7 @@
 @media (min-width:992px) {
     .dropdown-hover {
         &:hover {
-            >.dropdown-menu {
+            > .dropdown-menu {
                 display: block;
             }
 
@@ -125,7 +127,7 @@
 
     .dropdown-hover-end {
         &:hover {
-            >.dropdown-menu {
+            > .dropdown-menu {
                 display: block;
                 top: 70px !important;
                 right: 0;
@@ -188,7 +190,7 @@
     z-index: 9;
 }
 
-.navbar-collapse:not(.show)+.navbar-overlay {
+.navbar-collapse:not(.show) + .navbar-overlay {
     display: none;
 }
 

@@ -258,6 +258,7 @@ TEMPLATES = [
                 "django.template.context_processors.tz",
                 "django.contrib.messages.context_processors.messages",
                 "sierra_grande.users.context_processors.allauth_settings",
+                "sierra_grande.core.context_processors.contact",
                 "oscar.apps.search.context_processors.search_form",
                 "oscar.apps.checkout.context_processors.checkout",
                 "oscar.apps.communication.notifications.context_processors.notifications",
@@ -693,3 +694,9 @@ TINYMCE_DEFAULT_CONFIG = {
     "spellchecker_language": "es",
     "onboarding": False,
 }
+
+
+# Contact
+# ------------------------------------------------------------------------------
+CONTACT_EMAILS = ["support@example.com"]
+CONTACT_PHONE_NUMBERS = ["+1-234-567-8901", "+34657863548"]

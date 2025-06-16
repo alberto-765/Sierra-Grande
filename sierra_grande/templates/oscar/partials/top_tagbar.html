@@ -11,14 +11,38 @@
       </div>
       <div class="col d-none d-md-block">
         <div class="d-flex align-items-center justify-content-center gap-3 fs-14 fw-medium">
-          <div class="hstack column-gap-2">
-            <iconify-icon icon="bi:envelope" aria-hidden="true" width="1rem" height="1rem"></iconify-icon>
-            support@themesbrand.com
-          </div>
-          <div class="hstack column-gap-2">
-            <iconify-icon icon="bi:globe" aria-hidden="true" width="1rem" height="1rem"></iconify-icon>
-            www.themesbrand.com
-          </div>
+          {% if contact_email %}
+            <div class="icon-link">
+              <iconify-icon icon="bi:envelope" aria-hidden="true" width="1rem" height="1rem"></iconify-icon>
+
+              <span>
+                {% for email in contact_email %}
+                  <a class="link-dark" href="mailto:{{email}}">
+                      {{email}}
+                  </a>
+                  {% if not forloop.last %}
+                    /
+                  {% endif %}
+                {% endfor %}
+              </span>
+            </div>
+          {% endif %}
+
+          {% if contact_phone_numbers %}
+            <div class="icon-link">
+              <iconify-icon icon="prime:phone" aria-hidden="true" width="1rem" height="1rem"></iconify-icon>
+              <span>
+                {% for phone in contact_phone_numbers %}
+                  <a class="link-dark" href="tel:{{phone}}">
+                      {{phone}}
+                  </a>
+                  {% if not forloop.last %}
+                    /
+                  {% endif %}
+                {% endfor %}
+              </span>
+            </div>
+          {% endif %}
         </div>
       </div>
       <div class="col-auto">

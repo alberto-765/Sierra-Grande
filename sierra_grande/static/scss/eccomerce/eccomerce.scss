@@ -4,11 +4,9 @@
 @import "../variables-dark";
 // @import "../../libs/bootstrap/scss/bootstrap";
 
-// Base styles
-@import "base";
-
-// Structure
-@import "../structure/landing-menu";
+// Template styles
+@import "custom";
+@import "template";
 
 // Plugins
 @import "../plugins/custom-scrollbar";

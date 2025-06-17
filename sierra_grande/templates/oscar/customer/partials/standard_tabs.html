@@ -1,0 +1,26 @@
+{% load i18n %}
+{% load display_tags %}
+
+<li class="nav-item">
+    <a href="{% url 'customer:profile-view' %}" class="nav-link{% if active_tab == 'profile' %} active{% endif %}">{% translate "Profile" %}</a>
+</li>
+<li class="nav-item">
+    <a href="{% url 'customer:order-list' %}" class="nav-link{% if active_tab == 'orders' %} active{% endif %}">{% translate "Order History" %}</a>
+</li>
+<li class="nav-item">
+    <a href="{% url 'customer:address-list' %}" class="nav-link{% if active_tab == 'addresses' %} active{% endif %}">{% translate "Address Book" %}</a>
+</li>
+<li class="nav-item">
+    <a href="{% url 'customer:email-list' %}" class="nav-link{% if active_tab == 'emails' %} active{% endif %}">{% translate "Email History" %}</a>
+</li>
+<li class="nav-item">
+    <a href="{% url 'customer:alerts-list' %}" class="nav-link{% if active_tab == 'alerts' %} active{% endif %}">{% translate "Product Alerts" %}</a>
+</li>
+<li class="nav-item">
+    <a href="{% url 'customer:notifications-inbox' %}" class="nav-link{% if active_tab == 'notifications' %} active{% endif %}">{% translate "Notifications" %}</a>
+</li>
+{% iffeature 'wishlists' %}
+    <li class="nav-item">
+        <a href="{% url 'customer:wishlists-list' %}" class="nav-link{% if active_tab == 'wishlists' %} active{% endif %}">{% translate "Wish Lists" %}</a>
+    </li>
+{% endiffeature %}

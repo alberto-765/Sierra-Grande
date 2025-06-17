@@ -46,6 +46,8 @@
     <a href="{% url "customer:wishlists-create" %}" class="btn btn-primary">{% translate "Create a new wish list" %}</a>
   </p>
 {% endblock tabcontent %}
+
+
 {% block onbodyload %}
   {{ block.super }}
   oscar.customer.wishlists.init();

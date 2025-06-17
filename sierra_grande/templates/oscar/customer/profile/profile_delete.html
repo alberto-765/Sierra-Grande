@@ -1,0 +1,21 @@
+{% extends "oscar/customer/baseaccountpage.html" %}
+{% load i18n %}
+
+{% block tabcontent %}
+    <p>{% translate "Please confirm your password to delete your profile." %}</p>
+    <form id="delete_profile_form" method="post">
+        {% csrf_token %}
+        {% include "oscar/partials/form_fields.html" with style='horizontal' %}
+        <div class="alert alert-warning">
+            <h3>{% translate "Warning" %}</h3>
+            {% blocktranslate %}
+                This will delete all information about you from the site.  Deleting your profile cannot be
+                undone.
+            {% endblocktranslate %}
+        </div>
+        <div class="form-group">
+            <button class="btn btn-lg btn-danger" type="submit" data-loading-text="{% translate 'Deleting...' %}">{% translate "Delete" %}</button>
+            {% translate "or" %} <a href="{% url "customer:profile-view" %}">{% translate "cancel" %}</a>.
+        </div>
+    </form>
+{% endblock tabcontent %}

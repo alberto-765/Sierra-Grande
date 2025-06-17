@@ -1,10 +1,10 @@
 {% load i18n %}
 
-{% blocktrans with name=range.name %}
+{% blocktranslate with name=range.name %}
     <div>Range <strong>{{ name }}</strong> saved.</div>
-{% endblocktrans %}
+{% endblocktranslate %}
 
 <div>
-    <a href="{% url 'dashboard:range-update' pk=range.pk %}" class="btn btn-success btn-sm">{% trans "Edit again" %}</a>
-    <a href="{% url 'dashboard:range-products' pk=range.pk %}" class="btn btn-success btn-sm">{% trans "Edit included products" %}</a>
+    <a href="{% url 'dashboard:range-update' pk=range.pk %}" class="btn btn-success btn-sm">{% translate "Edit again" %}</a>
+    <a href="{% url 'dashboard:range-products' pk=range.pk %}" class="btn btn-success btn-sm">{% translate "Edit included products" %}</a>
 </div>

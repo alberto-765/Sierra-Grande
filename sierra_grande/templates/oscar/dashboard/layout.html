@@ -4,6 +4,10 @@
 {% load i18n %}
 {% load static %}
 
+{% block html_attributes %}
+  data-sidebar-size="lg" data-preloader="disable" data-layout="vertical"
+{% endblock html_attributes %}
+
 {% block styles %}
   {{ block.super }}
   <link rel="stylesheet"

@@ -10,6 +10,7 @@
     <a href="{% url 'customer:order-list' %}">{% translate "Order history" %}</a>
   </li>
 {% endblock extra_breadcrumbs %}
+
 {% block tabcontent %}
   {% if order.status %}
     <h2 class="mb-0">{% translate "Status" %}</h2>

@@ -2,7 +2,7 @@
 {% load i18n %}
 
 {% block title %}
-    {% blocktrans with name=method.name %}Delete shipping method '{{ name }}'?{% endblocktrans %} | {% translate "Shipping methods" %} | {{ block.super }}
+    {% blocktranslate with name=method.name %}Delete shipping method '{{ name }}'?{% endblocktranslate %} | {% translate "Shipping methods" %} | {{ block.super }}
 {% endblock title%}
 
 {% block breadcrumbs %}

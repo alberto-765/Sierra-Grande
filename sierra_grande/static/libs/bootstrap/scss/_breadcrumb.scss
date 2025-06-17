@@ -33,7 +33,7 @@
     &::after {
       width: .9rem;
       height: .9rem;
-      background-color: currentColor;
+      background-color: var(--#{$prefix}breadcrumb-divider-color);
       -webkit-mask-image: var(--#{$prefix}breadcrumb-divider, escape-svg($breadcrumb-divider)) #{"/* rtl:"} var(--#{$prefix}breadcrumb-divider, escape-svg($breadcrumb-divider-flipped)) #{"*/"};
       mask-image: var(--#{$prefix}breadcrumb-divider, escape-svg($breadcrumb-divider)) #{"/* rtl:"} var(--#{$prefix}breadcrumb-divider, escape-svg($breadcrumb-divider-flipped)) #{"*/"};
       -webkit-mask-repeat: no-repeat;

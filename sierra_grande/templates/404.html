@@ -2,13 +2,13 @@
 {% load i18n %}
 
 {% block title %}
-{% trans 'Page not found' %} | {{ block.super }}
+{% translate 'Page not found' %} | {{ block.super }}
 {% endblock %}
 
 {% block error_heading %}
-{% trans "Page not found!" %}
+{% translate "Page not found!" %}
 {% endblock %}
 
 {% block error_message %}
-<p>{% trans "We're sorry but the page you are looking for can't be found." %}</p>
+<p>{% translate "We're sorry but the page you are looking for can't be found." %}</p>
 {% endblock %}

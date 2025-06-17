@@ -4,9 +4,9 @@
 {% load i18n %}
 {% load widget_tweaks %}
 
-{% block breadcrumbs %}
+{% block content_header_breadcrumb %}
   <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
+    <ol class="breadcrumb breadcrumb-light">
       <li class="breadcrumb-item">
         <a href="{{ homepage_url }}">{% translate "Home" %}</a>
       </li>
@@ -19,7 +19,9 @@
       <li class="breadcrumb-item active" aria-current="page">{{ wishlist.name }}</li>
     </ol>
   </nav>
-{% endblock breadcrumbs %}
+{% endblock content_header_breadcrumb %}
+
+
 {% block tabcontent %}
   {% if form.total_form_count %}
     <form method="post">

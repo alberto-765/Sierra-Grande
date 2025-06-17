@@ -1,0 +1,45 @@
+{% extends "oscar/layout.html" %}
+{% load i18n %}
+
+{% block title %}
+    {% translate 'Login or register' %} | {{ block.super }}
+{% endblock title%}
+
+{% block content_header_title_content %}
+    {{ page_title }}
+{% endblock content_header_title_content %}
+
+{% block content_header_breadcrumb %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb breadcrumb-light">
+            <li class="breadcrumb-item">
+                <a href="{{ homepage_url }}">{% translate 'Home' %}</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">{% translate 'Login or register' %}</li>
+        </ol>
+    </nav>
+{% endblock content_header_breadcrumb %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-sm-6 login_form">
+            <form id="login_form" action="{{ request.get_full_path }}" method="post" class="card card-body bg-light" >
+                <h2>{% translate 'Log In' %}</h2>
+                {% csrf_token %}
+                {% include "oscar/partials/form_fields.html" with form=login_form %}
+                <p><a href="{% url 'password-reset' %}">{% translate "I've forgotten my password" %}</a></p>
+                <button name="login_submit" type="submit" value="Log In" class="btn btn-lg btn-primary" data-loading-text="{% translate "Logging in..." %}">{% translate 'Log In' %}</button>
+            </form>
+        </div>
+        <div class="col-sm-6 register_form">
+            <form id="register_form" action="{{ request.get_full_path }}" method="post" class="card card-body bg-light">
+                <h2>{% translate 'Register' %}</h2>
+                {% csrf_token %}
+                {% include "oscar/partials/form_fields.html" with form=registration_form %}
+                <button name="registration_submit" type="submit" value="Register" class="btn btn-lg btn-primary" data-loading-text="{% translate 'Registering...' %}">{% translate 'Register' %}</button>
+            </form>
+        </div>
+    </div>
+
+{% endblock content %}

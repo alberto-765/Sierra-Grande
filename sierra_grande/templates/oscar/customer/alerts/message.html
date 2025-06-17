@@ -1,0 +1,4 @@
+{% load i18n %}
+{% blocktranslate with url=alert.product.get_absolute_url title=alert.product.get_title %}
+<a href="{{ url }}">{{ title }}</a> is back in stock
+{% endblocktranslate %}

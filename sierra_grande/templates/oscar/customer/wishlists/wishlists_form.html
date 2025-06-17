@@ -1,0 +1,58 @@
+{% extends "oscar/customer/baseaccountpage.html" %}
+{% load i18n %}
+
+{% block content_header_breadcrumb %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb breadcrumb-light">
+            <li class="breadcrumb-item">
+                <a href="{{ homepage_url }}">{% translate 'Home' %}</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{% url 'customer:summary' %}">{% translate 'Account' %}</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{% url 'customer:wishlists-list' %}">{% translate 'Wish Lists' %}</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                {% if wishlist %}
+                    {{ wishlist.name }}
+                {% else %}
+                    {% translate "Create" %}
+                {% endif %}
+            </li>
+        </ol>
+    </nav>
+{% endblock content_header_breadcrumb %}
+
+{% block tabcontent %}
+    <form method="post" data-behaviours="lock">
+        {% csrf_token %}
+        {{ shared_emails_formset.management_form }}
+
+        {% if not wishlist %}
+            <p>{% translate "What should your new wish list be called?" %}</p>
+        {% endif %}
+        {% include "oscar/partials/form_fields.html" %}
+        {% if product %}
+            <p>
+                {% blocktranslate with title=product.get_title %}
+                    After your wishlist is created, <strong>{{ title }}</strong> will be added.
+                {% endblocktranslate %}
+            </p>
+        {% endif %}
+
+        <div class="wishlist-shared-emails mt-5">
+            <h3>{% translate "Share wishlist" %}</h3>
+            <small>
+                {% translate "If you want to share your wishlist with others, you can add their email addresses below. The visibility must be set to shared in order for this to work." %}
+            </small>
+            {% for form in shared_emails_formset %}
+                {% include "oscar/partials/form_fields.html" with form=form %}
+            {% endfor %}
+        </div>
+        <div class="form-group">
+            <button class="btn btn-lg btn-primary" type="submit" data-loading-text="{% translate 'Saving...' %}">{% translate "Save" %}</button>
+            {% translate "or" %} <a href="#" onclick="history.go(-1);return false" >{% translate "cancel" %}</a>.
+        </div>
+    </form>
+{% endblock tabcontent %}

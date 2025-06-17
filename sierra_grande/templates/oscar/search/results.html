@@ -76,7 +76,8 @@
     </section>
   {% endif %}
 {% endblock %}
-{% block onbodyload %}
+
+{% block extrascripts %}
   {{ block.super }}
-  oscar.search.init();
-{% endblock %}
+  <script src="{% static "js/eccomerce/search.js" %}" defer></script>
+{% endblock extrascripts %}

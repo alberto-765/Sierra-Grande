@@ -5,7 +5,8 @@
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE|default:"es" }}"
       class="{% block html_class %}{% endblock html_class %}" 
-      data-sidebar-size="lg" data-preloader="disable" data-layout="vertical" >
+      {% block html_attributes %}{% endblock html_attributes %}
+>
   <head>
     <title>
       {% block title %}
@@ -21,7 +22,7 @@
     <meta name="created" content="{% now "jS M Y h:i" %}" />
     <meta name="created" content="{% now "jS M Y h:i" %}" />
     <meta name="description"
-          content="{% block description %} {% trans "E-Commerce/Online Shop of the business Sierra Grande of Hornachos, high quality iberian pig meat at the best price" %}{% endblock description %}" />
+          content="{% block description %} {% translate "E-Commerce/Online Shop of the business Sierra Grande of Hornachos, high quality iberian pig meat at the best price" %}{% endblock description %}" />
     <meta content="Sierra Grande de Hornachos S.L" name="author" />
     <meta name="viewport"
           content="{% block viewport %}width=device-width{% endblock viewport %}" />

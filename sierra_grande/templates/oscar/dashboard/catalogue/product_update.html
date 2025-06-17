@@ -142,7 +142,7 @@
                   <div class="tab-pane fade show active" id="product_details" role="tabpanel" aria-labelledby="product_details_tab">
                     <div>
                       <h5>{% translate "Product details" %}</h5>
-                      <p class="text-muted">{% translate 'Fill all fields with *' %}</p>
+                      <p class="text-body-secondary">{% translate 'Fill all fields with *' %}</p>
                     </div>
                     <div class="tab-pane--details">
                       {% block product_details_content %}
@@ -163,7 +163,7 @@
                     {% block product_categories_content %}
                       <div>
                         <h5>{% translate "Category" %}</h5>
-                        <p class="text-muted">{% translate 'Fill all fields with *' %}</p>
+                        <p class="text-body-secondary">{% translate 'Fill all fields with *' %}</p>
                       </div>
                     <div class="tab-pane--categories">
                       {{ category_formset.management_form }}
@@ -187,7 +187,7 @@
                           {% translate "Attributes" %}
                           <span class="badge text-bg-success">{% translate "Product Type:" %} {{ product_class }}</span>
                         </h5>
-                        <p class="text-muted">{% translate 'Fill all fields with *' %}</p>
+                        <p class="text-body-secondary">{% translate 'Fill all fields with *' %}</p>
                       </div>
                       <div class="tab-pane--details">
                         {% block product_attributes_content %}
@@ -201,7 +201,7 @@
                   <div class="tab-pane fade" id="product_images" role="tabpanel" aria-labelledby="product_images_tab">
                     <div>
                         <h5>{% translate "Upload, change or remove images" %}</h5>
-                        <p class="text-muted">{% translate 'Use WebP images for better performance' %}</p>
+                        <p class="text-body-secondary">{% translate 'Use WebP images for better performance' %}</p>
                     </div>
                     <div>
                       {% block product_images_content %}
@@ -232,7 +232,7 @@
                     {% block stockrecords_content %}
                       <div>
                           <h5>{% translate "Stock and pricing" %}</h5>
-                          <p class="text-muted">{% translate 'Fill all fields with *' %}</p>
+                          <p class="text-body-secondary">{% translate 'Fill all fields with *' %}</p>
                       </div>
                       <div class="table-responsive-xl">
                         {% if stockrecord_formset.non_form_errors %}
@@ -373,7 +373,7 @@
                     {% block recommended_products_content %}
                       <div>
                           <h5>{% translate "Recommended products" %}</h5>
-                          <p class="text-muted">{% translate 'Fill all fields with *' %}</p>
+                          <p class="text-body-secondary">{% translate 'Fill all fields with *' %}</p>
                       </div>
                       <div class="tab-pane--categories vstack row-gap-1">
                         {{ recommended_formset.management_form }}
@@ -393,7 +393,7 @@
                   <div class="tab-pane fade" id="seo" role="tabpanel" aria-labelledby="seo_tab">
                      <div>
                         <h5>{% translate "Search engine optimisation" %}</h5>
-                        <p class="text-muted">{% translate 'Fill all fields with *' %}</p>
+                        <p class="text-body-secondary">{% translate 'Fill all fields with *' %}</p>
                     </div>
                     <div class="tab-pane--details">
                       {% for field in form.seo_form_fields %}

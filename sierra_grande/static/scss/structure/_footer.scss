@@ -50,6 +50,7 @@
 // Foooter Landing
 .footer-landing {
     border-top: 1px solid var(--#{$prefix}border-color-translucent);
+    padding-top: 80px;
 
     .footer-desc {
         color: rgba(var(--#{$prefix}secondary-color-rgb), 0.8);

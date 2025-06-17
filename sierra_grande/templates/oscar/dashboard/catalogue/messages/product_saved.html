@@ -7,36 +7,36 @@
 
         {% if creating %}
             {% if product.title %}
-                {% blocktrans %}
+                {% blocktranslate %}
                     Created product variant "{{ name }}".
-                {% endblocktrans %}
+                {% endblocktranslate %}
             {% else %}
-                {% blocktrans %}
+                {% blocktranslate %}
                     Created variant of "{{ parent_name }}".
-                {% endblocktrans %}
+                {% endblocktranslate %}
             {% endif %}
         {% else %}
             {% if product.title %}
-                {% blocktrans %}
+                {% blocktranslate %}
                     Updated product variant "{{ name }}".
-                {% endblocktrans %}
+                {% endblocktranslate %}
             {% else %}
-                {% blocktrans %}
+                {% blocktranslate %}
                     Updated a variant of "{{ parent_name }}".
-                {% endblocktrans %}
+                {% endblocktranslate %}
             {% endif %}
         {% endif %}
 
     {% else %}
 
         {% if creating %}
-            {% blocktrans %}
+            {% blocktranslate %}
                 Created product "{{ name }}".
-            {% endblocktrans %}
+            {% endblocktranslate %}
         {% else %}
-            {% blocktrans %}
+            {% blocktranslate %}
                 Updated product "{{ name }}".
-            {% endblocktrans %}
+            {% endblocktranslate %}
         {% endif %}
 
     {% endif %}
@@ -45,6 +45,6 @@
 </div>
 
 <div>
-    <a href="{% url 'dashboard:catalogue-product' pk=product.pk %}{% querystring %}" class="btn btn-success btn-sm">{% trans "Edit again" %}</a>
-    <a href="{{ product.get_absolute_url }}" class="btn btn-success btn-sm">{% trans "View it on the site" %}</a>
+    <a href="{% url 'dashboard:catalogue-product' pk=product.pk %}{% querystring %}" class="btn btn-success btn-sm">{% translate "Edit again" %}</a>
+    <a href="{{ product.get_absolute_url }}" class="btn btn-success btn-sm">{% translate "View it on the site" %}</a>
 </div>

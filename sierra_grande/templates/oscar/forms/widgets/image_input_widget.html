@@ -19,7 +19,7 @@
                     {% oscar_thumbnail image_url "120x120" upscale=False as thumb %}
                     <img class="w-100 h-100 object-fit-cover shadow-lg" src="{{ thumb.url }}" alt="{{ thumb.name }}" />
                 {% else %}
-                    <img class="w-100 h-100 object-fit-cover d-none shadow-lg" alt="{% trans "thumbnail" %}" />
+                    <img class="w-100 h-100 object-fit-cover d-none shadow-lg" alt="{% translate "thumbnail" %}" />
                 {% endif %}
             </div>
         </div>

@@ -1,0 +1,40 @@
+{% extends "oscar/layout.html" %}
+
+{% load i18n %}
+
+{% block title %}
+    {{ page_title }} | {% translate 'Account' %} | {{ block.super }}
+{% endblock title %}
+
+{% block content_header_title_content %}
+    {{ page_title }}
+{% endblock content_header_title_content %}
+
+{% block content_header_breadcrumb %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb breadcrumb-light">
+            <li class="breadcrumb-item">
+                <a href="{{ homepage_url }}">{% translate 'Home' %}</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{% url 'customer:summary' %}">{% translate 'Account' %}</a>
+            </li>
+            {% block extra_breadcrumbs %}{% endblock %}
+            <li class="breadcrumb-item active" aria-current="page">{{ page_title }}</li>
+        </ol>
+    </nav>
+{% endblock content_header_breadcrumb %}
+
+
+
+{% comment %} {% block column_left %}
+    <ul class="nav nav-pills flex-column">
+        {% block standard_tabs %}
+            {% include 'oscar/customer/partials/standard_tabs.html' %}
+        {% endblock %}
+    </ul>
+{% endblock %} {% endcomment %}
+
+{% block content %}
+    {% block tabcontent %}{% endblock tabcontent %}
+{% endblock content %}

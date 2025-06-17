@@ -2,11 +2,14 @@
 {% load static i18n %}
 
 
+{% block html_attributes %}
+  data-footer="dark"
+{% endblock html_attributes %}
+
 {% block styles %}
   {{ block.super }}
   <link rel="stylesheet" type="text/x-scss" href="{% static "scss/eccomerce/eccomerce.scss" %}" />
 {% endblock styles %}
-
 
 {% block layout %}
     {% block top_tagbar %}
@@ -16,22 +19,40 @@
         {% include "oscar/partials/header.html" %}
     {% endblock header %}
     {% block main %}
-        <main class="container-fluid">
+        <main>
             {% block content_header %}
+              <div class="bg-primary py-4">
+                <div class="container hstack justify-content-between column-gap-3"> 
+                  {% block content_header_title %}
+                    <h4 class="text-white mb-0">
+                      {% block content_header_title_content %}
+                      {% endblock content_header_title_content %}
+                    </h4>
+                  {% endblock content_header_title %}
+
+                  {% block content_header_breadcrumb %}
+                  {% endblock content_header_breadcrumb %}
+                </div>
+              </div>
             {% endblock content_header %}
 
-            {% include "oscar/partials/alert_messages.html" %}
+            <div class="container py-5 content__wrapper">
+              {% include "oscar/partials/alert_messages.html" %}
 
-            {% block content %}
-            {% endblock content %}
+              {% block content %}
+              {% endblock content %}
+            </div>
+
+            {% include "oscar/partials/pre_footer.html" %}
         </main>
     {% endblock main %}
+
     {% include "oscar/partials/footer.html" %}
 {% endblock layout %}
 
 {% block scripts %}
   {{ block.super }}
-  <script src="{% static "oscar/js/oscar/ui.js" %}" defer ></script>
+  <script src="{% static "js/eccomerce/base.js" %}" defer ></script>
 {% endblock scripts %}
 
 {% block extrascripts %}

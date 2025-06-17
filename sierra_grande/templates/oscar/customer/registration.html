@@ -1,0 +1,37 @@
+{% extends "oscar/layout.html" %}
+
+{% load i18n %}
+
+{% block title %}
+    {% translate 'Register' %} | {{ block.super }}
+{% endblock title %}
+
+{% block content_header_title_content %}
+    {% translate "Register" %}
+{% endblock content_header_title_content %}
+
+{% block content_header_breadcrumb %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb breadcrumb-light">
+            <li class="breadcrumb-item">
+                <a href="{{ homepage_url }}">{% translate 'Home' %}</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">{% translate 'Register' %}</li>
+        </ol>
+    </nav>
+{% endblock content_header_breadcrumb %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-6 register_form">
+            <form id="register_form" method="post">
+                {% csrf_token %}
+                {% include "oscar/partials/form_fields.html"  %}
+                <button name="registration_submit" type="submit" value="Register" class="btn btn-primary btn-lg" data-loading-text="{%translate 'Registering...' %}">{% translate 'Register' %}</button>
+                {% if cancel_url %}
+                    {% translate "or" %} <a href="{{ cancel_url }}">{% translate "cancel" %}</a>.
+                {% endif %}
+            </form>
+        </div>
+    </div>
+{% endblock content %}

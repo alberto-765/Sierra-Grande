@@ -1,95 +1,14 @@
 {% load i18n %}
-
-{% comment %} <nav id="top_page" class="navbar navbar-expand-lg">
-  <div class="container-lg">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target=".account-collapse"
-            aria-controls="navbarContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse account-collapse">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        {% if user.is_authenticated %}
-          {% block nav_account_navbar_authenticated %}
-            <li class="nav-item me-2">
-              {% if num_unread_notifications > 0 %}
-                {# If user has new notifications - we change account link to go to inbox #}
-                <a href="{% url 'customer:notifications-inbox' %}"
-                   class="nav-link mt-2 mt-lg-0">
-                  <iconify-icon icon="ph:sign-in-bold" width="256" height="256" class="me-2"></iconify-icon>
-                  {% translate "Account" %}
-                  <span class="badge bg-warning">{{ num_unread_notifications }}</span>
-                </a>
-              {% else %}
-                <a href="{% url 'customer:summary' %}" class="nav-link mt-2 mt-lg-0">
-                  <iconify-icon icon="ph:sign-in-bold" width="256" height="256" class="me-2"></iconify-icon>
-                  {% translate "Account" %}
-                </a>
-              {% endif %}
-            </li>
-            {% if user.is_staff or perms.partner.dashboard_access %}
-              <li class="nav-item me-2">
-                <a href="{% url 'dashboard:index' %}" class="nav-link">
-                  <i class="fas fa-list-ul me-2"></i>
-                  {% translate "Dashboard" %}
-                </a>
-              </li>
-            {% endif %}
-            <li class="nav-item me-2">
-              <a id="logout_link" href="{% url 'customer:logout' %}" class="nav-link">
-                <i class="fas fa-sign-out-alt me-2"></i>
-                {% translate "Logout" %}
-              </a>
-            </li>
-          {% endblock nav_account_navbar_authenticated %}
-        {% else %}
-          <li class="nav-item me-2">
-            <a id="login_link" href="{% url 'customer:login' %}" class="nav-link">
-              <iconify-icon icon="ph:sign-in-bold" class="me-2"></iconify-icon>
-              {% translate "Login or register" %}
-            </a>
-          </li>
-        {% endif %}
-      </ul>
-      {% block nav_account_languages %}
-        {% if LANGUAGES|length > 1 %}
-          <form id="language_selector"
-                class="hstack mb-0 mt-2 mt-lg-0"
-                action="{% url 'set_language' %}"
-                method="post">
-            {% csrf_token %}
-            <input name="next" type="hidden" value="{{ language_neutral_url_path }}" />
-            <div class=" mb-0">
-              <select name="language"  class="form-control" onchange="this.form.submit()">
-                {% get_language_info_list for LANGUAGES as languages %}
-                {% for language in languages %}
-                  <option value="{{ language.code }}"
-                          {% if language.code == LANGUAGE_CODE %}selected="selected"{% endif %}>
-                    {{ language.name_local }}
-                  </option>
-                {% endfor %}
-              </select>
-            </div>
-          </form>
-        {% endif %}
-      {% endblock nav_account_languages %}
-    </div>
-  </div>
-</nav> {% endcomment %}
+{% load category_tags %}
 
 <header class="ecommerce-navbar">
-  <nav class="navbar navbar-expand-md" id="navbar">
+  <nav class="navbar navbar-expand-lg" id="navbar">
     <div class="container column-gap-5">
         <button class="btn btn-soft-primary btn-icon navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="{% translate "Toggle navigation" %}">
           <iconify-icon icon="bi:list" class="fs-20"></iconify-icon>
         </button>
 
-        <div class="navbar-brand d-none d-md-block">
+        <div class="navbar-brand d-none d-lg-block">
           {% include "oscar/partials/brand.html" %}
         </div>
         
@@ -106,9 +25,9 @@
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         {% translate "Catalogue" %}
                     </a>
-                    <div class="dropdown-menu p-0">
-                        <div class="row g-0 g-lg-4">
-                            <div class="col-lg-2 d-none d-lg-block">
+                    <div class="dropdown-menu">
+                        <div class="row">
+                              <div class="col-lg-2 d-none d-lg-block">
                                 <div class="d-flex align-items-center justify-content-center rounded-start rounded-0 h-100 overflow-hidden catalogue__bg">
                                     <div class="bg-overlay bg-light bg-opacity-25"></div>
                                     <a href="{% url "catalogue:browse" %}" class="btn btn-soft-primary icon-link btn-hover">
@@ -117,94 +36,29 @@
                                     </a>
                                 </div>
                             </div>
-                            <div class="col-lg-2">
-                                <ul class="dropdown-menu-list list-unstyled mb-0 py-3">
-                                    <li>
-                                        <p class="mb-2 text-uppercase fs-11 fw-medium text-body-secondary  menu-title" data-key="t-men">Men</p>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="product-grid-sidebar-banner.html" class="nav-link" data-key="t-clothing">Clothing</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="product-grid-right.html" class="nav-link" data-key="t-watches">Watches</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="product-list-left.html" class="nav-link" data-key="t-bags-Luggage">Bags &amp; Luggage</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="product-grid-right.html" class="nav-link" data-key="t-footwear">Footwear</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="product-list.html" class="nav-link" data-key="t-innerwear">Innerwear</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="product-list-right.html" class="nav-link" data-key="t-other-accessories">Other Accessories</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-lg-2">
-                                <ul class="dropdown-menu-list list-unstyled mb-0 py-3">
-                                    <li>
-                                        <p class="mb-2 text-uppercase fs-11 fw-medium text-body-secondary  menu-title" data-key="t-women">Women</p>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="product-list-defualt.html" class="nav-link" data-key="t-western-wear">Western Wear</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="product-list-left.html" class="nav-link" data-key="t-handbags-clutches">Handbags &amp; Clutches</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="product-grid-right.html" class="nav-link" data-key="t-lingerie-nightwear">Lingerie &amp; Nightwear</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="product-grid-sidebar-banner.html" class="nav-link" data-key="t-footwear">Footwear</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="product-grid-defualt.html" class="nav-link" data-key="t-fashion-silver-jewellery">Fashion &amp; Silver Jewellery</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-lg-2">
-                                <ul class="dropdown-menu-list list-unstyled mb-0 py-3">
-                                    <li>
-                                        <p class="mb-2 text-uppercase fs-11 fw-medium text-body-secondary  menu-title" data-key="t-accessories-others">Accessories &amp; Others</p>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="product-grid-right.html" class="nav-link" data-key="t-home-kitchen-pets">Home, Kitchen, Pets</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="product-list-left.html" class="nav-link" data-key="t-beauty-health-grocery">Beauty, Health, Grocery</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="product-grid-sidebar-banner.html" class="nav-link" data-key="t-sports-fitness-bags-luggage">Sports, Fitness, Bags, Luggage</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="product-list.html" class="nav-link" data-key="t-car-motorbike-industrial">Car, Motorbike, Industrial</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="product-list-right.html" class="nav-link" data-key="t-books">Books</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-lg-2">
-                                <ul class="dropdown-menu-list list-unstyled mb-0 py-3">
-                                    <li>
-                                        <p class="mb-2 text-uppercase fs-11 fw-medium text-body-secondary  menu-title" data-key="t-others">Others</p>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="auth-signup-basic.html" class="nav-link" data-key="t-sign-up">Sign Up</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="auth-signin-basic.html" class="nav-link" data-key="t-sign-in">Sign In</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="auth-pass-reset-basic.html" class="nav-link" data-key="t-passowrd-reset">Password Reset</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="auth-404.html" class="nav-link" data-key="t-error-404">Error 404</a>
-                                    </li>
-                                </ul>
-                            </div>
+                            {% category_tree as tree_categories %}
+                            {% if tree_categories %}
+                                {% for tree_category in tree_categories %}
+                                    {% if tree_category.has_children %}
+                                        <div class="col-lg">
+                                            <ul class="dropdown-menu-list list-unstyled mb-0">
+                                                <li>
+                                                    <a href="{{ tree_category.url }}" class="mb-2 text-uppercase fs-11 fw-medium text-body-secondary  menu-title">
+                                                        {% translate tree_category.name %}
+                                                    </a>
+                                                </li>
+                                    {% else %}
+                                        <li class="nav-item">
+                                            <a href="{{ tree_category.url }}" class="nav-link">
+                                                {% translate tree_category.name %}
+                                            </a>
+                                        </li>
+                                        {% for n in tree_category.num_to_close %}
+                                            </ul></div>
+                                        {% endfor %}
+                                    {% endif %}                                        
+                                {% endfor %}
+                            {% endif %}
                         </div>
                     </div>
                 </li>

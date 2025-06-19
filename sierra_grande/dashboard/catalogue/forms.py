@@ -52,9 +52,7 @@ BaseCategoryForm = movenodeform_factory(
         "meta_description": forms.Textarea(
             attrs={"class": "no-widget-init", "rows": 5},
         ),
-        "description": TinyMCE(
-            attrs={"cols": 80, "rows": 30},
-        ),
+        "description": forms.Textarea(attrs={"rows": 3}),
     },
 )
 

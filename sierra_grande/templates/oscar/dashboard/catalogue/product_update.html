@@ -45,6 +45,20 @@
   {{ title }}
 {% endblock main_header_content %}
 {% block dashboard_content %}
+ {% if parent %}
+    <div class="row">
+      <div class="col-md-12">
+        <div class="alert alert-info mb-0">
+          {% url "dashboard:catalogue-product" pk=parent.id as parent_url %}
+          {% blocktranslate with title=parent.title %}
+              You are currently editing a product variant of
+              <a href="{{ parent_url }}">{{ title }}</a>.
+          {% endblocktranslate %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+  
   <form action="{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}"
         method="post"
         class="vertical-navs-step form-steps"
@@ -52,19 +66,6 @@
         data-behaviour="tab-nav-errors"
         autocomplete="off">
     {% csrf_token %}
-    {% if parent %}
-      <div class="row">
-        <div class="col-md-12">
-          <div class="alert alert-info mb-0">
-            {% url "dashboard:catalogue-product" pk=parent.id as parent_url %}
-            {% blocktranslate with title=parent.title %}
-                You are currently editing a product variant of
-                <a href="{{ parent_url }}">{{ title }}</a>.
-            {% endblocktranslate %}
-          </div>
-        </div>
-      </div>
-    {% endif %}
 
     <div class="row gy-5">
       {% block tab_nav %}

@@ -616,12 +616,14 @@
 
 .menu-title {
     letter-spacing: .05em;
-    cursor: default;
     font-size: 11px;
     text-transform: uppercase;
     color: $vertical-menu-title-color;
     font-weight: $font-weight-semibold;
 
+    :not(a) {
+        cursor: default;
+    }
     span {
         padding: 12px 20px;
         display: inline-block;

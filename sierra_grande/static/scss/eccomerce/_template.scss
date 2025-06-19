@@ -878,7 +878,18 @@
 
     .dropdown-menu {
         padding: 20px;
-        left: 20px !important;
-        right: 20px !important;
+        left: 20px;
+        right: 20px;
+
+        @media screen and (max-width: 1200px) {
+            left: 8px;
+            right: 8px;
+
+        }
+    }
+
+    .row > * {
+        margin: 0;
+        position: initial;
     }
 }

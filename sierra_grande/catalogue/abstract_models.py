@@ -36,6 +36,9 @@ from oscar.models.fields import AutoSlugField, NullCharField
 from oscar.models.fields.slugfield import SlugField
 from oscar.utils.models import get_image_upload_path
 
+from modeltrans.fields import TranslationField
+
+
 CategoryQuerySet, ProductQuerySet = get_classes(
     "catalogue.managers", ["CategoryQuerySet", "ProductQuerySet"]
 )
@@ -108,6 +111,8 @@ class AbstractProductClass(models.Model):
         "catalogue.Option", blank=True, verbose_name=_("Options")
     )
 
+    i18n = TranslationField(fields=("name",))
+
     class Meta:
         abstract = True
         app_label = "catalogue"
@@ -166,6 +171,15 @@ class AbstractCategory(MP_Node):
         default=True,
         db_index=True,
         help_text=_("The ancestors of this category are public"),
+    )
+
+    i18n = TranslationField(
+        fields=(
+            "name",
+            "description",
+            "meta_title",
+            "meta_description",
+        )
     )
 
     _slug_separator = "/"
@@ -521,6 +535,16 @@ class AbstractProduct(models.Model):
         blank=True,
         null=True,
         unique=True,
+    )
+
+    i18n = TranslationField(
+        fields=(
+            "title",
+            "description",
+            "slug",
+            "meta_title",
+            "meta_description",
+        )
     )
 
     objects = ProductQuerySet.as_manager()
@@ -1037,6 +1061,8 @@ class AbstractProductAttribute(models.Model):
     )
     required = models.BooleanField(_("Required"), default=False)
 
+    i18n = TranslationField(fields=("name",))
+
     class Meta:
         abstract = True
         app_label = "catalogue"
@@ -1268,6 +1294,14 @@ class AbstractProductAttributeValue(models.Model):
     entity_object_id = models.PositiveIntegerField(
         null=True, blank=True, editable=False
     )
+
+    i18n = TranslationField(
+        fields=(
+            "value_text",
+            "value_richtext",
+        )
+    )
+
     _dirty = False
 
     @cached_property
@@ -1393,6 +1427,7 @@ class AbstractAttributeOptionGroup(models.Model):
         null=True,
         unique=True,
     )
+    i18n = TranslationField(fields=("name",))
 
     def __str__(self):
         return self.name
@@ -1429,6 +1464,8 @@ class AbstractAttributeOption(models.Model):
         null=True,
         unique=True,
     )
+
+    i18n = TranslationField(fields=("option",))
 
     def __str__(self):
         return self.option
@@ -1513,6 +1550,14 @@ class AbstractOption(models.Model):
         blank=True,
         help_text=_("Controls the ordering of product options on product detail pages"),
         db_index=True,
+    )
+
+    i18n = TranslationField(
+        fields=(
+            "help_text",
+            "name",
+            "type",
+        )
     )
 
     @property
@@ -1660,6 +1705,8 @@ class AbstractProductImage(models.Model):
         ),
     )
     date_created = models.DateTimeField(_("Date created"), auto_now_add=True)
+
+    i18n = TranslationField(fields=("caption",))
 
     class Meta:
         abstract = True

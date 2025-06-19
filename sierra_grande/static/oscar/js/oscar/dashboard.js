@@ -484,18 +484,14 @@ var oscar = ((o) => {
 
             function initComponents () {
                 // tooltip
-                let tooltipTriggerList = [].slice.call(
-                    document.querySelectorAll('[data-bs-toggle="tooltip"]')
-                );
-                tooltipTriggerList.map(function (tooltipTriggerEl) {
+                const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+                tooltipTriggerList.forEach((tooltipTriggerEl) => {
                     return new bootstrap.Tooltip(tooltipTriggerEl);
                 });
 
                 // popover
-                let popoverTriggerList = [].slice.call(
-                    document.querySelectorAll('[data-bs-toggle="popover"]')
-                );
-                popoverTriggerList.map(function (popoverTriggerEl) {
+                const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
+                popoverTriggerList.forEach((popoverTriggerEl) => {
                     return new bootstrap.Popover(popoverTriggerEl);
                 });
             }

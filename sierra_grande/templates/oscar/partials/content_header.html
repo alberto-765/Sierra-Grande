@@ -1,0 +1,38 @@
+{% load static i18n %}
+
+{% static "img/all_products.jpg" as default_image %}
+
+<section class="headerWithImg" style="background-image: url('{{ category.image.url|default:default_image }}');">    
+    
+    <div class="bg-overlay bg-primary"></div>
+
+    <div class="container h-100">
+        <div class="align-content-center gy-4 h-100 justify-content-center row text-center">
+            <div class="col-12"> 
+                {% block content_header_title %}
+                    <h1 class="text-white lh-base text-capitalize mb-0">{{ category.name }}</h1>
+                    {% if category.description %}
+                        <p class="text-white-75 fs-15 mb-0">{{ category.description }}</p>
+                    {% endif %}
+                {% endblock content_header_title %}
+            </div>
+            <div class="col-12">
+                {% block content_header_breadcrumb %}
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb breadcrumb-light justify-content-center">
+                            <li class="breadcrumb-item">
+                                <a href="{{ homepage_url }}">{% translate "Home" %}</a>
+                            </li>
+                            {% for category in category.get_ancestors %}
+                                <li class="breadcrumb-item">
+                                    <a href="{{ category.get_absolute_url }}">{{ category.name }}</a>
+                                </li>
+                            {% endfor %}
+                            <li class="breadcrumb-item active" aria-current="page">{{ category.name }}</li>
+                        </ol>
+                    </nav>
+                {% endblock content_header_breadcrumb %}
+            </div>
+        </div>
+    </div>
+</section>

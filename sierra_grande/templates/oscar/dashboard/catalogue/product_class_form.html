@@ -86,19 +86,19 @@
                 {% for attribute_form in attributes_formset %}
                   <tr>
                     {% for hidden_field in attribute_form.hidden_fields %}{{ hidden_field }}{% endfor %}
-                    <td>{% include "oscar/dashboard/partials/form_field.html" with field=attribute_form.name nolabel=True %}</td>
-                    <td>{% include "oscar/dashboard/partials/form_field.html" with field=attribute_form.code nolabel=True %}</td>
+                    <td>{% include "oscar/dashboard/partials/form_field.html" with field=attribute_form.name nolabel=True form_show_errors=True%}</td>
+                    <td>{% include "oscar/dashboard/partials/form_field.html" with field=attribute_form.code nolabel=True form_show_errors=True%}</td>
                     <td>
                       <div class="vstack row-gap-3">
-                        {% include "oscar/dashboard/partials/form_field.html" with field=attribute_form.type nolabel=True %}
-                        {% include "oscar/dashboard/partials/form_field.html" with field=attribute_form.option_group nolabel=True %}
+                        {% include "oscar/dashboard/partials/form_field.html" with field=attribute_form.type nolabel=True form_show_errors=True%}
+                        {% include "oscar/dashboard/partials/form_field.html" with field=attribute_form.option_group nolabel=True form_show_errors=True%}
                       </div>
                     </td>
                     <td>
-                      {% include "oscar/dashboard/partials/form_field.html" with field=attribute_form.required nolabel=True %}
+                      {% include "oscar/dashboard/partials/form_field.html" with field=attribute_form.required nolabel=True form_show_errors=True%}
                       {{ attribute_form.non_field_errors }}
                     </td>
-                    <td>{% include "oscar/dashboard/partials/form_field.html" with field=attribute_form.DELETE nolabel=True %}</td>
+                    <td>{% include "oscar/dashboard/partials/form_field.html" with field=attribute_form.DELETE nolabel=True form_show_errors=True%}</td>
                   </tr>
                 {% endfor %}
                 {{ attributes_formset.management_form }}

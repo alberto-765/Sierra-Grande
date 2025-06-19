@@ -69,9 +69,9 @@
                   <span class="text-danger error">{{ form.non_field_errors }}</span>
                   {% for field in form.primary_form_fields %}
                     {% if forloop.last %}
-                      {% include "oscar/dashboard/partials/form_field.html" with field=field %}
+                      {% include "oscar/dashboard/partials/form_field.html" with field=field form_show_errors=True %}
                     {% else %}
-                      {% include "oscar/dashboard/partials/form_field.html" with field=field margin="true" %}
+                      {% include "oscar/dashboard/partials/form_field.html" with field=field margin="true" form_show_errors=True %}
                     {% endif %}
                   {% endfor %}
                 {% endblock category_details_content %}
@@ -84,9 +84,9 @@
                 {% block seo_content %}
                   {% for field in form.seo_form_fields %}
                     {% if forloop.last %}
-                      {% include "oscar/dashboard/partials/form_field.html" with field=field %}
+                      {% include "oscar/dashboard/partials/form_field.html" with field=field form_show_errors=True %}
                     {% else %}
-                      {% include "oscar/dashboard/partials/form_field.html" with field=field margin="true" %}
+                      {% include "oscar/dashboard/partials/form_field.html" with field=field margin="true" form_show_errors=True %}
                     {% endif %}
                   {% endfor %}
                 {% endblock seo_content %}
@@ -100,7 +100,7 @@
     {% block fixed_actions_group %}
       <div class="form-actions-fixed align-items-center bg-dark column-gap-4 fixed-bottom hstack justify-content-end p-3">
         {% if category %}
-          <a class="btn btn-success me-auto" href="{{ category.get_absolute_url }}">{% translate "View on site" %}</a>
+          <a class="btn btn-success me-auto" href="{{ category.get_absolute_url }}">{% translate "View on shop" %}</a>
         {% endif %}
         <a class="btn btn-danger" role="button" href="{% url "dashboard:catalogue-category-list" %}">{% translate "Cancel" %}</a>
         <button class="btn btn-outline-light"

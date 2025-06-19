@@ -21,7 +21,7 @@
     {% block main %}
         <main>
             {% block content_header %}
-              <div class="bg-primary py-4">
+              <section class="bg-primary py-4">
                 <div class="container hstack justify-content-between column-gap-3"> 
                   {% block content_header_title %}
                     <h4 class="text-white mb-0">
@@ -33,16 +33,16 @@
                   {% block content_header_breadcrumb %}
                   {% endblock content_header_breadcrumb %}
                 </div>
-              </div>
+              </section>
             {% endblock content_header %}
 
-            <div class="container py-5 content__wrapper">
+            <section class="container content__wrapper">
               {% include "oscar/partials/alert_messages.html" %}
                           {% comment %} {% include "oscar/partials/nav_primary.html" %} {% endcomment %}
 
               {% block content %}
               {% endblock content %}
-            </div>
+            </section>
 
             {% include "oscar/partials/pre_footer.html" %}
         </main>

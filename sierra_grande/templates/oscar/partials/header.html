@@ -20,7 +20,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
           </div>
           <div class="offcanvas-body">
-            <ul class="navbar-nav justify-content-start" id="navigation-menu">
+            <ul class="navbar-nav justify-content-start column-gap-2" id="navigation-menu">
                 <li class="nav-item dropdown dropdown-hover dropdown-mega-full">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         {% translate "Catalogue" %}
@@ -77,21 +77,25 @@
             {% include "oscar/partials/color_mode.html" with eccomerce=True %}
 
             <div class="topbar-head-dropdown header-item">
-                <button type="button" class="btn btn-icon btn-topbar btn-ghost-dark rounded-circle text-body-secondary " data-bs-toggle="offcanvas" data-bs-target="#ecommerceCart" aria-controls="ecommerceCart">
-                    <iconify-icon icon="ph:shopping-cart" class="fs-18"></iconify-icon>
-                    <span class="position-absolute topbar-badge fs-10 translate-middle badge rounded-circle bg-info">4</span>
-                </button>
+                <div data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="{% translate "View cart items" %}">
+                    <button type="button" class="btn btn-icon btn-topbar btn-ghost-dark rounded-circle text-body-secondary " data-bs-toggle="offcanvas" data-bs-target="#ecommerceCart" aria-controls="ecommerceCart">
+                        <iconify-icon icon="ph:shopping-cart" class="fs-18"></iconify-icon>
+                        <span class="position-absolute topbar-badge fs-10 translate-middle badge rounded-circle bg-info">4</span>
+                    </button>
+                </div>
             </div>
 
             {% if user.is_authenticated %}
                 {% block nav_account_navbar_authenticated %}
                      <div class="header-item">
-                        <button type="button" class="btn btn-icon btn-topbar btn-ghost-dark rounded-circle text-body-secondary " data-bs-toggle="offcanvas" data-bs-target="#ecommerceCart" aria-controls="ecommerceCart">
-                            <iconify-icon icon="bi:bell" class="fs-18"></iconify-icon>
-                            <span class="position-absolute topbar-badge fs-10 translate-middle badge rounded-circle bg-danger">
-                                {{ num_unread_notifications }}
-                            </span>
-                        </button>
+                        <div data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="{% translate "View my notifications" %}"> 
+                            <button type="button" class="btn btn-icon btn-topbar btn-ghost-dark rounded-circle text-body-secondary " data-bs-toggle="offcanvas" data-bs-target="#ecommerceCart" aria-controls="ecommerceCart">
+                                <iconify-icon icon="bi:bell" class="fs-18"></iconify-icon>
+                                <span class="position-absolute topbar-badge fs-10 translate-middle badge rounded-circle bg-danger">
+                                    {{ num_unread_notifications }}
+                                </span>
+                            </button>
+                        </div>
                         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0" aria-labelledby="page-header-notifications-dropdown">
                             <div class="dropdown-head rounded-top">
                                 <div class="p-3 border-bottom border-bottom-dashed">
@@ -130,15 +134,15 @@
                                 {% endblocktranslate %} 
                             </h6>
                             <a class="dropdown-item icon-link" href="{% url "customer:profile-view" %}">
-                                <iconify-icon icon="healthicons:ui-user-profile" class="text-body-secondary fs-16"></iconify-icon>
+                                <iconify-icon icon="healthicons:ui-user-profile" class="text-body-secondary"></iconify-icon>
                                 {% translate "Account" %}
                             </a>
                             <a class="dropdown-item icon-link" href="{% url "customer:order-list" %}">
-                                <iconify-icon icon="lets-icons:order-light" class="text-body-secondary fs-16"></iconify-icon>
+                                <iconify-icon icon="lets-icons:order-light" class="text-body-secondary"></iconify-icon>
                                 {% translate "Order history" %}
                             </a>
                             <a class="dropdown-item icon-link" href="{% url "customer:wishlists-list" %}">
-                                <iconify-icon icon="mdi:cart-heart" class="text-body-secondary fs-16"></iconify-icon>
+                                <iconify-icon icon="mdi:cart-heart" class="text-body-secondary"></iconify-icon>
                                 {% translate "Wishlist" %}
                             </a>
 
@@ -146,24 +150,23 @@
 
                             {% if user.is_staff or perms.partner.dashboard_access %}
                                 <a class="dropdown-item icon-link" href="{% url "dashboard:index" %}">
-                                    <iconify-icon icon="bi:speedometer2" class="text-body-secondary  fs-16"></iconify-icon>
+                                    <iconify-icon icon="bi:speedometer2" class="text-body-secondary"></iconify-icon>
                                     {% translate "Dashboard" %}
                                 </a>
                             {% endif %}
                             <a class="dropdown-item icon-link" href="{% url "customer:logout" %}">
-                                <iconify-icon icon="bi:box-arrow-right" class="text-body-secondary  fs-16"></iconify-icon>
+                                <iconify-icon icon="bi:box-arrow-right" class="text-body-secondary"></iconify-icon>
                                 {% translate "Logout" %}
                             </a>
                         </div>
                     </div>
                 {% endblock nav_account_navbar_authenticated %}
             {% else %}
-                <li class="nav-item me-2">
-                    <a id="login_link" href="{% url "customer:login" %}" class="nav-link">
-                        <iconify-icon icon="ph:sign-in-bold" class="me-2"></iconify-icon>
-                        {% translate "Login in" %}
+                <div class="header-item">
+                    <a href="{% url "customer:login" %}" class="btn btn-ghost-dark btn-icon btn-topbar icon-link rounded-circle text-body-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="{% translate "Log in" %}">
+                        <iconify-icon icon="ph:sign-in-bold" class="fs-20"></iconify-icon>
                     </a>
-                </li>
+                </div>
             {% endif %}
         </div>
     </div>

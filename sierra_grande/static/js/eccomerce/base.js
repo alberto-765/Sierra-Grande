@@ -47,16 +47,24 @@ var oscar = ((o) => {
 
             if (matchedLink) {
                 matchedLink.classList.add("active");
-                const parentCollapseDiv = a.closest(".dropdown-menu");
-                if (parentCollapseDiv) {
-                    if (parentCollapseDiv.parentElement) {
-                        parentCollapseDiv.parentElement.children[0].classList.add("active");
-                        if (parentCollapseDiv.parentElement.parentElement.parentElement) {
-                            parentCollapseDiv.parentElement.parentElement.parentElement.children[0].classList.add("active");
-                            if (parentCollapseDiv.parentElement.parentElement.parentElement.parentElement.parentElement) {
-                                parentCollapseDiv.parentElement.parentElement.parentElement.parentElement.parentElement.children[0].classList.add("active");
-                                if (parentCollapseDiv.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement) {
-                                    parentCollapseDiv.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children[0].classList.add("active");
+                let parent = matchedLink.parentElement.closest(".dropdown-menu");
+                if (parent) {
+                    parent = parent.parentElement.closest('.nav-item');
+                    if (parent) {
+                        parent.querySelector('.nav-link')?.classList.add("active");
+                        parent = parent.parentElement.closest('.nav-item.dropdown');
+                        if (parent) {
+                            parent.querySelector('.nav-link')?.classList.add("active");
+                            parent = parent.parentElement.closest('.nav-item.dropdown');
+                            if (parent) {
+                                parent.querySelector('.nav-link')?.classList.add("active");
+                                parent = parent.parentElement.closest('.nav-item.dropdown');
+                                if (parent) {
+                                    parent.querySelector('.nav-link')?.classList.add("active");
+                                    parent = parent.parentElement.closest('.nav-item.dropdown');
+                                    if (parent) {
+                                        parent.querySelector('.nav-link')?.classList.add("active");
+                                    }
                                 }
                             }
                         }
@@ -114,6 +122,19 @@ var oscar = ((o) => {
                 }
             });
         },
+        initComponents: () => {
+            // tooltip
+            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+            tooltipTriggerList.forEach((tooltipTriggerEl) => {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+
+            // popover
+            const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
+            popoverTriggerList.forEach((popoverTriggerEl) => {
+                return new bootstrap.Popover(popoverTriggerEl);
+            });
+        },
         init: () => {
             o.backToTopButton = document.getElementById("back-to-top");
 
@@ -122,6 +143,7 @@ var oscar = ((o) => {
             o.template.initMenuItemScroll();
             o.template.windowScroll();
             o.template.scrollToTop();
+            o.template.initComponents();
         }
     };
 

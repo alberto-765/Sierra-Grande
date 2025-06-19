@@ -150,9 +150,9 @@
                         {% if form.non_field_errors %}<span class="text-danger">{{ form.non_field_errors }}</span>{% endif %}
                         {% for field in form.primary_form_fields %}
                           {% if forloop.last %}
-                            {% include "oscar/dashboard/partials/form_field.html" with field=field %}
+                            {% include "oscar/dashboard/partials/form_field.html" with field=field form_show_errors=True %}
                           {% else %}
-                            {% include "oscar/dashboard/partials/form_field.html" with field=field margin="true" %}
+                            {% include "oscar/dashboard/partials/form_field.html" with field=field margin="true" form_show_errors=True %}
                           {% endif %}
                         {% endfor %}
                       {% endblock product_details_content %}
@@ -399,9 +399,9 @@
                     <div class="tab-pane--details">
                       {% for field in form.seo_form_fields %}
                         {% if forloop.last %}
-                          {% include "oscar/dashboard/partials/form_field.html" with field=field %}
+                          {% include "oscar/dashboard/partials/form_field.html" with field=field form_show_errors=True %}
                         {% else %}
-                            {% include "oscar/dashboard/partials/form_field.html" with field=field margin="true" %}
+                            {% include "oscar/dashboard/partials/form_field.html" with field=field margin="true" form_show_errors=True %}
                         {% endif %}
                       {% endfor %}
                     </div>

@@ -6,12 +6,8 @@ from oscar.core.loading import get_model
 from oscar.core.validators import URLDoesNotExistValidator
 
 from tinymce.widgets import TinyMCE
-from crispy_bootstrap5.bootstrap5 import FloatingField, Field
-from crispy_bootstrap5.bootstrap5 import Switch
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Column
 from crispy_forms.layout import Layout
-from crispy_forms.layout import Row
 
 FlatPage = get_model("flatpages", "FlatPage")
 
@@ -49,7 +45,13 @@ class PageUpdateForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_tag = False
-        self.helper.layout = Layout("title", "url", "content")
+        self.helper.layout = Layout(
+            "title",
+            "url",
+            "content",
+            "template_name",
+            "registration_required",
+        )
 
     def clean_url(self):
         """
@@ -68,5 +70,11 @@ class PageUpdateForm(forms.ModelForm):
 
     class Meta:
         model = FlatPage
-        fields = ("title", "url", "content")
+        fields = fields = (
+            "title",
+            "url",
+            "content",
+            "template_name",
+            "registration_required",
+        )
         widgets = {"content": TinyMCE()}

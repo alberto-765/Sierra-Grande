@@ -47,7 +47,7 @@
         <div class="tab-pane {% if not preview %}active{% endif %}"
              id="email_form">
           {% csrf_token %}
-          {% include "oscar/dashboard/partials/form_field.html" with field=form.name %}
+          {% include "oscar/dashboard/partials/form_field.html" with field=form.name form_show_errors=True form_show_errors=True %}
           <div class="table-header">
             <h3>{% translate "Email content" %}</h3>
           </div>
@@ -83,9 +83,9 @@
               {% endif %}
             </dl>
           </div>
-          {% include "oscar/dashboard/partials/form_field.html" with field=form.email_subject_template %}
-          {% include "oscar/dashboard/partials/form_field.html" with field=form.email_body_template %}
-          {% include "oscar/dashboard/partials/form_field.html" with field=form.email_body_html_template %}
+          {% include "oscar/dashboard/partials/form_field.html" with field=form.email_subject_template form_show_errors=True %}
+          {% include "oscar/dashboard/partials/form_field.html" with field=form.email_body_template form_show_errors=True %}
+          {% include "oscar/dashboard/partials/form_field.html" with field=form.email_body_html_template form_show_errors=True %}
           <div class="table-header">
             <h3>{% translate "Preview" %}</h3>
           </div>

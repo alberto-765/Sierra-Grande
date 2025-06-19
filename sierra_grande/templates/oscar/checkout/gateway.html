@@ -16,7 +16,7 @@
   <form method="post" class="card card-body bg-light">
     {% csrf_token %}
     {{ form.non_field_errors }}
-    {% include "oscar/partials/form_field.html" with field=form.username %}
+    {% include "oscar/partials/form_field.html" with field=form.username form_show_errors=True %}
     <div>
       <div class="controls">
         <div class="radio">{{ form.options.0 }}</div>

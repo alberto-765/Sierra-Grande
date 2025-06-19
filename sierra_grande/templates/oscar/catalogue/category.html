@@ -5,58 +5,23 @@
 {% block title %}
   {{ category.get_meta_title }} | {{ block.super }}
 {% endblock title %}
+
 {% block description %}
   {{ category.get_meta_description }}
 {% endblock description %}
-{% block main_header %}
-  <div class="d-flex justify-content-between align-items-center">
-    <h1>
-      {% block main_header_content %}
-        {{ category.name }}
-      {% endblock main_header_content %}
-    </h1>
-    {% if user.is_staff %}
-      <a class="float-end d-none d-md-block"
-         href="{% url "dashboard:catalogue-category-update" pk=category.id %}">
-        <small>
-          <iconify-icon icon="fa:pencil-alt" aria-hidden="true" width="1rem" height="1rem"></iconify-icon>
-          {% translate "Edit this category" %}
-        </small>
-      </a>
-    {% endif %}
-  </div>
-{% endblock main_header %}
-{% block breadcrumbs %}
-  <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item">
-        <a href="{{ homepage_url }}">{% translate "Home" %}</a>
-      </li>
-      {% for category in category.get_ancestors %}
-        <li class="breadcrumb-item">
-          <a href="{{ category.get_absolute_url }}">{{ category.name }}</a>
-        </li>
-      {% endfor %}
-      <li class="breadcrumb-item active" aria-current="page">{{ category.name }}</li>
-    </ol>
-  </nav>
-{% endblock breadcrumbs %}
+
+
+{% block content_header %}
+  {% include "oscar/partials/content_header.html" with category=category homepage_url=homepage_url %}
+{% endblock content_header %}
+
 {% block content %}
-  {% if category.description %}
-    <div class="row">
-      <div class="col-sm-9">
-        <p>{{ category.description|safe }}</p>
-      </div>
-      {% if category.image %}
-        <div class="col-sm-3">
-          <img src="{{ category.image.url }}"
-               alt="{{ category.name }}"
-               class="img-fluid"
-               height=""
-               width="" />
-        </div>
-      {% endif %}
-    </div>
+  {% if user.is_staff %}
+    <a class="text-end"
+        href="{% url "dashboard:catalogue-category-update" pk=category.id %}">
+      <iconify-icon icon="fa:pencil-alt" aria-hidden="true" width="1rem" height="1rem"></iconify-icon>
+      {% translate "Edit this category" %}
+    </a>
   {% endif %}
   {{ block.super }}
 {% endblock content %}

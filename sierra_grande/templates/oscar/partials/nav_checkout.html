@@ -1,7 +1,7 @@
 <div class="navbar primary">
-  {% load flatpages %}
+  {% load flatpages_i18n %}
 
-  {% get_flatpages '/order/' as flatpages %}
+  {% get_flatpages_i18n '/order/' as flatpages %}
   {% if flatpages %}
     <div class="navbar-inner">
       <div class="container" style="width: auto;">

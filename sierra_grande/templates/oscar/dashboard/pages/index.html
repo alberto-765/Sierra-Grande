@@ -77,14 +77,14 @@
                       <a href="{% url "dashboard:page-update" pk=page.id %}">{{ page.title }}</a>
                     </td>
                     <td>
-                      <a title="{% translate "View on site" %}"
+                      <a title="{% translate "View on shop" %}"
                          href="{{ page.get_absolute_url }}">{{ page.url }}</a>
                     </td>
                     <td>
                       <div class="row g-2">
                         <div class="col-auto">
                             <a class="badge bg-primary-subtle text-primary fs-13 icon-link" href="{{ page.get_absolute_url }}">
-                              {% translate "View on site" %}
+                              {% translate "View on shop" %}
                             </a>
                         </div>
                         <div class="col-auto">

@@ -9,6 +9,8 @@ from django.utils.translation import gettext_lazy as _
 from oscar.core.compat import AUTH_USER_MODEL
 from oscar.core.decorators import deprecated
 
+from modeltrans.fields import TranslationField
+
 
 class AbstractVoucherSet(models.Model):
     """A collection of vouchers (potentially auto-generated)
@@ -34,6 +36,7 @@ class AbstractVoucherSet(models.Model):
     date_created = models.DateTimeField(auto_now_add=True, db_index=True)
     start_datetime = models.DateTimeField(_("Start datetime"))
     end_datetime = models.DateTimeField(_("End datetime"))
+    i18n = TranslationField(fields=("name",))
 
     class Meta:
         abstract = True
@@ -155,6 +158,7 @@ class AbstractVoucher(models.Model):
     )
 
     date_created = models.DateTimeField(auto_now_add=True, db_index=True)
+    i18n = TranslationField(fields=("name",))
 
     class Meta:
         abstract = True

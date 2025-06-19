@@ -22,7 +22,7 @@
          href="{% if not record.has_children %}#{% else %}{% url 'dashboard:catalogue-category-detail-list' pk=record.pk %}{% endif %}">
         {% translate "Edit children" %}
       </a>
-      <a class="dropdown-item" href="{{ record.get_absolute_url }}">{% translate "View on site" %}</a>
+      <a class="dropdown-item" href="{{ record.get_absolute_url }}">{% translate "View on shop" %}</a>
       <a class="dropdown-item"  data-bs-pk="{{ record.id }}" data-bs-name="{{ record.name }}" data-bs-toggle="modal" href="#deleteModal"
          href="{% url 'dashboard:catalogue-category-delete' pk=record.id %}">{% translate "Delete" %}</a>
     </div>

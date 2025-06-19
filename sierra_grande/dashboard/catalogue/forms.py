@@ -204,7 +204,7 @@ def _attr_text_field(attribute):
 def _attr_textarea_field(attribute):
     return forms.CharField(
         label=attribute.name,
-        widget=forms.Textarea(),
+        widget=TinyMCE(),
         required=attribute.required,
     )
 

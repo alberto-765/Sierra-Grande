@@ -1,4 +1,4 @@
-{% extends "oscar/layout_2_col.html" %}
+{% extends "oscar/layout.html" %}
 
 {% load basket_tags %}
 {% load category_tags %}
@@ -10,22 +10,13 @@
   {{ block.super }}
 {% endblock title %}
 
-{% block main_header_content %}
-  {{ summary }}
-{% endblock main_header_content %}
 
-{% block breadcrumbs %}
-  <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item">
-        <a href="{{ homepage_url }}">{% translate "Home" %}</a>
-      </li>
-      <li class="breadcrumb-item active" aria-current="page">{{ summary }}</li>
-    </ol>
-  </nav>
-{% endblock breadcrumbs %}
+{% block content_header %}
+  {% include "oscar/partials/content_header.html" with category=category homepage_url=homepage_url %}
+{% endblock content_header %}
 
-{% block column_left %}
+
+{% comment %} {% block column_left %}
   {% category_tree as tree_categories %}
   {% if tree_categories %}
     <h4>{% translate "Show results for" %}</h4>
@@ -63,7 +54,8 @@
     {% endfor %}
   </div>
 {% endif %}
-{% endblock column_left %}
+{% endblock column_left %} {% endcomment %}
+
 {% block content %}
   <form method="get">
     {# Render other search params as hidden inputs #}
@@ -86,7 +78,7 @@
                 {% endblocktranslate %}
       {% endif %}
       {% if form %}
-        <div class="float-end">{% include "oscar/partials/form_field.html" with field=form.sort_by style='horizontal' %}</div>
+        <div class="float-end">{% include "oscar/partials/form_field.html" with field=form.sort_by style='horizontal' form_show_errors=True %}</div>
       {% endif %}
     {% else %}
       <p>
@@ -111,6 +103,7 @@
     <p class="nonefound">{% translate "No products found." %}</p>
   {% endif %}
 {% endblock content %}
+
 
 {% block extrascripts %}
   {{ block.super }}

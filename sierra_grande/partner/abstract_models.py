@@ -11,6 +11,8 @@ from oscar.core.compat import AUTH_USER_MODEL
 from oscar.core.utils import get_default_currency
 from oscar.models.fields import AutoSlugField
 
+from modeltrans.fields import TranslationField
+
 
 class AbstractPartner(models.Model):
     """
@@ -38,6 +40,8 @@ class AbstractPartner(models.Model):
     users = models.ManyToManyField(
         AUTH_USER_MODEL, related_name="partners", blank=True, verbose_name=_("Users")
     )
+
+    i18n = TranslationField(fields=("name",))
 
     @property
     def display_name(self):

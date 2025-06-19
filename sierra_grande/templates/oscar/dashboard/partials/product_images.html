@@ -30,9 +30,9 @@
         </div>
     {% else %}
         {% if forloop.last %}
-            {% include "oscar/dashboard/partials/form_field.html" with field=field %}
+            {% include "oscar/dashboard/partials/form_field.html" with field=field form_show_errors=True %}
         {% else %}
-            {% include "oscar/dashboard/partials/form_field.html" with field=field margin="true" %}
+            {% include "oscar/dashboard/partials/form_field.html" with field=field margin="true" form_show_errors=True %}
         {% endif %}
     {% endif %}
 {% endfor %}

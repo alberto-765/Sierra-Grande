@@ -10,6 +10,9 @@ flower==2.0.1  # https://github.com/mher/flower
 # Async configuration
 uvicorn[standard]==0.34.0  # https://github.com/encode/uvicorn
 uvicorn-worker==0.3.0  # https://github.com/Kludex/uvicorn-worker
+deepl==1.22.0
+django-modeltrans==0.8.0
+
 # Django
 # ------------------------------------------------------------------------------
 django>=3.2,<4.3 # pyup: < 5.1  # https://www.djangoproject.com/

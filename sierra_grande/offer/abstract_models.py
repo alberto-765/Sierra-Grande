@@ -19,6 +19,9 @@ from oscar.core.loading import cached_import_string, get_class, get_classes, get
 from oscar.models import fields
 from oscar.templatetags.currency_filters import currency
 
+from modeltrans.fields import TranslationField
+
+
 ExpandDownwardsCategoryQueryset = get_class(
     "catalogue.expressions", "ExpandDownwardsCategoryQueryset"
 )
@@ -266,6 +269,13 @@ class AbstractConditionalOffer(models.Model):
 
     redirect_url = fields.ExtendedURLField(_("URL redirect (optional)"), blank=True)
     date_created = models.DateTimeField(_("Date Created"), auto_now_add=True)
+
+    i18n = TranslationField(
+        fields=(
+            "name",
+            "description",
+        )
+    )
 
     objects = models.Manager()
     active = ActiveOfferManager()
@@ -1022,6 +1032,13 @@ class AbstractRange(models.Model):
     )
 
     date_created = models.DateTimeField(_("Date Created"), auto_now_add=True)
+
+    i18n = TranslationField(
+        fields=(
+            "name",
+            "description",
+        )
+    )
 
     objects = RangeManager()
     browsable = BrowsableRangeManager()

@@ -1,4 +1,4 @@
-{% extends "oscar/layout_2_col.html" %}
+{% extends "oscar/layout.html" %}
 
 {% load currency_filters %}
 {% load product_tags %}
@@ -50,7 +50,7 @@
                     Found <strong>{{ num_results }}</strong> results.
                 {% endblocktranslate %}
       {% endif %}
-      <div class="float-end">{% include "oscar/partials/form_field.html" with field=search_form.sort_by %}</div>
+      <div class="float-end">{% include "oscar/partials/form_field.html" with field=search_form.sort_by form_show_errors=True %}</div>
     {% else %}
       <p>
         {% translate "Found <strong>0</strong> results." %}

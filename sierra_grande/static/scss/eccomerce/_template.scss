@@ -637,7 +637,6 @@
                 color: #637790;
                 font-size: 15px;
                 font-weight: 500;
-                padding: 0px 14px;
                 height: $nav-bar-height;
                 display: flex;
                 align-items: center;
@@ -882,9 +881,14 @@
         right: 20px;
 
         @media screen and (max-width: 1200px) {
-            left: 8px;
-            right: 8px;
+            left: 0px;
+            right: 0px;
+            border-top-right-radius: 0px;
+            border-top-left-radius: 0px;
+        }
 
+        @media screen and (max-width: 992px) {
+            padding: 0px;
         }
     }
 

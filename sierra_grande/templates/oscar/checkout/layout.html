@@ -23,9 +23,9 @@
     </div>
     <!-- The main nav on checkout pages contain links to modal flatpages -->
     {% block modal %}
-      {% load flatpages %}
+      {% load flatpages_i18n %}
 
-      {% get_flatpages '/order/' as flatpages %}
+      {% get_flatpages_i18n '/order/' as flatpages %}
       {% for page in flatpages %}
         <div id="{{ page.title|slugify }}" class="modal hide fade">
           <div class="modal-header">

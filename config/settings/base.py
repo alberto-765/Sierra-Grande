@@ -28,13 +28,12 @@ DEBUG = env.bool("DJANGO_DEBUG", False)
 # In Windows, this must be set to your system time zone.
 TIME_ZONE = "UTC"
 # https://docs.djangoproject.com/en/dev/ref/settings/#language-code
-LANGUAGE_CODE = "es-ES"
+LANGUAGE_CODE = "es"
 # https://docs.djangoproject.com/en/dev/ref/settings/#languages
 
 LANGUAGES = [
     ("es", _("Spanish")),
-    ("en", _("English US")),
-    ("en-gb", _("English UK")),
+    ("en", _("English")),
     ("fr", _("French")),
     ("pt", _("Portuguese")),
     ("it", _("Italian")),
@@ -65,6 +64,25 @@ DATABASES["default"]["ATOMIC_REQUESTS"] = True
 # https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-DEFAULT_AUTO_FIELD
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+# django-modeltrans & deepl
+# ------------------------------------------------------------------------------
+MODELTRANS_AVAILABLE_LANGUAGES = [lang[0] for lang in LANGUAGES]
+MODELTRANS_DEFAULT_LANGUAGE = LANGUAGE_CODE
+DEEPL_LANG_MAP = {
+    "es": "ES",
+    "en": "EN",
+    "fr": "FR",
+    "pt": "PT-PT",
+    "it": "IT",
+    "de": "DE",
+    "sv": "SV",
+    "et": "ET",
+    "hr": "HR",
+    "fi": "FI",
+    "cs": "CS",
+    "bg": "BG",
+}
+
 # URLS
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#root-urlconf
@@ -75,11 +93,7 @@ WSGI_APPLICATION = "config.wsgi.application"
 
 # APPS
 # ------------------------------------------------------------------------------
-BEGIN_APPS = [
-    "grappelli",
-    "filebrowser",
-    "tinymce",
-]
+BEGIN_APPS = ["grappelli", "filebrowser", "tinymce", "modeltrans"]
 
 DJANGO_APPS = [
     "django.contrib.auth",
